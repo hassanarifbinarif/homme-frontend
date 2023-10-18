@@ -309,10 +309,22 @@ textarea::placeholder {
 .details-wrapper-col-1 .specific-product-media-wrapper .specific-product-media-images > div:first-of-type {
     position: relative;
     width: 390px;
+    height: 271px;
     flex-shrink: 0;
 }
 
-.details-wrapper-col-1 .specific-product-media-wrapper .specific-product-media-images > div:first-of-type > img {
+.details-wrapper-col-1 .specific-product-media-wrapper .specific-product-media-images .image-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.details-wrapper-col-1 .specific-product-media-wrapper .specific-product-media-images .image-wrapper input {
+    display: none;
+}
+
+.details-wrapper-col-1 .specific-product-media-wrapper .specific-product-media-images .image-wrapper > img {
     width: 100%;
     height: 100%;
     border-radius: 8px;
@@ -1124,7 +1136,7 @@ textarea::placeholder {
 
 
 @media (max-width: 1439px) {
-    .specific-order-content {
+    .specific-order-details-wrapper {
         overflow-x: auto;
     }
 }

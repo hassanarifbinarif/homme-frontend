@@ -117,7 +117,10 @@
                         <span>Media</span>
                         <div class="specific-product-media-images">
                             <div>
-                                <img src="{% static 'Assets/customer/images/buy_page_img.svg' %}" alt="product image" />
+                                <label class="image-wrapper" for="buy-page">
+                                    <input type="file" accept="image/jpeg, image/jpg, image/png" name="buy_page" id="buy-page" oninput="previewImage(event);" />
+                                    <img class="product-image" src="{% static 'Assets/customer/images/buy_page_img.svg' %}" alt="product image" />
+                                </label>
                                 <div class="edit-btn">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -139,7 +142,10 @@
                             </div>
                             <div class="product-detail-images">
                                 <div>
-                                    <img src="{% static 'Assets/customer/images/product_image_1.svg' %}" alt="product image" />
+                                    <label class="image-wrapper" for="product-detail-1">
+                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_1" id="product-detail-1" oninput="previewImage(event);" />
+                                        <img class="product-image" src="{% static 'Assets/customer/images/product_image_1.svg' %}" alt="product image" />
+                                    </label>
                                     <div class="edit-btn">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -160,7 +166,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <img src="{% static 'Assets/customer/images/product_image_2.svg' %}" alt="product image" />
+                                    <label class="image-wrapper" for="product-detail-2">
+                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_2" id="product-detail-2" oninput="previewImage(event);" />
+                                        <img class="product-image" src="{% static 'Assets/customer/images/product_image_2.svg' %}" alt="product image" />
+                                    </label>
                                     <div class="edit-btn">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -181,7 +190,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <img src="{% static 'Assets/customer/images/product_image_3.svg' %}" alt="product image" />
+                                    <label class="image-wrapper" for="product-detail-3">
+                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_3" id="product-detail-3" oninput="previewImage(event);" />
+                                        <img class="product-image" src="{% static 'Assets/customer/images/product_image_3.svg' %}" alt="product image" />
+                                    </label>
                                     <div class="edit-btn">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -202,7 +214,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <img src="{% static 'Assets/customer/images/product_image_4.svg' %}" alt="product image" />
+                                    <label class="image-wrapper" for="product-detail-4">
+                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_4" id="product-detail-4" oninput="previewImage(event);" />
+                                        <img class="product-image" src="{% static 'Assets/customer/images/product_image_4.svg' %}" alt="product image" />
+                                    </label>
                                     <div class="edit-btn">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -527,6 +542,14 @@
             updateShippingBtnWrapper.classList.add('hide');
             document.getElementById('specific-product-shipping-details').querySelectorAll('input').forEach((input) => input.readOnly = true);
         }
+    }
+</script>
+<script>
+    function previewImage(event) {
+        let imageInput = event.currentTarget;
+        let image = imageInput.files;
+        let imageTag = imageInput.closest('label').querySelector('.product-image');
+        imageTag.src = window.URL.createObjectURL(image[0]);
     }
 </script>
 {% endblock %}
