@@ -683,7 +683,7 @@
 
 
 @media (max-width: 1439px) {
-    .specific-order-content {
+    .specific-order-details-wrapper {
         overflow-x: auto;
     }
 }

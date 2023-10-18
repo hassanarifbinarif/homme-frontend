@@ -136,7 +136,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .order-header > span {
@@ -218,6 +218,7 @@
 }
 
 .order-table thead {
+    height: 32px;
     border-bottom: 1px solid #CECECE;
 }
 
@@ -263,7 +264,8 @@
 }
 
 .order-table tbody tr td:last-of-type {
-    text-align: center;
+    text-align: right;
+    padding-right: 5px;
 }
 
 .fulfill-order-wrapper {

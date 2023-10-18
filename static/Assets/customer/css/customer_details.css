@@ -476,7 +476,7 @@ ul.timeline > li {
 ul.timeline > li > div {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 }
 
 ul.timeline > li .comment-time {
