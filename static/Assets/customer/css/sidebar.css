@@ -1,0 +1,128 @@
+.sidebar {
+    width: 255px;
+    height: 100vh;
+    background: var(--primary-black, #000);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    /* position: -webkit-sticky; */
+    left: 0;
+    top: 0px;
+    margin-top: 27px;
+}
+
+.sidebar-upper-content {
+    margin-left: 20px;
+}
+
+.logo-container {
+    margin-bottom: 22px;
+}
+
+.sidebar-link-container {
+    border-radius: 12px;
+    border: 1px solid #5B5C5E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding-bottom: 22px;
+}
+
+.sidebar-link-container > button {
+    margin-top: 24px;
+    margin-bottom: 30px;
+    display: inline-flex;
+    position: relative;
+    width: 196px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0px;
+    border: .8px solid #515254;
+    border-radius: 6px;
+}
+
+.sidebar-link-container > button > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    background-color: #FFF;
+    border-radius: 6px 6px 6px 6px;
+
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.68px;
+}
+
+.sidebar-link-container > button > div {
+    position: absolute;
+    right: 0px;
+    width: 38px;
+    height: 30px;
+    background-color: #FFF;
+    border-radius: 0px 6px 6px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-link-container > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-link {
+    display: block;
+    height: 30px;
+    color: #FFF;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    background-color: #333333;
+    color: #FFF;
+}
+
+.sidebar-link.active {
+    background-color: #333;
+}
+
+.link-content {
+    padding-left: 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.link-content > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sidebar-lower-content {
+    padding-bottom: 5px;
+}

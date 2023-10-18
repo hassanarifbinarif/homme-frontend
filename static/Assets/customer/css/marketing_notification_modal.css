@@ -1,0 +1,282 @@
+#marketingNotification .modal-dialog {
+    max-width: unset;
+    width: 621px;
+}
+
+#marketingNotification .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#marketingNotification .modal-footer,
+#marketingNotification .modal-content {
+    border-radius: 0px!important;
+}
+
+#marketingNotification .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#marketingNotification .modal-body {
+    padding: 20px!important;
+    width: 621px;
+}
+
+#marketingNotification input::placeholder,
+#marketingNotification textarea::placeholder {
+    color: #030706;
+}
+
+#marketingNotification .modal-body > input,
+#marketingNotification .modal-body .selected-salons-wrapper > button {
+    width: 100%;
+    height: 40px;
+    padding: 14px 18px;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: var(--white, #FFF);
+
+    color: var(--Black, #030706);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper > button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper > .selected-salons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    height: fit-content;
+    padding: 14px 17px;
+
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: var(--white, #FFF);
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper > .selected-salons .salon-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 12px;
+    width: 175px;
+    height: 36px;
+
+    border-radius: 8px;
+    border: 0.8px solid var(--secondary-line-color, #515254);
+    background: var(--primary-white, #FFF);
+
+    color: var(--primary-black, #000);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper {
+    position: absolute;
+    top: 42px;
+    padding: 20px 20px 6px 20px;
+    width: 581px;
+    border-radius: 8px;
+    border: 1px solid #CECECE;
+    background: #FFF;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .search-header {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 17px;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .search-header > div {
+    width: 379px;
+    height: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--primary-black, #000);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.68px;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .search-header > div > input {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: 0.8px solid var(--secondary-line-color, #515254);
+    background: var(--primary-white, #FFF);
+    text-align: center;
+    padding-left: 44px;
+    padding-right: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .search-header > div > svg {
+    position: absolute;
+    left: 12px;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .search-header > button {
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: #9D9D9D;
+    width: 146px;
+    height: 30px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+
+#marketingNotification .modal-body > .group-inputs {
+    margin-bottom: 13px!important;
+}
+
+#marketingNotification .modal-body .notification-notes textarea {
+    width: 100%;
+    height: 149px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 0.8px solid #030706;
+    background: var(--white, #FFF);
+    resize: none;
+
+    color: var(--Black, #030706);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper {
+    border-radius: 6px;
+    border: 1px solid #CECECE;
+    max-height: 212px;
+    overflow-y: auto;
+}
+
+/* #marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper > div {
+} */
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper .salon-list-item {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #CECECE;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper .salon-list-item:last-of-type {
+    border-bottom: unset;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper .salon-list-item > div:first-of-type {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper .salon-list-item > div:last-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+    border-left: 1px solid #CECECE;
+}
+
+#marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper .salon-list-item > div:last-of-type > input {
+    border: 1px solid #CECECE;
+    width: 14px;
+    height: 14px;
+}
+
+
+#marketingNotification .modal-footer {
+    padding: 0px 12px 15px 12px!important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#marketingNotification .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 170px;
+    height: 30px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}

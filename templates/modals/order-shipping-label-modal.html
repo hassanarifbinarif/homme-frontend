@@ -1,0 +1,158 @@
+{% load static %}
+
+<div class="modal fade" id="orderShippingLabel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="orderShippingLabelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <form action="">
+                <!-- {% csrf_token %} -->
+                <div class="modal-header border-bottom-0 w-100 justify-content-between">
+                    <span>Generate Shipping Label</span>
+                    <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
+                        <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="modal-body">
+                    <div class="shipping-details-wrapper">
+                        <div class="shipping-details">
+                            <div>
+                                <span>Shipping Type</span>
+                                <span>UPS</span>
+                            </div>
+                            <div>
+                                <span>Tracking ID</span>
+                                <span>N/A</span>
+                            </div>
+                            <div>
+                                <span>Shipping Price</span>
+                                <span>$10.85</span>
+                            </div>
+                        </div>
+                        <div>
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 2.5C8.1 2.5 2.5 8.1 2.5 15C2.5 21.9 8.1 27.5 15 27.5C21.9 27.5 27.5 21.9 27.5 15C27.5 8.1 21.9 2.5 15 2.5ZM8.25 14.0375C8.4625 12.55 9.125 11.2125 10.1625 10.1625C12.6625 7.675 16.6 7.5375 19.275 9.7125V8.525C19.275 8.0125 19.7 7.5875 20.2125 7.5875C20.725 7.5875 21.15 8.0125 21.15 8.525V11.8625C21.15 12.375 20.725 12.8 20.2125 12.8H16.875C16.3625 12.8 15.9375 12.375 15.9375 11.8625C15.9375 11.35 16.3625 10.925 16.875 10.925H17.8125C15.875 9.575 13.2 9.7625 11.475 11.4875C10.725 12.2375 10.25 13.2125 10.0875 14.3C10.025 14.7625 9.625 15.1 9.1625 15.1C9.1125 15.1 9.075 15.1 9.025 15.0875C8.5375 15.025 8.175 14.55 8.25 14.0375ZM19.8375 19.8375C18.5 21.175 16.75 21.8375 15 21.8375C13.475 21.8375 11.9625 21.3 10.7125 20.2875V21.4625C10.7125 21.975 10.2875 22.4 9.775 22.4C9.2625 22.4 8.8375 21.975 8.8375 21.4625V18.125C8.8375 17.6125 9.2625 17.1875 9.775 17.1875H13.1125C13.625 17.1875 14.05 17.6125 14.05 18.125C14.05 18.6375 13.625 19.0625 13.1125 19.0625H12.175C14.1125 20.4125 16.7875 20.225 18.5125 18.5C19.2625 17.75 19.7375 16.775 19.9 15.6875C19.975 15.175 20.4375 14.8125 20.9625 14.8875C21.475 14.9625 21.825 15.4375 21.7625 15.95C21.5375 17.4625 20.875 18.8 19.8375 19.8375Z" fill="#292D32"/>
+                            </svg>                                
+                        </div>
+                    </div>
+                    <div class="shipping-size-wrapper">
+                        <div class="box-size-wrapper">
+                            <span>Choose Box Size</span>
+                            <div class="box-size-radio-btn">
+                                <div>
+                                    <input type="radio" name="box_size" value="small_box" id="small_box" checked />
+                                    <label for="small_box">Small Box</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="box_size" value="large_box" id="large_box" />
+                                    <label for="large_box">Large Box</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="box_size" value="custom_box" id="custom_box" />
+                                    <label for="custom_box">Custom Size</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-size-inputs">
+                            <div class="input-div opacity-point-6">
+                                <span>Length</span>
+                                <div>
+                                    <input type="number" name="length" value="" id="" readonly />
+                                    <div>Ft</div>
+                                </div>
+                            </div>
+                            <div class="input-div opacity-point-6">
+                                <span>Width</span>
+                                <div>
+                                    <input type="number" name="width" value="" id="" readonly />
+                                    <div>Ft</div>
+                                </div>
+                            </div>
+                            <div class="input-div opacity-point-6">
+                                <span>Depth</span>
+                                <div>
+                                    <input type="number" name="depth" value="" id="" readonly />
+                                    <div>Ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shipping-speed-wrapper">
+                        <span>Choose Shipping Speed</span>
+                        <div class="shipping-speeds">
+                            <div class="shipping-type">
+                                <div>
+                                    <input type="radio" checked name="shipping_speed" value="ups_ground" id="ups_ground" />
+                                    <label for="ups_ground">UPS Ground</label>
+                                </div>
+                                <span>$10.00</span>
+                            </div>
+                            <div class="shipping-type opacity-point-3-5">
+                                <div>
+                                    <input type="radio" disabled name="shipping_speed" value="ups_air_server" id="ups_air_server" />
+                                    <label for="ups_air_server">UPS Air Server</label>
+                                </div>
+                                <span>$35.00</span>
+                            </div>
+                            <div class="shipping-type opacity-point-3-5">
+                                <div>
+                                    <input type="radio" disabled name="shipping_speed" value="ups_3_day" id="ups_3_day" />
+                                    <label for="ups_3_day">UPS 3 Day</label>
+                                </div>
+                                <span>$20.00</span>
+                            </div>
+                            <div class="shipping-type opacity-point-3-5">
+                                <div>
+                                    <input type="radio" disabled name="shipping_speed" value="ups_2_day" id="ups_2_day" />
+                                    <label for="ups_2_day">UPS 2 Day</label>
+                                </div>
+                                <span>$23.00</span>
+                            </div>
+                            <div class="shipping-type opacity-point-3-5">
+                                <div>
+                                    <input type="radio" disabled name="shipping_speed" value="ups_overnight" id="ups_overnight" />
+                                    <label for="ups_overnight">UPS Overnight</label>
+                                </div>
+                                <span>$25.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
+                        CLOSE
+                    </button>
+                    <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
+                        GENERATE
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input type="hidden" class="orderShippingLabel" data-bs-toggle="modal" data-bs-target="#orderShippingLabel" />
+
+<script>
+    let boxSizeRadioBtn = document.querySelectorAll('input[name="box_size"]');
+    let customSizeInputDiv = document.querySelectorAll('.input-div');
+    boxSizeRadioBtn.forEach((radioBtn) => {
+        radioBtn.addEventListener('click', function() {
+            if (this.value == 'custom_box') {
+                customSizeInputDiv.forEach((div) => {
+                    div.classList.remove('opacity-point-6');
+                    div.querySelectorAll('input').forEach((input) => {
+                        input.readOnly = false;
+                    })
+                })
+            }
+            else {
+                customSizeInputDiv.forEach((div) => {
+                    div.classList.add('opacity-point-6');
+                    div.querySelectorAll('input').forEach((input) => {
+                        input.readOnly = true;
+                    })
+                })
+            }
+        })
+    })
+</script>

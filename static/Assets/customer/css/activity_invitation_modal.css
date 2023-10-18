@@ -1,0 +1,133 @@
+#activityInvitation .modal-dialog {
+    max-width: unset;
+    width: 1023px;
+}
+
+#activityInvitation .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#activityInvitation .modal-footer,
+#activityInvitation .modal-content {
+    border-radius: 0px!important;
+}
+
+#activityInvitation .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityInvitation .modal-body {
+    padding: 0px!important;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats {
+    display: flex;
+    align-items: center;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > div {
+    flex-shrink: 0;
+    height: 72px;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > div > div {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 9px 5px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .referee {
+    width: 230px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .referee > div {
+    padding: 9px 10px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > div > div {
+    border-right: 1px solid #CECECE;
+    border-bottom: 1px solid #CECECE;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > div > div:first-of-type > span {
+    opacity: .6;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .registration-date {
+    width: 127px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .status {
+    width: 170px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .first-order {
+    width: 170px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .first-order-date {
+    width: 150px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .referee > div:last-of-type > span,
+#activityInvitation .modal-body .activity-invitation-stats > .first-order > div:last-of-type > span {
+    color: #000093;
+    text-decoration: underline;
+}
+
+
+#activityInvitation .modal-body .activity-invitation-stats > .associated-salon {
+    width: 174px;
+}
+
+#activityInvitation .modal-body .activity-invitation-stats > .associated-salon > div {
+    border-right: unset;
+}
+
+#activityInvitation .modal-footer {
+    padding: 9px 12px!important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#activityInvitation .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 150px;
+    height: 36px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}

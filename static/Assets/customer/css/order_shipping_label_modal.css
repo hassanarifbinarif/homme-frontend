@@ -1,0 +1,276 @@
+#orderShippingLabel .modal-dialog {
+    max-width: unset;
+    width: 662px;
+}
+
+#orderShippingLabel .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#orderShippingLabel .modal-footer,
+#orderShippingLabel .modal-content {
+    border-radius: 0px!important;
+}
+
+#orderShippingLabel .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#orderShippingLabel .modal-body {
+    padding: 15px!important;
+}
+
+#orderShippingLabel input::placeholder {
+    color: #030706;
+}
+
+#orderShippingLabel .shipping-details-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    padding-bottom: 16px;
+    border-bottom: 1px solid #CECECE;
+}
+
+#orderShippingLabel .shipping-details-wrapper .shipping-details {
+    display: flex;
+    align-items: center;
+    gap: 90px;
+}
+
+#orderShippingLabel .shipping-details-wrapper .shipping-details > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#orderShippingLabel .shipping-details-wrapper .shipping-details > div > span:first-of-type {
+    opacity: .7;
+}
+
+#orderShippingLabel .shipping-size-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    padding: 15px 0px;
+    border-bottom: 1px solid #CECECE;
+}
+
+#orderShippingLabel .shipping-size-wrapper .box-size-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#orderShippingLabel .shipping-size-wrapper .box-size-wrapper .box-size-radio-btn {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+#orderShippingLabel .shipping-size-wrapper .box-size-wrapper .box-size-radio-btn > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#orderShippingLabel .shipping-size-wrapper .box-size-wrapper .box-size-radio-btn > div > label {
+    font-family: Gotham Book;
+    opacity: .7;
+}
+
+#orderShippingLabel .shipping-size-wrapper .box-size-wrapper .box-size-radio-btn > div > input[type="radio"] {
+    width: 11px;
+    height: 11px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background-color: #FFF;
+}
+
+#orderShippingLabel .shipping-size-wrapper .box-size-wrapper .box-size-radio-btn > div > input[type="radio"]:checked {
+    background-color: #000;
+    accent-color: #000;
+}
+
+#orderShippingLabel .shipping-size-wrapper .custom-size-inputs {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+#orderShippingLabel .shipping-size-wrapper .custom-size-inputs .input-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#orderShippingLabel .shipping-size-wrapper .custom-size-inputs .input-div > div {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#orderShippingLabel .shipping-size-wrapper .custom-size-inputs .input-div > div > input {
+    width: 76px;
+    height: 40px;
+    background-color: #FFF;
+    border: 1px solid #515254;
+    border-radius: 8px;
+    padding-left: 9px;
+    padding-right: 35px;
+}
+
+#orderShippingLabel .shipping-size-wrapper .custom-size-inputs .input-div > div > div {
+    position: absolute;
+    right: 9px;
+    padding-left: 11px;
+    border-left: 1px solid #CECECE;
+    height: 13px;
+
+    display: flex;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#orderShippingLabel .shipping-speed-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    
+    padding-top: 15px;
+    padding-bottom: 21px;
+    border-bottom: 1px solid #CECECE;
+}
+
+#orderShippingLabel .shipping-speed-wrapper > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#orderShippingLabel .shipping-speed-wrapper .shipping-speeds {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+#orderShippingLabel .shipping-speed-wrapper .shipping-speeds .shipping-type {
+    display: flex;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#orderShippingLabel .shipping-speed-wrapper .shipping-speeds .shipping-type > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 225px;
+}
+
+#orderShippingLabel .shipping-speed-wrapper .shipping-speeds .shipping-type > div > input {
+    width: 11px;
+    height: 11px;
+    accent-color: #000;
+}
+
+
+#orderShippingLabel .modal-footer {
+    padding: 5px 15px 20px 15px!important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#orderShippingLabel .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 166px;
+    height: 30px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+#orderShippingLabel .modal-footer > button:first-of-type {
+    background-color: #FFF;
+    border: 1px solid #000;
+    color: #000;
+    width: 112px;
+}

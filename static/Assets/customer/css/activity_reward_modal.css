@@ -1,0 +1,114 @@
+#activityReward .modal-dialog {
+    max-width: unset;
+    width: 1023px;
+}
+
+#activityReward .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#activityReward .modal-footer,
+#activityReward .modal-content {
+    border-radius: 0px!important;
+}
+
+#activityReward .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityReward .modal-body {
+    padding: 0px!important;
+}
+
+#activityReward .modal-body .activity-reward-stats {
+    display: flex;
+    align-items: center;
+}
+
+#activityReward .modal-body .activity-reward-stats > div {
+    flex-shrink: 0;
+    height: 72px;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityReward .modal-body .activity-reward-stats > div > div {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 9px 5px;
+}
+
+#activityReward .modal-body .activity-reward-stats > .reward-credit {
+    width: 230px;
+}
+
+#activityReward .modal-body .activity-reward-stats > .reward-credit > div {
+    padding: 9px 10px;
+}
+
+#activityReward .modal-body .activity-reward-stats > div > div {
+    border-right: 1px solid #CECECE;
+    border-bottom: 1px solid #CECECE;
+}
+
+#activityReward .modal-body .activity-reward-stats > div > div:first-of-type > span {
+    opacity: .6;
+}
+
+#activityReward .modal-body .activity-reward-stats > .date {
+    width: 127px;
+}
+
+#activityReward .modal-body .activity-reward-stats > .notes {
+    width: 664px;
+}
+
+#activityReward .modal-body .activity-reward-stats > .notes > div {
+    border-right: unset;
+}
+
+#activityReward .modal-footer {
+    padding: 9px 12px!important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#activityReward .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 150px;
+    height: 36px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}

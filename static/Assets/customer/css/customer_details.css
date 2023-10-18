@@ -1,0 +1,940 @@
+.specific-order-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.specific-order-wrapper {
+    background-color: #FFF;
+    width: 100%;
+    padding: 10px 20px 29px 20px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.specific-order-wrapper .specific-customer-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.specific-order-wrapper .specific-customer-header > svg {
+    margin-bottom: 10px;
+}
+
+.specific-order-wrapper .specific-customer-header .specific-customer-overview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.specific-order-wrapper .specific-customer-header .specific-customer-overview > .specific-customer-image {
+    width: 54px;
+    height: 54px;
+    border-radius: 54px;
+}
+
+.specific-order-wrapper .specific-customer-header .specific-customer-overview > .specific-customer-image > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 54px;
+}
+
+.specific-customer-header .specific-customer-overview > div:last-of-type {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.specific-customer-header .specific-customer-overview > div:last-of-type > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.specific-customer-header .specific-customer-overview > div:last-of-type > div span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.specific-order-wrapper .specific-customer-attributes {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+}
+
+.specific-order-wrapper .specific-customer-attributes > div {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.specific-order-wrapper .specific-customer-attributes > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.specific-order-wrapper .specific-customer-attributes > div > span:first-of-type {
+    opacity: .7;
+}
+
+.order-status-categories-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.order-status-categories {
+    width: 177px;
+    height: 123px;
+    background-color: #000;
+    border-radius: 6px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+
+.order-status-categories .status-category-name {
+    color: #FFF;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    opacity: .7;
+}
+
+.order-status-categories .status-category-value {
+    color: #FFF;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.specific-order-details-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.details-wrapper-col-1 {
+    min-width: 722px;
+    width: 63.05%;
+    flex-shrink: 0;
+}
+
+.details-wrapper-col-1 .order-delivery-status-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 30px 20px 15px 20px;
+    margin-bottom: 20px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    /* margin-bottom: 34px; */
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header > div {
+    display: flex;
+    align-items: center;
+    gap: 51px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header > div > span,
+.order-delivery-status-wrapper .order-delivery-status-header > div > div > span:first-of-type {
+    opacity: .7;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header > div .vr {
+    border: 1px solid #CECECE;
+    height: 13px;
+}
+
+.order-delivery-status-wrapper .order-product-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-wrapper > div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.order-product-wrapper .order-product-image {
+    position: relative;
+    width: 55px;
+    height: 55px;
+    border-radius: 6px;
+}
+
+.order-product-wrapper .order-product-image > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.order-product-wrapper .order-product-quantity {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    background: #000093;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-product-wrapper .order-product-quantity > span {
+    color: #FFF;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.order-product-wrapper .order-product-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.order-product-wrapper .order-product-identity > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-wrapper .order-product-identity > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-wrapper > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-wrapper > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-paid-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.order-paid-details-wrapper .order-paid-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-paid-details-wrapper .order-paid-details span:last-of-type {
+    text-align: right;
+}
+
+.order-delivery-status-wrapper .order-paid-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-1 .specific-customer-all-order-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 11px 10px 11px 13px;
+    margin-bottom: 20px;
+}
+
+.details-wrapper-col-1 .specific-customer-all-order-wrapper > div {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.details-wrapper-col-1 .specific-customer-all-order-wrapper > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.4px;
+}
+
+.details-wrapper-col-1 .specific-customer-all-order-wrapper > button {
+    display: flex;
+    width: 226px;
+    height: 38px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: #000093;
+
+    color: #FFF;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Bold;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.4px;
+}
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper {
+    padding: 25px 20px 35px 20px;
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    margin-bottom: 22px;
+}
+
+
+/* --------------------------------------------------------------------- */
+
+/* Comment Section Styles */
+
+.timeline-body {
+    display: flex;
+    flex-direction: column;    
+}
+
+.comments-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+    margin-bottom: 0px;
+}
+
+ul.timeline > p {
+    margin-bottom: 18px;
+    padding-left: 10px;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .6;
+}
+
+ul.timeline:before {
+    content: ' ';
+    background: #d9d9d9;
+    display: inline-block;
+    position: absolute;
+    left: 21px;
+    width: 1px;
+    height: 100%;
+}
+
+ul.timeline > li {
+    margin-bottom: 58px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+ul.timeline > li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+ul.timeline > li .comment-time {
+    align-self: flex-start;
+    opacity: .6;
+    width: 60px;
+}
+
+ul.timeline > li:before {
+    content: ' ';
+    background: #d9d9d9;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    left: 14px;
+    width: 15px;
+    height: 15px;
+}
+
+ul.timeline:not(:first-of-type) > p {
+    margin-top: 56px;
+}
+
+ul.timeline:last-of-type > li:last-of-type {
+    margin-bottom: 0px;
+}
+
+
+
+
+ul.comment-section {
+    list-style-type: none;
+    position: relative;
+    margin-bottom: 0px;
+    margin-top: 23px;
+}
+
+ul.comment-section:before {
+    content: ' ';
+    background: #d9d9d9;
+    display: inline-block;
+    position: absolute;
+    left: 21px;
+    top: -31px;
+    width: 1px;
+    height: calc(100% + 31px);
+}
+
+ul.comment-section > li {
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+ul.comment-section > li:before {
+    content: 'JS';
+    background: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 50%;
+    left: 4px;
+    width: 35px;
+    height: 35px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+ul.comment-section > li .comment-area {
+    width: 100%;
+    height: 97px;
+}
+
+ul.comment-section > li .comment-area > textarea {
+    width: 100%;
+    height: 97px;
+    resize: none;
+    padding: 18px 15px;
+    border: 1px solid #515254;
+    border-radius: 8px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+textarea::placeholder {
+    color: #000;
+}
+
+ul.comment-section > li .post-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 13px;
+    margin-bottom: 38px;
+    
+    color: #000;
+    text-align: right;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+ul.comment-section > li .post-area > button {
+    width: 150px;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background-color: #000093;
+    text-align: center;
+    font-family: Gotham Medium;
+    letter-spacing: 2.4px;
+    color: #FFF;
+}
+
+
+/* --------------------------------------------------------------------- */
+
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper .timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper .timeline-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper .timeline-header > div {
+    display: flex;
+    align-items: center;
+    gap: 7px!important;
+}
+
+.comments-checkbox-container > input {
+    margin-top: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px!important;
+    box-shadow: none;
+}
+
+.comments-checkbox-container > input:checked[type=checkbox] {
+    background-color: #000093;
+    box-shadow: none;
+    border-color: transparent;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23FFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.comments-checkbox-label {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.72px;
+}
+
+
+.details-wrapper-col-2 {
+    min-width: 403px;
+    width: 35.3%;
+    flex-shrink: 0;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 15px 15px 20px 15px;
+    margin-bottom: 20px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > div:first-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > div:first-of-type > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > p {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    opacity: .7;
+    margin-bottom: 25px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-favourite-products {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-favourite-products > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-favourite-products > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-favourite-products > div > img {
+    width: 55px;
+    height: 55px;
+    border-radius: 6px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle > div > img {
+    width: 54px;
+    height: 54px;
+    border-radius: 54px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+
+    align-self: flex-end;
+}
+
+.details-wrapper-col-2 .order-product-other-details-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 21px 15px 20px 15px;
+    margin-bottom: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.order-product-other-details-wrapper .order-customer {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-product-other-details-wrapper .order-customer > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-other-details-wrapper .order-customer > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-customer > div > div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.order-product-other-details-wrapper .order-customer > div > div > span {
+    color: #000093;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-customer > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+}
+
+
+.order-product-other-details-wrapper .order-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-product-other-details-wrapper .order-contact-info > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div > span {
+    color: #000093;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-shipping-address {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-product-other-details-wrapper .order-shipping-address > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 11px;
+}
+
+.order-product-other-details-wrapper .order-shipping-address > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+
+@media (min-width: 1441px) {
+    .specific-order-details-wrapper {
+        justify-content: space-between;
+    }
+}
+
+
+@media (max-width: 1439px) {
+    .specific-order-content {
+        overflow-x: auto;
+    }
+}

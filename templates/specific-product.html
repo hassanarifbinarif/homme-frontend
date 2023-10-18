@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% extends './layouts/base.html' %}
+    {% load static %}
+
+    {% block links %}
+    
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/products.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/product_details.css' %}" />
+
+    {% endblock %}
+
+    <title>{% block title %}Homme Products{% endblock %}</title>
+</head>
+<body>
+    {% block body %}
+    <div class="main-page">
+        <div class="header">
+            <form action="" class="search-user">
+                {% csrf_token %}
+                <div class="search-logo-wrapper">
+                    <svg class="search-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.4531 17.9219L13.4531 12.9219M15.1198 8.75521C15.1198 9.52125 14.9689 10.2798 14.6758 10.9875C14.3826 11.6953 13.9529 12.3383 13.4112 12.88C12.8696 13.4217 12.2265 13.8514 11.5188 14.1445C10.811 14.4377 10.0525 14.5885 9.28646 14.5885C8.52041 14.5885 7.76187 14.4377 7.05414 14.1445C6.34641 13.8514 5.70334 13.4217 5.16167 12.88C4.61999 12.3383 4.19031 11.6953 3.89716 10.9875C3.60401 10.2798 3.45312 9.52125 3.45313 8.75521C3.45313 7.20811 4.06771 5.72438 5.16167 4.63042C6.25563 3.53646 7.73936 2.92187 9.28646 2.92188C10.8336 2.92187 12.3173 3.53646 13.4112 4.63042C14.5052 5.72438 15.1198 7.20811 15.1198 8.75521Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <input type="text" name="search" value="" placeholder="SEARCH BY CUSTOMER" />
+            </form>
+            <div class="user-info">
+                <div class="nav-notification-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="31" viewBox="0 0 28 31" fill="none">
+                        <path d="M27.4206 23.8407H19.0037V25.5241C19.0037 26.8634 18.4716 28.148 17.5246 29.095C16.5775 30.0421 15.2929 30.5742 13.9536 30.5742C12.6142 30.5742 11.3297 30.0421 10.3826 29.095C9.43551 28.148 8.90345 26.8634 8.90345 25.5241V23.8407H0.486572L2.85171 21.4755C3.49308 20.8342 3.85332 19.9639 3.85332 19.0582V13.7404C3.85332 9.34346 6.66456 5.60132 10.5868 4.21422V3.64019C10.5868 2.74727 10.9415 1.89092 11.5729 1.25954C12.2043 0.628148 13.0607 0.273438 13.9536 0.273438C14.8465 0.273438 15.7028 0.628148 16.3342 1.25954C16.9656 1.89092 17.3203 2.74727 17.3203 3.64019V4.21422C19.2899 4.91107 20.9949 6.20133 22.2008 7.90735C23.4067 9.61338 24.0541 11.6513 24.0538 13.7404V19.0565C24.0538 19.5058 24.1422 19.9506 24.314 20.3657C24.4859 20.7807 24.7378 21.1579 25.0554 21.4755L27.4206 23.8407Z" fill="white"/>
+                    </svg>
+                    <svg class="notification-count" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect width="14.8372" height="14.8372" rx="3" transform="matrix(-1 0 0 1 15.0022 0.277344)" fill="#000093"/>
+                        <path d="M8.85626 4.79209H4.63226V3.49609H10.5363V4.61209L6.74426 11.8961H5.08826L8.85626 4.79209Z" fill="white"/>
+                    </svg>
+                </div>
+                <a href="javascript:void(0);">
+                    <div class="nav-profile-image">
+                        <span>Homme Superadmin</span>
+                        <img src="{% static 'Assets/customer/images/avatar.png' %}" alt="Profile Image" />
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="specific-order-content">
+            <div class="specific-order-wrapper">
+                <div>
+                    <svg onclick="location.pathname = '/products/'" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                        <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>FACE CREAM</span>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+                        <path d="M6.78183 1.09725C6.23411 1.57641 5.55313 1.86599 4.83583 1.92477C4.02508 1.991 3.26385 2.3517 2.68875 2.94215C2.11365 3.53261 1.76233 4.31416 1.69783 5.14656C1.64058 5.88302 1.35853 6.58217 0.891828 7.14452C0.364097 7.77995 0.0742188 8.58769 0.0742188 9.42277C0.0742188 10.2578 0.364097 11.0656 0.891828 11.701C1.35853 12.2634 1.64058 12.9625 1.69783 13.699C1.76233 14.5314 2.11365 15.3129 2.68875 15.9034C3.26385 16.4938 4.02508 16.8545 4.83583 16.9208C5.55313 16.9795 6.23411 17.2691 6.78183 17.7483C7.40074 18.2901 8.18747 18.5877 9.00083 18.5877C9.81419 18.5877 10.6009 18.2901 11.2198 17.7483C11.7675 17.2691 12.4485 16.9795 13.1658 16.9208C13.9766 16.8545 14.7378 16.4938 15.3129 15.9034C15.888 15.3129 16.2393 14.5314 16.3038 13.699C16.3611 12.9625 16.6431 12.2634 17.1098 11.701C17.6376 11.0656 17.9274 10.2578 17.9274 9.42277C17.9274 8.58769 17.6376 7.77995 17.1098 7.14452C16.6431 6.58217 16.3611 5.88302 16.3038 5.14656C16.2393 4.31416 15.888 3.53261 15.3129 2.94215C14.7378 2.3517 13.9766 1.991 13.1658 1.92477C12.4485 1.86599 11.7675 1.57641 11.2198 1.09725C10.6009 0.55543 9.81419 0.257812 9.00083 0.257812C8.18747 0.257812 7.40074 0.55543 6.78183 1.09725Z" fill="#000093"/>
+                        <path d="M6 9.42059L8 11.474L12 7.36719" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Active</span>
+                </div>
+            </div>
+            <div class="specific-order-details-wrapper">
+                <div class="details-wrapper-col-1">
+                    <div class="specific-product-description-wrapper" id="product-description-wrapper">
+                        <div>
+                            <div>
+                                <span>Title</span>
+                                <svg class="cursor-pointer" id="edit-product-descriptions" xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                    <path d="M13.6465 4.36027L16.5931 7.30694M14.8965 3.11027C15.2872 2.71952 15.8172 2.5 16.3698 2.5C16.9224 2.5 17.4524 2.71952 17.8431 3.11027C18.2339 3.50103 18.4534 4.031 18.4534 4.58361C18.4534 5.13621 18.2339 5.66619 17.8431 6.05694L6.36979 17.5303H3.45312V14.5536L14.8965 3.11027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <input type="text" readonly name="title" placeholder="Face Serum" />
+                        </div>
+                        <div>
+                            <span>Short Description</span>
+                            <input type="text" readonly name="short_description" placeholder="Lorem ipsum dolor sit amet consectetur....." />
+                        </div>
+                        <div class="group-inputs">
+                            <div>
+                                <span>Price</span>
+                                <input type="number" readonly name="price" placeholder="$25" />
+                            </div>
+                            <div>
+                                <span>Size</span>
+                                <input type="number" readonly name="size" placeholder="1 fl.oz / 30 ml" />
+                            </div>
+                        </div>
+                        <div class="group-inputs">
+                            <div>
+                                <span>Special Attributes</span>
+                                <input type="text" readonly name="special_attribute" placeholder="Vegan / Infusion: Spirulina" />
+                            </div>
+                            <div>
+                                <span>Skin Type</span>
+                                <div class="skin-type-options">
+                                    <input type="text" name="skin_type" value="All" readonly />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                        <path opacity="0.7" d="M10.5 0.46875L5.5 5.46875L0.5 0.46875H10.5Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div>
+                            <span>Description</span>
+                            <textarea name="description" readonly placeholder="Lorem ipsum dolor sit amet consectetur. Lobortis vitae id non sit vestibulum volutpat sapien et. Nisl amet enim tortor diam tortor. Congue convallis pellentesque in pretium egestas sed nunc porta. Cras leo nibh nulla ipsum nec. Dolor tortor varius quisque vel risus non pulvinar mi. A lectus sit rhoncus venenatis sem in eu. Semper rhoncus amet nibh pulvinar sit. Sit donec purus pretium bibendum. Egestas posuere ullamcorper viverra varius sed. Neque lobortis eu feugiat ullamcorper et ut non tristique. Placerat egestas arcu aenean purus nisl ut quisque cum ultrices." id="" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="save-cancel-btn hide" id="description-update-btn">
+                            <button type="button" onclick="toggleDescriptionInputs();">CANCEL</button>
+                            <button type="button" onclick="toggleDescriptionInputs();">SAVE</button>
+                        </div>
+                    </div>
+                    <div class="specific-product-media-wrapper">
+                        <span>Media</span>
+                        <div class="specific-product-media-images">
+                            <div>
+                                <img src="{% static 'Assets/customer/images/buy_page_img.svg' %}" alt="product image" />
+                                <div class="edit-btn">
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                            <path d="M9.28644 9.16667V14.1667M12.6198 9.16667V14.1667M4.28644 5.83333H17.6198M16.7864 5.83333L16.0639 15.9517C16.034 16.3722 15.8458 16.7657 15.5374 17.053C15.2289 17.3403 14.823 17.5 14.4014 17.5H7.50477C7.08322 17.5 6.67733 17.3403 6.36884 17.053C6.06036 16.7657 5.8722 16.3722 5.84227 15.9517L5.11977 5.83333H16.7864ZM13.4531 5.83333V3.33333C13.4531 3.11232 13.3653 2.90036 13.209 2.74408C13.0527 2.5878 12.8408 2.5 12.6198 2.5H9.28644C9.06542 2.5 8.85346 2.5878 8.69718 2.74408C8.5409 2.90036 8.4531 3.11232 8.4531 3.33333V5.83333H13.4531Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                            <path d="M3.89581 13.332V14.1654C3.89581 14.8284 4.15921 15.4643 4.62805 15.9331C5.09689 16.402 5.73277 16.6654 6.39581 16.6654H14.7291C15.3922 16.6654 16.0281 16.402 16.4969 15.9331C16.9658 15.4643 17.2291 14.8284 17.2291 14.1654V13.332M13.8958 6.66536L10.5625 3.33203M10.5625 3.33203L7.22915 6.66536M10.5625 3.33203V13.332" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="buy-page-label hide">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
+                                        <circle cx="3.45312" cy="3" r="2.5" fill="#000093"/>
+                                    </svg>
+                                    <span>Buy Page</span>
+                                </div>
+                            </div>
+                            <div class="product-detail-images">
+                                <div>
+                                    <img src="{% static 'Assets/customer/images/product_image_1.svg' %}" alt="product image" />
+                                    <div class="edit-btn">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M9.28644 9.16667V14.1667M12.6198 9.16667V14.1667M4.28644 5.83333H17.6198M16.7864 5.83333L16.0639 15.9517C16.034 16.3722 15.8458 16.7657 15.5374 17.053C15.2289 17.3403 14.823 17.5 14.4014 17.5H7.50477C7.08322 17.5 6.67733 17.3403 6.36884 17.053C6.06036 16.7657 5.8722 16.3722 5.84227 15.9517L5.11977 5.83333H16.7864ZM13.4531 5.83333V3.33333C13.4531 3.11232 13.3653 2.90036 13.209 2.74408C13.0527 2.5878 12.8408 2.5 12.6198 2.5H9.28644C9.06542 2.5 8.85346 2.5878 8.69718 2.74408C8.5409 2.90036 8.4531 3.11232 8.4531 3.33333V5.83333H13.4531Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M3.89581 13.332V14.1654C3.89581 14.8284 4.15921 15.4643 4.62805 15.9331C5.09689 16.402 5.73277 16.6654 6.39581 16.6654H14.7291C15.3922 16.6654 16.0281 16.402 16.4969 15.9331C16.9658 15.4643 17.2291 14.8284 17.2291 14.1654V13.332M13.8958 6.66536L10.5625 3.33203M10.5625 3.33203L7.22915 6.66536M10.5625 3.33203V13.332" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="product-details-label hide">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
+                                            <circle cx="3.45312" cy="3" r="2.5" fill="#000093"/>
+                                        </svg>
+                                        <span>Product Details</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <img src="{% static 'Assets/customer/images/product_image_2.svg' %}" alt="product image" />
+                                    <div class="edit-btn">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M9.28644 9.16667V14.1667M12.6198 9.16667V14.1667M4.28644 5.83333H17.6198M16.7864 5.83333L16.0639 15.9517C16.034 16.3722 15.8458 16.7657 15.5374 17.053C15.2289 17.3403 14.823 17.5 14.4014 17.5H7.50477C7.08322 17.5 6.67733 17.3403 6.36884 17.053C6.06036 16.7657 5.8722 16.3722 5.84227 15.9517L5.11977 5.83333H16.7864ZM13.4531 5.83333V3.33333C13.4531 3.11232 13.3653 2.90036 13.209 2.74408C13.0527 2.5878 12.8408 2.5 12.6198 2.5H9.28644C9.06542 2.5 8.85346 2.5878 8.69718 2.74408C8.5409 2.90036 8.4531 3.11232 8.4531 3.33333V5.83333H13.4531Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M3.89581 13.332V14.1654C3.89581 14.8284 4.15921 15.4643 4.62805 15.9331C5.09689 16.402 5.73277 16.6654 6.39581 16.6654H14.7291C15.3922 16.6654 16.0281 16.402 16.4969 15.9331C16.9658 15.4643 17.2291 14.8284 17.2291 14.1654V13.332M13.8958 6.66536L10.5625 3.33203M10.5625 3.33203L7.22915 6.66536M10.5625 3.33203V13.332" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="product-details-label hide">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
+                                            <circle cx="3.45312" cy="3" r="2.5" fill="#000093"/>
+                                        </svg>
+                                        <span>Product Details</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <img src="{% static 'Assets/customer/images/product_image_3.svg' %}" alt="product image" />
+                                    <div class="edit-btn">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M9.28644 9.16667V14.1667M12.6198 9.16667V14.1667M4.28644 5.83333H17.6198M16.7864 5.83333L16.0639 15.9517C16.034 16.3722 15.8458 16.7657 15.5374 17.053C15.2289 17.3403 14.823 17.5 14.4014 17.5H7.50477C7.08322 17.5 6.67733 17.3403 6.36884 17.053C6.06036 16.7657 5.8722 16.3722 5.84227 15.9517L5.11977 5.83333H16.7864ZM13.4531 5.83333V3.33333C13.4531 3.11232 13.3653 2.90036 13.209 2.74408C13.0527 2.5878 12.8408 2.5 12.6198 2.5H9.28644C9.06542 2.5 8.85346 2.5878 8.69718 2.74408C8.5409 2.90036 8.4531 3.11232 8.4531 3.33333V5.83333H13.4531Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M3.89581 13.332V14.1654C3.89581 14.8284 4.15921 15.4643 4.62805 15.9331C5.09689 16.402 5.73277 16.6654 6.39581 16.6654H14.7291C15.3922 16.6654 16.0281 16.402 16.4969 15.9331C16.9658 15.4643 17.2291 14.8284 17.2291 14.1654V13.332M13.8958 6.66536L10.5625 3.33203M10.5625 3.33203L7.22915 6.66536M10.5625 3.33203V13.332" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="product-details-label hide">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
+                                            <circle cx="3.45312" cy="3" r="2.5" fill="#000093"/>
+                                        </svg>
+                                        <span>Product Details</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <img src="{% static 'Assets/customer/images/product_image_4.svg' %}" alt="product image" />
+                                    <div class="edit-btn">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M9.28644 9.16667V14.1667M12.6198 9.16667V14.1667M4.28644 5.83333H17.6198M16.7864 5.83333L16.0639 15.9517C16.034 16.3722 15.8458 16.7657 15.5374 17.053C15.2289 17.3403 14.823 17.5 14.4014 17.5H7.50477C7.08322 17.5 6.67733 17.3403 6.36884 17.053C6.06036 16.7657 5.8722 16.3722 5.84227 15.9517L5.11977 5.83333H16.7864ZM13.4531 5.83333V3.33333C13.4531 3.11232 13.3653 2.90036 13.209 2.74408C13.0527 2.5878 12.8408 2.5 12.6198 2.5H9.28644C9.06542 2.5 8.85346 2.5878 8.69718 2.74408C8.5409 2.90036 8.4531 3.11232 8.4531 3.33333V5.83333H13.4531Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path d="M3.89581 13.332V14.1654C3.89581 14.8284 4.15921 15.4643 4.62805 15.9331C5.09689 16.402 5.73277 16.6654 6.39581 16.6654H14.7291C15.3922 16.6654 16.0281 16.402 16.4969 15.9331C16.9658 15.4643 17.2291 14.8284 17.2291 14.1654V13.332M13.8958 6.66536L10.5625 3.33203M10.5625 3.33203L7.22915 6.66536M10.5625 3.33203V13.332" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="product-details-label hide">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
+                                            <circle cx="3.45312" cy="3" r="2.5" fill="#000093"/>
+                                        </svg>
+                                        <span>Product Details</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="specific-product-inventory-wrapper">
+                        <div>
+                            <span>Inventory</span>
+                            <svg class="cursor-pointer" id="edit-product-inventory" xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <path d="M13.3206 4.36027L16.2657 7.30694M14.57 3.11027C14.9605 2.71952 15.4902 2.5 16.0425 2.5C16.5948 2.5 17.1245 2.71952 17.515 3.11027C17.9056 3.50103 18.125 4.031 18.125 4.58361C18.125 5.13621 17.9056 5.66619 17.515 6.05694L6.0479 17.5303H3.13281V14.5536L14.57 3.11027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="specific-product-inventory-details" id="specific-product-inventory-details">
+                            <div>
+                                <span>SKU#</span>
+                                <input type="text" readonly name="sku" placeholder="HOMME07834FH1" id="" />
+                            </div>
+                            <div>
+                                <span>Current Stock</span>
+                                <input type="number" readonly name="stock" placeholder="400" id="" />
+                            </div>
+                            <div>
+                                <span>Safety Stock</span>
+                                <input type="number" readonly name="safety_stock" placeholder="100" id="" />
+                            </div>
+                            <div>
+                                <span>Lead Time</span>
+                                <input type="text" readonly name="lead_time" placeholder="2 weeks" id="" />
+                            </div>
+                        </div>
+                        <div class="save-cancel-btn hide" id="update-product-inventory-wrapper">
+                            <button type="button" onclick="toggleInventoryInputs();">CANCEL</button>
+                            <button type="button" onclick="toggleInventoryInputs();">SAVE</button>
+                        </div>
+                    </div>
+                    <div class="specific-product-shipping-wrapper">
+                        <div>
+                            <span>Shipping</span>
+                            <svg class="cursor-pointer" id="edit-product-shipping" xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <path d="M13.3206 4.36027L16.2657 7.30694M14.57 3.11027C14.9605 2.71952 15.4902 2.5 16.0425 2.5C16.5948 2.5 17.1245 2.71952 17.515 3.11027C17.9056 3.50103 18.125 4.031 18.125 4.58361C18.125 5.13621 17.9056 5.66619 17.515 6.05694L6.0479 17.5303H3.13281V14.5536L14.57 3.11027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="specific-product-shipping-details" id="specific-product-shipping-details">
+                            <div class="physical-dimensions">
+                                <span>Physical Dimension:</span>
+                                <div>
+                                    <div class="input-div">
+                                        <span>Length</span>
+                                        <div>
+                                            <input type="number" readonly name="length" placeholder="3" id="" />
+                                            <div>Ft</div>
+                                        </div>
+                                    </div>
+                                    <div class="vr"></div>
+                                    <div class="input-div">
+                                        <span>Width</span>
+                                        <div>
+                                            <input type="number" readonly name="width" placeholder="3" id="" />
+                                            <div>Ft</div>
+                                        </div>
+                                    </div>
+                                    <div class="vr"></div>
+                                    <div class="input-div">
+                                        <span>Height</span>
+                                        <div>
+                                            <input type="number" readonly name="height" placeholder="3" id="" />
+                                            <div>Ft</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="shipping-weight">
+                                <span>Shipping Weight</span>
+                                <div class="input-div">
+                                    <span>Weight</span>
+                                    <div>
+                                        <input type="number" readonly name="lead_time" placeholder="349" id="" />
+                                        <div>oz</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="save-cancel-btn hide" id="update-product-shipping-wrapper">
+                            <button type="button" onclick="toggleShippingInputs();">CANCEL</button>
+                            <button type="button" onclick="toggleShippingInputs();">SAVE</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-wrapper-col-2">
+                    <div class="specific-product-status">
+                        <div>
+                            <span>Status</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                                <path d="M12.6933 4.84465L15.64 7.79132M13.9433 3.59465C14.3341 3.2039 14.8641 2.98438 15.4167 2.98438C15.9693 2.98438 16.4992 3.2039 16.89 3.59465C17.2808 3.9854 17.5003 4.51538 17.5003 5.06798C17.5003 5.62059 17.2808 6.15056 16.89 6.54132L5.41667 18.0146H2.5V15.038L13.9433 3.59465Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <button class="filter-btn" id="criteria" type="button">
+                                <span id="selected-criteria">Active</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                    <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                </svg>
+                            </button>
+                            <div class="filter-dropdown" id="criteria-dropdown">
+                                <div class="radio-btn">
+                                    <input id="active" type="radio" value="Active" name="criteria_radio">
+                                    <label for="active" class="radio-label">Active</label>
+                                </div>
+                                <div class="radio-btn">
+                                    <input id="inactive" type="radio" value="Inactive" name="criteria_radio">
+                                    <label for="inactive" class="radio-label">Inactive</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="specific-product-insights">
+                        <div>
+                            <span>Insights</span>
+                            <div>
+                                <span>Last 30 days</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5" fill="none">
+                                    <path opacity="0.7" d="M10 0L5 5L0 0H10Z" fill="#030706"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Sold 3 units to 1 customer for $75.00 in net sale.</p>
+                        </div>
+                    </div>
+                    <div class="specific-product-organization">
+                        <div>
+                            <span>Product Organization</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                                <path d="M12.6933 4.84465L15.64 7.79132M13.9433 3.59465C14.3341 3.2039 14.8641 2.98438 15.4167 2.98438C15.9693 2.98438 16.4992 3.2039 16.89 3.59465C17.2808 3.9854 17.5003 4.51538 17.5003 5.06798C17.5003 5.62059 17.2808 6.15056 16.89 6.54132L5.41667 18.0146H2.5V15.038L13.9433 3.59465Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="product-category">
+                            <span>Product Category</span>
+                            <div>
+                                <input type="text" value="Hair Care" name="" id="" readonly />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                    <path opacity="0.7" d="M10.5 0.46875L5.5 5.46875L0.5 0.46875H10.5Z" fill="#030706"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="add-category-btn">ADD NEW CATEGORY</button>
+                            <div class="category-list hide" id="category-list">
+                                <div>
+                                    <span>Hair Care</span>
+                                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span>Skin Care</span>
+                                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span>Beard Care</span>
+                                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span>Shaving And Grooming</span>
+                                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span>Body Care</span>
+                                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span>Accessories</span>
+                                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span>Fragrances</span>
+                                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+</body>
+{% block scripts %}
+<script>
+    // let statusOptionsDialog = document.getElementById('status-options-wrapper');
+    // let statusInput = document.getElementById('status');
+
+    let criteriaDropdown = document.getElementById('criteria-dropdown');
+    let criteriaDropdownBtn = document.getElementById('criteria');
+    let criteriaOptions = document.querySelectorAll('input[name="criteria_radio"]');
+
+    let addCategoryBtn = document.getElementById('add-category-btn');
+    let categoryList = document.getElementById('category-list');
+
+    criteriaOptions.forEach((option) => {
+        option.addEventListener('change', function() {
+            if(this.checked) {
+                document.getElementById('selected-criteria').innerText = this.nextElementSibling.innerText;
+            }
+        })
+    })
+
+    criteriaDropdownBtn.addEventListener('click', toggleDropdown);
+
+    function toggleDropdown(event) {
+        let elementBtn = event.target;
+        if(!elementBtn.classList.contains('filter-btn')) {
+            elementBtn = elementBtn.closest('.filter-btn');
+        }
+        let elementDropdown = elementBtn.nextElementSibling;
+        if(elementDropdown.style.display == 'flex') {
+            elementDropdown.style.display = 'none';
+        }
+        else {
+            elementDropdown.style.display = 'flex';
+        }
+    }
+
+    function closeDropdowns(event) {
+        if((!criteriaDropdownBtn.contains(event.target)) && criteriaDropdown.style.display == 'flex') {
+            criteriaDropdown.style.display = 'none';
+        }
+        else if((!categoryList.contains(event.target)) && (!addCategoryBtn.contains(event.target))) {
+            categoryList.classList.add('hide');
+        }
+        else if(categoryList.contains(event.target)) {
+            categoryList.classList.add('hide');
+        }
+    }
+
+    document.body.addEventListener('click', closeDropdowns);
+
+
+    addCategoryBtn.addEventListener('click', function() {
+        if(categoryList.classList.contains('hide')) {
+            categoryList.classList.remove('hide');
+        }
+        else {
+            categoryList.classList.add('hide');
+        }
+    })
+</script>
+<script>
+    let editDescriptionBtn = document.getElementById('edit-product-descriptions');
+    let updateDescriptionBtnWrapper = document.getElementById('description-update-btn');
+    editDescriptionBtn.addEventListener('click', toggleDescriptionInputs)
+
+    function toggleDescriptionInputs() {
+        if (updateDescriptionBtnWrapper.classList.contains('hide')) {
+            updateDescriptionBtnWrapper.classList.remove('hide');
+            document.getElementById('product-description-wrapper').querySelectorAll('input').forEach((input) => input.readOnly = false);
+        }
+        else {
+            updateDescriptionBtnWrapper.classList.add('hide');
+            document.getElementById('product-description-wrapper').querySelectorAll('input').forEach((input) => input.readOnly = true);
+        }
+    }
+    
+    
+    let editInventoryBtn = document.getElementById('edit-product-inventory');
+    let updateInventoryBtnWrapper = document.getElementById('update-product-inventory-wrapper');
+    editInventoryBtn.addEventListener('click', toggleInventoryInputs);
+
+    function toggleInventoryInputs() {
+        if (updateInventoryBtnWrapper.classList.contains('hide')) {
+            updateInventoryBtnWrapper.classList.remove('hide');
+            document.getElementById('specific-product-inventory-details').querySelectorAll('input').forEach((input) => input.readOnly = false);
+        }
+        else {
+            updateInventoryBtnWrapper.classList.add('hide');
+            document.getElementById('specific-product-inventory-details').querySelectorAll('input').forEach((input) => input.readOnly = true);
+        }
+    }
+
+
+
+    let editShippingBtn = document.getElementById('edit-product-shipping');
+    let updateShippingBtnWrapper = document.getElementById('update-product-shipping-wrapper');
+    editShippingBtn.addEventListener('click', toggleShippingInputs);
+
+    function toggleShippingInputs() {
+        if (updateShippingBtnWrapper.classList.contains('hide')) {
+            updateShippingBtnWrapper.classList.remove('hide');
+            document.getElementById('specific-product-shipping-details').querySelectorAll('input').forEach((input) => input.readOnly = false);
+        }
+        else {
+            updateShippingBtnWrapper.classList.add('hide');
+            document.getElementById('specific-product-shipping-details').querySelectorAll('input').forEach((input) => input.readOnly = true);
+        }
+    }
+</script>
+{% endblock %}
+</html>

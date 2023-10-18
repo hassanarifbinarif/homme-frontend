@@ -1,0 +1,435 @@
+#activityCreate .modal-dialog {
+    max-width: unset;
+    width: 621px;
+}
+
+#activityCreate .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#activityCreate .modal-footer,
+#activityCreate .modal-content {
+    border-radius: 0px!important;
+}
+
+#activityCreate .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityCreate .modal-body {
+    padding: 20px!important;
+}
+
+#activityCreate input::placeholder {
+    color: #030706;
+}
+
+#activityCreate .modal-body input[name="customer"] {
+    width: 100%;
+    height: 40px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: var(--white, #FFF);
+
+    color: var(--Black, #030706);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#activityCreate .modal-body > .group-inputs {
+    margin-bottom: 13px!important;
+}
+
+#activityCreate .modal-body .search-product {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 14px;
+}
+
+#activityCreate .modal-body .search-product > input {
+    width: 100%;
+    height: 40px;
+    padding: 14px 34px 14px 18px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: var(--white, #FFF);
+
+    color: var(--Black, #030706);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#activityCreate .modal-body .search-product > svg {
+    position: absolute;
+    right: 18px;
+}
+
+#activityCreate .modal-body .added-products {
+    padding: 15px;
+    border: 0.8px solid var(--Gray-for-Outline, #515254);
+    border-radius: 4px;
+    background: var(--white, #FFF);
+    margin-bottom: 15px;
+}
+
+#activityCreate .modal-body .added-products .product-card {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-details {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 226px;
+    flex-shrink: 0;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-details .product-image {
+    width: 46px;
+    height: 55px;
+    position: relative;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-details .product-image > div {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    
+    width: 12px;
+    height: 14px;
+    border-radius: 2px;
+    background: #000093;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #FFF;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-details .product-image > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-details > div:last-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-details > div:last-of-type > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-details > div:last-of-type > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-values {
+    display: flex;
+    align-items: center;
+    gap: 57px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-values > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityCreate .modal-body .added-products .product-card .product-values > div > input {
+    color: #030706;
+    font-size: .875rem;
+    line-height: 14px;
+    font-family: Gotham Book;
+
+    width: 74px;
+    height: 40px;
+    padding: 14px 12px;
+    border-radius: 8px;
+    border: 0.8px solid #030706;
+    background: var(--white, #FFF);
+}
+
+#activityCreate .modal-body .added-products .product-card .delete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    margin-left: 71px;
+}
+
+#activityCreate .modal-body .added-products .product-card:not(:first-child) {
+    border-top: 1px solid #CECECE;
+    padding-top: 15px;
+}
+
+#activityCreate .modal-body .added-products .product-card:last-of-type {
+    padding-bottom: 0px;
+}
+
+
+#activityCreate .modal-body .product-totals {
+    border: 0.8px solid var(--Gray-for-Outline, #515254);
+    border-radius: 4px;
+    background: var(--white, #FFF);
+    margin-bottom: 30px;
+}
+
+#activityCreate .modal-body .product-totals .sub-values {
+    padding: 15px 15px 20px 20px;
+}
+
+#activityCreate .modal-body .product-totals .sub-values > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityCreate .modal-body .product-totals .sub-values > div:first-of-type {
+    margin-bottom: 21px;
+}
+
+#activityCreate .modal-body .product-totals .sub-values > div:not(:first-child) {
+    margin-bottom: 25px;
+}
+
+#activityCreate .modal-body .product-totals .sub-values > div:last-of-type {
+    margin-bottom: 0px;
+}
+
+#activityCreate .modal-body .product-totals .grand-total {
+    padding: 10px 15px 15px 20px;
+    border-top: 1px solid #CECECE;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#activityCreate .modal-body .product-totals .grand-total span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+#activityCreate .modal-body .product-totals .grand-total > div {
+    display: flex;
+    width: 84px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    border: 0.8px solid #030706;
+}
+
+#activityCreate .modal-body .product-shipping-details > .product-shipping-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#activityCreate .modal-body .product-shipping-details > .product-shipping-header > span:first-of-type {
+    color: #030706;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+#activityCreate .modal-body .product-shipping-details > .product-shipping-header > span:last-of-type {
+    color: #000093;
+    text-align: right;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    text-decoration-line: underline;
+}
+
+#activityCreate .modal-body .product-shipping-details > input[name="street_address"] {
+    width: 100%;
+    height: 40px;
+    padding: 14px 15px;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: var(--white, #FFF);
+
+    color: var(--Black, #030706);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#activityCreate .modal-body .group-inputs {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#activityCreate .modal-body .group-inputs > input {
+    width: 283px;
+    height: 40px;
+    padding: 14px 15px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: var(--white, #FFF);
+
+    color: var(--Black, #030706);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#activityCreate .modal-body .product-shipping-details textarea {
+    width: 100%;
+    height: 149px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 0.8px solid #030706;
+    background: var(--white, #FFF);
+    resize: none;
+
+    color: var(--Black, #030706);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+#activityCreate .modal-footer {
+    padding: 10px 12px 15px 12px!important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#activityCreate .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 191px;
+    height: 30px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+#activityCreate .modal-footer > button:first-of-type {
+    background-color: #FFF;
+    border: 1px solid #000093;
+    color: #000093;
+    width: 200px;
+}

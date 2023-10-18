@@ -1,0 +1,689 @@
+.specific-order-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.specific-order-wrapper {
+    background-color: #FFF;
+    width: 100%;
+    height: 60px;
+    padding: 15px 15px 15px 20px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.specific-order-wrapper > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.specific-order-wrapper > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.specific-order-wrapper > button {
+    display: flex;
+    width: 197px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+
+    color: var(--white, #FFF);
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+}
+
+.specific-order-details-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.details-wrapper-col-1 {
+    min-width: 722px;
+    width: 63.05%;
+    flex-shrink: 0;
+}
+
+.details-wrapper-col-1 .order-delivery-status-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 14px 16px 24px 16px;
+    margin-bottom: 20px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 34px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    opacity: .7;
+}
+
+.order-delivery-status-wrapper .order-product-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-wrapper > div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.order-product-wrapper .order-product-image {
+    position: relative;
+    width: 55px;
+    height: 55px;
+    border-radius: 6px;
+}
+
+.order-product-wrapper .order-product-image > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.order-product-wrapper .order-product-quantity {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    background: #000093;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-product-wrapper .order-product-quantity > span {
+    color: #FFF;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.order-product-wrapper .order-product-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.order-product-wrapper .order-product-identity > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-wrapper .order-product-identity > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-wrapper > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-wrapper > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-product-stats > .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.order-product-stats > .stat > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 14px;
+}
+
+.order-product-stats > .stat > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+}
+
+.order-product-stats > .stat > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-1 .order-paid-status-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 20px 20px 32px 20px;
+    margin-bottom: 20px;
+}
+
+.order-paid-status-wrapper .order-paid-status-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.order-paid-status-wrapper .order-paid-status-header span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-paid-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.order-paid-details-wrapper .order-paid-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-paid-details-wrapper .order-paid-details span:last-of-type {
+    text-align: right;
+}
+
+.order-paid-status-wrapper .order-paid-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-1 .order-shipping-confirmation-wrapper,
+.details-wrapper-col-1 .order-shipping-confirmation-wrapper-2 {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 20px 20px 20px 20px;
+    margin-bottom: 20px;
+}
+
+.order-shipping-confirmation-wrapper .order-shipping-confirmation-header,
+.order-shipping-confirmation-wrapper-2 .order-shipping-confirmation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.order-shipping-confirmation-header > span:last-of-type {
+    color: #000093;
+    text-align: right;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    text-decoration-line: underline;
+}
+
+.order-shipping-confirmation-header > span:first-of-type,
+.order-shipping-confirmation-wrapper-2 .order-shipping-confirmation-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    text-decoration: none;
+}
+
+.order-shipping-confirmation-wrapper .order-shipping-status,
+.order-shipping-confirmation-wrapper-2 .order-shipping-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-status {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #E0E0DD;
+}
+
+.order-shipping-confirmation-wrapper .order-shipping-status > div,
+.order-shipping-confirmation-wrapper-2 .order-shipping-status > div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-shipping-confirmation-wrapper .order-shipping-status > div > span:first-of-type,
+.order-shipping-confirmation-wrapper-2 .order-shipping-status > div > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-shipping-confirmation-wrapper .order-shipping-status > div > span:last-of-type,
+.order-shipping-confirmation-wrapper-2 .order-shipping-status > div > span:last-of-type {
+    color: #000093;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-shipping-confirmation-wrapper .order-shipping-status > button,
+.order-shipping-confirmation-wrapper-2 .order-shipping-status > button {
+    display: flex;
+    width: 150px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-details > div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-details > div:first-of-type > div {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-details > div:first-of-type > div > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-details > div:first-of-type > div > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-details > div:first-of-type > div > .tracking-id {
+    color: #000093!important;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium!important;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    text-decoration-line: underline;
+}
+
+.order-shipping-confirmation-wrapper-2 .order-shipping-details > button {
+    display: flex;
+    width: 150px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    background-color: #FFF;
+    border: 1px solid transparent;
+    border-radius: 7px;
+
+    color: #000093;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    text-decoration-line: underline;
+}
+
+
+.details-wrapper-col-2 {
+    min-width: 403px;
+    width: 35.3%;
+    flex-shrink: 0;
+}
+
+.details-wrapper-col-2 .order-product-other-details-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 21px 15px 25px 15px;
+    margin-bottom: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.order-product-other-details-wrapper .order-customer {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-product-other-details-wrapper .order-customer > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-customer > div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-product-other-details-wrapper .order-customer > div > span:first-of-type {
+    color: #000093;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 8px;
+}
+
+.order-product-other-details-wrapper .order-customer > div > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 8px;
+    opacity: .7;
+}
+
+.order-product-other-details-wrapper .order-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-product-other-details-wrapper .order-contact-info > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div > span {
+    color: #000093;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-shipping-address {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-product-other-details-wrapper .order-shipping-address > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 11px;
+}
+
+.order-product-other-details-wrapper .order-shipping-address > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 15px 15px 22px 15px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 65px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 11px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+}
+
+
+@media (min-width: 1441px) {
+    .specific-order-details-wrapper {
+        justify-content: space-between;
+    }
+}
+
+
+@media (max-width: 1439px) {
+    .specific-order-content {
+        overflow-x: auto;
+    }
+}
