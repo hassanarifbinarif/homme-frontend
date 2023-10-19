@@ -1,0 +1,860 @@
+.main-page {
+    position: relative;
+    left: 255px;
+    min-height: 100vh;
+    padding: 0px 20px 0px 20px;
+    width: calc(100vw - 255px);
+    margin-top: 27px;
+}
+
+.main-page > .header {
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+    margin-bottom: 22px;
+}
+
+.search-user {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-logo-wrapper {
+    display: flex;
+    padding: 5px 12px;
+    align-items: center;
+    border-radius: 8px 0px 0px 8px;
+    border-top: 0.8px solid var(--secondary-line-color, #515254);
+    border-bottom: 0.8px solid var(--secondary-line-color, #515254);
+    border-left: 0.8px solid var(--secondary-line-color, #515254);
+    background: var(--primary-white, #FFF);
+    width: 44px;
+    height: 30px;
+}
+
+.search-user > input {
+    display: flex;
+    width: 400px;
+    height: 30px;
+    padding: 11px 89px;
+    align-items: center;
+    border-radius: 0px 8px 8px 0px;
+    border-top: 0.8px solid var(--secondary-line-color, #515254);
+    border-right: 0.8px solid var(--secondary-line-color, #515254);
+    border-bottom: 0.8px solid var(--secondary-line-color, #515254);
+    border-left: 0px;
+    background: var(--primary-white, #FFF);
+
+    color: var(--primary-black, #000);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.68px;
+}
+
+.search-user > input::placeholder {
+    color: var(--primary-black, #000);
+}
+
+.header .user-info {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.user-info .nav-notification-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info a {
+    text-decoration: none!important;
+    color: #FFF;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.2px;
+}
+
+.nav-notification-wrapper .notification-count {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    position: absolute;
+    top: -4px;
+    right: -4px;
+}
+
+.header .nav-profile-image {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header .nav-profile-image > img {
+    width: 39px;
+    height: 39px;
+}
+
+
+.content {
+    display: flex;
+    gap: 20px;
+}
+
+.content > .content-col-1 {
+    min-width: 722px;
+    width: 63.05%;
+    flex-shrink: 0;
+}
+
+.all-orders-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    width: 100%;
+    height: 366px;
+    padding: 20px 17px 14px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.order-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    height: fit-content;
+}
+
+.order-filters {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.order-filters > button {
+    display: inline-flex;
+    position: relative;
+    width: 166px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0px;
+    border: .8px solid #515254;
+    border-radius: 6px;
+}
+
+.order-filters > button > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    background-color: #FFF;
+    border-radius: 6px 6px 6px 6px;
+
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.68px;
+    border-top: 0.8px solid var(--Gray-for-Outline, #515254);
+    border-bottom: 0.8px solid var(--Gray-for-Outline, #515254);
+}
+
+.order-filters > button:first-of-type > span {
+    justify-content: flex-start;
+    padding-left: 3px;
+}
+
+.order-filters > button > div {
+    position: absolute;
+    right: 0px;
+    width: 38px;
+    height: 30px;
+    background-color: #FFF;
+    border-radius: 0px 6px 6px 0px;
+    border-top: 0.8px solid var(--Gray-for-Outline, #515254);
+    border-bottom: 0.8px solid var(--Gray-for-Outline, #515254);
+}
+
+.order-filters > button:first-of-type > div {
+    width: 34px;
+}
+
+.order-table {
+    width: 100%;
+}
+
+.order-table thead {
+    height: 32px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-table thead th {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-table thead th:last-of-type {
+    text-align: right;
+}
+
+.order-table tbody tr {
+    height: 32px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-table tbody tr:last-of-type {
+    border-bottom: unset;
+}
+
+.order-table tbody tr td {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.order-table .order-time {
+    letter-spacing: normal;
+    line-height: 20px;
+}
+
+.order-table tbody tr td:last-of-type {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.fulfill-order-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    width: 100%;
+    height: 60px;
+    padding: 10px 10px 9px 13px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.fulfill-order-wrapper > div {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.fulfill-order-wrapper > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1.4px;
+}
+
+.fulfill-order-wrapper > button {
+    display: flex;
+    width: 226px;
+    height: 41px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: #000093;
+
+    color: #FFF;
+    font-family: Gotham Bold;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.4px;
+}
+
+.chart-wrapper {
+    padding: 20px 20px 13px 20px;
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.chart-wrapper > .chart-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chart-wrapper > .chart-btn > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.chart-wrapper > .chart-btn > button {
+    display: inline-flex;
+    position: relative;
+    width: 192px;
+    height: 40px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 14px 18px;
+    border: .8px solid #515254;
+    border-radius: 8px;
+    background-color: #FFF;
+}
+
+.chart-wrapper > .chart-btn > button > span {
+    color: var(--Black, #030706);
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    height: 18px;
+}
+
+.chart-wrapper > .chart-btn > button:last-of-type {
+    width: 100px;
+}
+
+.chart-wrapper > .chart {
+    height: 271px;
+}
+
+.content > .content-col-2 {
+    min-width: 403px;
+    width: 35.3%;
+    height: 832px;
+    flex-shrink: 0;
+}
+
+.all-sales-view {
+    height: 100%;
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.all-sales-view > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 30px;
+    position: relative;
+
+    border: 1px solid #515254;
+    border-radius: 6px;
+    background-color: #FFF;
+
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+    margin-bottom: 30px;
+}
+
+.all-sales-view > button > svg {
+    position: absolute;
+    right: 12px;
+}
+
+.all-sales-view .sales-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.all-sales-view .sales-heading > h2 {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.all-sales-view .total-salon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.all-sales-view .total-salon span:last-of-type {
+    font-family: Gotham Book;
+    font-size: .75rem;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.all-sales-view .stats-overview-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.all-sales-view .stats-overview-wrapper > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview {
+    display: flex;
+    flex-direction: column;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card:not(:first-of-type) {
+    padding-top: 10px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .vr {
+    width: 1px;
+    background-color: #CECECE;
+    height: 25px;
+    margin: 0px 15px;
+    flex-shrink: 0;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-identity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 33.8%;
+    min-width: 116px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-identity .salon-image {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-identity .salon-image > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-identity > div:last-of-type {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 73px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-identity > div:last-of-type > span:last-of-type {
+    font-family: Gotham Medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 82px;
+    width: 22.1%;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-contact > span:last-of-type {
+    font-family: Gotham Medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-number {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 99px;
+    width: 27.4%;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-number > span:last-of-type {
+    font-family: Gotham Medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-new-customers {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 98px;
+    width: 27.14%;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-new-customers > span:last-of-type {
+    font-family: Gotham Medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-products-sold {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 84px;
+    width: 23.26%;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.all-sales-view .stats-overview-wrapper .stats-overview .stat-card .salon-products-sold > span:last-of-type {
+    font-family: Gotham Medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
+}
+
+.pickup-sales-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.pickup-sales-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pickup-sales-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.pickup-sales > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #CECECE;
+    height: 32px;
+}
+
+.pickup-sales > div:last-of-type {
+    border-bottom: unset;
+}
+
+.pickup-sales span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.top-products-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.top-products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-products-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.top-products > table {
+    width: 100%;
+}
+
+.top-products > table tbody tr {
+    height: 32px;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.top-products > table tbody tr:last-of-type {
+    border-bottom: unset;
+}
+
+.top-products > table tbody tr td:last-of-type {
+    text-align: right;
+}
+
+.top-products > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #CECECE;
+    height: 32px;
+}
+
+.top-products > div:last-of-type {
+    border-bottom: unset;
+}
+
+.top-products span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+
+.top-referrals-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.top-referrals-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-referrals-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.top-referrals > table {
+    width: 100%;
+}
+
+.top-referrals > table thead {
+    height: 32px;
+    border-bottom: 1px solid #CECECE;
+    
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.top-referrals > table tbody tr {
+    height: 32px;
+    border-bottom: 1px solid #CECECE;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
+.top-referrals > table tbody tr:last-of-type {
+    border-bottom: unset;
+}
+
+.top-referrals > table tbody tr td:last-of-type {
+    text-align: right;
+}
+
+
+@media (min-width: 1441px) {
+    .content {
+        justify-content: space-between;
+    }
+}
+
+
+@media (max-width: 1439px) {
+    .content {
+        overflow-x: auto;
+    }
+}

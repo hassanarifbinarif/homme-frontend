@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    {% extends './layouts/base.html' %}
+    {% extends '../layouts/base.html' %}
     {% load static %}
 
     {% block links %}
@@ -50,7 +50,7 @@
         <div class="specific-order-content">
             <div class="specific-order-wrapper">
                 <div>
-                    <svg onclick="location.pathname = '/products/'" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                    <svg class="cursor-pointer" onclick="location.pathname = '/products/'" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                         <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span>FACE CREAM</span>

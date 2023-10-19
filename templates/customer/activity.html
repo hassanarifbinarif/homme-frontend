@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    {% extends './layouts/base.html' %}
+    {% extends '../layouts/base.html' %}
     {% load static %}
-
-    {% block links %}
     
-    <link rel="stylesheet" href="{% static 'Assets/customer/css/customers.css' %}" />
+    {% block links %}
 
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/activity.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/activity_create_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/activity_product_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/activity_reward_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/activity_invitation_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/activity_earned_reward_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/order_shipping_label_modal.css' %}" />
+    
     {% endblock %}
 
-    <title>{% block title %}Homme Customers{% endblock %}</title>
+    <title>{% block title %}Homme Activity{% endblock %}</title>
 </head>
 <body>
     {% block body %}
@@ -48,21 +54,8 @@
         </div>
         <div class="content">
             <div class="order-wrapper">
-                <div class="order-wrapper-header">
-                    <span>CUSTOMERS</span>
-                    <button type="button">ADD CUSTOMER</button>
-                </div>
-                <div class="customer-stats-overview">
-                    <div>
-                        <span>210</span>
-                        <span>Customers</span>
-                    </div>
-                    <div class="vr"></div>
-                    <div>
-                        <span>100%</span>
-                        <span>Of Your Customers Base</span>
-                    </div>
-                </div>
+                <span>ACTIVITY</span>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#activityCreate">CREATE ACTIVITY</button>
             </div>
             <div class="order-details-wrapper">
                 <div class="order-details-filters">
@@ -73,7 +66,77 @@
                         </svg>
                     </div>
                     <div>
-                        <button>
+                        <button class="sales-btn">
+                            <span>SALES CHANNEL</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                <g clip-path="url(#clip0_776_5475)">
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_776_5475">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                        <button class="date-range-btn">
+                            <span>DATE RANGE</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                <g clip-path="url(#clip0_776_5475)">
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_776_5475">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                        <button class="net-cash-btn">
+                            <span>NET CASH</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                <g clip-path="url(#clip0_776_5475)">
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_776_5475">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                        <button class="rewards-btn">
+                            <span>REWARDS</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                <g clip-path="url(#clip0_776_5475)">
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_776_5475">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                        <button class="types-btn">
+                            <span>TYPES</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                <g clip-path="url(#clip0_776_5475)">
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_776_5475">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                        <button class="sort-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                 <path d="M15.1198 17.0872L11.7865 13.7539M6.78646 13.7539V3.75391V13.7539ZM6.78646 3.75391L3.45312 7.08724L6.78646 3.75391ZM6.78646 3.75391L10.1198 7.08724L6.78646 3.75391ZM15.1198 7.08724V17.0872V7.08724ZM15.1198 17.0872L18.4531 13.7539L15.1198 17.0872Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -90,12 +153,7 @@
                             </th>
                             <th>
                                 <div>
-                                    <span>Customer Name</span>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <span>Location</span>
+                                    <span>Type</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                                         <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                                         <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -104,7 +162,7 @@
                             </th>
                             <th>
                                 <div>
-                                    <span>Referrals</span>
+                                    <span>Date</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                                         <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                                         <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -113,7 +171,7 @@
                             </th>
                             <th>
                                 <div>
-                                    <span>Tier</span>
+                                    <span>Name</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                                         <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                                         <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -122,7 +180,7 @@
                             </th>
                             <th>
                                 <div>
-                                    <span>Orders</span>
+                                    <span>Sales Channel</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                                         <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                                         <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -131,7 +189,25 @@
                             </th>
                             <th>
                                 <div>
-                                    <span>Amount Spent</span>
+                                    <span>Net Cash</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                                        <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                                        <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <span>Rewards</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                                        <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                                        <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <span>Status</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                                         <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                                         <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -140,1076 +216,1221 @@
                             </th>
                         </thead>
                         <tbody>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
-                                    <div>
-                                        <span>Dianne Russell</span>
+                                    <div data-bs-target="#activityProduct" data-bs-toggle="modal">
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div data-bs-target="#activityInvitation" data-bs-toggle="modal">
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
+                                    <div data-bs-target="#activityEarnedReward" data-bs-toggle="modal">
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div data-bs-target="#activityReward" data-bs-toggle="modal">
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
+                            <tr>
+                                <td>
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
+                                        <span>Product Purchase</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-column">
+                                        <span>08-Jan-2023</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Portland, OR, 15623</span>
+                                        <span>Courtney Henry</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>$50.00</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Purchase</span>
                                     </div>
                                 </td>
                             </tr>
@@ -1219,6 +1440,18 @@
             </div>
         </div>
     </div>
+
+    {% include '../modals/activity-create-modal.html' %}
+
+    {% include '../modals/activity-product-modal.html' %}
+
+    {% include '../modals/activity-reward-modal.html' %}
+
+    {% include '../modals/activity-invitations-modal.html' %}
+
+    {% include '../modals/activity-earned-modal.html' %}
+
+    {% include '../modals/order-shipping-label-modal.html' %}
 
     {% endblock %}
 </body>

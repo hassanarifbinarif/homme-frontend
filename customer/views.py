@@ -5,58 +5,66 @@ from django.shortcuts import render
 def homme(request):
     context = {}
     context['active_page'] = 'homme'
-    return render(request, 'homme.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/homme.html', context)
 
 
 def orders(request):
     context = {}
     context['active_page'] = 'orders'
-    return render(request, 'orders.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/orders.html', context)
 
 
 def specific_order(request):
     context = {}
     context['active_page'] = 'orders'
-    return render(request, 'specific-order.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/specific-order.html', context)
 
 
 def referrals(request):
     context = {}
     context['active_page'] = 'referrals'
-    return render(request, 'referrals.html', context)
+    return render(request, 'customer/referrals.html', context)
 
 
 def customers(request):
     context = {}
     context['active_page'] = 'customers'
-    return render(request, 'customers.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/customers.html', context)
 
 
 def specific_customer(request):
     context = {}
     context['active_page'] = 'customers'
-    return render(request, 'specific-customer.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/specific-customer.html', context)
 
 
 def products(request):
     context = {}
     context['active_page'] = 'products'
-    return render(request, 'products.html', context)
+    return render(request, 'customer/products.html', context)
 
 
 def specific_product(request):
     context = {}
     context['active_page'] = 'products'
-    return render(request, 'specific-product.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/specific-product.html', context)
 
 
 def activity(request):
     context = {}
     context['active_page'] = 'activity'
-    return render(request, 'activity.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/activity.html', context)
 
 
 def marketing(request):
     context = {}
     context['active_page'] = 'marketing'
-    return render(request, 'marketing.html', context)
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/marketing.html', context)
