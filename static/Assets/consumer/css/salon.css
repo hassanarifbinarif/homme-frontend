@@ -284,8 +284,9 @@
     line-height: 20px;
 }
 
-.order-details-table tbody tr td .order-date {
-    opacity: .6;
+.order-details-table tbody tr td .highlighted-data {
+    color: #000093;
+    text-decoration: underline;
 }
 
 .order-details-table tbody tr td > div {

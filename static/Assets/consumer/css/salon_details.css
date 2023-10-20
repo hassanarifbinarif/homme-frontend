@@ -1,0 +1,764 @@
+.specific-order-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.specific-order-content .specific-salon-overview {
+    width: 100%;
+    height: 102px;
+
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.specific-order-content .specific-salon-overview .specific-salon-overview-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.specific-order-content .specific-salon-overview .specific-salon-address {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    width: 100%;
+    padding: 19px 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .vr {
+    width: 1px;
+    background-color: #CECECE;
+    height: 83px;
+    margin: 0px 24px;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 48px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data > span:first-of-type {
+    font-family: Gotham Book;
+    font-size: .75rem;
+    line-height: 10px;
+    opacity: .7;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data > span:last-of-type {
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    line-height: 16px;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-header {
+    width: 100%;
+    height: 40px;
+    padding: 0px 10px;
+    background-color: #EEE;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+
+    display: flex;
+    align-items: center;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table {
+    width: 100%;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead th {
+    border-top: 1px solid #CECECE;
+    border-right: 1px solid #CECECE;
+    border-left: 1px solid #CECECE;
+    border-bottom: unset;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead th:first-of-type {
+    border-left: unset;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead th:last-of-type {
+    border-right: unset;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead th div {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    height: 33px;
+    
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .6;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tbody tr td {
+    border-top: 1px solid #CECECE;
+    border-right: 1px solid #CECECE;
+    border-left: 1px solid #CECECE;
+    border-bottom: unset;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tbody tr td:first-of-type {
+    border-left: unset;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tbody tr td:last-of-type {
+    border-right: unset;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tr td div {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    height: 33px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tbody tr .highlighted-data {
+    color: #000093;
+    text-decoration: underline;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead .items-col {
+    min-width: 125px;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead .total-col {
+    min-width: 113px;
+}
+
+.specific-order-details-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.details-wrapper-col-1 {
+    min-width: 722px;
+    width: 63.05%;
+    flex-shrink: 0;
+}
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper {
+    padding: 25px 20px 35px 20px;
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    margin-bottom: 22px;
+}
+
+
+/* --------------------------------------------------------------------- */
+
+/* Comment Section Styles */
+
+.timeline-body {
+    display: flex;
+    flex-direction: column;    
+}
+
+.comments-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+    margin-bottom: 0px;
+}
+
+ul.timeline > p {
+    margin-bottom: 18px;
+    padding-left: 10px;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .6;
+}
+
+ul.timeline:before {
+    content: ' ';
+    background: #d9d9d9;
+    display: inline-block;
+    position: absolute;
+    left: 21px;
+    width: 1px;
+    height: 100%;
+}
+
+ul.timeline > li {
+    margin-bottom: 58px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+ul.timeline > li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+ul.timeline > li .comment-time {
+    align-self: flex-start;
+    opacity: .6;
+    width: 60px;
+}
+
+ul.timeline > li:before {
+    content: ' ';
+    background: #d9d9d9;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    left: 14px;
+    width: 15px;
+    height: 15px;
+}
+
+ul.timeline:not(:first-of-type) > p {
+    margin-top: 56px;
+}
+
+ul.timeline:last-of-type > li:last-of-type {
+    margin-bottom: 0px;
+}
+
+
+
+
+ul.comment-section {
+    list-style-type: none;
+    position: relative;
+    margin-bottom: 0px;
+    margin-top: 23px;
+}
+
+ul.comment-section:before {
+    content: ' ';
+    background: #d9d9d9;
+    display: inline-block;
+    position: absolute;
+    left: 21px;
+    top: -31px;
+    width: 1px;
+    height: calc(100% + 31px);
+}
+
+ul.comment-section > li {
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+ul.comment-section > li:before {
+    content: 'JS';
+    background: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 50%;
+    left: 4px;
+    width: 35px;
+    height: 35px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+ul.comment-section > li .comment-area {
+    width: 100%;
+    height: 97px;
+}
+
+ul.comment-section > li .comment-area > textarea {
+    width: 100%;
+    height: 97px;
+    resize: none;
+    padding: 18px 15px;
+    border: 1px solid #515254;
+    border-radius: 8px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+textarea::placeholder {
+    color: #000;
+}
+
+ul.comment-section > li .post-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 13px;
+    margin-bottom: 38px;
+    
+    color: #000;
+    text-align: right;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+ul.comment-section > li .post-area > button {
+    width: 150px;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background-color: #000093;
+    text-align: center;
+    font-family: Gotham Medium;
+    letter-spacing: 2.4px;
+    color: #FFF;
+}
+
+
+/* --------------------------------------------------------------------- */
+
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper .timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper .timeline-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.details-wrapper-col-1 .specific-customer-timeline-wrapper .timeline-header > div {
+    display: flex;
+    align-items: center;
+    gap: 7px!important;
+}
+
+.comments-checkbox-container > input {
+    margin-top: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px!important;
+    box-shadow: none;
+}
+
+.comments-checkbox-container > input:checked[type=checkbox] {
+    background-color: #000093;
+    box-shadow: none;
+    border-color: transparent;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23FFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.comments-checkbox-label {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.72px;
+}
+
+
+.details-wrapper-col-2 {
+    min-width: 403px;
+    width: 35.3%;
+    flex-shrink: 0;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 12px 15px 20px 15px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin-bottom: 20px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > div > span,
+.details-wrapper-col-2 .order-product-other-details-wrapper .salon-status > div > span,
+.order-product-other-details-wrapper .order-contact-info > div:first-of-type > span,
+.order-product-other-details-wrapper .order-shipping-address > div > span,
+.details-wrapper-col-2 .hair-stylist-wrapper > div:first-of-type > span,
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-header > div:first-of-type > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > div > svg,
+.details-wrapper-col-2 .order-product-other-details-wrapper .salon-status > div > svg,
+.order-product-other-details-wrapper .order-contact-info > div:first-of-type > svg,
+.order-product-other-details-wrapper .order-shipping-address > div > svg,
+.details-wrapper-col-2 .hair-stylist-wrapper > div:first-of-type > svg {
+    width: 15px;
+    height: 15px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > span,
+.details-wrapper-col-2 .order-product-other-details-wrapper .salon-status > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
+}
+
+.details-wrapper-col-2 .order-product-other-details-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 18px 15px 33px 15px;
+    margin-bottom: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.details-wrapper-col-2 .order-product-other-details-wrapper .salon-status {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.details-wrapper-col-2 .order-product-other-details-wrapper .salon-status > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-other-details-wrapper .order-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-product-other-details-wrapper .order-contact-info > div:first-of-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div > span {
+    color: #000093;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-product-other-details-wrapper .order-shipping-address {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.order-product-other-details-wrapper .order-shipping-address > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-other-details-wrapper .order-shipping-address > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .hair-stylist-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 12px 15px 22px 15px;
+    margin-bottom: 20px;
+}
+
+.details-wrapper-col-2 .hair-stylist-wrapper > div:first-of-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details-wrapper-col-2 .hair-stylist-wrapper .hair-stylist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 16px 15px 22px 15px;
+    margin-bottom: 20px;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-header {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-header > div:first-of-type,
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-header > div:last-of-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-header > div:first-of-type > span:last-of-type {
+    color: #000093;
+    text-align: right;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-header > div:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-header > div:last-of-type > span:last-of-type {
+    font-family: Gotham Book;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-details {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-details .inventory-data {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-details .inventory-data > div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: calc(100% - 50% - 20px);
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.details-wrapper-col-2 .specific-salon-inventory-wrapper .inventory-details .inventory-data > div > span:last-of-type {
+    font-family: Gotham Book;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+@media (min-width: 1441px) {
+    .specific-order-details-wrapper {
+        justify-content: space-between;
+    }
+}
+
+
+@media (max-width: 1439px) {
+    .specific-order-details-wrapper {
+        overflow-x: auto;
+    }
+}

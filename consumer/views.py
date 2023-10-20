@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
 
 
 def consumer_homme(request):
@@ -12,6 +11,13 @@ def consumer_homme(request):
 
 def salon(request):
     context = {}
-    context['active_page'] = 'salon'
+    context['active_page'] = 'salons'
     context['sidebar'] = 'consumer'
     return render(request, 'consumer/salon.html', context)
+
+
+def specific_salon(request):
+    context = {}
+    context['active_page'] = 'salons'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/specific-salon.html', context)

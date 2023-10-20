@@ -10,6 +10,7 @@
     {% block links %}
 
     <link rel="stylesheet" href="{% static 'Assets/consumer/css/salon.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/consumer/css/salon_create_modal.css' %}" />
     
     {% endblock %}
 
@@ -49,7 +50,7 @@
         <div class="content">
             <div class="order-wrapper">
                 <span>SALONS</span>
-                <button type="button">ADD NEW SALON</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#salonCreate">ADD NEW SALON</button>
             </div>
             <div class="order-details-wrapper">
                 <div class="order-details-filters">
@@ -145,9 +146,18 @@
                                     </svg>
                                 </div>
                             </th>
+                            <th>
+                                <div>
+                                    <span>Stock</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                                        <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                                        <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                            </th>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -190,11 +200,16 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Registered</span>
+                                        <span>Approved</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="highlighted-data">
+                                        <span>Add Initial Stock</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -240,8 +255,13 @@
                                         <span>Pending</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -287,8 +307,13 @@
                                         <span>Active</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -334,8 +359,13 @@
                                         <span>Referred</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -381,8 +411,13 @@
                                         <span>Rejected</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -425,11 +460,16 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Registered</span>
+                                        <span>Approved</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="highlighted-data">
+                                        <span>Add Initial Stock</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -475,8 +515,13 @@
                                         <span>Pending</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -522,8 +567,13 @@
                                         <span>Active</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -569,8 +619,13 @@
                                         <span>Referred</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -616,8 +671,13 @@
                                         <span>Rejected</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -660,11 +720,16 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Registered</span>
+                                        <span>Approved</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="highlighted-data">
+                                        <span>Add Initial Stock</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -710,8 +775,13 @@
                                         <span>Pending</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -757,8 +827,13 @@
                                         <span>Active</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -804,8 +879,13 @@
                                         <span>Referred</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -851,8 +931,13 @@
                                         <span>Rejected</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -895,11 +980,16 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Registered</span>
+                                        <span>Approved</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="highlighted-data">
+                                        <span>Add Initial Stock</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -945,8 +1035,13 @@
                                         <span>Pending</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -992,8 +1087,13 @@
                                         <span>Active</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1039,8 +1139,13 @@
                                         <span>Referred</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1086,8 +1191,13 @@
                                         <span>Rejected</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1130,11 +1240,16 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Registered</span>
+                                        <span>Approved</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="highlighted-data">
+                                        <span>Add Initial Stock</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1180,8 +1295,13 @@
                                         <span>Pending</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1227,8 +1347,13 @@
                                         <span>Active</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1274,8 +1399,13 @@
                                         <span>Referred</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1321,8 +1451,13 @@
                                         <span>Rejected</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1365,11 +1500,16 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Registered</span>
+                                        <span>Approved</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="highlighted-data">
+                                        <span>Add Initial Stock</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1415,8 +1555,13 @@
                                         <span>Pending</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1462,8 +1607,13 @@
                                         <span>Active</span>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr onclick="location.pathname = '/consumer/specific-salon/'">
                                 <td onclick="event.stopPropagation();">
                                     <div class="table-checkbox">
                                         <input type="checkbox" />
@@ -1507,6 +1657,11 @@
                                 <td>
                                     <div>
                                         <span>Referred</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>---</span>
                                     </div>
                                 </td>
                             </tr>
@@ -1516,6 +1671,8 @@
             </div>
         </div>
     </div>
+
+    {% include '../modals/salon-create-modal.html' %}
 
     {% endblock %}
 </body>
