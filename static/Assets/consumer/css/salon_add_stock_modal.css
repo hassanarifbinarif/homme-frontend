@@ -1,0 +1,157 @@
+#salonAddStock .modal-dialog {
+    max-width: unset;
+    width: 1023px;
+}
+
+#salonAddStock .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 50px;
+    border-top-right-radius: 8px!important;
+    border-top-left-radius: 8px!important;
+}
+
+#salonAddStock .modal-footer {
+    border-radius: 0px!important;
+}
+
+#salonAddStock .modal-content {
+    border-radius: 8px!important;
+}
+
+#salonAddStock .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#salonAddStock .modal-body {
+    padding: 0px!important;
+}
+
+#salonAddStock input::placeholder {
+    color: #C8C8C8;
+}
+
+#salonAddStock .modal-body table {
+    width: 100%;
+}
+
+#salonAddStock .modal-body table thead {
+    background-color: #EEE;
+}
+
+#salonAddStock .modal-body table thead tr th div span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#salonAddStock .modal-body table thead th {
+    border-top: 1px solid #CECECE;
+    border-right: 1px solid #CECECE;
+    border-left: 1px solid #CECECE;
+    border-bottom: unset;
+    background: #EEE;
+}
+
+#salonAddStock .modal-body table thead th > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 5px;
+    height: 23px;
+}
+
+#salonAddStock .modal-body table tbody tr td {
+    border-top: 1px solid #CECECE;
+    border-right: 1px solid #CECECE;
+    border-left: 1px solid #CECECE;
+    border-bottom: unset;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+#salonAddStock .modal-body table tbody tr td > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 5px;
+    height: 23px;
+}
+
+#salonAddStock .modal-body table tbody tr td .quantity-input {
+    padding: 0px;
+}
+
+#salonAddStock .modal-body table tbody tr td .quantity-input > input {
+    width: 100%;
+    height: 100%;
+    padding: 0px 5px;
+    border: unset;
+    outline: unset;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#salonAddStock .modal-footer {
+    padding: 17px 15px!important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #CECECE;
+}
+
+#salonAddStock .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 165px;
+    height: 36px;
+    margin: 0px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+#salonAddStock .modal-footer > button:first-of-type {
+    width: 245px;
+    color: #000093;
+    background-color: #FFF;
+    border: 1px solid #000093;
+}

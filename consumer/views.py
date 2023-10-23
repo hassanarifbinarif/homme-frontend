@@ -21,3 +21,10 @@ def specific_salon(request):
     context['active_page'] = 'salons'
     context['sidebar'] = 'consumer'
     return render(request, 'consumer/specific-salon.html', context)
+
+
+def consumer_marketing(request):
+    context = {}
+    context['marketing'] = 'marketing'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/consumer-marketing.html', context)

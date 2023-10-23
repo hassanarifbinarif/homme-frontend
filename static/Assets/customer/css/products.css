@@ -107,6 +107,7 @@
 .header .nav-profile-image > img {
     width: 39px;
     height: 39px;
+    border-radius: 8px;
 }
 
 
