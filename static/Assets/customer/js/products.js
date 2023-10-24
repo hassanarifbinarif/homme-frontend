@@ -63,6 +63,7 @@ async function openProductCreateModal(modalID) {
     let responseProductType = await requestAPI(`${apiURL}/admin/product-types?perPage=1000`, null, headers, 'GET');
     responseProductCategory.json().then(function(res) {
         let productCategories = [...res.data];
+        productCategoryDropdown.innerHTML = null;
         productCategories.forEach((prodCat) => {
             productCategoryDropdown.innerHTML += `<div class="radio-btn">
                                                         <input onchange="selectProductCategory(event);" id="product-category-${prodCat.id}" type="radio" value="${prodCat.name}" name="product_category_radio" />
@@ -72,6 +73,7 @@ async function openProductCreateModal(modalID) {
     })
     responseProductType.json().then(function(res) {
         let productTypes = [...res.data];
+        productTypeDropdown.innerHTML = null;
         productTypes.forEach((prodType) => {
             productTypeDropdown.innerHTML += `<div class="radio-btn">
                                                     <input onchange="selectProductType(event);" id="product-type-${prodType.id}" type="radio" value="${prodType.name}" name="product_type_radio" />
