@@ -41,8 +41,10 @@
                 </div>
                 <a href="javascript:void(0);">
                     <div class="nav-profile-image">
-                        <span>Homme Superadmin</span>
-                        <img src="{% static 'Assets/customer/images/avatar.png' %}" alt="Profile Image" />
+                        <span>{{admin_name}}</span>
+                        <img src="{{admin_image}}" alt="Profile Image" />
+                        <!-- <span>Homme Superadmin</span>
+                        <img src="{% static 'Assets/customer/images/avatar.png' %}" alt="Profile Image" /> -->
                     </div>
                 </a>
             </div>
@@ -53,14 +55,14 @@
                     <svg class="cursor-pointer" onclick="location.pathname = '/products/'" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                         <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span>FACE CREAM</span>
+                    <span>{{product.title}}</span>
                 </div>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                         <path d="M6.78183 1.09725C6.23411 1.57641 5.55313 1.86599 4.83583 1.92477C4.02508 1.991 3.26385 2.3517 2.68875 2.94215C2.11365 3.53261 1.76233 4.31416 1.69783 5.14656C1.64058 5.88302 1.35853 6.58217 0.891828 7.14452C0.364097 7.77995 0.0742188 8.58769 0.0742188 9.42277C0.0742188 10.2578 0.364097 11.0656 0.891828 11.701C1.35853 12.2634 1.64058 12.9625 1.69783 13.699C1.76233 14.5314 2.11365 15.3129 2.68875 15.9034C3.26385 16.4938 4.02508 16.8545 4.83583 16.9208C5.55313 16.9795 6.23411 17.2691 6.78183 17.7483C7.40074 18.2901 8.18747 18.5877 9.00083 18.5877C9.81419 18.5877 10.6009 18.2901 11.2198 17.7483C11.7675 17.2691 12.4485 16.9795 13.1658 16.9208C13.9766 16.8545 14.7378 16.4938 15.3129 15.9034C15.888 15.3129 16.2393 14.5314 16.3038 13.699C16.3611 12.9625 16.6431 12.2634 17.1098 11.701C17.6376 11.0656 17.9274 10.2578 17.9274 9.42277C17.9274 8.58769 17.6376 7.77995 17.1098 7.14452C16.6431 6.58217 16.3611 5.88302 16.3038 5.14656C16.2393 4.31416 15.888 3.53261 15.3129 2.94215C14.7378 2.3517 13.9766 1.991 13.1658 1.92477C12.4485 1.86599 11.7675 1.57641 11.2198 1.09725C10.6009 0.55543 9.81419 0.257812 9.00083 0.257812C8.18747 0.257812 7.40074 0.55543 6.78183 1.09725Z" fill="#000093"/>
                         <path d="M6 9.42059L8 11.474L12 7.36719" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span>Active</span>
+                    <span>{% if product.is_active %}ACTIVE{% else %}DRAFT{% endif %}</span>
                 </div>
             </div>
             <div class="specific-order-details-wrapper">
@@ -73,16 +75,16 @@
                                     <path d="M13.6465 4.36027L16.5931 7.30694M14.8965 3.11027C15.2872 2.71952 15.8172 2.5 16.3698 2.5C16.9224 2.5 17.4524 2.71952 17.8431 3.11027C18.2339 3.50103 18.4534 4.031 18.4534 4.58361C18.4534 5.13621 18.2339 5.66619 17.8431 6.05694L6.36979 17.5303H3.45312V14.5536L14.8965 3.11027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <input type="text" readonly name="title" placeholder="Face Serum" />
+                            <input type="text" readonly value="{{product.title}}" name="title" placeholder="Face Serum" />
                         </div>
                         <div>
                             <span>Short Description</span>
-                            <input type="text" readonly name="short_description" placeholder="Lorem ipsum dolor sit amet consectetur....." />
+                            <input type="text" readonly value="{{product.short_description}}" name="short_description" placeholder="Lorem ipsum dolor sit amet consectetur....." />
                         </div>
                         <div class="group-inputs">
                             <div>
                                 <span>Price</span>
-                                <input type="number" readonly name="price" placeholder="$25" />
+                                <input type="number" value="{{product.price}}" readonly name="price" placeholder="$25" />
                             </div>
                             <div>
                                 <span>Size</span>
@@ -106,7 +108,7 @@
                         </div>                        
                         <div>
                             <span>Description</span>
-                            <textarea name="description" readonly placeholder="Lorem ipsum dolor sit amet consectetur. Lobortis vitae id non sit vestibulum volutpat sapien et. Nisl amet enim tortor diam tortor. Congue convallis pellentesque in pretium egestas sed nunc porta. Cras leo nibh nulla ipsum nec. Dolor tortor varius quisque vel risus non pulvinar mi. A lectus sit rhoncus venenatis sem in eu. Semper rhoncus amet nibh pulvinar sit. Sit donec purus pretium bibendum. Egestas posuere ullamcorper viverra varius sed. Neque lobortis eu feugiat ullamcorper et ut non tristique. Placerat egestas arcu aenean purus nisl ut quisque cum ultrices." id="" cols="30" rows="10"></textarea>
+                            <textarea name="description" value="" readonly placeholder="Lorem ipsum dolor sit amet consectetur. Lobortis vitae id non sit vestibulum volutpat sapien et. Nisl amet enim tortor diam tortor. Congue convallis pellentesque in pretium egestas sed nunc porta. Cras leo nibh nulla ipsum nec. Dolor tortor varius quisque vel risus non pulvinar mi. A lectus sit rhoncus venenatis sem in eu. Semper rhoncus amet nibh pulvinar sit. Sit donec purus pretium bibendum. Egestas posuere ullamcorper viverra varius sed. Neque lobortis eu feugiat ullamcorper et ut non tristique. Placerat egestas arcu aenean purus nisl ut quisque cum ultrices." id="" cols="30" rows="10">{{product.description}}</textarea>
                         </div>
                         <div class="save-cancel-btn hide" id="description-update-btn">
                             <button type="button" onclick="toggleDescriptionInputs();">CANCEL</button>
@@ -119,7 +121,7 @@
                             <div>
                                 <label class="image-wrapper" for="buy-page">
                                     <input type="file" accept="image/jpeg, image/jpg, image/png" name="buy_page" id="buy-page" oninput="previewImage(event);" />
-                                    <img class="product-image" src="{% static 'Assets/customer/images/buy_page_img.svg' %}" alt="product image" />
+                                    <img class="product-image" src="{{product.images.0.image}}" alt="product image" />
                                 </label>
                                 <div class="edit-btn">
                                     <div>
@@ -284,7 +286,7 @@
                                     <div class="input-div">
                                         <span>Length</span>
                                         <div>
-                                            <input type="number" readonly name="length" placeholder="3" id="" />
+                                            <input type="number" readonly value="{{product.length}}" name="length" placeholder="3" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -292,7 +294,7 @@
                                     <div class="input-div">
                                         <span>Width</span>
                                         <div>
-                                            <input type="number" readonly name="width" placeholder="3" id="" />
+                                            <input type="number" readonly value="{{product.width}}" name="width" placeholder="3" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -300,7 +302,7 @@
                                     <div class="input-div">
                                         <span>Height</span>
                                         <div>
-                                            <input type="number" readonly name="height" placeholder="3" id="" />
+                                            <input type="number" readonly value="{{product.height}}" name="height" placeholder="3" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -311,7 +313,7 @@
                                 <div class="input-div">
                                     <span>Weight</span>
                                     <div>
-                                        <input type="number" readonly name="lead_time" placeholder="349" id="" />
+                                        <input type="number" readonly value="{{product.weight}}" name="lead_time" placeholder="349" id="" />
                                         <div>oz</div>
                                     </div>
                                 </div>
@@ -333,7 +335,7 @@
                         </div>
                         <div>
                             <button class="filter-btn" id="criteria" type="button">
-                                <span id="selected-criteria">Active</span>
+                                <span id="selected-criteria">{% if product.is_active %}Active{% else %}Inactive{% endif %}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
                                     <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
                                 </svg>

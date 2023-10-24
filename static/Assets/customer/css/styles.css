@@ -94,6 +94,14 @@ button {
     filter: opacity(40%);
 }
 
+.no-record-row {
+    text-align: center;
+    font-size: 1rem!important;
+    color: black!important;
+    font-weight: 700!important;
+    font-family: Gotham Medium;
+}
+
 .opacity-point-3-5 {
     opacity: .35;
 }

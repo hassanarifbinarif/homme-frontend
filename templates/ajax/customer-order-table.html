@@ -1,0 +1,178 @@
+{% load custom_tags %}
+
+<table class="order-details-table hide" id="order-table">
+    <thead>
+        <th>
+            <div class="table-checkbox">
+                <input type="checkbox" />
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Order</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Date</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Customer</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Channel</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Net Sales</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Payment</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Purchase Type</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Status</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Items</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Delivery Method</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+    </thead>
+    <tbody>
+        {% for obj in orders.data %}
+        <tr onclick="location.pathname = '/specific-order/{{obj.id}}'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.id}}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span class="order-date">{{obj.created_at|custom_date:"j-M-Y"}}</span>
+                </div>
+            </td>
+            <td onclick="event.stopPropagation();location.pathname = '/specific-customer/'">
+                <div>
+                    <span>{% if obj.user_profile.first_name %}{{obj.user_profile.first_name|title}}{% endif %} {% if obj.user_profile.last_name %}{{obj.user_profile.last_name|title}}{% endif %}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    {% if obj.salon != None %}
+                    <span>{{obj.salon.salon_name}}</span>
+                    {% else %}
+                    <span>No Salon</span>
+                    {% endif %}
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>${{obj.total}}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>Paid</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    {% if obj.total_rewards_redeemed > 0 %}
+                    <span>Redemption</span>
+                    {% else %}
+                    <span>Purchased</span>
+                    {% endif %}
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>Complete</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.products|length}} items</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    {% if obj.pickup_type == 'ship' %}
+                    <span>Shipped</span>
+                    {% else %}
+                    <span>Pick-Up</span>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="11" class="no-record-row">No record available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

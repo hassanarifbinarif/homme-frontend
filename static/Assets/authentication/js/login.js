@@ -74,7 +74,7 @@ async function loginForm(event) {
                 "Content-Type": "application/json",
                 "X-CSRFToken": data.csrfmiddlewaretoken,
             };
-            let response = await requestAPI(`${apiURL}/auth/login`, JSON.stringify(data), headers, "POST");
+            let response = await requestAPI(`${apiURL}/auth/admin/login`, JSON.stringify(data), headers, "POST");
             console.log(response);
             response.json().then(async function (res) {
                 console.log(res);

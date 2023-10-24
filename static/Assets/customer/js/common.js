@@ -193,6 +193,24 @@ function getSearchURL(searchURL, baseURL) {
 }
 
 
+function setParams(params, key, value) {
+    let paramsList = params.split('&');
+    // Create an object to store the parameters and their values
+    let paramsObject = {};
+    paramsList.forEach(param => {    
+        let [key, value] = param.split('=');
+        paramsObject[key] = value;
+    });
+
+    // Update the value for the key parameter
+    paramsObject[key] = value;
+
+    // Reconstruct the updated query string
+    let updatedParams = Object.entries(paramsObject).map(([key, value]) => `${key}=${value}`).join('&');
+    return updatedParams;
+}
+
+
 const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i
 const phoneRegex = /^(\+593|593|09)([2-9]\d{7})$/;
 const locationRegex = /POINT \((-?\d+\.\d+) (-?\d+\.\d+)\)/;

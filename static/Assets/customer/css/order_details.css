@@ -109,6 +109,10 @@
     align-items: center;
 }
 
+.order-delivery-status-wrapper .order-product-wrapper:not(:first-of-type) {
+    padding-top: 15px;
+}
+
 .order-product-wrapper > div:first-of-type {
     display: flex;
     align-items: center;

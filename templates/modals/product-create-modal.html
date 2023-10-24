@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
             <form action="">
-                <!-- {% csrf_token %} -->
+                {% csrf_token %}
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Add New Product</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -35,7 +35,7 @@
                                     </svg>
                                 </button>
                                 <div class="filter-dropdown" id="product-category-dropdown">
-                                    <div class="radio-btn">
+                                    <!-- <div class="radio-btn">
                                         <input id="hair-care" type="radio" value="hair_care" name="product_category_radio" />
                                         <label for="hair-care" class="radio-label">Hair Care</label>
                                     </div>
@@ -62,7 +62,7 @@
                                     <div class="radio-btn">
                                         <input id="fragrances" type="radio" value="fragrances" name="product_category_radio" />
                                         <label for="fragrances" class="radio-label">Fragrances</label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <!-- <input type="text" placeholder="Product Category" name="product_category" id="title" /> -->
@@ -77,7 +77,7 @@
                                     </svg>
                                 </button>
                                 <div class="filter-dropdown" id="product-type-dropdown">
-                                    <div class="radio-btn">
+                                    <!-- <div class="radio-btn">
                                         <input id="shampoo" type="radio" value="shampoo" name="product_type_radio" />
                                         <label for="shampoo" class="radio-label">Shampoo</label>
                                     </div>
@@ -96,7 +96,7 @@
                                     <div class="radio-btn">
                                         <input id="face-mask" type="radio" value="face_mask" name="product_type_radio" />
                                         <label for="face-mask" class="radio-label">Face Mask</label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <!-- <input type="text" placeholder="Product Type" name="product_type" id="sku" /> -->
@@ -123,7 +123,7 @@
                         </div>
                         <div>
                             <span>Skin Type</span>
-                            <input type="text" placeholder="Skin type" name="skin_type" id="" />
+                            <input type="text" placeholder="Skin type" value="All" readonly name="skin_type" id="" />
                         </div>
                     </div>
                     <div class="general-input">
