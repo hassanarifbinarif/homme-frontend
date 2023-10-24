@@ -110,4 +110,16 @@ async function createProductForm(event) {
     let formData = new FormData(form);
     let data = formDataToObject(formData);
     console.log(data);
+    let prodBuyPageImg = form.querySelector('input[name="prod_buy_page_img"]');
+    let prodDetailImg1 = form.querySelector('input[name="prod_detail_img_1"]');
+    let prodDetailImg2 = form.querySelector('input[name="prod_detail_img_2"]');
+    let prodDetailImg3 = form.querySelector('input[name="prod_detail_img_3"]');
+    let prodDetailImg4 = form.querySelector('input[name="prod_detail_img_4"]');
+    formData.append('images', prodBuyPageImg.files[0]);
+    formData.append('images', prodDetailImg1.files[0]);
+    formData.append('images', prodDetailImg2.files[0]);
+    formData.append('images', prodDetailImg3.files[0]);
+    formData.append('images', prodDetailImg4.files[0]);
+    data = formDataToObject(formData);
+    console.log(data);
 }
