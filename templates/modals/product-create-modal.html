@@ -17,11 +17,11 @@
                     <div class="group-inputs">
                         <div>
                             <label for="title">Title</label>
-                            <input type="text" placeholder="Enter title" name="title" id="title" />
+                            <input type="text" required placeholder="Enter title" name="title" id="title" />
                         </div>
                         <div>
                             <label for="sku">SKU#</label>
-                            <input type="text" placeholder="HOMME064B" name="sku" id="sku" />
+                            <input type="text" required placeholder="HOMME064B" name="sku_num" id="sku" />
                         </div>
                     </div>
                     <div class="group-inputs">
@@ -104,35 +104,64 @@
                     </div>
                     <div class="general-input">
                         <label for="short_desc">Short Description</label>
-                        <input type="text" placeholder="Short Description" name="short_description" id="short_desc" />
+                        <input type="text" required placeholder="Short Description" name="short_description" id="short_desc" />
                     </div>
                     <div class="group-inputs">
                         <div>
                             <label for="price">Price</label>
-                            <input type="number" placeholder="Price" name="price" id="price" />
+                            <input type="number" required placeholder="Price" name="price" id="price" />
                         </div>
                         <div>
                             <label for="size">Size</label>
-                            <input type="number" placeholder="Size" name="size" id="size" />
+                            <input type="text" required placeholder="Size" name="size" id="size" />
                         </div>
                     </div>
                     <div class="group-inputs">
                         <div>
                             <label for="special_attributes">Special Attributes</label>
-                            <input type="text" placeholder="Special attributes" name="special_attributes" id="special_attributes" />
+                            <input type="text" required placeholder="Special attributes" name="special_attributes" id="special_attributes" />
                         </div>
                         <div>
                             <span>Skin Type</span>
-                            <input type="text" placeholder="Skin type" value="All" readonly name="skin_type" id="" />
+                            <div class="selection-input">
+                                <button class="filter-btn" id="skin-type" type="button">
+                                    <span id="selected-skin-type">Skin Type</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                        <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                    </svg>
+                                </button>
+                                <div class="filter-dropdown" id="skin-type-dropdown">
+                                    <!-- <div class="radio-btn">
+                                        <input id="shampoo" type="radio" value="shampoo" name="product_type_radio" />
+                                        <label for="shampoo" class="radio-label">Shampoo</label>
+                                    </div>
+                                    <div class="radio-btn">
+                                        <input id="face-serum" type="radio" value="face_serum" name="product_type_radio" />
+                                        <label for="face-serum" class="radio-label">Face Serum</label>
+                                    </div>
+                                    <div class="radio-btn">
+                                        <input id="hair-serum" type="radio" value="hair_serum" name="product_type_radio" />
+                                        <label for="hair-serum" class="radio-label">Haire Serum</label>
+                                    </div>
+                                    <div class="radio-btn">
+                                        <input id="hair-spray" type="radio" value="hair_spray" name="product_type_radio" />
+                                        <label for="hair-spray" class="radio-label">Hair Spray</label>
+                                    </div>
+                                    <div class="radio-btn">
+                                        <input id="face-mask" type="radio" value="face_mask" name="product_type_radio" />
+                                        <label for="face-mask" class="radio-label">Face Mask</label>
+                                    </div> -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="general-input">
                         <label for="tags">Tags</label>
-                        <input type="text" placeholder="Add tags" name="tags" id="" />
+                        <input type="text" required placeholder="Add tags" name="tags" id="" />
                     </div>
                     <div class="description-input">
                         <label for="description">Description</label>
-                        <textarea name="description" placeholder="Add description..." id="description" cols="30" rows="10"></textarea>
+                        <textarea name="description" required placeholder="Add description..." id="description" cols="30" rows="10"></textarea>
                     </div>
                     <div class="add-media-wrapper">
                         <span>Add Media</span>
@@ -145,7 +174,7 @@
                                             <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
                                         </svg>
                                         <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_buy_page_img" id="buy-page" oninput="previewImage(event);" />
+                                        <input type="file" required accept="image/jpeg, image/jpg, image/png" name="prod_buy_page_img" id="buy-page" oninput="previewImage(event);" />
                                         <img class="product-image hide" src="" alt="product image" />
                                     </label>
                                 </div>
@@ -158,7 +187,7 @@
                                             <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
                                         </svg>
                                         <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_1" id="prod-detail-img-1" oninput="previewImage(event);" />
+                                        <input type="file" required accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_1" id="prod-detail-img-1" oninput="previewImage(event);" />
                                         <img class="product-image hide" src="" alt="product image" />
                                     </label>                                    
                                 </div>
@@ -171,7 +200,7 @@
                                             <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
                                         </svg>
                                         <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_2" id="prod-detail-img-2" oninput="previewImage(event);" />
+                                        <input type="file" required accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_2" id="prod-detail-img-2" oninput="previewImage(event);" />
                                         <img class="product-image hide" src="" alt="product image" />
                                     </label>
                                 </div>
@@ -184,7 +213,7 @@
                                             <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
                                         </svg>
                                         <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_3" id="prod-detail-img-3" oninput="previewImage(event);" />
+                                        <input type="file" required accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_3" id="prod-detail-img-3" oninput="previewImage(event);" />
                                         <img class="product-image hide" src="" alt="product image" />
                                     </label>
                                 </div>
@@ -197,7 +226,7 @@
                                             <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
                                         </svg>
                                         <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_4" id="prod-detail-img-4" oninput="previewImage(event);" />
+                                        <input type="file" required accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_4" id="prod-detail-img-4" oninput="previewImage(event);" />
                                         <img class="product-image hide" src="" alt="product image" />
                                     </label>
                                 </div>
@@ -215,7 +244,7 @@
                                     <div class="input-div">
                                         <span>Length</span>
                                         <div>
-                                            <input type="number" name="length" placeholder="0" id="" />
+                                            <input type="number" required name="length" placeholder="0" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -223,7 +252,7 @@
                                     <div class="input-div">
                                         <span>Width</span>
                                         <div>
-                                            <input type="number" name="width" placeholder="0" id="" />
+                                            <input type="number" required name="width" placeholder="0" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -231,7 +260,7 @@
                                     <div class="input-div">
                                         <span>Height</span>
                                         <div>
-                                            <input type="number" name="height" placeholder="0" id="" />
+                                            <input type="number" required name="height" placeholder="0" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -242,7 +271,7 @@
                                 <div class="input-div">
                                     <span>Weight</span>
                                     <div>
-                                        <input type="number" name="lead_time" placeholder="0" id="" />
+                                        <input type="number" required name="weight" placeholder="0" id="" />
                                         <div>oz</div>
                                     </div>
                                 </div>
@@ -272,6 +301,10 @@
     let productTypeDropdown = document.getElementById('product-type-dropdown');
     let productTypeDropdownBtn = document.getElementById('product-type');
     let productTypeOptions = document.querySelectorAll('input[name="product_type_radio"]');
+    
+    let skinTypeDropdown = document.getElementById('skin-type-dropdown');
+    let skinTypeDropdownBtn = document.getElementById('skin-type');
+    let skinTypeOptions = document.querySelectorAll('input[name="skin_type_radio"]');
 
     // let addCategoryBtn = document.getElementById('add-category-btn');
     // let categoryList = document.getElementById('category-list');
@@ -296,6 +329,17 @@
         })
     })
     productTypeDropdownBtn.addEventListener('click', toggleDropdown);
+    
+    
+    skinTypeOptions.forEach((option) => {
+        option.addEventListener('change', function() {
+            if(this.checked) {
+                document.getElementById('selected-skin-type').innerText = this.nextElementSibling.innerText;
+                document.getElementById('selected-skin-type').style.color = '#000';
+            }
+        })
+    })
+    skinTypeDropdownBtn.addEventListener('click', toggleDropdown);
 
     function toggleDropdown(event) {
         let elementBtn = event.target;
@@ -317,6 +361,9 @@
         }
         else if((!productTypeDropdownBtn.contains(event.target)) && productTypeDropdown.style.display == 'flex') {
             productTypeDropdown.style.display = 'none';
+        }
+        else if((!skinTypeDropdownBtn.contains(event.target)) && skinTypeDropdown.style.display == 'flex') {
+            skinTypeDropdown.style.display = 'none';
         }
         // else if(categoryList.contains(event.target)) {
         //     categoryList.classList.add('hide');

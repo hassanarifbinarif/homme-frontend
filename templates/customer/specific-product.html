@@ -88,13 +88,13 @@
                             </div>
                             <div>
                                 <span>Size</span>
-                                <input type="number" readonly name="size" placeholder="1 fl.oz / 30 ml" />
+                                <input type="text" value="{{product.size}}" readonly name="size" placeholder="1 fl.oz / 30 ml" />
                             </div>
                         </div>
                         <div class="group-inputs">
                             <div>
                                 <span>Special Attributes</span>
-                                <input type="text" readonly name="special_attribute" placeholder="Vegan / Infusion: Spirulina" />
+                                <input type="text" value="{{product.special_attributes}}" readonly name="special_attribute" placeholder="Vegan / Infusion: Spirulina" />
                             </div>
                             <div>
                                 <span>Skin Type</span>
@@ -146,7 +146,11 @@
                                 <div>
                                     <label class="image-wrapper" for="product-detail-1">
                                         <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_1" id="product-detail-1" oninput="previewImage(event);" />
+                                        {% if product.images.1.image %}
+                                        <img class="product-image" src="{{product.images.1.image}}" alt="product image" />
+                                        {% else %}
                                         <img class="product-image" src="{% static 'Assets/customer/images/product_image_1.svg' %}" alt="product image" />
+                                        {% endif %}
                                     </label>
                                     <div class="edit-btn">
                                         <div>
@@ -170,7 +174,11 @@
                                 <div>
                                     <label class="image-wrapper" for="product-detail-2">
                                         <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_2" id="product-detail-2" oninput="previewImage(event);" />
+                                        {% if product.images.2.image %}
+                                        <img class="product-image" src="{{product.images.2.image}}" alt="product image" />
+                                        {% else %}
                                         <img class="product-image" src="{% static 'Assets/customer/images/product_image_2.svg' %}" alt="product image" />
+                                        {% endif %}
                                     </label>
                                     <div class="edit-btn">
                                         <div>
@@ -194,7 +202,11 @@
                                 <div>
                                     <label class="image-wrapper" for="product-detail-3">
                                         <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_3" id="product-detail-3" oninput="previewImage(event);" />
+                                        {% if product.images.3.image %}
+                                        <img class="product-image" src="{{product.images.3.image}}" alt="product image" />
+                                        {% else %}
                                         <img class="product-image" src="{% static 'Assets/customer/images/product_image_3.svg' %}" alt="product image" />
+                                        {% endif %}
                                     </label>
                                     <div class="edit-btn">
                                         <div>
@@ -218,7 +230,11 @@
                                 <div>
                                     <label class="image-wrapper" for="product-detail-4">
                                         <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_4" id="product-detail-4" oninput="previewImage(event);" />
+                                        {% if product.images.4.image %}
+                                        <img class="product-image" src="{{product.images.4.image}}" alt="product image" />
+                                        {% else %}
                                         <img class="product-image" src="{% static 'Assets/customer/images/product_image_4.svg' %}" alt="product image" />
+                                        {% endif %}
                                     </label>
                                     <div class="edit-btn">
                                         <div>
@@ -252,7 +268,7 @@
                         <div class="specific-product-inventory-details" id="specific-product-inventory-details">
                             <div>
                                 <span>SKU#</span>
-                                <input type="text" readonly name="sku" placeholder="HOMME07834FH1" id="" />
+                                <input type="text" value="{{product.sku_num}}" readonly name="sku_num" placeholder="HOMME07834FH1" id="" />
                             </div>
                             <div>
                                 <span>Current Stock</span>
