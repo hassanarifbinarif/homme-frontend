@@ -136,7 +136,6 @@ def get_product_list(request):
 
 @admin_signin_required
 def specific_product(request, api_response, pk):
-    print(pk)
     context = {}
     admin_access_token = request.COOKIES.get('admin_access')
     headers = {"Authorization": f'Bearer {admin_access_token}'}
@@ -147,6 +146,24 @@ def specific_product(request, api_response, pk):
     context['active_page'] = 'products'
     context['sidebar'] = 'customer'
     return render(request, 'customer/specific-product.html', context)
+
+
+@csrf_exempt
+def get_product_images(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        text_template = loader.get_template('ajax/product-image-gallery.html')
+        html = text_template.render({'product':request_data})
+        context['product_images'] = html
+        context['msg'] = 'Product images retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
 
 
 @admin_signin_required
