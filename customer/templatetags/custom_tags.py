@@ -16,6 +16,17 @@ def convert_to_date(value, arg):
     return formatted_date
 
 
+def multiply(value, arg):
+    if not value:
+        return ''
+    try:
+        total_value = value * arg
+    except Exception as e:
+        print(e)
+        return value
+    return total_value
+
+
 def get_page_numbers(value):
     if not value:
         return ''
@@ -45,5 +56,6 @@ def split_string(value, arg):
 
 
 register.filter("custom_date", convert_to_date)
+register.filter("multiply", multiply)
 register.filter("page_number", get_page_numbers)
 register.filter("split_string", split_string)

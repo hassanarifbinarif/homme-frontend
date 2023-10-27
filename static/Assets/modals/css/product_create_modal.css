@@ -375,6 +375,11 @@
     line-height: 10px;
 }
 
+#productCreate .modal-body .error-div {
+    text-align: left;
+    margin-top: 20px;
+}
+
 
 #productCreate .modal-footer {
     padding: 15px 20px 16px 20px!important;
@@ -450,6 +455,52 @@
     width: 100%;
     border-radius: 8px;
     border: 1px solid #E0E0DD;
+    z-index: 1;
+}
+
+.filter-dropdown .add-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #E7E7E7;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px 6px 0px 0px;
+    position: relative;
+}
+
+.filter-dropdown .add-btn button {
+    width: 100%;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+.filter-dropdown .add-btn > input {
+    margin-top: 5px;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    
+    width: 100%;
+    height: 30px;
+    border: 1px solid #515254;
+    border-radius: 8px;
+    padding: 0px 16px;
 }
 
 .radio-btn > label {
@@ -457,6 +508,9 @@
     padding: 16px 15px;
     cursor: pointer;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 /* 
 .radio-btn > label:first-of-type {

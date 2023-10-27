@@ -364,7 +364,7 @@ async function addCategoryForm(event) {
 async function delCategory(event, id) {
     event.preventDefault();
     event.stopPropagation();
-    console.log('in del', event);
+    // console.log('in del', event);
     try {
         let token = getCookie('admin_access');
         let headers = {

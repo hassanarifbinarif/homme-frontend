@@ -127,7 +127,7 @@ def get_product_list(request):
         text_template = loader.get_template('ajax/customer-product-table.html')
         html = text_template.render({'products':response})
         context['product_data'] = html
-        context['msg'] = 'Orders retrieved'
+        context['msg'] = 'Products retrieved'
         context['success'] = True
     except Exception as e:
         print(e)
@@ -184,3 +184,23 @@ def marketing(request, api_response):
     context['active_page'] = 'marketing'
     context['sidebar'] = 'customer'
     return render(request, 'customer/marketing.html', context)
+
+
+@csrf_exempt
+def get_marketing_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        text_template = loader.get_template('ajax/marketing-table.html')
+        html = text_template.render({'marketing':response})
+        context['marketing_data'] = html
+        context['msg'] = 'Marketing list retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)

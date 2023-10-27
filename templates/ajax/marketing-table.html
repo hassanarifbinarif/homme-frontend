@@ -1,0 +1,92 @@
+{% load custom_tags %}
+
+<table class="order-details-table hide" id="marketing-table">
+    <thead>
+        <th>
+            <div class="table-checkbox">
+                <input type="checkbox" />
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Title</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Date</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Targets</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Notification Text</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+    </thead>
+    <tbody>
+        {% for obj in marketing.data %}
+        <tr>
+            <td>
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.title}}</span>
+                </div>
+            </td>
+            <td>
+                <div class="date-column">
+                    <span>{{obj.created_at|custom_date:"j-M-Y"}}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    {% if obj.target_type == 'all_users' %}
+                    <span>ALL D2C users</span>
+                    {% elif obj.target_type == 'all_users_by_salon' %}
+                    <span>All D2C users registered for specific salons</span>
+                    {% elif obj.target_type == 'all_users_by_no_salon' %}
+                    <span>All D2C users without a Salon</span>
+                    {% elif obj.target_type == 'all_users_by_no_purchase' %}
+                    <span>All D2C users that have not purchased</span>
+                    {% elif obj.target_type == 'all_users_by_no_referral' %}
+                    <span>All D2C users that have no referrals</span>
+                    {% endif %}
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.text}}</span>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="no-record-row">No record available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
