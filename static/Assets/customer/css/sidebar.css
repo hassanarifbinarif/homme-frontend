@@ -14,6 +14,8 @@
 
 .sidebar-upper-content {
     margin-left: 20px;
+    margin-bottom: 35px;
+    overflow-y: auto;
 }
 
 .logo-container {
@@ -30,7 +32,13 @@
     padding-bottom: 22px;
 }
 
-.sidebar-link-container > button {
+.sidebar-link-container > .admin-side-selection {
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+}
+
+.sidebar-link-container .side-switch-btn {
     margin-top: 24px;
     margin-bottom: 30px;
     display: inline-flex;
@@ -45,7 +53,7 @@
     border-radius: 6px;
 }
 
-.sidebar-link-container > button > span {
+.sidebar-link-container .side-switch-btn > span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,7 +75,7 @@
     letter-spacing: 1.68px;
 }
 
-.sidebar-link-container > button > div {
+.sidebar-link-container .side-switch-btn > div {
     position: absolute;
     right: 0px;
     width: 38px;
@@ -77,6 +85,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.sidebar-link-container > .admin-side-selection > .admin-panel-dropdown {
+    position: absolute;
+    top: 60px;
+    display: flex;
+    flex-direction: column;
+    background: #FFF;
+    width: 196px;
+    border-radius: 6px;
+
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.68px;
+}
+
+.sidebar-link-container > .admin-side-selection > .admin-panel-dropdown > span {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-link-container > .admin-side-selection > .admin-panel-dropdown > span:hover {
+    background-color: #DDDDDD;
+    cursor: pointer;
+}
+
+.sidebar-link-container > .admin-side-selection > .admin-panel-dropdown > span:first-of-type {
+    border-radius: 8px 8px 0px 0px;
+}
+
+.sidebar-link-container > .admin-side-selection > .admin-panel-dropdown > span:last-of-type {
+    border-radius: 0px 0px 8px 8px;
+}
+
+.sidebar-link-container > .admin-side-selection > .admin-panel-dropdown > span:not(:first-of-type) {
+    border-top: 1px solid #CECECE;
 }
 
 .sidebar-link-container > div {

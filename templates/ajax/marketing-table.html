@@ -2,12 +2,12 @@
 
 <table class="order-details-table hide" id="marketing-table">
     <thead>
-        <th>
+        <th width="26px">
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th>
+        <th width="20%">
             <div>
                 <span>Title</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -16,7 +16,7 @@
                 </svg>
             </div>
         </th>
-        <th>
+        <th width="11%">
             <div>
                 <span>Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -25,7 +25,7 @@
                 </svg>
             </div>
         </th>
-        <th>
+        <th width="29.4%">
             <div>
                 <span>Targets</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -34,7 +34,7 @@
                 </svg>
             </div>
         </th>
-        <th>
+        <th width="37.14%">
             <div>
                 <span>Notification Text</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -54,7 +54,7 @@
             </td>
             <td>
                 <div>
-                    <span>{{obj.title}}</span>
+                    <span class="overflow-text" title="{{obj.title}}">{{obj.title}}</span>
                 </div>
             </td>
             <td>
@@ -65,21 +65,21 @@
             <td>
                 <div>
                     {% if obj.target_type == 'all_users' %}
-                    <span>ALL D2C users</span>
+                    <span class="overflow-text">All D2C Users</span>
                     {% elif obj.target_type == 'all_users_by_salon' %}
-                    <span>All D2C users registered for specific salons</span>
+                    <span class="overflow-text" title="Associated Users of Salon {% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}">Associated Users of Salon {% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}</span>
                     {% elif obj.target_type == 'all_users_by_no_salon' %}
-                    <span>All D2C users without a Salon</span>
+                    <span class="overflow-text">All D2C Users Without a Salon</span>
                     {% elif obj.target_type == 'all_users_by_no_purchase' %}
-                    <span>All D2C users that have not purchased</span>
+                    <span class="overflow-text">All D2C Users That Have Not Purchased</span>
                     {% elif obj.target_type == 'all_users_by_no_referral' %}
-                    <span>All D2C users that have no referrals</span>
+                    <span class="overflow-text">All D2C Users That Have No Referrals</span>
                     {% endif %}
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{{obj.text}}</span>
+                    <span class="overflow-text" title="{{obj.text}}">{{obj.text}}</span>
                 </div>
             </td>
         </tr>

@@ -387,3 +387,43 @@ function roundDecimalPlaces(number) {
     let roundedValue = Math.round(value * 100) / 100;
     return roundedValue.toFixed(2);
 }
+
+
+let sideSwitchBtn = document.getElementById('side-switch-btn');
+let sideSwitchDropdown = document.getElementById('side-switch-dropdown');
+
+
+function toggleSideSwitchDropdown() {
+    console.log('here');
+    // console.log(sideSwitchBtn)
+    if (sideSwitchDropdown.classList.contains('hide')) {
+        sideSwitchDropdown.classList.remove('hide');
+    }
+    else {
+        sideSwitchDropdown.classList.add('hide');
+    }
+}
+
+
+function closeSideSwitchDropdown(event) {
+    if((!sideSwitchBtn.contains(event.target)) && (!sideSwitchDropdown.classList.contains('hide'))) {
+        sideSwitchDropdown.classList.add('hide');
+    }
+}
+
+document.body.addEventListener('click', closeSideSwitchDropdown);
+
+
+function switchSide(event) {
+    // event.preventDefault();
+    let element = event.target;
+    let currentSide = document.getElementById('current-panel-side');
+    if (currentSide.innerText != element.innerText) {
+        if (element.innerText == 'CUSTOMER APP') {
+            location.pathname = '/';
+        }
+        else {
+            location.pathname = '/consumer/';
+        }
+    }
+}

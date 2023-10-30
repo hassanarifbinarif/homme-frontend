@@ -153,6 +153,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-family: Gotham Book;
+    font-size: .75rem;
+    line-height: 10px;
+    font-weight: 500;
+    color: #000;
 }
 
 #marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .search-header > div > svg {
@@ -253,6 +259,11 @@
     height: 14px;
 }
 
+#marketingNotification .modal-body .error-div {
+    text-align: left;
+    margin-top: 5px;
+}
+
 
 #marketingNotification .modal-footer {
     padding: 0px 12px 15px 12px!important;
@@ -315,6 +326,7 @@
 
 .filter-btn > span {
     color: #A9A9A9;
+    font-size: .875rem;
 }
 
 .filter-dropdown {
@@ -383,14 +395,14 @@
     justify-content: space-between;
     align-items: center;
 }
-/* 
-.radio-btn > label:first-of-type {
-    border-radius: 8px 0px 8px 0px;
+
+.radio-btn:first-of-type > label {
+    border-radius: 8px 8px 0px 0px;
 }
 
-.radio-btn > label:last-of-type {
-    border-radius: 0px 8px 8px 0px;
-} */
+.radio-btn:last-of-type > label {
+    border-radius: 0px 0px 8px 8px;
+}
 
 .radio-btn:not(:first-child) {
     border-top: 1px solid #E0E0DD;

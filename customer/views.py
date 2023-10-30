@@ -63,7 +63,6 @@ def get_order_list(request):
 @admin_signin_required
 def specific_order(request, api_response, pk):
     context = {}
-    print(pk)
     admin_access_token = request.COOKIES.get('admin_access')
     headers = {"Authorization": f'Bearer {admin_access_token}'}
     status, response = requestAPI('GET', f'{settings.API_URL}/admin/orders/{pk}', headers, {})
@@ -81,6 +80,7 @@ def referrals(request, api_response):
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'referrals'
+    context['sidebar'] = 'customer'
     return render(request, 'customer/referrals.html', context)
 
 

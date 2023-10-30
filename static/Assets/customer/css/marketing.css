@@ -253,6 +253,7 @@
     border: 1px solid #E0E0DD;
     background-color: #FFF;
     margin-bottom: 18px;
+    table-layout: fixed;
 }
 
 .order-details-table thead {
@@ -317,6 +318,12 @@
 
 .order-details-table tbody tr td .date-column {
     opacity: .6;
+}
+
+.order-details-table tbody tr td .overflow-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .order-details-table tbody tr td > div {

@@ -13,22 +13,28 @@
             </svg>
         </div>
         <div class="sidebar-link-container">
-            <button>
-                <span>CUSTOMER APP</span>
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
-                        <g clip-path="url(#clip0_771_3739)">
-                          <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
-                          <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_771_3739">
-                            <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
-                          </clipPath>
-                        </defs>
-                    </svg>
+            <div class="admin-side-selection">
+                <button class="side-switch-btn" id="side-switch-btn" onclick="toggleSideSwitchDropdown();">
+                    <span id="current-panel-side">CUSTOMER APP</span>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                            <g clip-path="url(#clip0_771_3739)">
+                              <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                              <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_771_3739">
+                                <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                              </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                </button>
+                <div class="admin-panel-dropdown hide" id="side-switch-dropdown">
+                    <span class="panel-list" onclick="switchSide(event);">CUSTOMER APP</span>
+                    <span class="panel-list" onclick="switchSide(event);">CONSUMER APP</span>
                 </div>
-            </button>
+            </div>
             <div>
                 <a class="sidebar-link {% if active_page == 'homme' %}active{% endif %}" href="{% url 'homme' %}">
                     <div class="link-content">
@@ -80,7 +86,7 @@
                         </svg>
                         <span>
                             Activity
-                            <svg class="{% if active_page == 'referrals' or active_page == 'activity' %}{% else %}hide{% endif %} ms-5" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
+                            <svg class="{% if active_page == 'referrals' or active_page == 'activity' %}{% else %}{% endif %} ms-5" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
                                 <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
                             </svg>
                         </span>
@@ -156,22 +162,28 @@
             </svg>
         </div>
         <div class="sidebar-link-container">
-            <button>
-                <span>CONSUMER APP</span>
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
-                        <g clip-path="url(#clip0_771_3739)">
-                          <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
-                          <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_771_3739">
-                            <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
-                          </clipPath>
-                        </defs>
-                    </svg>
+            <div class="admin-side-selection">
+                <button class="side-switch-btn" id="side-switch-btn" onclick="toggleSideSwitchDropdown();">
+                    <span id="current-panel-side">CONSUMER APP</span>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                            <g clip-path="url(#clip0_771_3739)">
+                              <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                              <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_771_3739">
+                                <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                              </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                </button>
+                <div class="admin-panel-dropdown hide" id="side-switch-dropdown">
+                    <span class="panel-list" onclick="switchSide(event);">CUSTOMER APP</span>
+                    <span class="panel-list" onclick="switchSide(event);">CONSUMER APP</span>
                 </div>
-            </button>
+            </div>
             <div>
                 <a class="sidebar-link {% if active_page == 'homme' %}active{% endif %}" href="{% url 'consumer_homme' %}">
                     <div class="link-content">
@@ -267,6 +279,22 @@
                             </defs>
                         </svg>
                         <span>Support</span>
+                    </div>
+                </a>
+                <a class="sidebar-link" href="javascript:void(0);" onclick="adminLogout();">
+                    <div class="link-content">
+                        <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="17" height="19" viewBox="0 0 17 19" fill="none">
+                            <g clip-path="url(#clip0_771_3771)">
+                              <path d="M1.255 17.0896C1.255 17.3566 1.43303 17.5346 1.70006 17.5346H15.9418C16.2089 17.5346 16.3869 17.3566 16.3869 17.0896L15.4968 6.23021C15.4968 5.96318 15.2297 5.78516 15.0517 5.78516H2.67918C2.41215 5.78516 2.23413 5.96318 2.23413 6.23021L1.255 17.0896Z" stroke="#CECECE"/>
+                              <path d="M5.17188 6.58925V5.43211C5.17188 5.43211 5.17187 1.51562 9.08836 1.51562C12.9158 1.51562 12.8268 5.52112 12.8268 5.52112V6.67826" stroke="#CECECE"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_771_3771">
+                                <rect width="16.2" height="17.6242" fill="white" transform="translate(0.721313 0.980469)"/>
+                              </clipPath>
+                            </defs>
+                        </svg>
+                        <span>Logout</span>
                     </div>
                 </a>
             </div>
