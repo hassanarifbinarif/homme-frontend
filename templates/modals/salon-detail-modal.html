@@ -294,10 +294,34 @@
                     </div>
                     <div class="status-container">
                         <div class="status-dropdown-wrapper">
-                            <span>Registered</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                                <path d="M14 0L7.39941 8.00071L0.798828 0H14Z" fill="#030706"/>
-                            </svg>
+                            <button class="filter-btn" id="status-type" type="button">
+                                <span id="selected-status-type">Registered</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                    <path d="M14 0L7.39941 8.00071L0.798828 0H14Z" fill="#030706"/>
+                                </svg>
+                            </button>
+                            <div class="filter-dropdown" id="status-type-dropdown">
+                                <div class="radio-btn">
+                                    <input onchange="selectStatusType(event);" id="status-type-registered" data-id="1" type="radio" value="Registered" name="status_type_radio" />
+                                    <label for="status-type-registered" class="radio-label">Registered</label>
+                                </div>
+                                <div class="radio-btn">
+                                    <input onchange="selectStatusType(event);" id="status-type-pending" data-id="2" type="radio" value="Pending" name="status_type_radio" />
+                                    <label for="status-type-pending" class="radio-label">Pending</label>
+                                </div>
+                                <div class="radio-btn">
+                                    <input onchange="selectStatusType(event);" id="status-type-rejected" data-id="3" type="radio" value="Rejected" name="status_type_radio" />
+                                    <label for="status-type-rejected" class="radio-label">Rejected</label>
+                                </div>
+                                <div class="radio-btn">
+                                    <input onchange="selectStatusType(event);" id="status-type-active" data-id="4" type="radio" value="Active" name="status_type_radio" />
+                                    <label for="status-type-active" class="radio-label">Active</label>
+                                </div>
+                                <!-- <div class="radio-btn">
+                                    <input id="shampoo" type="radio" value="shampoo" name="product_type_radio" />
+                                    <label for="shampoo" class="radio-label">Shampoo</label>
+                                </div> -->
+                            </div>
                         </div>
                         <input type="text" name="note" placeholder="Add Note...." />
                         <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">

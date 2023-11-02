@@ -34,13 +34,15 @@ async function getData(url=null) {
         "Authorization": `Bearer ${token}`
     }
     let data;
+    let tableBody = document.getElementById('product-table');
     if (url == null) {
         data = requiredDataURL;
     }
     else {
-        data = url
+        data = url;
+        document.getElementById('table-loader').classList.remove('hide');
+        tableBody.classList.add('hide');
     }
-    let tableBody = document.getElementById('product-table');
     try {
         let resp = await requestAPI(requiredDataURL, null, headers, 'GET');
         // console.log(resp);

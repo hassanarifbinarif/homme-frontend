@@ -94,9 +94,39 @@ def customers(request, api_response):
     return render(request, 'customer/customers.html', context)
 
 
-@admin_signin_required
-def specific_customer(request, api_response):
+@csrf_exempt
+def get_customer_list(request):
     context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        text_template = loader.get_template('ajax/customer-table.html')
+        html = text_template.render({'customers':response})
+        context['customer_data'] = html
+        context['total_customers'] = response['pagination']['count']
+        context['msg'] = 'Customers retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
+@admin_signin_required
+def specific_customer(request, api_response, pk):
+    context = {}
+    try:
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}/admin/user-profiles/{pk}', headers, {})
+        status_last_order, response_last_order = requestAPI('GET', f'{settings.API_URL}/admin/orders?page=1&perPage=1&ordering=-created_at&user={response["data"]["user"]["id"]}', headers, {})
+        context['last_order'] = response_last_order['data']
+        context['customer'] = response['data']
+    except Exception as e:
+        print(e)
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'customers'
