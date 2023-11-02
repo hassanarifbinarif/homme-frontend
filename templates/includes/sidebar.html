@@ -84,12 +84,10 @@
                             <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
                             <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
                         </svg>
-                        <span>
-                            Activity
-                            <svg class="{% if active_page == 'referrals' or active_page == 'activity' %}{% else %}{% endif %} ms-5" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
-                                <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
-                            </svg>
-                        </span>
+                        <span>Activity</span>
+                        <svg class="submenu-btn {% if active_page == 'referrals' or active_page == 'activity' %}{% else %}{% endif %}" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
+                            <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
+                        </svg>
                     </div>
                 </a>
                 <a class="sidebar-link {% if active_page == 'referrals' %}active{% endif %} {% if active_page == 'referrals' or active_page == 'activity' %}{% else %}hide{% endif %}" href="{% url 'referrals' %}">
@@ -125,6 +123,20 @@
                             </defs>
                         </svg>
                         <span>Marketing</span>
+                        <svg class="submenu-btn {% if active_page == 'marketing' or active_page == 'source' %}{% else %}{% endif %}" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
+                            <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
+                        </svg>
+                    </div>
+                </a>
+                <a class="sidebar-link {% if active_page == 'source' %}active{% endif %} {% if active_page == 'source' or active_page == 'marketing' %}{% else %}hide{% endif %}" href="{% url 'source' %}">
+                    <div class="link-content">
+                        <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                            <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
+                            <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
+                            <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
+                            <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
+                        </svg>
+                        <span>Source</span>
                     </div>
                 </a>
                 <a class="sidebar-link" href="javascript:void(0);" onclick="adminLogout();">

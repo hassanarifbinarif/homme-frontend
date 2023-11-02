@@ -186,7 +186,7 @@ async function getTypeField(event) {
             let formData = new FormData();
             formData.append('name', typeNameField.value);
             let data = formDataToObject(formData);
-            console.log(data);
+            // console.log(data);
             try {
                 let token = getCookie('admin_access');
                 let headers = {

@@ -16,6 +16,7 @@ let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=creat
 
 window.onload = () => {
     getData();
+    populateDropdowns();
 }
 
 
@@ -74,26 +75,30 @@ async function getData() {
     }
 }
 
-let productData = [];
 
-async function openCreateOrderModal(modalId) {
-    let modal = document.querySelector(`#${modalId}`);
-    let token = getCookie("admin_access");
-    let headers = {
-        "Authorization": `Bearer ${token}`,
-    };
-    // {{base_url}}admin/user-profiles?ordering=-created_at&search=&user__is_blocked=false&page=1&perPage=1000
-    // let response = await requestAPI(`${apiURL}/admin/user-profiles?user__is_blocked=false`, null, headers, 'GET');
-    let response = await requestAPI(`${apiURL}/admin/products?perPage=1000`, null, headers, 'GET');
-    console.log(response);
-    response.json().then(function(res) {
-        console.log(res);
-        productData = [...res.data];
-        let productChoiceContainer = document.querySelector("#product-select-choices");
-        console.log(productData);
-        productData.forEach((product) => {
-            productChoiceContainer.innerHTML += `<option value="product-${product.id}">${product.title}</option>`;
-        });
-    })
-    document.querySelector(`.${modalId}`).click();
+let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
+let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
+let orderStatsDropdown = document.getElementById('order-stats-dropdown');
+
+orderStatTimeBtn.addEventListener('click', function() {
+    if (orderStatsDropdown.classList.contains('hide')) {
+        orderStatsDropdown.classList.remove('hide');
+    }
+    else {
+        orderStatsDropdown.classList.add('hide');
+    }
+})
+
+function selectOrderStatTime(event) {
+    let element = event.target;
+    selectedOrderStatTime.innerText = element.innerText;
+    orderStatsDropdown.classList.add('hide');
+    orderStatTimeBtn.click();
+}
+
+
+function closeDropdowns(event) {
+    if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
+        orderStatsDropdown.classList.add('hide');
+    }
 }

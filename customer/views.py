@@ -204,3 +204,13 @@ def get_marketing_list(request):
     except Exception as e:
         print(e)
     return JsonResponse(context)
+
+
+@admin_signin_required
+def source(request, api_response):
+    context = {}
+    context['admin_name'] = api_response['fullname']
+    context['admin_image'] = api_response['user']['profile_picture']
+    context['active_page'] = 'source'
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/source.html', context)

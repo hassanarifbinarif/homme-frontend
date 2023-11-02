@@ -15,7 +15,6 @@
 .sidebar-upper-content {
     margin-left: 20px;
     margin-bottom: 35px;
-    overflow-y: auto;
 }
 
 .logo-container {
@@ -30,6 +29,8 @@
     align-items: center;
     gap: 5px;
     padding-bottom: 22px;
+    max-height: calc(100vh - 16.6%);
+    overflow-y: auto;
 }
 
 .sidebar-link-container > .admin-side-selection {
@@ -89,6 +90,7 @@
 
 .sidebar-link-container > .admin-side-selection > .admin-panel-dropdown {
     position: absolute;
+    z-index: 1;
     top: 60px;
     display: flex;
     flex-direction: column;
@@ -169,11 +171,19 @@
     display: flex;
     align-items: center;
     gap: 11px;
+    position: relative;
 }
 
 .link-content > svg {
     width: 20px;
     height: 20px;
+}
+
+.link-content .submenu-btn {
+    position: absolute;
+    right: 67px;
+    width: 7px;
+    height: 4px;
 }
 
 .sidebar-lower-content {

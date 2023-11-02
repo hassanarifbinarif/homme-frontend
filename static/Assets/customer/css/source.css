@@ -120,8 +120,8 @@
 .order-wrapper {
     background-color: #FFF;
     width: 100%;
-    height: 117px;
-    padding: 15px 20px 20px 20px;
+    height: 70px;
+    padding: 20px;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -145,24 +145,19 @@
     line-height: 20px;
 }
 
-.order-wrapper .order-wrapper-header > div {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.order-wrapper .order-wrapper-header > div > button {
+.order-wrapper .order-wrapper-header > button {
     display: flex;
     width: 150px;
     height: 30px;
+    padding: 0px;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    border: 1px solid transparent;
+    border: 1px solid #000093;
     border-radius: 7px;
-    background: #000093;
+    background: #FFF;
 
-    color: var(--white, #FFF);
+    color: #000093;
     leading-trim: both;
     text-edge: cap;
     font-family: Gotham Medium;
@@ -172,13 +167,6 @@
     line-height: normal;
     letter-spacing: 2.4px;
     text-transform: uppercase;
-}
-
-.order-wrapper .order-wrapper-header > div > button:first-of-type {
-    background: #FFF;
-    color: #000093;
-    border: 1px solid #000093;
-    padding: 0px;
 }
 
 .order-wrapper .customer-stats-overview {
@@ -222,13 +210,13 @@
     padding: 13px 20px;
 }
 
-.order-details-wrapper .order-details-filters > form {
+.order-details-wrapper .order-details-filters > div:first-of-type {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.order-details-wrapper .order-details-filters > form > input {
+.order-details-wrapper .order-details-filters > div:first-of-type > input {
     width: 681px;
     height: 30px;
     font-family: Gotham Book;
@@ -240,18 +228,18 @@
     padding-right: 10px;
 }
 
-.order-details-wrapper .order-details-filters > form > svg {
+.order-details-wrapper .order-details-filters > div:first-of-type > svg {
     position: absolute;
     left: 5px;
 }
 
-.order-details-wrapper .order-details-filters > div {
+.order-details-wrapper .order-details-filters > div:last-of-type {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.order-details-wrapper .order-details-filters > div button:last-of-type {
+.order-details-wrapper .order-details-filters > div:last-of-type button:last-of-type {
     width: 30px;
     height: 30px;
     border-radius: 4px;

@@ -10,8 +10,9 @@
     {% block links %}
 
     <link rel="stylesheet" href="{% static 'Assets/consumer/css/salon.css' %}" />
-    <link rel="stylesheet" href="{% static 'Assets/consumer/css/salon_create_modal.css' %}" />
-    <link rel="stylesheet" href="{% static 'Assets/consumer/css/salon_add_stock_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_create_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_add_stock_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_detail_modal.css' %}" />
     
     {% endblock %}
 
@@ -199,7 +200,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Approved</span>
                                     </div>
@@ -251,7 +252,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Pending</span>
                                     </div>
@@ -303,7 +304,7 @@
                                         <span>54</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Active</span>
                                     </div>
@@ -355,7 +356,7 @@
                                         <span>34</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Referred</span>
                                     </div>
@@ -407,7 +408,7 @@
                                         <span>23</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Rejected</span>
                                     </div>
@@ -459,7 +460,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Approved</span>
                                     </div>
@@ -511,7 +512,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Pending</span>
                                     </div>
@@ -563,7 +564,7 @@
                                         <span>54</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Active</span>
                                     </div>
@@ -615,7 +616,7 @@
                                         <span>34</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Referred</span>
                                     </div>
@@ -667,7 +668,7 @@
                                         <span>23</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Rejected</span>
                                     </div>
@@ -719,7 +720,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Approved</span>
                                     </div>
@@ -771,7 +772,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Pending</span>
                                     </div>
@@ -823,7 +824,7 @@
                                         <span>54</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Active</span>
                                     </div>
@@ -875,7 +876,7 @@
                                         <span>34</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Referred</span>
                                     </div>
@@ -927,7 +928,7 @@
                                         <span>23</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Rejected</span>
                                     </div>
@@ -979,7 +980,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Approved</span>
                                     </div>
@@ -1031,7 +1032,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Pending</span>
                                     </div>
@@ -1083,7 +1084,7 @@
                                         <span>54</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Active</span>
                                     </div>
@@ -1135,7 +1136,7 @@
                                         <span>34</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Referred</span>
                                     </div>
@@ -1187,7 +1188,7 @@
                                         <span>23</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Rejected</span>
                                     </div>
@@ -1239,7 +1240,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Approved</span>
                                     </div>
@@ -1291,7 +1292,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Pending</span>
                                     </div>
@@ -1343,7 +1344,7 @@
                                         <span>54</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Active</span>
                                     </div>
@@ -1395,7 +1396,7 @@
                                         <span>34</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Referred</span>
                                     </div>
@@ -1447,7 +1448,7 @@
                                         <span>23</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Rejected</span>
                                     </div>
@@ -1499,7 +1500,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Approved</span>
                                     </div>
@@ -1551,7 +1552,7 @@
                                         <span>0</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Pending</span>
                                     </div>
@@ -1603,7 +1604,7 @@
                                         <span>54</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Active</span>
                                     </div>
@@ -1655,7 +1656,7 @@
                                         <span>34</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
                                     <div>
                                         <span>Referred</span>
                                     </div>
@@ -1676,6 +1677,8 @@
     {% include '../modals/salon-create-modal.html' %}
     
     {% include '../modals/salon-add-stock-modal.html' %}
+
+    {% include '../modals/salon-detail-modal.html' %}
 
     {% endblock %}
 </body>

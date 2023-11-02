@@ -10,6 +10,7 @@
     {% block links %}
     
     <link rel="stylesheet" href="{% static 'Assets/customer/css/customers.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/customer_create_modal.css' %}" />
 
     {% endblock %}
 
@@ -52,7 +53,10 @@
             <div class="order-wrapper">
                 <div class="order-wrapper-header">
                     <span>CUSTOMERS</span>
-                    <button type="button">ADD CUSTOMER</button>
+                    <div>
+                        <button type="button">CREATE SOURCE</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#createCustomer">ADD CUSTOMER</button>
+                    </div>
                 </div>
                 <div class="customer-stats-overview">
                     <div>
@@ -68,12 +72,12 @@
             </div>
             <div class="order-details-wrapper">
                 <div class="order-details-filters">
-                    <div>
-                        <input type="text" name="" id="" />
+                    <form onsubmit="searchForm(event);">
+                        <input type="text" name="search" id="" />
                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                             <path opacity="0.5" d="M18.1953 17.8594L13.1953 12.8594M14.862 8.69271C14.862 9.45875 14.7111 10.2173 14.4179 10.925C14.1248 11.6328 13.6951 12.2758 13.1534 12.8175C12.6118 13.3592 11.9687 13.7889 11.261 14.082C10.5532 14.3752 9.79469 14.526 9.02865 14.526C8.2626 14.526 7.50406 14.3752 6.79633 14.082C6.08859 13.7889 5.44553 13.3592 4.90386 12.8175C4.36218 12.2758 3.9325 11.6328 3.63935 10.925C3.3462 10.2173 3.19531 9.45875 3.19531 8.69271C3.19531 7.14561 3.80989 5.66188 4.90386 4.56792C5.99782 3.47396 7.48155 2.85937 9.02865 2.85938C10.5757 2.85937 12.0595 3.47396 13.1534 4.56792C14.2474 5.66188 14.862 7.14561 14.862 8.69271Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
+                    </form>
                     <div>
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -133,6 +137,24 @@
                             </th>
                             <th>
                                 <div>
+                                    <span>Sales Channel</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                                        <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                                        <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <span>Source</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                                        <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                                        <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
                                     <span>Amount Spent</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                                         <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
@@ -175,39 +197,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>HOMME</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Street Team</span>
                                     </div>
                                 </td>
                                 <td>
@@ -239,12 +234,22 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (50)</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
@@ -276,7 +281,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (350)</span>
                                     </div>
                                 </td>
                                 <td>
@@ -286,39 +291,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>Referrals</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Chris Brown</span>
                                     </div>
                                 </td>
                                 <td>
@@ -360,39 +338,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>HOMME</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Street Team</span>
                                     </div>
                                 </td>
                                 <td>
@@ -424,12 +375,22 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (50)</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
@@ -461,7 +422,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (350)</span>
                                     </div>
                                 </td>
                                 <td>
@@ -471,39 +432,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>Referrals</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Chris Brown</span>
                                     </div>
                                 </td>
                                 <td>
@@ -545,39 +479,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>HOMME</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Street Team</span>
                                     </div>
                                 </td>
                                 <td>
@@ -609,12 +516,22 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (50)</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
@@ -646,7 +563,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (350)</span>
                                     </div>
                                 </td>
                                 <td>
@@ -656,39 +573,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>Referrals</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Chris Brown</span>
                                     </div>
                                 </td>
                                 <td>
@@ -730,39 +620,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>HOMME</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Street Team</span>
                                     </div>
                                 </td>
                                 <td>
@@ -794,12 +657,22 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (50)</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
@@ -831,7 +704,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (350)</span>
                                     </div>
                                 </td>
                                 <td>
@@ -841,39 +714,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>Referrals</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Chris Brown</span>
                                     </div>
                                 </td>
                                 <td>
@@ -915,39 +761,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>HOMME</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Street Team</span>
                                     </div>
                                 </td>
                                 <td>
@@ -979,12 +798,22 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (50)</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
@@ -1016,7 +845,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Bronze (no salon)</span>
+                                        <span>Bronze (350)</span>
                                     </div>
                                 </td>
                                 <td>
@@ -1026,39 +855,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <span>$50.00</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr onclick="location.pathname = '/specific-customer/'">
-                                <td onclick="event.stopPropagation();">
-                                    <div class="table-checkbox">
-                                        <input type="checkbox" />
+                                        <span>Referrals</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <span>Dianne Russell</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Portland, OR, 15623</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>(8)3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>Bronze (no salon)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>2</span>
+                                        <span>Chris Brown</span>
                                     </div>
                                 </td>
                                 <td>
@@ -1100,6 +902,110 @@
                                 </td>
                                 <td>
                                     <div>
+                                        <span>HOMME</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Street Team</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (50)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (350)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Referrals</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Chris Brown</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
                                         <span>$50.00</span>
                                     </div>
                                 </td>
@@ -1137,6 +1043,110 @@
                                 </td>
                                 <td>
                                     <div>
+                                        <span>HOMME</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Street Team</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (50)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (350)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Referrals</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Chris Brown</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
                                         <span>$50.00</span>
                                     </div>
                                 </td>
@@ -1174,6 +1184,110 @@
                                 </td>
                                 <td>
                                     <div>
+                                        <span>HOMME</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Street Team</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (50)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (350)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Referrals</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Chris Brown</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
                                         <span>$50.00</span>
                                     </div>
                                 </td>
@@ -1207,6 +1321,204 @@
                                 <td>
                                     <div>
                                         <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>HOMME</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Street Team</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (50)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (350)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Referrals</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Chris Brown</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (no salon)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>HOMME</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Street Team</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>$50.00</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr onclick="location.pathname = '/specific-customer/'">
+                                <td onclick="event.stopPropagation();">
+                                    <div class="table-checkbox">
+                                        <input type="checkbox" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Dianne Russell</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Portland, OR, 15623</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>(8)3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Bronze (50)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Salon</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>Redge NYC</span>
                                     </div>
                                 </td>
                                 <td>
@@ -1222,6 +1534,11 @@
         </div>
     </div>
 
+    {% include '../modals/customer-create-modal.html' %}
+
     {% endblock %}
 </body>
+{% block scripts %}
+<script src="{% static 'Assets/customer/js/customer.js' %}"></script>
+{% endblock %}
 </html>

@@ -394,8 +394,6 @@ let sideSwitchDropdown = document.getElementById('side-switch-dropdown');
 
 
 function toggleSideSwitchDropdown() {
-    console.log('here');
-    // console.log(sideSwitchBtn)
     if (sideSwitchDropdown.classList.contains('hide')) {
         sideSwitchDropdown.classList.remove('hide');
     }

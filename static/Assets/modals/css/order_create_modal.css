@@ -30,11 +30,17 @@
     padding: 20px!important;
 }
 
-#orderCreate input::placeholder {
-    color: #030706;
+#orderCreate input::placeholder,
+#orderCreate textarea::placeholder {
+    color: #A9A9A9;
 }
 
-#orderCreate .modal-body input[name="customer"] {
+#orderCreate .selection-div {
+    position: relative;
+}
+
+#orderCreate .modal-body input[name="customer"],
+#orderCreate .modal-body input[name="product"] {
     width: 100%;
     height: 40px;
     padding: 14px 18px;
@@ -459,6 +465,12 @@
 
 /* --------------------------------------------------------------- */
 
+
+.selection-input {
+    width: 100%;
+    position: relative;
+}
+
 .filter-btn {
     width: 100%;
     height: 40px;
@@ -485,17 +497,25 @@
 
 .filter-btn > span {
     color: #A9A9A9;
+    font-size: .875rem;
 }
 
 .filter-dropdown {
     display: none;
     flex-direction: column;
     position: absolute;
+    z-index: 1;
     top: 42px;
     background-color: #FFFFFF;
     width: 100%;
     border-radius: 8px;
     border: 1px solid #E0E0DD;
+}
+
+#customer-dropdown,
+#product-dropdown {
+    max-height: 216px;
+    overflow-y: auto;
 }
 
 .radio-btn > label {
@@ -523,4 +543,16 @@
 
 .filter-dropdown input {
     display: none;
+}
+
+
+#no-customer-text,
+#no-product-text {
+    font-family: Gotham Medium;
+    color: #000;
+    font-weight: 500;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

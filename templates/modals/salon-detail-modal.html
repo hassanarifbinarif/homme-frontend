@@ -1,0 +1,312 @@
+{% load static %}
+
+<div class="modal fade" id="salonDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="salonDetailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <form action="">
+                <!-- {% csrf_token %} -->
+                <div class="modal-header border-bottom-0 w-100 justify-content-between">
+                    <span>Redge NYC <span class="salon-current-status">(Registered)</span></span>
+                    <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
+                        <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="modal-body">
+                    <div class="general-info-wrapper">
+                        <div class="general-info-header">
+                            <span>General Information</span>
+                        </div>
+                        <div class="general-info-divs">
+                            <div class="name-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Name</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>Chris Sander</span>
+                                </div>
+                            </div>
+                            <div class="phone-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Phone Number</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>+1 212-577-4747</span>
+                                </div>
+                            </div>
+                            <div class="email-div">
+                                <div class="border-bottom">
+                                    <span class="opacity-point-6">Email Address</span>
+                                </div>
+                                <div>
+                                    <span>mathias@hommeproduct.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="general-info-wrapper">
+                        <div class="general-info-header">
+                            <span>Entity Information</span>
+                        </div>
+                        <div class="general-info-divs">
+                            <div class="name-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Full Legal Name</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>Chris Sander</span>
+                                </div>
+                            </div>
+                            <div class="phone-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Doing Business As (DBA)</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>REDGE Salon</span>
+                                </div>
+                            </div>
+                            <div class="tax-id-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Tax Payer ID</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>12-2176480</span>
+                                </div>
+                            </div>
+                            <div class="street-div">
+                                <div class="border-bottom">
+                                    <span class="opacity-point-6">Dunn & Bradstreet Number</span>
+                                </div>
+                                <div>
+                                    <span>35-1472659</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="general-info-wrapper">
+                        <div class="general-info-header">
+                            <span>Legal Address</span>
+                        </div>
+                        <div class="general-info-divs">
+                            <div class="address-1-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Address 1</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>775 Rolling Green Rd.</span>
+                                </div>
+                            </div>
+                            <div class="address-2-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Address 2</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>650 Main St.</span>
+                                </div>
+                            </div>
+                            <div class="city-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">City</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>New York</span>
+                                </div>
+                            </div>
+                            <div class="state-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">State</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>NY</span>
+                                </div>
+                            </div>
+                            <div class="zip-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">ZIP</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>10005</span>
+                                </div>
+                            </div>
+                            <div class="country-div">
+                                <div class="border-bottom">
+                                    <span class="opacity-point-6">Country</span>
+                                </div>
+                                <div>
+                                    <span>USA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="general-info-wrapper">
+                        <div class="general-info-header">
+                            <span>Salon Information</span>
+                        </div>
+                        <div class="salon-info-data">
+                            <div class="salon-image-wrapper border-right">
+                                <img src="{% static 'Assets/consumer/images/salon_img_2.png' %}" alt="salon image" />
+                                <div>
+                                    <span class="opacity-point-6">Salon</span>
+                                    <span class="opacity-point-6">Picture</span>
+                                </div>
+                            </div>
+                            <div class="website-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Website</span>
+                                </div>
+                                <div class="border-right">
+                                    <span class="site-links">www.redgenyc.com</span>
+                                </div>
+                            </div>
+                            <div class="salon-phone-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Phone</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>+1 212-577-4747</span>
+                                </div>
+                            </div>
+                            <div class="salon-map-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Map Link</span>
+                                </div>
+                                <div class="border-right">
+                                    <span class="site-links">www. maps.google.com/....</span>
+                                </div>
+                            </div>
+                            <div class="short-description-div">
+                                <div class="border-bottom">
+                                    <span class="opacity-point-6">Short Description</span>
+                                </div>
+                                <div>
+                                    <span>We are a team of higly skilled and professional....</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="general-info-wrapper">
+                        <div class="general-info-header">
+                            <span>Salon Address</span>
+                        </div>
+                        <div class="general-info-divs">
+                            <div class="address-1-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Address 1</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>775 Rolling Green Rd.</span>
+                                </div>
+                            </div>
+                            <div class="address-2-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Address 2</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>650 Main St.</span>
+                                </div>
+                            </div>
+                            <div class="city-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">City</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>New York</span>
+                                </div>
+                            </div>
+                            <div class="state-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">State</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>NY</span>
+                                </div>
+                            </div>
+                            <div class="zip-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">ZIP</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>10005</span>
+                                </div>
+                            </div>
+                            <div class="country-div">
+                                <div class="border-bottom">
+                                    <span class="opacity-point-6">Country</span>
+                                </div>
+                                <div>
+                                    <span>USA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="general-info-wrapper">
+                        <div class="general-info-header">
+                            <span>Payment Detail</span>
+                        </div>
+                        <div class="general-info-divs">
+                            <div class="name-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Name</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>Chris Sander</span>
+                                </div>
+                            </div>
+                            <div class="phone-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Account Type</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>ACH</span>
+                                </div>
+                            </div>
+                            <div class="tax-id-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Bank</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>Chase</span>
+                                </div>
+                            </div>
+                            <div class="routing-num-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Routing Number</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>1547321</span>
+                                </div>
+                            </div>
+                            <div class="account-num-div">
+                                <div class="border-bottom">
+                                    <span class="opacity-point-6">Account Number</span>
+                                </div>
+                                <div>
+                                    <span>4585 2548 1472 3549</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="footer-header">
+                        <span>Status</span>
+                    </div>
+                    <div class="status-container">
+                        <div class="status-dropdown-wrapper">
+                            <span>Registered</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                <path d="M14 0L7.39941 8.00071L0.798828 0H14Z" fill="#030706"/>
+                            </svg>
+                        </div>
+                        <input type="text" name="note" placeholder="Add Note...." />
+                        <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input type="hidden" class="salonDetail" data-bs-toggle="modal" data-bs-target="#salonDetail" />

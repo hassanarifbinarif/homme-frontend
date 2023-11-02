@@ -57,8 +57,8 @@
                     <div class="order-header">
                         <span>ORDERS</span>
                         <div class="order-filters">
-                            <button>
-                                <span>ALL CUSTOMERS</span>
+                            <button id="select-order-channel-btn" style="width: 200px;">
+                                <span id="selected-order-channel-opt">ALL SALES CHANNEL</span>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                         <g clip-path="url(#clip0_771_3739)">
@@ -71,6 +71,11 @@
                                           </clipPath>
                                         </defs>
                                     </svg>
+                                </div>
+                                <div class="order-channel-dropdown hide" id="order-channel-dropdown">
+                                    <span onclick="selectOrderChannel(event);">HOMME</span>
+                                    <span onclick="selectOrderChannel(event);">SALONS</span>
+                                    <span onclick="selectOrderChannel(event);">REFERRERS</span>
                                 </div>
                             </button>
                             <button>
@@ -96,7 +101,7 @@
                             <thead>
                                 <th>ORDER ID</th>
                                 <th>ORDERED DATE</th>
-                                <th>PRODUCT NAME</th>
+                                <th>CUSTOMER NAME</th>
                                 <th>PRODUCT PRICE</th>
                                 <th>STATUS</th>
                             </thead>
@@ -104,55 +109,55 @@
                                 <tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Shipped</td>
                                 </tr>
                                 <tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Pending</td>
                                 </tr>
                                 <tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Shipped</td>
                                 </tr>
                                 <tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Pending</td>
                                 </tr><tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Shipped</td>
                                 </tr>
                                 <tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Pending</td>
                                 </tr>
                                 <tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Shipped</td>
                                 </tr>
                                 <tr>
                                     <td>#719261</td>
                                     <td class="order-time">2-Jun-2023 @ 04:30 PM</td>
-                                    <td>Face Secrum</td>
+                                    <td>Dianne Russell</td>
                                     <td>$45</td>
                                     <td>Pending</td>
                                 </tr>
@@ -271,7 +276,7 @@
                 <div class="all-sales-view">
                     <div class="order-filters">
                         <button>
-                            <span>ALL CUSTOMERS</span>
+                            <span style="padding-left: 10px;">SALES CHANNEL</span>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                     <g clip-path="url(#clip0_771_3739)">
@@ -429,4 +434,7 @@
 
     {% endblock %}
 </body>
+{% block scripts %}
+<script src="{% static 'Assets/customer/js/homme.js' %}"></script>
+{% endblock %}
 </html>

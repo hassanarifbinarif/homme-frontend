@@ -1,0 +1,96 @@
+#qrCodeDialog .modal-dialog {
+    max-width: unset;
+    width: 425px;
+}
+
+#qrCodeDialog .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#qrCodeDialog .modal-footer,
+#qrCodeDialog .modal-content {
+    border-radius: 0px!important;
+}
+
+#qrCodeDialog .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#qrCodeDialog .modal-body {
+    padding: 33px 0px!important;
+    width: 425px;
+}
+
+#qrCodeDialog .modal-body .qr-code-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#qrCodeDialog .modal-body .qr-code-info > span:first-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    text-transform: capitalize;
+}
+
+#qrCodeDialog .modal-body .qr-code-info > span:last-of-type {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Bold;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+#qrCodeDialog .modal-body .qr-code-info > svg {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+#qrCodeDialog .modal-footer {
+    padding: 9px 12px!important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#qrCodeDialog .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 150px;
+    height: 36px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
