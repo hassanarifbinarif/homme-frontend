@@ -168,11 +168,25 @@
     margin-bottom: 20px;
 }
 
-.order-delivery-status-wrapper .order-delivery-status-header {
+.no-order-placed {
     display: flex;
-    flex-direction: column;
-    gap: 22px;
-    /* margin-bottom: 34px; */
+    justify-content: center;
+    align-items: center;
+}
+
+.no-order-placed > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Bold;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status-header {
+    margin-bottom: 22px;
 }
 
 .order-delivery-status-wrapper .order-delivery-status-header > span {
@@ -186,7 +200,7 @@
     line-height: 10px;
 }
 
-.order-delivery-status-wrapper .order-delivery-status-header > div {
+.order-delivery-status-wrapper .order-delivery-status {
     display: flex;
     align-items: center;
     gap: 51px;
@@ -201,12 +215,16 @@
     line-height: 10px;
 }
 
-.order-delivery-status-wrapper .order-delivery-status-header > div > span,
-.order-delivery-status-wrapper .order-delivery-status-header > div > div > span:first-of-type {
+.order-delivery-status-wrapper .order-delivery-status > span,
+.order-delivery-status-wrapper .order-delivery-status > div > span:first-of-type {
     opacity: .7;
 }
 
-.order-delivery-status-wrapper .order-delivery-status-header > div .vr {
+.order-delivery-status-wrapper .order-delivery-status > div > svg {
+    margin-top: -2px;
+}
+
+.order-delivery-status-wrapper .order-delivery-status .vr {
     border: 1px solid #CECECE;
     height: 13px;
 }
@@ -215,6 +233,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.order-delivery-status-wrapper .order-product-wrapper:not(:first-of-type) {
+    padding-top: 15px;
 }
 
 .order-product-wrapper > div:first-of-type {
@@ -748,6 +770,18 @@ ul.comment-section > li .post-area > button {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.no-data-text {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book!important;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    opacity: .7;
 }
 
 .details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle > span {

@@ -6,6 +6,7 @@
     
     {% extends '../layouts/base.html' %}
     {% load static %}
+    {% load custom_tags %}
 
     {% block links %}
     
@@ -83,7 +84,7 @@
                             </div>
                             <div>
                                 <span>Hair Stylist</span>
-                                <span>James Gunn</span>
+                                <span>{% if customer.stylist == None %}No Stylist{% else %}{{customer.stylist}}{% endif %}</span>
                             </div>
                             <div>
                                 <span>Referrer</span>
@@ -135,52 +136,57 @@
                     <div class="order-delivery-status-wrapper">
                         <div class="order-delivery-status-header">
                             <span>Last Order Placed</span>
+                        </div>
+                        {% for obj in last_order %}
+                        <div class="order-delivery-status">
+                            <span>#{{obj.id}}</span>
+                            <div class="vr"></div>
                             <div>
-                                <span>#{{last_order.id}}</span>
-                                <div class="vr"></div>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
-                                        <path d="M10.2776 10.3434L7.52324 13.1201C7.40279 13.2416 7.25975 13.338 7.10231 13.4038C6.94486 13.4696 6.7761 13.5035 6.60566 13.5035C6.43523 13.5035 6.26647 13.4696 6.10902 13.4038C5.95158 13.338 5.80854 13.2416 5.68809 13.1201L2.93308 10.3434C2.20682 9.6112 1.71224 8.67836 1.51188 7.66282C1.31152 6.64728 1.41438 5.59464 1.80745 4.63803C2.20052 3.68142 2.86615 2.86379 3.72017 2.28854C4.57418 1.71329 5.57823 1.40625 6.60534 1.40625C7.63245 1.40625 8.6365 1.71329 9.49052 2.28854C10.3445 2.86379 11.0102 3.68142 11.4032 4.63803C11.7963 5.59464 11.8992 6.64728 11.6988 7.66282C11.4984 8.67836 11.0039 9.6112 10.2776 10.3434V10.3434Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.98273 8.03115C8.34795 7.66297 8.55312 7.16361 8.55312 6.64293C8.55312 6.12224 8.34795 5.62289 7.98273 5.25471C7.61751 4.88653 7.12216 4.67969 6.60566 4.67969C6.08917 4.67969 5.59382 4.88653 5.2286 5.25471C4.86338 5.62289 4.6582 6.12224 4.6582 6.64293C4.6582 7.16361 4.86338 7.66297 5.2286 8.03115C5.59382 8.39933 6.08917 8.60617 6.60566 8.60617C7.12216 8.60617 7.61751 8.39933 7.98273 8.03115Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span>Destination:</span>
-                                    <span>{{last_order.shipping_address.address}}</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
-                                        <path d="M8.55497 9.33487V2.13414C8.55497 1.94316 8.47971 1.76001 8.34576 1.62497C8.2118 1.48993 8.03012 1.41406 7.84068 1.41406H2.1264C1.93695 1.41406 1.75527 1.48993 1.62132 1.62497C1.48736 1.76001 1.41211 1.94316 1.41211 2.13414V9.33487C1.41211 9.52585 1.48736 9.709 1.62132 9.84404C1.75527 9.97908 1.93695 10.0549 2.1264 10.0549H2.84068M8.55497 9.33487C8.55497 9.52585 8.47971 9.709 8.34576 9.84404C8.2118 9.97908 8.03012 10.0549 7.84068 10.0549H5.69782M8.55497 9.33487V3.57428C8.55497 3.38331 8.63022 3.20015 8.76418 3.06511C8.89813 2.93007 9.07981 2.85421 9.26925 2.85421H11.1164C11.3058 2.85425 11.4875 2.93014 11.6214 3.06519L14.06 5.52352C14.1939 5.65853 14.2692 5.84165 14.2693 6.03261V9.33487C14.2693 9.52585 14.194 9.709 14.06 9.84404C13.9261 9.97908 13.7444 10.0549 13.555 10.0549H12.8407M8.55497 9.33487C8.55497 9.52585 8.63022 9.709 8.76418 9.84404C8.89813 9.97908 9.07981 10.0549 9.26925 10.0549H9.98354M2.84068 10.0549C2.84068 10.4369 2.99119 10.8032 3.2591 11.0733C3.52701 11.3434 3.89037 11.4951 4.26925 11.4951C4.64813 11.4951 5.0115 11.3434 5.2794 11.0733C5.54731 10.8032 5.69782 10.4369 5.69782 10.0549M2.84068 10.0549C2.84068 9.67299 2.99119 9.30669 3.2591 9.03661C3.52701 8.76653 3.89037 8.6148 4.26925 8.6148C4.64813 8.6148 5.0115 8.76653 5.2794 9.03661C5.54731 9.30669 5.69782 9.67299 5.69782 10.0549M12.8407 10.0549C12.8407 10.4369 12.6902 10.8032 12.4223 11.0733C12.1544 11.3434 11.791 11.4951 11.4121 11.4951C11.0332 11.4951 10.6699 11.3434 10.402 11.0733C10.134 10.8032 9.98354 10.4369 9.98354 10.0549M12.8407 10.0549C12.8407 9.67299 12.6902 9.30669 12.4223 9.03661C12.1544 8.76653 11.791 8.6148 11.4121 8.6148C11.0332 8.6148 10.6699 8.76653 10.402 9.03661C10.134 9.30669 9.98354 9.67299 9.98354 10.0549" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span>Completed:</span>
-                                    <span>{{last_order.created_at}}</span>
-                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
+                                    <path d="M10.2776 10.3434L7.52324 13.1201C7.40279 13.2416 7.25975 13.338 7.10231 13.4038C6.94486 13.4696 6.7761 13.5035 6.60566 13.5035C6.43523 13.5035 6.26647 13.4696 6.10902 13.4038C5.95158 13.338 5.80854 13.2416 5.68809 13.1201L2.93308 10.3434C2.20682 9.6112 1.71224 8.67836 1.51188 7.66282C1.31152 6.64728 1.41438 5.59464 1.80745 4.63803C2.20052 3.68142 2.86615 2.86379 3.72017 2.28854C4.57418 1.71329 5.57823 1.40625 6.60534 1.40625C7.63245 1.40625 8.6365 1.71329 9.49052 2.28854C10.3445 2.86379 11.0102 3.68142 11.4032 4.63803C11.7963 5.59464 11.8992 6.64728 11.6988 7.66282C11.4984 8.67836 11.0039 9.6112 10.2776 10.3434V10.3434Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7.98273 8.03115C8.34795 7.66297 8.55312 7.16361 8.55312 6.64293C8.55312 6.12224 8.34795 5.62289 7.98273 5.25471C7.61751 4.88653 7.12216 4.67969 6.60566 4.67969C6.08917 4.67969 5.59382 4.88653 5.2286 5.25471C4.86338 5.62289 4.6582 6.12224 4.6582 6.64293C4.6582 7.16361 4.86338 7.66297 5.2286 8.03115C5.59382 8.39933 6.08917 8.60617 6.60566 8.60617C7.12216 8.60617 7.61751 8.39933 7.98273 8.03115Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Destination:</span>
+                                <span>{{obj.shipping_address.address}}</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+                                    <path d="M8.55497 9.33487V2.13414C8.55497 1.94316 8.47971 1.76001 8.34576 1.62497C8.2118 1.48993 8.03012 1.41406 7.84068 1.41406H2.1264C1.93695 1.41406 1.75527 1.48993 1.62132 1.62497C1.48736 1.76001 1.41211 1.94316 1.41211 2.13414V9.33487C1.41211 9.52585 1.48736 9.709 1.62132 9.84404C1.75527 9.97908 1.93695 10.0549 2.1264 10.0549H2.84068M8.55497 9.33487C8.55497 9.52585 8.47971 9.709 8.34576 9.84404C8.2118 9.97908 8.03012 10.0549 7.84068 10.0549H5.69782M8.55497 9.33487V3.57428C8.55497 3.38331 8.63022 3.20015 8.76418 3.06511C8.89813 2.93007 9.07981 2.85421 9.26925 2.85421H11.1164C11.3058 2.85425 11.4875 2.93014 11.6214 3.06519L14.06 5.52352C14.1939 5.65853 14.2692 5.84165 14.2693 6.03261V9.33487C14.2693 9.52585 14.194 9.709 14.06 9.84404C13.9261 9.97908 13.7444 10.0549 13.555 10.0549H12.8407M8.55497 9.33487C8.55497 9.52585 8.63022 9.709 8.76418 9.84404C8.89813 9.97908 9.07981 10.0549 9.26925 10.0549H9.98354M2.84068 10.0549C2.84068 10.4369 2.99119 10.8032 3.2591 11.0733C3.52701 11.3434 3.89037 11.4951 4.26925 11.4951C4.64813 11.4951 5.0115 11.3434 5.2794 11.0733C5.54731 10.8032 5.69782 10.4369 5.69782 10.0549M2.84068 10.0549C2.84068 9.67299 2.99119 9.30669 3.2591 9.03661C3.52701 8.76653 3.89037 8.6148 4.26925 8.6148C4.64813 8.6148 5.0115 8.76653 5.2794 9.03661C5.54731 9.30669 5.69782 9.67299 5.69782 10.0549M12.8407 10.0549C12.8407 10.4369 12.6902 10.8032 12.4223 11.0733C12.1544 11.3434 11.791 11.4951 11.4121 11.4951C11.0332 11.4951 10.6699 11.3434 10.402 11.0733C10.134 10.8032 9.98354 10.4369 9.98354 10.0549M12.8407 10.0549C12.8407 9.67299 12.6902 9.30669 12.4223 9.03661C12.1544 8.76653 11.791 8.6148 11.4121 8.6148C11.0332 8.6148 10.6699 8.76653 10.402 9.03661C10.134 9.30669 9.98354 9.67299 9.98354 10.0549" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Completed:</span>
+                                <span>{{obj.created_at|custom_date:'F j, Y'}}</span>
                             </div>
                         </div>
                         <hr />
-                        <div class="order-product-wrapper">
-                            <div>
-                                <div class="order-product-image">
-                                    <img src="{% static 'Assets/customer/images/product_image.png' %}" alt="product image" />
-                                    <div class="order-product-quantity">
-                                        <span>1</span>
+                        <div>
+                            {% for ordered_product in obj.products %}
+                            <div class="order-product-wrapper">
+                                <div>
+                                    <div class="order-product-image">
+                                        <img src="{{ordered_product.images.0.image}}" alt="product image" />
+                                        <div class="order-product-quantity">
+                                            <span>{{ordered_product.qty}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-product-identity">
+                                        <span>{{ordered_product.product_title}}</span>
+                                        <span>#{{ordered_product.product}}</span>
                                     </div>
                                 </div>
-                                <div class="order-product-identity">
-                                    <span>Face Serum</span>
-                                    <span>#1260</span>
-                                </div>
+                                <span>${{ordered_product.price}}</span>
                             </div>
-                            <span>$25.00</span>
+                            {% endfor %}
                         </div>
                         <hr />
                         <div class="order-paid-details-wrapper">
                             <div class="order-paid-details">
                                 <span>Subtotal</span>
-                                <span>${{last_order.sub_total}}</span>
+                                <span>${{obj.sub_total}}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Reward Points Redeemed</span>
-                                <span></span>
+                                <span>{{obj.total_rewards_redeemed}}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Post Redemption Cost</span>
@@ -196,15 +202,21 @@
                             </div>
                             <div class="order-paid-details">
                                 <span>Tax</span>
-                                <span>$0</span>
+                                <span>${{obj.tax_amount}}</span>
                             </div>
                         </div>
                         <hr />
                         <div class="order-paid-total">
                             <span>Grand Total</span>
-                            <span>$0</span>
+                            <span>${{obj.total}}</span>
                         </div>
+                        {% empty %}
+                        <div class="no-order-placed">
+                            <span>No Order Placed</span>
+                        </div>
+                        {% endfor %}
                     </div>
+
                     <div class="specific-customer-all-order-wrapper">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="40" viewBox="0 0 36 40" fill="none">
@@ -293,19 +305,23 @@
                         <div class="specific-customer-favourite-products">
                             <span>Favourite Products</span>
                             <div>
-                                <img src="{% static 'Assets/customer/images/product_image.png' %}" alt="product image" >
-                                <img src="{% static 'Assets/customer/images/product_image.png' %}" alt="product image" >
-                                <img src="{% static 'Assets/customer/images/product_image.png' %}" alt="product image" >
-                                <img src="{% static 'Assets/customer/images/product_image.png' %}" alt="product image" >
-                                <img src="{% static 'Assets/customer/images/product_image.png' %}" alt="product image" >
+                                {% for obj in customer.salon_customer.favourite_products %}
+                                <img src="http://dev.crymzee.com:8001/{{obj.product.images.0.image}}" title="{{obj.product.title}}" alt="{{obj.product.title}}" />
+                                {% empty %}
+                                <span class="no-data-text">No favourite products</span>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="specific-customer-past-hairstyle">
                             <span>Past Hairstyle</span>
+                            {% if customer.salon_customer.style_image == None %}
+                            <span class="no-data-text">No past hairstyle</span>
+                            {% else %}
                             <div>
-                                <img src="{% static 'Assets/customer/images/avatar.png' %}" alt="customer image" />
-                                <span>-Redge NYC</span>
+                                <img src="{{customer.salon_customer.style_image}}" alt="customer style image" />
+                                <span>-{{customer.salon.salon_name}}</span>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="order-product-other-details-wrapper">

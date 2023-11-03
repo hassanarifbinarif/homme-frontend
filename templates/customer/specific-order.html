@@ -82,11 +82,11 @@
                                     </div>
                                 </div>
                                 <div class="order-product-identity">
-                                    <span>Face Serum</span>
-                                    <span>#1260</span>
+                                    <span>{{obj.product_title}}</span>
+                                    <span>#{{obj.product}}</span>
                                 </div>
                             </div>
-                            <span>${{obj.price}} x {{obj.qty}}</span>
+                            <span>${{obj.price|divide:obj.qty}} x {{obj.qty}}</span>
                             <span>${{obj.price}}</span>
                         </div>
                         {% endfor %}

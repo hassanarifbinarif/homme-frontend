@@ -116,7 +116,7 @@
                     <span class="order-date">{{obj.created_at|custom_date:"j-M-Y"}}</span>
                 </div>
             </td>
-            <td onclick="event.stopPropagation();location.pathname = '/specific-customer/'">
+            <td onclick="event.stopPropagation();location.pathname = '/specific-customer/{{obj.user_profile.id}}'">
                 <div>
                     <span>{% if obj.user_profile.first_name %}{{obj.user_profile.first_name|title}}{% endif %} {% if obj.user_profile.last_name %}{{obj.user_profile.last_name|title}}{% endif %}</span>
                 </div>

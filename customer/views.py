@@ -124,6 +124,7 @@ def specific_customer(request, api_response, pk):
         status, response = requestAPI('GET', f'{settings.API_URL}/admin/user-profiles/{pk}', headers, {})
         status_last_order, response_last_order = requestAPI('GET', f'{settings.API_URL}/admin/orders?page=1&perPage=1&ordering=-created_at&user={response["data"]["user"]["id"]}', headers, {})
         context['last_order'] = response_last_order['data']
+        # print(response_last_order['data']['id'])
         context['customer'] = response['data']
     except Exception as e:
         print(e)
