@@ -57,7 +57,7 @@
                     <svg class="cursor-pointer" onclick="location.pathname = '/orders/'" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                         <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span>{{order.id}}</span>
+                    <span>#{{order.id}}</span>
                 </div>
                 <button type="button">PRINT PACKING SLIP</button>
             </div>
@@ -70,7 +70,7 @@
                                 <path d="M6.80286 10.1366L8.90288 12.2536L13.1029 8.01953" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <span>Pending</span>
-                            <span>#1260</span>
+                            <span>#{{order.id}}</span>
                         </div>
                         {% for obj in order.products %}
                         <div class="order-product-wrapper">
@@ -86,8 +86,8 @@
                                     <span>#{{obj.product}}</span>
                                 </div>
                             </div>
-                            <span>${{obj.price|divide:obj.qty}} x {{obj.qty}}</span>
-                            <span>${{obj.price}}</span>
+                            <span>${{obj.original_price}} x {{obj.qty}}</span>
+                            <span>${{obj.original_price|multiply:obj.qty}}</span>
                         </div>
                         {% endfor %}
                         <hr />
@@ -109,7 +109,8 @@
                                     </svg>
                                     <span>Delivery Date and Time</span>
                                 </div>
-                                <span>June 5, 2023 at 12:01 PM</span>
+                                <span>Not available</span>
+                                <!-- <span>June 5, 2023 at 12:01 PM</span> -->
                             </div>
                             <div class="order-product-stat-3 stat">
                                 <div>
@@ -133,11 +134,15 @@
                         <div class="order-paid-details-wrapper">
                             <div class="order-paid-details">
                                 <span>Subtotal</span>
-                                <span>${{order.sub_total}}</span>
+                                <span>${{order.original_sub_total}}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Discount</span>
-                                <span>${{order.total_discount}}</span>
+                                <span>{{order.percent_discount}}%</span>
+                            </div>
+                            <div class="order-paid-details">
+                                <span>Discount Subtotal</span>
+                                <span>${{order.discount_sub_total}}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Reward Points Redeemed</span>
@@ -145,7 +150,7 @@
                             </div>
                             <div class="order-paid-details">
                                 <span>Post Redemption Cost</span>
-                                <span>$0</span>
+                                <span>${{order.sub_total}}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Shipping</span>
@@ -225,7 +230,7 @@
                             <span>Customer</span>
                             <div>
                                 <span>{{order.user_profile.first_name|title}} {{order.user_profile.last_name|title}}</span>
-                                <span>1 Order</span>
+                                <span>{{order.orders_count}} Order</span>
                             </div>
                         </div>
                         <div class="order-contact-info">

@@ -38,6 +38,29 @@ def divide(value, arg):
     return total_value
 
 
+def plus(value, arg):
+    if not value:
+        return ''
+    try:
+        total_value = float(value) + float(arg)
+    except Exception as e:
+        print(e)
+        return value
+    return total_value
+
+
+def percentage(value, arg):
+    if not value:
+        return ''
+    try:
+        print(value, arg)
+        total_value = float(value) + float(arg)
+    except Exception as e:
+        print(e)
+        return value
+    return total_value
+
+
 def get_page_numbers(value):
     if not value:
         return ''
@@ -69,5 +92,7 @@ def split_string(value, arg):
 register.filter("custom_date", convert_to_date)
 register.filter("multiply", multiply)
 register.filter('divide', divide)
+register.filter("plus", plus)
+register.filter("percentage", percentage)
 register.filter("page_number", get_page_numbers)
 register.filter("split_string", split_string)

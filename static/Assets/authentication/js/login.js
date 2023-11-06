@@ -77,7 +77,6 @@ async function loginForm(event) {
             let response = await requestAPI(`${apiURL}/auth/admin/login`, JSON.stringify(data), headers, "POST");
             console.log(response);
             response.json().then(async function (res) {
-                console.log(res);
                 if (response.status == 400) {
                     if(res.messages.password) {
                         passwordField.classList.add("input-error");

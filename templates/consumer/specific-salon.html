@@ -11,6 +11,9 @@
     
     <link rel="stylesheet" href="{% static 'Assets/consumer/css/salon.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/consumer/css/salon_details.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_inventory_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/add_hairstylist_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/manage_hairstylists_modal.css' %}" />
     
     {% endblock %}
 
@@ -520,8 +523,8 @@
                     </div>
                     <div class="hair-stylist-wrapper">
                         <div>
-                            <span>Hairstylists</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                            <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#addHairstylist">Hairstylists</span>
+                            <svg class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#manageHairstylist" xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
                                 <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
@@ -536,7 +539,7 @@
                         <div class="inventory-header">
                             <div>
                                 <span>Inventory</span>
-                                <span>View Full Inventory</span>
+                                <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#salonInventory">View Full Inventory</span>
                             </div>
                             <div>
                                 <span>Status as of</span>
@@ -571,6 +574,12 @@
         </div>
     </div>
 
+    {% include '../modals/salon-inventory-modal.html' %}
+
+    {% include '../modals/add-hairstylist-modal.html' %}
+
+    {% include '../modals/manage-hairstylists-modal.html' %}
+
     {% endblock %}
 </body>
 {% block scripts %}
@@ -587,5 +596,6 @@
         }
     })
 </script>
+<script src="{% static 'Assets/modals/js/addHairstylistModal.js' %}"></script>
 {% endblock %}
 </html>

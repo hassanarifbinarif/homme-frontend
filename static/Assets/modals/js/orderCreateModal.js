@@ -3,6 +3,7 @@ let customerField = document.getElementById('customer-field');
 
 let productDropdown = document.getElementById('product-dropdown');
 let productField = document.getElementById('product-field');
+let productTotalWrapper = document.getElementById('product-totals-wrapper');
 
 let addedProductsWrapper = document.getElementById('added-products-wrapper');
 
@@ -22,9 +23,9 @@ async function populateDropdowns() {
             customer.full_name = `${customer.first_name} ${customer.last_name}`;
         })
         res.data.forEach((customer) => {
-            customerDropdown.innerHTML += `<div class="radio-btn customer-item-list" data-id="${customer.user.id}">
-                                                <input onchange="selectCustomer(event);" id="cust-${customer.user.id}" type="radio" value="${customer.user.id}" name="customer_radio" />
-                                                <label for="cust-${customer.user.id}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
+            customerDropdown.innerHTML += `<div class="radio-btn customer-item-list" data-id="${customer.user}">
+                                                <input onchange="selectCustomer(event);" id="cust-${customer.user}" type="radio" value="${customer.user}" name="customer_radio" />
+                                                <label for="cust-${customer.user}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
                                             </div>`;
         })
     })
@@ -32,7 +33,7 @@ async function populateDropdowns() {
         productData = [...res.data];
         productData.forEach((product) => {
             productDropdown.innerHTML += `<div class="radio-btn product-item-list" data-id="${product.id}">
-                                            <input onchange="selectProduct(event);" id="prod-${product.id}" type="radio" value="${product.title}" name="product_radio" />
+                                            <input onclick="selectProduct(event);" id="prod-${product.id}" type="radio" value="${product.title}" name="product_radio" />
                                             <label for="prod-${product.id}" class="radio-label">${product.title}</label>
                                         </div>`;
         });
@@ -63,11 +64,11 @@ function selectProduct(event) {
                                                     <div class="product-values">
                                                         <div>
                                                             <span>Quantity</span>
-                                                            <input type="number" value="1" name="quantity" id="" />
+                                                            <input type="number" min="1" value="1" name="quantity" id="" />
                                                         </div>
                                                         <div>
                                                             <span>Price</span>
-                                                            <input type="number" value="${selectedProduct.price}" placeholder="$25.00" name="price" id="" />
+                                                            <input type="number" min="0" value="${selectedProduct.price}" placeholder="$25.00" name="price" id="" />
                                                         </div>
                                                     </div>
                                                     <div class="delete-btn cursor-pointer">
@@ -79,6 +80,7 @@ function selectProduct(event) {
                                                     </div>
                                                 </div>`;
             addedProductsWrapper.classList.remove('hide');
+            productTotalWrapper.classList.remove('hide');
         }
         // productField.value = inputElement.nextElementSibling.innerText;
     }
@@ -91,6 +93,7 @@ function delSelectedProduct(event, id) {
     divToDelete.remove();
     if (document.querySelectorAll('.product-card').length == 0) {
         addedProductsWrapper.classList.add('hide');
+        productTotalWrapper.classList.add('hide');
     }
 }
 
@@ -131,6 +134,16 @@ function selectCustomer(event) {
     let inputElement = event.target;
     if(inputElement.checked) {
         customerField.value = inputElement.nextElementSibling.innerText;
+        let customerDetails = customerData.filter(customer => customer.user == inputElement.value).map(customer => customer.shipping_address);
+        // console.log(customerDetails);
+        if (customerDetails[0]) {
+            // console.log('yes', customerDetails[0]);
+            document.querySelector('#orderCreate input[name="address"]').value = customerDetails[0].address;
+            document.querySelector('#orderCreate input[name="city"]').value = customerDetails[0].city;
+            document.querySelector('#orderCreate input[name="state"]').value = customerDetails[0].state;
+            document.querySelector('#orderCreate input[name="zip_code"]').value = customerDetails[0].zip_code;
+            document.querySelector('#orderCreate input[name="country"]').value = customerDetails[0].country;
+        }
     }
 }
 
@@ -146,7 +159,7 @@ customerField.addEventListener('blur', function(event) {
 
 customerField.addEventListener('input', function() {
     let filteredCustomer = [];
-    filteredCustomer = customerData.filter(customer => customer.full_name.toLowerCase().includes(this.value.toLowerCase())).map((customer => customer.user.id));
+    filteredCustomer = customerData.filter(customer => customer.full_name.toLowerCase().includes(this.value.toLowerCase())).map((customer => customer.user));
     if (filteredCustomer.length == 0) {
         document.getElementById('no-customer-text').classList.remove('hide');
         document.querySelectorAll('.customer-item-list').forEach((item) => item.classList.add('hide'));
@@ -167,10 +180,6 @@ customerField.addEventListener('input', function() {
 
 
 function toggleDropdown(event) {
-    // document.querySelector('.cat-name-msg').classList.remove('active');
-    // document.querySelector('.cat-name-msg').innerText = '';
-    // document.querySelector('.type-name-msg').classList.remove('active');
-    // document.querySelector('.type-name-msg').innerText = '';
     let elementBtn = event.target;
     if(!elementBtn.classList.contains('filter-btn')) {
         elementBtn = elementBtn.closest('.filter-btn');
@@ -198,21 +207,6 @@ document.body.addEventListener('click', closeDropdowns);
 
 async function openCreateOrderModal(modalId) {
     let modal = document.querySelector(`#${modalId}`);
-    // let token = getCookie("admin_access");
-    // let headers = {
-    //     "Authorization": `Bearer ${token}`,
-    // };
-    // let response = await requestAPI(`${apiURL}/admin/products?perPage=1000`, null, headers, 'GET');
-    // console.log(response);
-    // response.json().then(function(res) {
-    //     console.log(res);
-    //     productData = [...res.data];
-    //     let productChoiceContainer = document.querySelector("#product-select-choices");
-    //     console.log(productData);
-    //     productData.forEach((product) => {
-    //         productChoiceContainer.innerHTML += `<option value="product-${product.id}">${product.title}</option>`;
-    //     });
-    // })
     document.querySelector(`.${modalId}`).click();
 }
 

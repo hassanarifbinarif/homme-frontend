@@ -1,0 +1,143 @@
+<div class="modal fade" id="salonInventory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="salonInventoryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <form action="">
+                <!-- {% csrf_token %} -->
+                <div class="modal-header border-bottom-0 w-100 justify-content-between">
+                    <span>Inventory</span>
+                    <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
+                        <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="210px">
+                                    <div><span class="opacity-point-6">Product Name</span></div>
+                                </th>
+                                <th width="210px">
+                                    <div><span class="opacity-point-6">SKU#</span></div>
+                                </th>
+                                <th width="210px">
+                                    <div><span class="opacity-point-6">Current Stock</span></div>
+                                </th>
+                                <th width="210px">
+                                    <div><span class="opacity-point-6">Movement (7/30 Days)</span></div>
+                                </th>
+                                <th width="251px">
+                                    <div><span class="opacity-point-6">Quantity To Ship</span></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div><span>Face Serum</span></div></td>
+                                <td><div><span>07834</span></div></td>
+                                <td><div><span>3</span></div></td>
+                                <td><div><span>4/31</span></div></td>
+                                <td><div><span>5</span></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><span>Body Wash</span></div></td>
+                                <td><div><span>07533</span></div></td>
+                                <td><div><span>5</span></div></td>
+                                <td><div><span>3/20</span></div></td>
+                                <td><div><span>0</span></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><span>Concealer</span></div></td>
+                                <td><div><span>07533</span></div></td>
+                                <td><div><span>7</span></div></td>
+                                <td><div><span>3/20</span></div></td>
+                                <td><div><span>2</span></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><span>Face Mask</span></div></td>
+                                <td><div><span>07834</span></div></td>
+                                <td><div><span>3</span></div></td>
+                                <td><div><span>4/31</span></div></td>
+                                <td><div><span>5</span></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><span>Body Wash</span></div></td>
+                                <td><div><span>07533</span></div></td>
+                                <td><div><span>5</span></div></td>
+                                <td><div><span>3/20</span></div></td>
+                                <td><div><span>0</span></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><span>Concealer</span></div></td>
+                                <td><div><span>07533</span></div></td>
+                                <td><div><span>7</span></div></td>
+                                <td><div><span>3/20</span></div></td>
+                                <td><div><span>2</span></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><span>Face Mask</span></div></td>
+                                <td><div><span>07834</span></div></td>
+                                <td><div><span>3</span></div></td>
+                                <td><div><span>4/31</span></div></td>
+                                <td><div><span>5</span></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><span>Body Wash</span></div></td>
+                                <td><div><span>07533</span></div></td>
+                                <td><div><span>5</span></div></td>
+                                <td><div><span>3/20</span></div></td>
+                                <td><div><span>0</span></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="general-info-wrapper">
+                        <div class="general-info-header">
+                            <span>Salon Information</span>
+                        </div>
+                        <div class="general-info-divs">
+                            <div class="salon-name-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Salon Name</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>Redge NYC</span>
+                                </div>
+                            </div>
+                            <div class="phone-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Phone Number</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>(316) 555-0116</span>
+                                </div>
+                            </div>
+                            <div class="address-div">
+                                <div class="border-right border-bottom">
+                                    <span class="opacity-point-6">Address</span>
+                                </div>
+                                <div class="border-right">
+                                    <span>775 Rolling Green Rd., New York, NY 10012</span>
+                                </div>
+                            </div>
+                            <div class="notes-div">
+                                <div class="border-bottom">
+                                    <span class="opacity-point-6">Notes</span>
+                                </div>
+                                <div>
+                                    <span>Lorem Ipsum is simply dummy text of the print industry.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="submit-btn" type="button" data-bs-dismiss="modal">
+                        RESET STOCK
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input type="hidden" class="salonInventory" data-bs-toggle="modal" data-bs-target="#salonInventory" />
