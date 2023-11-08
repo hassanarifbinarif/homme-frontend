@@ -151,7 +151,9 @@
     top: -6px;
     right: -6px;
     
-    width: 12px;
+    padding: 0px 1px;
+    min-width: 12px;
+    width: fit-content;
     height: 14px;
     border-radius: 2px;
     background: #000093;
@@ -480,12 +482,12 @@
 /* --------------------------------------------------------------- */
 
 
-.selection-input {
+#orderCreate .selection-input {
     width: 100%;
     position: relative;
 }
 
-.filter-btn {
+#orderCreate .filter-btn {
     width: 100%;
     height: 40px;
     padding: 0px 18px 0px 16px;
@@ -497,8 +499,8 @@
     justify-content: space-between;
 }
 
-.filter-btn > span,
-.radio-btn > label {
+#orderCreate .filter-btn > span,
+#orderCreate .radio-btn > label {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -509,12 +511,12 @@
     line-height: 10px;
 }
 
-.filter-btn > span {
+#orderCreate .filter-btn > span {
     color: #A9A9A9;
     font-size: .875rem;
 }
 
-.filter-dropdown {
+#orderCreate .filter-dropdown {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -526,13 +528,13 @@
     border: 1px solid #E0E0DD;
 }
 
-#customer-dropdown,
-#product-dropdown {
+#orderCreate #customer-dropdown,
+#orderCreate #product-dropdown {
     max-height: 216px;
     overflow-y: auto;
 }
 
-.radio-btn > label {
+#orderCreate .radio-btn > label {
     width: 100%;
     padding: 0px 15px;
     height: 40px;
@@ -550,15 +552,15 @@
     border-radius: 0px 8px 8px 0px;
 } */
 
-.radio-btn:not(:first-child) {
+#orderCreate .radio-btn:not(:first-child) {
     border-top: 1px solid #E0E0DD;
 }
 
-.radio-btn > label:hover {
+#orderCreate .radio-btn > label:hover {
     background-color: #DDDDDD;
 }
 
-.filter-dropdown input {
+#orderCreate .filter-dropdown input {
     display: none;
 }
 

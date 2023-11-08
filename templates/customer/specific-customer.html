@@ -174,7 +174,7 @@
                                         <span>#{{ordered_product.product}}</span>
                                     </div>
                                 </div>
-                                <span>${{ordered_product.price}}</span>
+                                <span>${{ordered_product.original_price}}</span>
                             </div>
                             {% endfor %}
                         </div>
@@ -182,7 +182,7 @@
                         <div class="order-paid-details-wrapper">
                             <div class="order-paid-details">
                                 <span>Subtotal</span>
-                                <span>${{obj.sub_total}}</span>
+                                <span>${% if obj.original_sub_total %}{{obj.original_sub_total}}{% else %}{{obj.sub_total}}{% endif %}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Reward Points Redeemed</span>
@@ -190,15 +190,15 @@
                             </div>
                             <div class="order-paid-details">
                                 <span>Post Redemption Cost</span>
-                                <span>250</span>
+                                <span>${{obj.sub_total}}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Discount</span>
-                                <span>Silver 15%</span>
+                                <span>{{obj.percent_discount}}%</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Discounted Subtotal</span>
-                                <span>$0</span>
+                                <span>${{obj.discount_sub_total}}</span>
                             </div>
                             <div class="order-paid-details">
                                 <span>Tax</span>

@@ -67,8 +67,6 @@ def specific_order(request, api_response, pk):
     headers = {"Authorization": f'Bearer {admin_access_token}'}
     status, response = requestAPI('GET', f'{settings.API_URL}/admin/orders/{pk}', headers, {})
     context['order'] = response['data']
-    # context['original_subtotal'] = float(response['data']['sub_total']) + float(response['data']['total_discount'])
-    # context['discount_percentage'] = (float(response['data']['total_discount']) / context['original_subtotal']) * 100
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'orders'

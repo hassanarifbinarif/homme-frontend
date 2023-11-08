@@ -20,7 +20,7 @@ def multiply(value, arg):
     if not value:
         return ''
     try:
-        total_value = value * arg
+        total_value =  float(value) * float(arg)
     except Exception as e:
         print(e)
         return value

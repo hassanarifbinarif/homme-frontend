@@ -40,26 +40,26 @@
                         <div class="sub-values">
                             <div>
                                 <span>Subtotal</span>
-                                <span>$55.00</span>
+                                <span id="selected-products-subtotal">$0</span>
                             </div>
                             <div>
                                 <span>Discount</span>
-                                <span>10%</span>
+                                <span id="selected-products-discount">0%</span>
                             </div>
                             <div>
                                 <span>Shipping</span>
                                 <!-- <span>$10.00</span> -->
-                                <input type="number" min="0" placeholder="Shipping Cost" name="shipping_cost" id="" />
+                                <input type="number" min="0" value="0" placeholder="Shipping Cost" name="shipping_cost" id="shipping-cost" />
                             </div>
                             <div>
                                 <span>Tax</span>
-                                <span>Not Calculated</span>
+                                <span id="calculated-tax">Not Calculated</span>
                             </div>
                         </div>
                         <div class="grand-total">
                             <span>Grand Total</span>
                             <div>
-                                <span>$65.00</span>
+                                <span id="selected-products-grand-total">$0</span>
                             </div>
                         </div>
                     </div>
@@ -68,24 +68,28 @@
                             <span>Shipping Details</span>
                             <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#orderShippingLabel">GENERATE SHIPPING LABEL</span>
                         </div>
-                        <input type="text" placeholder="Street Address" name="address" id="" />
+                        <input type="text" oninput="getShippingDetails();" placeholder="Street Address" name="address" id="" />
                         <div class="group-inputs">
-                            <input type="text" placeholder="City" name="city" id="" />
-                            <input type="text" placeholder="State" name="state" id="" />
+                            <input type="text" oninput="getShippingDetails();" placeholder="City" name="city" id="" />
+                            <input type="text" oninput="getShippingDetails();" placeholder="State" name="state" id="" />
                         </div>
                         <div class="group-inputs">
-                            <input type="text" placeholder="ZIP" name="zip_code" id="" />
-                            <input type="text" placeholder="Country" name="country" id="" />
+                            <input type="number" oninput="getShippingDetails();" placeholder="ZIP" name="zip_code" id="" />
+                            <input type="text" oninput="getShippingDetails();" placeholder="Country" name="country" id="" />
                         </div>
                         <textarea name="notes" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="error-div">
+                        <small style="text-align: left;" class="create-error-msg input-error-msg"></small>
                     </div>
                 </div>
                 <div class="modal-footer border-top-0">
                     <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
                         DISCARD
                     </button>
-                    <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
-                        CREATE
+                    <button id="order-submit-btn" class="submit-btn" type="button" onclick="orderCreate(event);">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">CREATE</span>
                     </button>
                 </div>
             </form>

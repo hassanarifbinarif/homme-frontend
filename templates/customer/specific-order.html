@@ -86,8 +86,8 @@
                                     <span>#{{obj.product}}</span>
                                 </div>
                             </div>
-                            <span>${{obj.original_price}} x {{obj.qty}}</span>
-                            <span>${{obj.original_price|multiply:obj.qty}}</span>
+                            <span>${{obj.original_price|divide:obj.qty}} x {{obj.qty}}</span>
+                            <span>${{obj.original_price}}</span>
                         </div>
                         {% endfor %}
                         <hr />

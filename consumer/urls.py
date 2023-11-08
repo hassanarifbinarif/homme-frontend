@@ -6,4 +6,8 @@ urlpatterns = [
     path('salon/', views.salon, name='salon'),
     path('specific-salon/', views.specific_salon, name='specific_salon'),
     path('marketing/', views.consumer_marketing, name='consumer_marketing'),
+    path('products/', views.consumer_products, name='consumer_products'),
+    path('get-product-list/', views.get_product_list, name='get_product_list'),
+    path('specific-product/<int:pk>/', views.specific_product, name='specific_product'),
+    path('events/', views.events, name="events"),
 ]

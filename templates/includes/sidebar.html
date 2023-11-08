@@ -32,7 +32,7 @@
                 </button>
                 <div class="admin-panel-dropdown hide" id="side-switch-dropdown">
                     <span class="panel-list" onclick="switchSide(event);">CUSTOMER APP</span>
-                    <span class="panel-list" onclick="switchSide(event);">CONSUMER APP</span>
+                    <span class="panel-list" onclick="switchSide(event);">SALON APP</span>
                 </div>
             </div>
             <div>
@@ -176,7 +176,7 @@
         <div class="sidebar-link-container">
             <div class="admin-side-selection">
                 <button class="side-switch-btn" id="side-switch-btn" onclick="toggleSideSwitchDropdown();">
-                    <span id="current-panel-side">CONSUMER APP</span>
+                    <span id="current-panel-side">SALON APP</span>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                             <g clip-path="url(#clip0_771_3739)">
@@ -193,7 +193,7 @@
                 </button>
                 <div class="admin-panel-dropdown hide" id="side-switch-dropdown">
                     <span class="panel-list" onclick="switchSide(event);">CUSTOMER APP</span>
-                    <span class="panel-list" onclick="switchSide(event);">CONSUMER APP</span>
+                    <span class="panel-list" onclick="switchSide(event);">SALON APP</span>
                 </div>
             </div>
             <div>
@@ -205,14 +205,35 @@
                         <span>Homme</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'listings' %}active{% endif %}" href="javascript:void(0);">
+                <a class="sidebar-link" onclick="openContentDropdown(event);" href="javascript:void(0);">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span>Content</span>
+                        <svg class="submenu-btn" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
+                            <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
+                        </svg>
                     </div>
                 </a>
+                <div class="submenu-div {% if active_page == 'events' or active_page == 'sliders' %}{% else %}hide{% endif %}" id="content-submenu">
+                    <a class="sidebar-link {% if active_page == 'events' %}active{% endif %}" href="{% url 'events' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Events</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'sliders' %}active{% endif %}" href="javascript:void(0);">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Sliders</span>
+                        </div>
+                    </a>
+                </div>
                 <a class="sidebar-link {% if active_page == 'salons' %}active{% endif %}" href="{% url 'salon' %}">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -221,7 +242,7 @@
                         <span>Salons</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'products' %}active{% endif %}" href="javascript:void(0);">
+                <a class="sidebar-link {% if active_page == 'products' %}active{% endif %}" href="{% url 'consumer_products' %}">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M16.6677 5.83333L10.001 2.5L3.33435 5.83333M16.6677 5.83333L10.001 9.16667M16.6677 5.83333V14.1667L10.001 17.5M3.33435 5.83333L10.001 9.16667M3.33435 5.83333V14.1667L10.001 17.5M10.001 9.16667V17.5" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
@@ -304,3 +325,16 @@
     </div>
 </div>
 {% endif %}
+
+<script>
+    function openContentDropdown(event) {
+        console.log(event);
+        let contentSubmenu = document.getElementById('content-submenu');
+        if (contentSubmenu.classList.contains('hide')) {
+            contentSubmenu.classList.remove('hide');
+        }
+        else {
+            contentSubmenu.classList.add('hide');
+        }
+    }
+</script>

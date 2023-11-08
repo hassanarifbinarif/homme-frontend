@@ -36,7 +36,16 @@
         </th>
         <th>
             <div>
-                <span>Channel</span>
+                <span>Sales Channel</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Source</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -88,15 +97,6 @@
                 </svg>
             </div>
         </th>
-        <th>
-            <div>
-                <span>Delivery Method</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
-                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
-                </svg>
-            </div>
-        </th>
     </thead>
     <tbody>
         {% for obj in orders.data %}
@@ -122,13 +122,10 @@
                 </div>
             </td>
             <td>
-                <div>
-                    {% if obj.salon != None %}
-                    <span>{{obj.salon.salon_name}}</span>
-                    {% else %}
-                    <span>No Salon</span>
-                    {% endif %}
-                </div>
+                <div><span>Salon</span></div>
+            </td>
+            <td>
+                <div><span>Source</span></div>
             </td>
             <td>
                 <div>
@@ -145,27 +142,18 @@
                     {% if obj.total_rewards_redeemed > 0 %}
                     <span>Redemption</span>
                     {% else %}
-                    <span>Purchased</span>
+                    <span>Purchase</span>
                     {% endif %}
                 </div>
             </td>
             <td>
                 <div>
-                    <span>Complete</span>
+                    <span>{{obj.status|title}}</span>
                 </div>
             </td>
             <td>
                 <div>
                     <span>{{obj.products|length}} items</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    {% if obj.pickup_type == 'ship' %}
-                    <span>Shipped</span>
-                    {% else %}
-                    <span>Pick-Up</span>
-                    {% endif %}
                 </div>
             </td>
         </tr>

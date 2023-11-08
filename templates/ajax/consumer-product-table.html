@@ -1,0 +1,74 @@
+<table class="order-details-table hide" id="product-table">
+    <thead>
+        <th></th>
+        <th>
+            <div>
+                <span>Products</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Status</span>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Inventory</span>
+            </div>
+        </th>
+        <th width="22%">
+            <div class="description-col">
+                <span>Description</span>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Category</span>
+            </div>
+        </th>
+    </thead>
+    <tbody>
+        {% for obj in products.data %}
+        <tr onclick="location.pathname = '/consumer/specific-product/{{obj.id}}'">
+            <td>
+                <div class="product-image">
+                    <img src="{{obj.images.0.image}}" alt="product image" />
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.title}}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{% if obj.is_active %}Active{% else %}Draft{% endif %}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>Inventory Not Tracked</span>
+                </div>
+            </td>
+            <td width="22%">
+                <div class="description-col">
+                    <span>{{obj.short_description}}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.category.name|title}}</span>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="no-record-row">No record available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
