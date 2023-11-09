@@ -41,6 +41,15 @@ function closeDropdowns(event) {
     if((!notificationDataWrapper.contains(event.target)) && (!notificationIcon.contains(event.target)) && (!notificationDataWrapper.classList.contains('hide'))) {
         notificationDataWrapper.classList.add('hide');
     }
+    else if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
+        orderStatsDropdown.classList.add('hide');
+    }
+    else if ((!orderCompletionTypeBtn.contains(event.target)) && orderCompletionTypeDropdown.style.display == 'flex') {
+        orderCompletionTypeDropdown.style.display = "none";
+    }
+    else if ((!purchaseTypeBtn.contains(event.target)) && purchaseTypeDropdown.style.display == 'flex') {
+        purchaseTypeDropdown.style.display = "none";
+    }
 }
 
 document.body.addEventListener('click', closeDropdowns);
@@ -105,16 +114,13 @@ function selectOrderStatTime(event) {
 }
 
 
-function closeDropdowns(event) {
-    if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
-        orderStatsDropdown.classList.add('hide');
-    }
-}
-
-
 let isAscendingDate = true;
 
-function sortByDate() {
+function convertToDateTime(dateTimeString) {
+    return new Date(dateTimeString);
+}
+
+function sortByDate(event) {
     // const url = new URL(requiredDataURL);
     // let ordering = url.searchParams.get('ordering');
     // if (ordering == '-created_at') {
@@ -128,44 +134,158 @@ function sortByDate() {
     // requiredDataURL = url.toString();
     // getData(requiredDataURL);
 
+    let arrows;
+    if (event.target.closest('button')) {
+        arrows = event.target.closest('button').querySelectorAll('path');
+        // console.log('button');
+    }
+    else if (event.target.closest('th')) {
+        arrows = event.target.closest('th').querySelectorAll('path');
+        // console.log('column')
+    }
     var table = document.getElementById("order-table");
-    var rows = Array.from(table.getElementsByTagName("tr"));
+    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    switching = true;
+    dir = "asc";
 
-    rows.shift();
+    while (switching) {
+        switching = false;
+        rows = table.rows;
 
-    rows.sort(function(a, b) {
-        var dateA = new Date(getDateFromCell(a.cells[2].children[0].children[0].innerText));
-        var dateB = new Date(getDateFromCell(b.cells[2].children[0].children[0].innerText));
-        if (isAscendingDate) {
-            return dateA - dateB;
-        } else {
-            return dateB - dateA;
+        for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+
+            x = convertToDateTime(rows[i].getElementsByTagName("td")[2].getAttribute('dateTime'));
+            y = convertToDateTime(rows[i + 1].getElementsByTagName("td")[2].getAttribute('dateTime'));
+
+            if (dir === "asc") {
+                if (x > y) {
+                    shouldSwitch = true;
+                    arrows[0].setAttribute('opacity', '.2');
+                    arrows[1].setAttribute('opacity', '1');
+                    break;
+                }
+            } else if (dir === "desc") {
+                if (x < y) {
+                    shouldSwitch = true;
+                    arrows[0].setAttribute('opacity', '1');
+                    arrows[1].setAttribute('opacity', '.2');
+                    break;
+                }
+            }
         }
-    });
 
-    isAscendingDate = !isAscendingDate;
-
-    var tableBody = table.querySelector("tbody");
-    rows.forEach(function(row) {
-        tableBody.appendChild(row);
-    });
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount === 0 && dir === "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
 }
 
 
-function getDateFromCell(cellContent) {
-    var parts = cellContent.split("-");
-    var day = parseInt(parts[0]);
-    var month = parts[1];
-    var year = parseInt(parts[2]);
+function extractNumber(value) {
+    return parseFloat(value.match(/\d+/)[0]);
+}
 
-    var months = [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ];
-    var monthNumber = months.indexOf(month);
-    var dateString = day + '-' + (monthNumber + 1) + '-' + year;
+function sortByOrder(event, columnIndex) {
+    let columnArrows = event.target.closest('th').querySelectorAll('path');
+    var table = document.getElementById("order-table");
+    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    switching = true;
+    dir = "asc"; // Set the default sorting direction to ascending
 
-    return dateString;
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+    
+        for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+    
+            x = extractNumber(rows[i].getElementsByTagName("td")[columnIndex].textContent);
+            y = extractNumber(rows[i + 1].getElementsByTagName("td")[columnIndex].textContent);
+        
+            if (dir === "asc") {
+                columnArrows[0].setAttribute('opacity', '.2');
+                columnArrows[1].setAttribute('opacity', '1');
+                if (x > y) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir === "desc") {
+                columnArrows[0].setAttribute('opacity', '1');
+                columnArrows[1].setAttribute('opacity', '.2');
+                if (x < y) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+    
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount === 0 && dir === "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+}
+
+
+function sortByAlphabets(event, columnIndex) {
+    let arrows = event.target.closest('th').querySelectorAll('path');
+    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("order-table");
+    switching = true;
+    dir = "asc";
+
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+
+        for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+
+            x = rows[i].getElementsByTagName("td")[columnIndex].textContent;
+            y = rows[i + 1].getElementsByTagName("td")[columnIndex].textContent;
+
+            if (dir === "asc") {
+                arrows[0].setAttribute('opacity', '.2');
+                arrows[1].setAttribute('opacity', '1');
+                if (x.toLowerCase() > y.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir === "desc") {
+                arrows[0].setAttribute('opacity', '1');
+                arrows[1].setAttribute('opacity', '.2');
+                if (x.toLowerCase() < y.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount === 0 && dir === "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
 }
 
 
@@ -202,37 +322,20 @@ function searchData(event) {
         for (let i = 1; i < rows.length; i++) {
             const cellValue = rows[i].getElementsByTagName("td")[3].children[0].children[0].innerText;
 
-            if (isPurchaseFiltered) {
-                if (cellValue.toLowerCase().includes(searchField.value.toLowerCase())) {
-                    if (rows[i].getAttribute('purchase-filtered') != 'false')
-                        rows[i].style.display = "";
-                    rows[i].setAttribute('search-filtered', true);
-                } else if (searchField.value == '') {
-                    if (rows[i].getAttribute('purchase-filtered') != 'false')
-                        rows[i].style.display = "";
-                    rows[i].setAttribute('search-filtered', true);
-                }
-                else {
-                    // if (rows[i].getAttribute('search-filtered') == true)
-                    rows[i].style.display = "none";
-                    rows[i].setAttribute('search-filtered', false);
-                }
+            if (cellValue.toLowerCase().includes(searchField.value.toLowerCase())) {
+                if (rows[i].getAttribute('purchase-filtered') != 'false' && rows[i].getAttribute('order-completion-filtered') != 'false')
+                    rows[i].style.display = "";
+                rows[i].setAttribute('search-filtered', true);
+            } else if (searchField.value == '') {
+                if (rows[i].getAttribute('purchase-filtered') != 'false')
+                    rows[i].style.display = "";
+                rows[i].setAttribute('search-filtered', true);
             }
             else {
-                if (cellValue.toLowerCase().includes(searchField.value.toLowerCase())) {
-                    rows[i].style.display = "";
-                    rows[i].setAttribute('search-filtered', true);
-                } else if (searchField.value == '') {
-                    rows[i].style.display = "";
-                    rows[i].setAttribute('search-filtered', true);
-                }
-                else {
-                    rows[i].style.display = "none";
-                    rows[i].setAttribute('search-filtered', false);
-                }
+                rows[i].style.display = "none";
+                rows[i].setAttribute('search-filtered', false);
             }
         }
-        isSearchFiltered = true;
         // urlParams = setParams(requiredDataURL, 'search', `${searchField.value}`);
         // getData(urlParams);
     }
@@ -259,25 +362,47 @@ function sortPurchaseType(event) {
     for (let i = 1; i < rows.length; i++) {
         const cellValue = rows[i].getElementsByTagName("td")[8].children[0].children[0].innerText;
 
-        if (isSearchFiltered) {
-            if (cellValue === element.innerText) {
-                if (rows[i].getAttribute('search-filtered') != 'false')
-                    rows[i].style.display = "";
-                rows[i].setAttribute('purchase-filtered', true);
-            } else {
-                rows[i].style.display = "none";
-                rows[i].setAttribute('purchase-filtered', false);
-            }
-        }
-        else {
-            if (cellValue === element.innerText) {
+        if (cellValue === element.innerText) {
+            if (rows[i].getAttribute('search-filtered') != 'false' && rows[i].getAttribute('order-completion-filtered') != 'false')
                 rows[i].style.display = "";
-                rows[i].setAttribute('purchase-filtered', true);
-            } else {
-                rows[i].style.display = "none";
-                rows[i].setAttribute('purchase-filtered', false);
-            }
+            rows[i].setAttribute('purchase-filtered', true);
+        } else {
+            rows[i].style.display = "none";
+            rows[i].setAttribute('purchase-filtered', false);
         }
     }
-    isPurchaseFiltered = true;
+}
+
+
+let orderCompletionTypeDropdown = document.getElementById('order-completion-type-dropdown');
+let orderCompletionTypeBtn = document.getElementById('order-completion-type-btn');
+
+function toggleOrderCompletionDropdown() {
+    if (orderCompletionTypeDropdown.style.display == 'flex') {
+        orderCompletionTypeDropdown.style.display = 'none';
+    }
+    else {
+        orderCompletionTypeDropdown.style.display = 'flex';
+    }
+}
+
+
+function filterOrderCompletionType(event) {
+    let element = event.target;
+    document.getElementById('selected-order-completion-type').innerText = element.innerText;
+
+    const table = document.getElementById("order-table");
+    const rows = table.getElementsByTagName("tr");
+    for (let i = 1; i < rows.length; i++) {
+        const cellValue = rows[i].getElementsByTagName("td")[9].children[0].children[0].innerText;
+
+        if (cellValue === element.getAttribute('data-value')) {
+            if (rows[i].getAttribute('search-filtered') != 'false' && rows[i].getAttribute('purchase-filtered') != 'false')
+                rows[i].style.display = "";
+            rows[i].setAttribute('order-completion-filtered', true);
+        } else {
+            rows[i].style.display = "none";
+            rows[i].setAttribute('order-completion-filtered', false);
+        }
+    }
 }

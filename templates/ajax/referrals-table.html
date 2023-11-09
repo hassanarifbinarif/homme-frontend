@@ -1,143 +1,147 @@
-<table class="order-details-table hide" id="customer-table">
+{% load custom_tags %}
+
+<table class="order-details-table hide" id="referrals-table">
     <thead>
         <th>
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 1);">
+        <th>
             <div>
-                <span>Customer Name</span>
+                <span>Referrer</span>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Referrer Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 2);">
+        <th>
+            <div>
+                <span>Referree</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
             <div>
                 <span>Location</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 3);">
+        <th>
             <div>
-                <span>Referrals</span>
+                <span>Registration Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 4);">
+        <th>
             <div>
-                <span>Tier</span>
+                <span>Visits</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 5);">
+        <th>
             <div>
-                <span>Orders</span>
+                <span>First Puchase Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 6);">
+        <th>
             <div>
-                <span>Sales Channel</span>
+                <span>Net Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 7);">
+        <th>
             <div>
-                <span>Source</span>
+                <span>Points Earned</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
-                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
-                </svg>
-            </div>
-        </th>
-        <th onclick="sortByOrder(event, 8);">
-            <div>
-                <span>Amount Spent</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
     </thead>
     <tbody>
-        {% for obj in customers.data %}
-        <tr onclick="location.pathname = '/specific-customer/{{obj.id}}/'">
-            <td onclick="event.stopPropagation();">
+        {% for obj in referrals.data %}
+        <tr>
+            <td>
                 <div class="table-checkbox">
                     <input type="checkbox" />
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{{obj.first_name}} {{obj.last_name}}</span>
+                    <span class="referrer-referree-name">{% if obj.referrer == None %}No Referrer{% else %}{{obj.referrer}}{% endif %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{% if obj.shipping_address == None %}No Address{% else %}{{obj.shipping_address.address}}{% endif %}</span>
+                    <span>Salon</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>({{obj.referrals_count}}){{obj.completed_referrals_count}}</span>
+                    <span class="referrer-referree-name">{% if obj.first_name %}{{obj.first_name|title}}{% endif %} {% if obj.last_name %}{{obj.last_name|title}}{% endif %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    {% if obj.salon == None %}
-                    <span>Bronze (No Salon)</span>
-                    {% elif obj.reward_summary.membership_level.level_name == 'Newly registered' %}
-                    <span>Bronze ({{obj.reward_summary.total_rewards}})</span>
-                    {% elif obj.reward_summary.membership_level.level_name == 'New User / Bronze' %}
-                    <span>Bronze ({{obj.reward_summary.total_rewards}})</span>
-                    {% else %}
-                    <span>{{obj.reward_summary.membership_level.level_name}} ({{obj.reward_summary.total_rewards}})</span>
-                    {% endif %}
+                    <span>{% if obj.billing_address == None %}No Location{% else %}{{obj.billing_address.address}}{% endif %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{{obj.orders_count}}</span>
+                    <span class="date-visits">{{obj.created_at|custom_date:"j-M-Y"}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>HOMME</span>
+                    <span class="date-visits">15</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>Street Team</span>
+                    <span class="date-visits">{% if obj.first_purchase_date %}{{obj.first_purchase_date|custom_date:"j-M-Y"}}{% else %}No Purchase Date{% endif %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>${{obj.total_spent}}</span>
+                    <span>${{obj.net_sales}}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.points_earned}}</span>
                 </div>
             </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="9" class="no-record-row">No record available</td>
+            <td colspan="10" class="no-record-row">No record available</td>
         </tr>
         {% endfor %}
     </tbody>

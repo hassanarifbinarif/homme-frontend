@@ -220,8 +220,8 @@
             <div class="order-details-wrapper">
                 <div class="order-details-filters">
                     <div>
-                        <button>
-                            <span>Pending orders</span>
+                        <button onclick="toggleOrderCompletionDropdown();" id="order-completion-type-btn" style="position: relative;">
+                            <span id="selected-order-completion-type">Pending orders</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
                                     <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
@@ -233,13 +233,19 @@
                                     </clipPath>
                                 </defs>
                             </svg>
+                            <div class="filter-dropdown purchase-type-dropdown" id="order-completion-type-dropdown">
+                                <span onclick="filterOrderCompletionType(event);" data-value="Placed">Placed</span>
+                                <span onclick="filterOrderCompletionType(event);" data-value="Pickup">Pickup</span>
+                                <span onclick="filterOrderCompletionType(event);" data-value="Picked_Up">Picked Up</span>
+                                <span onclick="filterOrderCompletionType(event);" data-value="Ship">Ship</span>
+                            </div>
                         </button>
-                        <button onclick="sortByDate();">
+                        <button onclick="sortByDate(event);">
                             <span>SORT BY DATE</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
-                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
-                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706" opacity=".2" />
+                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706" opacity=".2" />
                                 </g>
                                 <defs>
                                     <clipPath id="clip0_771_3739">

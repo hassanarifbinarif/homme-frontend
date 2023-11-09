@@ -63,3 +63,65 @@ async function getData(url=null) {
         console.log(err);
     }
 }
+
+
+function reverseTableRows() {
+    const table = document.getElementById('product-table');
+    const tableBody = table.querySelector('tbody');
+    const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+    rows.reverse();
+    tableBody.innerHTML = '';
+
+    for (const row of rows) {
+        tableBody.appendChild(row);
+    }
+}
+
+
+function sortByAlphabets(event, columnIndex) {
+    let arrows = event.target.closest('th').querySelectorAll('path');
+    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("product-table");
+    switching = true;
+    dir = "asc";
+
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+
+        for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+
+            x = rows[i].getElementsByTagName("td")[columnIndex].textContent;
+            y = rows[i + 1].getElementsByTagName("td")[columnIndex].textContent;
+
+            if (dir === "asc") {
+                arrows[0].setAttribute('opacity', '.2');
+                arrows[1].setAttribute('opacity', '1');
+                if (x.toLowerCase() > y.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir === "desc") {
+                arrows[0].setAttribute('opacity', '1');
+                arrows[1].setAttribute('opacity', '.2');
+                if (x.toLowerCase() < y.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount === 0 && dir === "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+}

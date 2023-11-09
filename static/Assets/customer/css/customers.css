@@ -264,7 +264,7 @@
 
 .order-details-table {
     width: 100%;
-    border: 1px solid #E0E0DD;
+    border-bottom: 1px solid #E0E0DD;
     background-color: #FFF;
     margin-bottom: 20px;
 }
@@ -287,15 +287,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 26px;
+    height: 23px;
 }
 
 .order-details-table thead th {
     border-top: 1px solid #CECECE;
     border-right: 1px solid #CECECE;
-    border-left: 1px solid #CECECE;
     border-bottom: unset;
     background: #EEE;
+}
+
+.order-details-table thead th:last-of-type {
+    border-right: unset;
 }
 
 .order-details-table thead th > div {
@@ -303,14 +306,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 26px;
+    height: 23px;
 }
 
 .order-details-table tbody tr .table-checkbox {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 26px;
+    height: 23px;
 }
 
 .order-details-table tbody tr .referrer-referree-name {
@@ -332,7 +335,6 @@
 .order-details-table tbody tr td {
     border-top: 1px solid #CECECE;
     border-right: 1px solid #CECECE;
-    border-left: 1px solid #CECECE;
     border-bottom: unset;
 
     color: #000;
@@ -345,6 +347,10 @@
     line-height: 20px;
 }
 
+.order-details-table tbody tr td:last-of-type {
+    border-right: unset;
+}
+
 .order-details-table tbody tr td .order-date {
     opacity: .6;
 }
@@ -354,7 +360,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 26px;
+    height: 23px;
 }
 
 
