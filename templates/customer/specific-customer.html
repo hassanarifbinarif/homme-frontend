@@ -88,7 +88,7 @@
                             </div>
                             <div>
                                 <span>Referrer</span>
-                                <span>{% if customer.referrer == None %}No referrer{% endif %}</span>
+                                <span>{% if customer.referrer == None %}No referrer{% else %}{{customer.referrer.name}}{% endif %}</span>
                             </div>
                         </div>
                     </div>

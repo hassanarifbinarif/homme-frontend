@@ -65,7 +65,12 @@
                         </g>
                     </svg>                        
                     <span class="status-category-name">Total Referrals</span>
-                    <span class="status-category-value">50</span>
+                    <span class="status-category-value" id="total-referrals-count">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
+                        </div>
+                    </span>
                 </div>
                 <div class="order-status-categories">
                     <svg width="45" height="50" viewBox="0 0 45 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +82,12 @@
                         </g>
                     </svg>                        
                     <span class="status-category-name">Total Rewards Accumulated</span>
-                    <span class="status-category-value">3500</span>
+                    <span class="status-category-value" id="total-rewards-accumulated">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
+                        </div>
+                    </span>
                 </div>
                 <div class="order-status-categories">
                     <svg xmlns="http://www.w3.org/2000/svg" width="56" height="50" viewBox="0 0 56 50" fill="none">
@@ -100,7 +110,12 @@
                         </defs>
                     </svg>
                     <span class="status-category-name">Total Rewards By Referrals</span>
-                    <span class="status-category-value">1750</span>
+                    <span class="status-category-value" id="total-rewards-by-referrals">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
+                        </div>
+                    </span>
                 </div>
                 <div class="order-status-categories">
                     <svg xmlns="http://www.w3.org/2000/svg" width="53" height="50" viewBox="0 0 53 50" fill="none">
@@ -108,17 +123,22 @@
                         <path d="M39.3949 14.943C37.5817 5.06741 28.186 -1.37778 18.2929 0.257016C9.51658 1.71199 2.96007 9.5127 2.97904 18.5995C3.01835 19.2629 3.02512 20.0435 3.14302 20.8187C4.14182 27.4205 7.59219 32.22 13.5592 35.1817C13.6718 35.2477 13.8014 35.2782 13.9314 35.2692C14.0614 35.2602 14.1858 35.2122 14.2883 35.1313C17.1794 33.2895 20.0755 31.4576 22.9765 29.6357C25.0744 28.3156 27.4623 28.5799 29.2281 30.3264C30.1321 31.2201 31.036 32.1124 31.9101 33.0347C32.1811 33.3072 32.3316 33.2936 32.6026 33.0674C38.2931 28.321 40.7407 22.2723 39.3949 14.943ZM20.6632 16.8502C21.4885 16.8815 22.3206 16.7712 23.1378 16.951C24.1397 17.1568 25.044 17.6944 25.7061 18.4778C26.3682 19.2611 26.7499 20.245 26.7902 21.2722C26.8305 22.2993 26.527 23.3104 25.9282 24.1437C25.3295 24.977 24.4701 25.5844 23.4875 25.8689C23.0809 25.986 22.9576 26.1604 22.9982 26.5609C23.0206 26.9166 23.0206 27.2733 22.9982 27.629C22.9711 28.6398 22.3057 29.336 21.372 29.3387C20.4382 29.3414 19.7755 28.6426 19.7566 27.6317C19.7566 27.5799 19.7566 27.5295 19.7566 27.4778C19.72 27.0268 19.9504 26.4465 19.6563 26.1604C19.3852 25.8988 18.8201 26.1004 18.3837 26.0841C18.0802 26.0732 17.7752 26.0923 17.473 26.0732C17.0861 26.0505 16.7203 25.8879 16.4433 25.6153C16.1662 25.3427 15.9966 24.9786 15.9657 24.5902C15.9349 24.2017 16.0448 23.8152 16.2753 23.5018C16.5057 23.1885 16.8411 22.9695 17.2196 22.8853C17.4341 22.8417 17.6526 22.8211 17.8715 22.824C19.3243 22.8172 20.777 22.824 22.2285 22.8131C22.4759 22.8182 22.7192 22.749 22.9273 22.6143C23.1354 22.4796 23.2988 22.2856 23.3967 22.057C23.5098 21.8362 23.5571 21.5873 23.5331 21.3401C23.5091 21.093 23.4146 20.858 23.2611 20.6634C22.9711 20.2547 22.5564 20.1185 22.0699 20.1185C21.1768 20.1116 20.281 20.1893 19.3988 19.9591C18.4202 19.7003 17.5536 19.1249 16.9327 18.3218C16.3117 17.5186 15.9711 16.5323 15.9633 15.5151C15.9571 14.5151 16.2766 13.5405 16.8733 12.7402C17.4699 11.94 18.3107 11.3581 19.2673 11.0835C19.6739 10.969 19.8094 10.811 19.7688 10.4023C19.7403 9.97864 19.7403 9.55354 19.7688 9.12988C19.7903 8.74091 19.9508 8.37282 20.2207 8.09329C20.4907 7.81377 20.8519 7.6416 21.238 7.60845C21.6242 7.57531 22.0092 7.6834 22.3224 7.91287C22.6356 8.14233 22.8558 8.47774 22.9427 8.85742C23.0782 9.41052 22.9969 9.97453 22.9969 10.5331C22.9969 10.8055 23.0728 10.8805 23.3384 10.8709C23.8805 10.8505 24.4226 10.8628 24.9646 10.8641C26.0407 10.8641 26.7806 11.5249 26.7874 12.4826C26.7942 13.4403 26.0542 14.1174 24.989 14.1256C24.2803 14.1256 23.5701 14.1256 22.8614 14.1256C22.1526 14.1256 21.4086 14.1256 20.6822 14.1256C19.8257 14.1324 19.2131 14.7005 19.2158 15.4743C19.2185 16.2481 19.7999 16.8175 20.6632 16.8502Z" fill="white"/>
                     </svg>
                     <span class="status-category-name">Total Rewards By Sales</span>
-                    <span class="status-category-value">1250</span>
+                    <span class="status-category-value" id="total-rewards-by-sales">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
+                        </div>
+                    </span>
                 </div>
             </div>
             <div class="order-details-wrapper">
                 <div class="order-details-filters">
-                    <div>
-                        <input type="text" name="" id="" />
+                    <form onsubmit="searchForm(event);">
+                        <input type="text" name="search" id="" />
                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                             <path opacity="0.5" d="M18.1953 17.8594L13.1953 12.8594M14.862 8.69271C14.862 9.45875 14.7111 10.2173 14.4179 10.925C14.1248 11.6328 13.6951 12.2758 13.1534 12.8175C12.6118 13.3592 11.9687 13.7889 11.261 14.082C10.5532 14.3752 9.79469 14.526 9.02865 14.526C8.2626 14.526 7.50406 14.3752 6.79633 14.082C6.08859 13.7889 5.44553 13.3592 4.90386 12.8175C4.36218 12.2758 3.9325 11.6328 3.63935 10.925C3.3462 10.2173 3.19531 9.45875 3.19531 8.69271C3.19531 7.14561 3.80989 5.66188 4.90386 4.56792C5.99782 3.47396 7.48155 2.85937 9.02865 2.85938C10.5757 2.85937 12.0595 3.47396 13.1534 4.56792C14.2474 5.66188 14.862 7.14561 14.862 8.69271Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
+                    </form>
                     <div>
                         <button class="filter-btn">
                             <span>STATUS</span>
@@ -148,7 +168,7 @@
                                 </defs>
                             </svg>
                         </button>
-                        <button>
+                        <button onclick="reverseTableRows();">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                 <path d="M15.1198 17.0872L11.7865 13.7539M6.78646 13.7539V3.75391V13.7539ZM6.78646 3.75391L3.45312 7.08724L6.78646 3.75391ZM6.78646 3.75391L10.1198 7.08724L6.78646 3.75391ZM15.1198 7.08724V17.0872V7.08724ZM15.1198 17.0872L18.4531 13.7539L15.1198 17.0872Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>

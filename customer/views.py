@@ -46,13 +46,19 @@ def get_order_list(request):
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{request_data}', headers, {})
-        context['total_orders'] = len(response['data'])
-        context['ordered_items'] = 0
-        for order in response['data']:
-            context['ordered_items'] += len(order['products'])
+        # context['total_orders'] = len(response['data'])
+        # context['ordered_items'] = 0
+        # for order in response['data']:
+        #     context['ordered_items'] += len(order['products'])
         text_template = loader.get_template('ajax/customer-order-table.html')
         html = text_template.render({'orders':response})
         context['order_data'] = html
+        context['total_orders'] = response['stats']['total_orders']
+        context['order_items'] = response['stats']['order_items']
+        context['completed_orders'] = response['stats']['completed_orders']
+        context['total_orders'] = response['stats']['total_orders']
+        context['open_orders'] = response['stats']['open_orders']
+        context['completion_time'] = response['stats']['completion_time']
         context['msg'] = 'Orders retrieved'
         context['success'] = True
     except Exception as e:
@@ -96,6 +102,10 @@ def get_referrals_list(request):
         status, response = requestAPI('GET', f'{request_data}', headers, {})
         text_template = loader.get_template('ajax/referrals-table.html')
         html = text_template.render({'referrals':response})
+        context['total_referrals'] = response['stats']['total_referrals'] or None
+        context['rewards_by_referrals'] = response['stats']['rewards_by_referrals'] or None
+        context['rewards_by_sales'] = response['stats']['rewards_by_sales'] or None
+        context['total_rewards'] = response['stats']['total_rewards'] or None
         context['referrals_data'] = html
         context['msg'] = 'Referrals retrieved'
         context['success'] = True

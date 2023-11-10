@@ -12,74 +12,74 @@
                 <span>Referrer</span>
             </div>
         </th>
-        <th>
+        <th onclick="sortByAlphabets(event, 2);">
             <div>
                 <span>Referrer Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th>
+        <th onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Referree</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th>
+        <th onclick="sortByAlphabets(event, 4);">
             <div>
                 <span>Location</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th>
+        <th onclick="sortByDate(event);">
             <div>
                 <span>Registration Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th>
+        <th onclick="sortByDigits(event, 6)">
             <div>
                 <span>Visits</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th>
+        <th onclick="sortPurchaseDate(7);">
             <div>
                 <span>First Puchase Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th>
+        <th onclick="sortByDigits(event, 8)">
             <div>
                 <span>Net Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th>
+        <th onclick="sortByDigits(event, 9)">
             <div>
                 <span>Points Earned</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
@@ -95,12 +95,12 @@
             </td>
             <td>
                 <div>
-                    <span class="referrer-referree-name">{% if obj.referrer == None %}No Referrer{% else %}{{obj.referrer}}{% endif %}</span>
+                    <span class="referrer-referree-name">{% if obj.referrer == None %}No Referrer{% else %}{{obj.referrer.name}}{% endif %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>Salon</span>
+                    <span>{% if obj.referrer == None %}No Referrer{% else %}{% if obj.referrer.role == 'user' %}Customer{% elif obj.referrer.role == 'salon' %}Salon{% endif %}{% endif %}</span>
                 </div>
             </td>
             <td>
@@ -113,14 +113,14 @@
                     <span>{% if obj.billing_address == None %}No Location{% else %}{{obj.billing_address.address}}{% endif %}</span>
                 </div>
             </td>
-            <td>
+            <td dateTime="{{obj.created_at}}">
                 <div>
                     <span class="date-visits">{{obj.created_at|custom_date:"j-M-Y"}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="date-visits">15</span>
+                    <span class="date-visits">0</span>
                 </div>
             </td>
             <td>

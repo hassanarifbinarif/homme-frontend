@@ -258,13 +258,13 @@
     padding: 13px 20px;
 }
 
-.order-details-wrapper .order-details-filters > div:first-of-type {
+.order-details-wrapper .order-details-filters > form {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.order-details-wrapper .order-details-filters > div:first-of-type > input {
+.order-details-wrapper .order-details-filters > form > input {
     width: 264px;
     height: 30px;
     font-family: Gotham Book;
@@ -276,18 +276,18 @@
     padding-right: 10px;
 }
 
-.order-details-wrapper .order-details-filters > div:first-of-type > svg {
+.order-details-wrapper .order-details-filters > form > svg {
     position: absolute;
     left: 5px;
 }
 
-.order-details-wrapper .order-details-filters > div:last-of-type {
+.order-details-wrapper .order-details-filters > div {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.order-details-wrapper .order-details-filters > div:last-of-type .filter-btn {
+.order-details-wrapper .order-details-filters > div .filter-btn {
     display: flex;
     height: 30px;
     justify-content: space-around;
@@ -309,12 +309,12 @@
     letter-spacing: 1.2px;
 }
 
-.order-details-wrapper .order-details-filters > div:last-of-type .filter-btn:first-of-type {
+.order-details-wrapper .order-details-filters > div .filter-btn:first-of-type {
     width: 119px;
     height: 30px;
 }
 
-.order-details-wrapper .order-details-filters > div:last-of-type button:last-of-type {
+.order-details-wrapper .order-details-filters > div button:last-of-type {
     width: 30px;
     height: 30px;
     border-radius: 4px;
