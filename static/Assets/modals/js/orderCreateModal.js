@@ -285,6 +285,8 @@ document.body.addEventListener('click', closeDropdowns);
 
 async function openCreateOrderModal(modalId) {
     let modal = document.querySelector(`#${modalId}`);
+    let form = modal.querySelector('form');
+
     orderData = {
         products: [],
         shipping_address: null,
@@ -293,6 +295,16 @@ async function openCreateOrderModal(modalId) {
         is_preview: true,
         user: null
     };
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        addedProductsWrapper.innerHTML = '';
+        addedProductsWrapper.classList.add('hide');
+        productTotalWrapper.classList.add('hide');
+        subTotal.innerText = '$0';
+        percentDiscount.innerText = '0%';
+        shippingCost.value = 0;
+        grandTotal.innerText = '$0';
+    })
     document.querySelector(`.${modalId}`).click();
 }
 
@@ -325,6 +337,7 @@ function getShippingDetails() {
 }
 
 async function orderCreate(event) {
+    // event.preventDefault();
     let errorMsg = document.querySelector('.create-error-msg');
     let button = document.querySelector('#order-submit-btn');
     let data = JSON.parse(JSON.stringify(orderData));
@@ -338,7 +351,23 @@ async function orderCreate(event) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
     };
+    // console.log(data);
     if (data.is_preview == false) {
+        if (data.user == null) {
+            errorMsg.classList.add('active');
+            errorMsg.innerHTML = 'Select a customer';
+            return false;
+        }
+        else if (data.products.length == 0) {
+            errorMsg.classList.add('active');
+            errorMsg.innerHTML = 'Select atleast one product';
+            return false;
+        }
+        else if (data.shipping_address == null || data.shipping_address.address == "" || data.shipping_address.city == "" || data.shipping_address.state == "" || data.shipping_address.zip_code == "" || data.shipping_address.country == "") {
+            errorMsg.classList.add('active');
+            errorMsg.innerHTML = 'Complete all fields of shipping details';
+            return false;
+        }
         beforeLoad(button);
     }
     let response = await requestAPI(`${apiURL}/admin/orders`, JSON.stringify(data), headers, 'POST');

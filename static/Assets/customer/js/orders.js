@@ -12,7 +12,7 @@
 //     });
 // }
 
-let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=${getStartOfWeek()}&created_at__lte=&status=&search=`;
+let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=${getStartOfWeek()}&created_at__lte=&status=&search=&purchase_type=`;
 
 window.onload = () => {
     getData();
@@ -82,7 +82,7 @@ async function getData(url=null) {
                 tableBody.innerHTML = res.order_data;
                 tableBody.classList.remove('hide');
                 document.getElementById('total-order-value').innerHTML = res.total_orders;
-                document.getElementById('total-ordered-items').innerHTML = res.order_items;
+                document.getElementById('total-ordered-items').innerHTML = res.order_items || 0;
                 document.getElementById('total-orders-completed').innerHTML = res.completed_orders;
                 document.getElementById('total-open-orders').innerHTML = res.open_orders;
                 document.getElementById('total-order-completion-time').innerHTML = (parseFloat(res.completion_time) / 24) + ' Days';
@@ -415,23 +415,28 @@ function togglePurchaseDropdown() {
 }
 
 
-function sortPurchaseType(event) {
+function filterPurchaseType(event) {
     let element = event.target;
-    document.getElementById('selected-purchase-type').innerText = element.innerText;
-    const table = document.getElementById("order-table");
-    const rows = table.getElementsByTagName("tr");
-    for (let i = 1; i < rows.length; i++) {
-        const cellValue = rows[i].getElementsByTagName("td")[8].children[0].children[0].innerText;
-
-        if (cellValue === element.innerText) {
-            if (rows[i].getAttribute('search-filtered') != 'false' && rows[i].getAttribute('order-completion-filtered') != 'false')
-                rows[i].style.display = "";
-            rows[i].setAttribute('purchase-filtered', true);
-        } else {
-            rows[i].style.display = "none";
-            rows[i].setAttribute('purchase-filtered', false);
-        }
+    let selectedPurchaseType = document.getElementById('selected-purchase-type');
+    if (selectedPurchaseType.innerText != element.innerText) {
+        requiredDataURL = setParams(requiredDataURL, 'purchase_type', element.getAttribute('data-value'));
+        getData(requiredDataURL);
     }
+    selectedPurchaseType.innerText = element.innerText;
+    // const table = document.getElementById("order-table");
+    // const rows = table.getElementsByTagName("tr");
+    // for (let i = 1; i < rows.length; i++) {
+    //     const cellValue = rows[i].getElementsByTagName("td")[8].children[0].children[0].innerText;
+
+    //     if (cellValue === element.innerText) {
+    //         if (rows[i].getAttribute('search-filtered') != 'false' && rows[i].getAttribute('order-completion-filtered') != 'false')
+    //             rows[i].style.display = "";
+    //         rows[i].setAttribute('purchase-filtered', true);
+    //     } else {
+    //         rows[i].style.display = "none";
+    //         rows[i].setAttribute('purchase-filtered', false);
+    //     }
+    // }
 }
 
 
