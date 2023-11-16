@@ -15,10 +15,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="search-product">
-                        <input type="text" readonly placeholder="Product Purchase" name="product_purchase" id="" />
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                            <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
-                        </svg>
+                        <button class="filter-btn" id="activity-type" type="button">
+                            <span id="selected-activity-type">Reward Activity</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
+                            </svg>
+                        </button>
+                        <div class="filter-dropdown" id="activity-type-dropdown">
+                            <div class="radio-btn">
+                                <input id="product-purchase" onchange="selectActivityType(event);" type="radio" value="product_purchase" name="activity_type_radio" />
+                                <label for="product-purchase" class="radio-label">Product Purchase</label>
+                            </div>
+                            <div class="radio-btn">
+                                <input id="reward-activity" checked onchange="selectActivityType(event);" type="radio" value="reward_activity" name="activity_type_radio" />
+                                <label for="reward-activity" class="radio-label">Reward Activity</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="search-product">
                         <input type="text" readonly placeholder="Search Customer" name="customer_search" id="" />
@@ -26,13 +38,19 @@
                             <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
                         </svg>
                     </div>
-                    <div class="search-product">
+                    <div class="search-product hide" id="product-search-wrapper">
                         <input type="text" readonly placeholder="Search Product" name="product_search" id="" />
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
                             <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
                         </svg>
                     </div>
-                    <div class="added-products">
+                    <div class="search-product" id="credits-input-wrapper">
+                        <input type="text" readonly placeholder="Credits" name="credits" id="" />
+                        <svg class="hide" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                            <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
+                        </svg>
+                    </div>
+                    <div class="added-products hide" id="selected-product-wrapper">
                         <div class="product-card">
                             <div class="product-details">
                                 <div class="product-image">
@@ -96,7 +114,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="product-totals">
+                    <div class="product-totals hide" id="product-totals">
                         <div class="sub-values">
                             <div>
                                 <span>Subtotal</span>
@@ -122,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="product-shipping-details">
+                    <div class="product-shipping-details hide" id="product-shipping-details">
                         <div class="product-shipping-header">
                             <span>Shipping Details</span>
                             <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#orderShippingLabel">GENERATE SHIPPING LABEL</span>
@@ -136,7 +154,10 @@
                             <input type="text" placeholder="ZIP" name="zip" id="" />
                             <input type="text" placeholder="Country" name="country" id="" />
                         </div>
-                        <textarea name="notes" id="" cols="30" rows="10">Add Notes...</textarea>
+                        <!-- <textarea name="notes" id="" cols="30" rows="10">Add Notes...</textarea> -->
+                    </div>
+                    <div id="general-textarea">
+                        <textarea class="general-textarea" name="notes" id="" cols="30" rows="10">Add Notes...</textarea>
                     </div>
                 </div>
                 <div class="modal-footer border-top-0">

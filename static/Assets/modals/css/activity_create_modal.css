@@ -87,6 +87,8 @@
     right: 18px;
 }
 
+
+
 #activityCreate .modal-body .added-products {
     padding: 15px;
     border: 0.8px solid var(--Gray-for-Outline, #515254);
@@ -380,7 +382,8 @@
     line-height: normal;
 }
 
-#activityCreate .modal-body .product-shipping-details textarea {
+#activityCreate .modal-body .product-shipping-details textarea,
+#activityCreate .modal-body .general-textarea {
     width: 100%;
     height: 149px;
     padding: 15px;
@@ -432,4 +435,121 @@
     border: 1px solid #000093;
     color: #000093;
     width: 200px;
+}
+
+
+.filter-btn {
+    width: 100%;
+    height: 40px;
+    padding: 0px 18px 0px 16px;
+    background-color: #FFF;
+    border: 1px solid #515254;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-btn > span,
+.radio-btn > label {
+    color: #030706;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+.filter-btn > span {
+    color: #030706;
+    font-size: .875rem;
+}
+
+.filter-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 42px;
+    background-color: #FFFFFF;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #E0E0DD;
+    z-index: 1;
+}
+
+.filter-dropdown .add-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #E7E7E7;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px 6px 0px 0px;
+    position: relative;
+}
+
+.filter-dropdown .add-btn button {
+    width: 100%;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+.filter-dropdown .add-btn > input {
+    margin-top: 5px;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    
+    width: 100%;
+    height: 30px;
+    border: 1px solid #515254;
+    border-radius: 8px;
+    padding: 0px 16px;
+}
+
+.radio-btn > label {
+    width: 100%;
+    padding: 16px 15px;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* 
+.radio-btn > label:first-of-type {
+    border-radius: 8px 0px 8px 0px;
+}
+
+.radio-btn > label:last-of-type {
+    border-radius: 0px 8px 8px 0px;
+} */
+
+.radio-btn:not(:first-child) {
+    border-top: 1px solid #E0E0DD;
+}
+
+.radio-btn > label:hover {
+    background-color: #DDDDDD;
+}
+
+.filter-dropdown input {
+    display: none;
 }
