@@ -253,7 +253,7 @@
                             </div>
                         </div>
                         <div>
-                            <p>Sold 3 units to 1 customer for $75.00 in net sale.</p>
+                            <p>{% if product.insights %}{{product.insights}}{% else %}No Insights{% endif %}</p>
                         </div>
                     </div>
                     <div class="specific-product-organization">
@@ -278,44 +278,6 @@
                                         <input type="text" required name="name" style="display: none;" />
                                         <small class="cat-name-msg input-error-msg"></small>
                                     </form>
-                                    <!-- <div class="radio-btn">
-                                        <input id="hair-care" type="radio" value="hair_care" name="specific_product_category_radio" />
-                                        <label for="hair-care" class="radio-label">
-                                            <span>Hair Care</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="radio-btn">
-                                        <input id="skin-care" type="radio" value="skin_care" name="specific_product_category_radio" />
-                                        <label for="skin-care" class="radio-label">
-                                            <span>Skin Care</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div> -->
-                                    <!-- <div class="radio-btn">
-                                        <input id="beard-care" type="radio" value="beard_care" name="specific_product_category_radio" />
-                                        <label for="beard-care" class="radio-label">Beard Care</label>
-                                    </div>
-                                    <div class="radio-btn">
-                                        <input id="shaving-grooming" type="radio" value="shaving_grooming" name="specific_product_category_radio" />
-                                        <label for="shaving-grooming" class="radio-label">Shaving And Grooming</label>
-                                    </div>
-                                    <div class="radio-btn">
-                                        <input id="body-care" type="radio" value="body_care" name="specific_product_category_radio" />
-                                        <label for="body-care" class="radio-label">Body Care</label>
-                                    </div>
-                                    <div class="radio-btn">
-                                        <input id="accessories" type="radio" value="accessories" name="specific_product_category_radio" />
-                                        <label for="accessories" class="radio-label">Accessories</label>
-                                    </div>
-                                    <div class="radio-btn">
-                                        <input id="fragrances" type="radio" value="fragrances" name="product_category_radio" />
-                                        <label for="fragrances" class="radio-label">Fragrances</label>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>

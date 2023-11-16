@@ -235,6 +235,11 @@ async function sendNotificationForm(event) {
     formData.delete('search');
     let data = formDataToObject(formData);
     let finalSelectedSalons = [];
+    let allSelectedSalons = document.querySelectorAll('.salon-card');
+    allSelectedSalons.forEach((salon) => {
+        let salonID = salon.getAttribute('data-id');
+        finalSelectedSalons.push(parseInt(salonID));
+    })
     if(form.querySelector('input[name="title"]').value.trim().length == 0) {
         errorMsg.classList.add('active');
         errorMsg.innerText = 'Enter valid title';
@@ -245,20 +250,19 @@ async function sendNotificationForm(event) {
         errorMsg.innerText = 'Select a target type';
         return false;
     }
-    else if (data.target_type == 'all_users_by_salon') {
-        let allSelectedSalons = document.querySelectorAll('.salon-card');
-        allSelectedSalons.forEach((salon) => {
-            let salonID = salon.getAttribute('data-id');
-            finalSelectedSalons.push(parseInt(salonID));
-        })
+    if (data.target_type == 'all_users_by_salon') {
+        data.salons = finalSelectedSalons;
         if (finalSelectedSalons.length == 0) {
             errorMsg.classList.add('active');
             errorMsg.innerText = 'Select target salons';
             return false;
         }
-        data.salons = finalSelectedSalons;
     }
-    else if (form.querySelector('textarea[name="text"]').value.trim().length == 0) {
+    else {
+        if (data.salons)
+            delete data.salons;
+    }
+    if (form.querySelector('textarea[name="text"]').value.trim().length == 0) {
         errorMsg.classList.add('active');
         errorMsg.innerText = 'Enter notification text';
         return false;
@@ -268,7 +272,6 @@ async function sendNotificationForm(event) {
         errorMsg.innerText = 'Enter only ASCII characters';
         return false;
     }
-    // console.log(data);
     else {
         try {
             errorMsg.classList.remove('active');
