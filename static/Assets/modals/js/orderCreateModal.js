@@ -388,6 +388,7 @@ async function orderCreate(event) {
                 percentDiscount.innerText = res.data.percent_discount + '%';
                 shippingCost.value = res.data.shipping;
                 grandTotal.innerText = res.data.total;
+                totalTax.innerText = '$' + res.tax_amount;
             }
         }
         else {

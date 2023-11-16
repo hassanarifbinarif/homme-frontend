@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/products?page=1&perPage=1000`;
+let requiredDataURL = `${apiURL}/admin/products?page=1&perPage=1000&ordering=-created_at`;
 
 let productCategoryDropdown = document.getElementById('product-category-dropdown');
 let productCategoryDropdownBtn = document.getElementById('product-category');
