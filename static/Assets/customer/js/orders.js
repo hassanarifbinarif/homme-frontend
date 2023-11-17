@@ -71,10 +71,6 @@ async function getData(url=null) {
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {
-        // let resp = await requestAPI(requiredDataURL, null, headers, 'GET');
-        // resp.json().then(function(res) {
-        //     console.log(res);
-        // })
         let response = await requestAPI('/get-order-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
             if (res.success) {
@@ -86,7 +82,6 @@ async function getData(url=null) {
                 document.getElementById('total-orders-completed').innerHTML = res.completed_orders;
                 document.getElementById('total-open-orders').innerHTML = res.open_orders;
                 document.getElementById('total-order-completion-time').innerHTML = (parseFloat(res.completion_time) / 24) + ' Days';
-                // console.log(res.completion_time);
             }
         })
     }
@@ -261,7 +256,7 @@ function sortByOrder(event, columnIndex) {
     var table = document.getElementById("order-table");
     var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     switching = true;
-    dir = "asc"; // Set the default sorting direction to ascending
+    dir = "asc";
 
     while (switching) {
         switching = false;

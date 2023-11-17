@@ -5,31 +5,31 @@ window.onload = () => {
 }
 
 function searchForm(event) {
-    // event.preventDefault();
-    // let form = event.currentTarget;
-    // let formData = new FormData(form);
-    // let data = formDataToObject(formData);
-    // urlParams = setParams(requiredDataURL, 'search', `${data.search}`);
-    // getData(urlParams);
     event.preventDefault();
-    let searchField = document.getElementById('search-customer');
-    const table = document.getElementById("customer-table");
-    const rows = table.getElementsByTagName("tr");
-    for (let i = 1; i < rows.length; i++) {
-        const cellValue = rows[i].getElementsByTagName("td")[1].children[0].children[0].innerText;
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    urlParams = setParams(requiredDataURL, 'search', `${data.search}`);
+    getData(urlParams);
+    // event.preventDefault();
+    // let searchField = document.getElementById('search-customer');
+    // const table = document.getElementById("customer-table");
+    // const rows = table.getElementsByTagName("tr");
+    // for (let i = 1; i < rows.length; i++) {
+    //     const cellValue = rows[i].getElementsByTagName("td")[1].children[0].children[0].innerText;
 
-        if (cellValue.toLowerCase().includes(searchField.value.toLowerCase())) {
-            rows[i].style.display = "";
-            rows[i].setAttribute('search-filtered', true);
-        } else if (searchField.value == '') {
-            rows[i].style.display = "";
-            rows[i].setAttribute('search-filtered', true);
-        }
-        else {
-            rows[i].style.display = "none";
-            rows[i].setAttribute('search-filtered', false);
-        }
-    }
+    //     if (cellValue.toLowerCase().includes(searchField.value.toLowerCase())) {
+    //         rows[i].style.display = "";
+    //         rows[i].setAttribute('search-filtered', true);
+    //     } else if (searchField.value == '') {
+    //         rows[i].style.display = "";
+    //         rows[i].setAttribute('search-filtered', true);
+    //     }
+    //     else {
+    //         rows[i].style.display = "none";
+    //         rows[i].setAttribute('search-filtered', false);
+    //     }
+    // }
 }
 
 let totalCustomers = null;
@@ -50,10 +50,6 @@ async function getData(url=null) {
         tableBody.classList.add('hide');
     }
     try {
-        // let resp = await requestAPI(requiredDataURL, null, headers, 'GET');
-        // resp.json().then(function(res) {
-        //     console.log(res);
-        // })
         let response = await requestAPI('/get-customer-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
             if (res.success) {
@@ -144,7 +140,7 @@ function sortByOrder(event, columnIndex) {
     var table = document.getElementById("customer-table");
     var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     switching = true;
-    dir = "asc"; // Set the default sorting direction to ascending
+    dir = "asc";
 
     while (switching) {
         switching = false;

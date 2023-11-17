@@ -20,11 +20,6 @@ async function getData(url=null) {
     }
     let tableBody = document.getElementById('marketing-table');
     try {
-        // let resp = await requestAPI(requiredDataURL, null, headers, 'GET');
-        // // console.log(resp);
-        // resp.json().then(function(res) {
-        //     console.log(res);
-        // })
         let response = await requestAPI('/get-marketing-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
             // console.log(res);

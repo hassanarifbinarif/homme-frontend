@@ -214,7 +214,7 @@ function sortByDigits(event, columnIndex) {
     var table = document.getElementById("activity-table");
     var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     switching = true;
-    dir = "asc"; // Set the default sorting direction to ascending
+    dir = "asc";
 
     while (switching) {
         switching = false;

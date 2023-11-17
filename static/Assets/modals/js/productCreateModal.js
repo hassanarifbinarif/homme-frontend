@@ -15,7 +15,6 @@ async function populateModalDropdowns() {
     let responseSkinTypes = await requestAPI(`${apiURL}/admin/skin-types?perPage=1000`, null, headers, 'GET');
     responseProductCategory.json().then(function(res) {
         let productCategories = [...res.data];
-        // productCategoryDropdown.innerHTML = null;
         productCategories.forEach((prodCat) => {
             productCategoryDropdown.innerHTML += `<div class="radio-btn" id="prod-cat${prodCat.id}">
                                                         <input onchange="selectProductCategory(event);" id="cat-${prodCat.id}" data-id="${prodCat.id}" type="radio" value="${prodCat.name}" name="product_category_radio" />
@@ -30,7 +29,6 @@ async function populateModalDropdowns() {
     })
     responseProductType.json().then(function(res) {
         let productTypes = [...res.data];
-        // productTypeDropdown.innerHTML = null;
         productTypes.forEach((prodType) => {
             productTypeDropdown.innerHTML += `<div class="radio-btn" id="prod-type${prodType.id}">
                                                     <input onchange="selectProductType(event);" id="type-${prodType.id}" data-id="${prodType.id}" type="radio" value="${prodType.name}" name="product_type_radio" />
@@ -67,6 +65,21 @@ async function openProductCreateModal(modalID) {
     document.querySelector('.create-error-msg').classList.remove('active');
     document.querySelector('.create-error-msg').innerText = '';
     form.querySelector('.btn-text').innerText = 'CREATE';
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        document.getElementById('selected-product-category').innerText = 'Product Category';
+        document.getElementById('selected-product-category').style.color = '#A9A9A9';
+        document.getElementById('selected-product-type').innerText = 'Product Type';
+        document.getElementById('selected-product-type').style.color = '#A9A9A9';
+        document.getElementById('selected-skin-type').innerText = 'Skin Type';
+        document.getElementById('selected-skin-type').style.color = '#A9A9A9';
+        modal.querySelectorAll('.product-image-label').forEach((label) => {
+            label.querySelector('img').classList.add('hide');
+            label.querySelector('img').src = '';
+            label.querySelector('svg').style.display = 'block';
+            label.querySelector('span').style.display = 'block';
+        })
+    })
     document.querySelector(`.${modalID}`).click();
 }
 
@@ -142,7 +155,7 @@ async function getCatField(event) {
             let formData = new FormData();
             formData.append('name', catNameField.value);
             let data = formDataToObject(formData);
-            console.log(data);
+            // console.log(data);
             try {
                 let token = getCookie('admin_access');
                 let headers = {
@@ -150,7 +163,7 @@ async function getCatField(event) {
                 }
                 let response = await requestAPI(`${apiURL}/admin/categories`, formData, headers, 'POST');
                 response.json().then(function(res) {
-                    console.log(res);
+                    // console.log(res);
                     productCategoryDropdown.innerHTML += `<div class="radio-btn" id="prod-cat${res.data.id}">
                                                             <input onchange="selectProductCategory(event);" id="cat-${res.data.id}" data-id="${res.data.id}" type="radio" value="${res.data.name}" name="product_category_radio" />
                                                             <label for="cat-${res.data.id}" class="radio-label">
@@ -161,7 +174,6 @@ async function getCatField(event) {
                                                             </label>
                                                         </div>`
                 })
-                // initializeDropdowns();
             }
             catch (err) {
                 console.log(err);
@@ -194,7 +206,7 @@ async function getTypeField(event) {
                 }
                 let response = await requestAPI(`${apiURL}/admin/product-types`, formData, headers, 'POST');
                 response.json().then(function(res) {
-                    console.log(res);
+                    // console.log(res);
                     productTypeDropdown.innerHTML += `<div class="radio-btn" id="prod-type${res.data.id}">
                                                             <input onchange="selectProductType(event);" id="type-${res.data.id}" data-id="${res.data.id}" type="radio" value="${res.data.name}" name="product_type_radio" />
                                                             <label for="type-${res.data.id}" class="radio-label">
@@ -205,7 +217,6 @@ async function getTypeField(event) {
                                                             </label>
                                                         </div>`
                 })
-                // initializeDropdowns();
             }
             catch (err) {
                 console.log(err);
@@ -468,6 +479,7 @@ async function createProductForm(event) {
             response.json().then(function(res) {
                 console.log(res);
                 if (response.status == 201) {
+                    form.reset();
                     afterLoad(button, 'CREATED');
                     getData();
                     setTimeout(() => {

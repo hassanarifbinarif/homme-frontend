@@ -44,11 +44,6 @@ async function getData(url=null) {
         tableBody.classList.add('hide');
     }
     try {
-        let resp = await requestAPI(requiredDataURL, null, headers, 'GET');
-        // console.log(resp);
-        resp.json().then(function(res) {
-            // console.log(res);
-        })
         let response = await requestAPI('/get-product-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
             // console.log(res);
