@@ -61,6 +61,19 @@ def percentage(value, arg):
     return total_value
 
 
+def calculate_items(value):
+    if not value:
+        return ''
+    try:
+        items = 0
+        for obj in value:
+            items += obj['qty']
+    except Exception as e:
+        print(e)
+        return 0
+    return items
+
+
 def get_page_numbers(value):
     if not value:
         return ''
@@ -94,5 +107,6 @@ register.filter("multiply", multiply)
 register.filter('divide', divide)
 register.filter("plus", plus)
 register.filter("percentage", percentage)
+register.filter("calculate_items", calculate_items)
 register.filter("page_number", get_page_numbers)
 register.filter("split_string", split_string)

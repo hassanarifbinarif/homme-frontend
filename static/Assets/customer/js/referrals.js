@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/referrals?page=1&perPage=1000`;
+let requiredDataURL = `${apiURL}/admin/referrals?page=1&perPage=1000&ordering=-user__created_at&search=`;
 
 window.onload = () => {
     getData();
@@ -21,13 +21,16 @@ async function getData(url=null) {
         "Authorization": `Bearer ${token}`
     }
     let data;
+    let tableBody = document.getElementById('referrals-table');
     if (url == null) {
         data = requiredDataURL;
     }
     else {
         data = url
     }
-    let tableBody = document.getElementById('referrals-table');
+    console.log(data);
+    tableBody.classList.add('hide');
+    document.getElementById('table-loader').classList.remove('hide');
     try {
         // let resp = await requestAPI(requiredDataURL, null, headers, 'GET');
         // // console.log(resp);
@@ -36,6 +39,7 @@ async function getData(url=null) {
         // })
         let response = await requestAPI('/get-referrals-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
+            console.log(res);
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.referrals_data;
@@ -55,6 +59,27 @@ async function getData(url=null) {
     catch (err) {
         console.log(err);
     }
+}
+
+
+function sortByDateBtn(event) {
+    let arrows = event.target.closest('button').querySelectorAll('path');
+    const url = new URL(requiredDataURL);
+    let ordering = url.searchParams.get('ordering');
+    if (ordering == '-user__created_at') {
+        ordering = 'user__created_at';
+        arrows[0].setAttribute('opacity', '.2');
+        arrows[1].setAttribute('opacity', '1');
+        url.searchParams.set('ordering', ordering);
+    }
+    else {
+        ordering = '-user__created_at';
+        arrows[0].setAttribute('opacity', '1');
+        arrows[1].setAttribute('opacity', '.2');
+        url.searchParams.set('ordering', ordering);
+    }
+    requiredDataURL = url.toString();
+    getData(requiredDataURL);
 }
 
 

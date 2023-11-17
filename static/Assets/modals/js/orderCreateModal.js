@@ -393,12 +393,6 @@ async function orderCreate(event) {
         }
         else {
             if (data.is_preview == false) {
-                // getData();
-                // afterLoad(button, 'Created');
-                // setTimeout(()=> {
-                //     afterLoad(button, 'CREATE');
-                //     document.querySelector(`.orderCreate`).click();
-                // }, 1500)
                 let keys = Object.keys(res.messages);
                 keys.forEach((key) => {
                     // console.log(key);

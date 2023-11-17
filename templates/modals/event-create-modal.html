@@ -24,88 +24,19 @@
                         <input type="text" name="rsvp_link" placeholder="Enter RSVP link" />
                     </div>
                     <div class="image-wrapper">
-                        <label for="">
+                        <label for="event-img">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 50 35" fill="none">
                                 <path d="M42.36 15.28C41.2675 6.675 33.9 0 25 0C18.11 0 12.125 4.0275 9.3925 10.375C4.0225 11.98 0 17.05 0 22.5C0 29.3925 5.6075 35 12.5 35H40C45.515 35 50 30.515 50 25C49.9962 22.759 49.2416 20.5839 47.8567 18.8221C46.4719 17.0602 44.5366 15.8131 42.36 15.28ZM27.5 22.5V30H22.5V22.5H15L25 10L35 22.5H27.5Z" fill="#000093"/>
                             </svg>
-                            <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_buy_page_img" id="buy-page" oninput="previewImage(event);" />
+                            <input type="file" accept="image/jpeg, image/jpg, image/png" name="event_img" id="event-img" oninput="previewImage(event);" />
                             <span>Upload an Image</span>
                             <span>(supported dimension: 330x330px)</span>
+                            <img src="" class="event-img hide" name="event_image" alt="event image" />
                         </label>
                     </div>
-                    <!-- <div class="add-media-wrapper">
-                        <span>Add Media</span>
-                        <div class="add-media-inputs">
-                            <div class="media-input">
-                                <span>Buy Page</span>
-                                <div>
-                                    <label class="cursor-pointer" for="buy-page">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
-                                            <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
-                                        </svg>
-                                        <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_buy_page_img" id="buy-page" oninput="previewImage(event);" />
-                                        <img class="product-image hide" src="" alt="product image" />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="media-input">
-                                <span>Product Detail</span>
-                                <div>
-                                    <label class="cursor-pointer" for="prod-detail-img-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
-                                            <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
-                                        </svg>
-                                        <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_1" id="prod-detail-img-1" oninput="previewImage(event);" />
-                                        <img class="product-image hide" src="" alt="product image" />
-                                    </label>                                    
-                                </div>
-                            </div>
-                            <div class="media-input">
-                                <span>Product Detail</span>
-                                <div>
-                                    <label class="cursor-pointer" for="prod-detail-img-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
-                                            <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
-                                        </svg>
-                                        <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_2" id="prod-detail-img-2" oninput="previewImage(event);" />
-                                        <img class="product-image hide" src="" alt="product image" />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="media-input">
-                                <span>Product Detail</span>
-                                <div>
-                                    <label class="cursor-pointer" for="prod-detail-img-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
-                                            <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
-                                        </svg>
-                                        <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_3" id="prod-detail-img-3" oninput="previewImage(event);" />
-                                        <img class="product-image hide" src="" alt="product image" />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="media-input">
-                                <span>Product Detail</span>
-                                <div>
-                                    <label class="cursor-pointer" for="prod-detail-img-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
-                                            <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
-                                        </svg>
-                                        <span>Upload an Image</span>
-                                        <input type="file" accept="image/jpeg, image/jpg, image/png" name="prod_detail_img_4" id="prod-detail-img-4" oninput="previewImage(event);" />
-                                        <img class="product-image hide" src="" alt="product image" />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="error-div">
+                    <!-- <div class="error-div">
                         <small class="create-error-msg input-error-msg"></small>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer border-top-0">
                     <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
@@ -121,3 +52,17 @@
     </div>
 </div>
 <input type="hidden" class="eventCreate" data-bs-toggle="modal" data-bs-target="#eventCreate" />
+
+<script>
+    function previewImage(event) {
+        let imageInput = event.currentTarget;
+        let image = imageInput.files;
+        let imageTag = imageInput.closest('label').querySelector('.event-img');
+        imageTag.src = window.URL.createObjectURL(image[0]);
+        imageTag.classList.remove('hide');
+        imageInput.closest('label').querySelector('svg').style.display = 'none';
+        imageInput.closest('label').querySelectorAll('span').forEach((span) => {
+            span.style.display = 'none';
+        })
+    }
+</script>

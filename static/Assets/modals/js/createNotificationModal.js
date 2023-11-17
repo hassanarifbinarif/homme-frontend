@@ -5,6 +5,8 @@ let targetTypeOptions = document.querySelectorAll('input[name="target_type"]');
 let addSalonsBtn = document.getElementById('add-salons-btn');
 let salonListWrapper = document.getElementById('salon-list-items-wrapper');
 let selectedSalons = document.getElementById('selected-salons');
+let salonsWrapper = document.getElementById('salons-wrapper');
+let salonSelectBtn = document.getElementById('salon-select-btn');
 let salonsList = [];
 
 targetTypeDropdownBtn.addEventListener('click', toggleDropdown);
@@ -19,6 +21,27 @@ function openCreateNotificationModal(modalID) {
     form.reset();
     form.setAttribute("onsubmit", `sendNotificationForm(event)`);
     form.querySelector('.btn-text').innerText = 'SEND';
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        let allsalons = document.querySelectorAll('input[name="salons"]');
+        addSalonsBtn = document.getElementById('add-salons-btn');        
+        allsalons.forEach((checkbox) => {
+            if(checkbox.checked) {
+                checkbox.checked = false;
+            }
+        })
+        addSalonsBtn.style.background = '#9D9D9D';
+        addSalonsBtn.disabled = true;
+        selectedSalons.classList.add('hide');
+        selectedSalons.innerHTML = '';
+        salonsWrapper.classList.add('hide');
+        document.getElementById('selected-target-type').innerText = 'Select target';
+        document.getElementById('selected-target-type').style.color = '#A9A9A9';
+        document.getElementById('no-salon-text').classList.add('hide');
+        document.querySelectorAll('.salon-list-item').forEach((item) => {
+            item.classList.remove('hide');
+        })
+    })
     document.querySelector(`.${modalID}`).click();
 }
 
@@ -75,7 +98,6 @@ function checkSelectedSalons() {
                         checkedCount++;
                     }
                 })
-                // console.log(checkedCount);
                 if(checkedCount > 0) {
                     addSalonsBtn.style.background = '#000093';
                     addSalonsBtn.disabled = false;
@@ -115,17 +137,6 @@ function searchSalon(event) {
                 item.classList.add('hide');
             }
         })
-        // filteredSalons.forEach((salon) => {
-        //     let salonDiv = document.querySelector(`.salon-list-item[data-id="${salon.id}"]`);
-        //     // salonListWrapper.innerHTML += `<div class="salon-list-item" data-id="${salon.id}">
-        //     //                                     <label for="salon-${salon.id}">
-        //     //                                         <span>${salon.name}</span>
-        //     //                                     </label>
-        //     //                                     <div>
-        //     //                                         <input type="checkbox" value=${salon.name} id="salon-${salon.id}" data-id="${salon.id}" name="salons" />
-        //     //                                     </div>
-        //     //                                 </div>`;
-        // })
     }
     checkSelectedSalons();
 }
@@ -169,6 +180,9 @@ function delSelectedSalon(event, id) {
     divToDelete.remove();
     if (document.querySelectorAll('.salon-card').length == 0) {
         selectedSalons.classList.add('hide');
+        addSalonsBtn = document.getElementById('add-salons-btn');
+        addSalonsBtn.style.background = '#9D9D9D';
+        addSalonsBtn.disabled = true;
     }
     checkSelectedSalons();
 }
@@ -198,8 +212,6 @@ function closeDropdowns(event) {
 document.body.addEventListener('click', closeDropdowns);
 
 
-let salonsWrapper = document.getElementById('salons-wrapper');
-let salonSelectBtn = document.getElementById('salon-select-btn');
 salonSelectBtn.addEventListener('click', function() {
     let salonSearchWrapper = document.getElementById('salon-search-wrapper');
     if (salonSearchWrapper.classList.contains('hide')) {
