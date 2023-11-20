@@ -111,56 +111,48 @@ function selectOrderStatTime(event) {
         startDate = getStartOfWeek();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startDate);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'LAST WEEK' && selectedOrderStatTime.innerText != element.innerText) {
         const { startOfPreviousWeek, endOfPreviousWeek } = getStartAndEndOfPreviousWeek();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfPreviousWeek);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfPreviousWeek);
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'CURRENT MONTH' && selectedOrderStatTime.innerText != element.innerText) {
         let today = new Date();
         const { startOfMonth, endOfMonth } = getStartAndEndOfMonth(today);
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfMonth);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfMonth);
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'LAST MONTH' && selectedOrderStatTime.innerText != element.innerText) {
         const { startOfLastMonth, endOfLastMonth } = getStartAndEndOfLastMonth();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfLastMonth);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfLastMonth);
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'CURRENT QUARTER' && selectedOrderStatTime.innerText != element.innerText) {
         const { startOfQuarter, endOfQuarter } = getStartAndEndOfQuarter();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfQuarter);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfQuarter);
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'LAST QUARTER' && selectedOrderStatTime.innerText != element.innerText) {
         const { startOfLastQuarter, endOfLastQuarter } = getStartAndEndOfLastQuarter();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfLastQuarter);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfLastQuarter);
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'CURRENT YEAR' && selectedOrderStatTime.innerText != element.innerText) {
         const { startOfYear, endOfYear } = getStartAndEndOfYear();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfYear);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfYear);
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'LAST YEAR' && selectedOrderStatTime.innerText != element.innerText) {
         const { startOfLastYear, endOfLastYear } = getStartAndEndOfLastYear();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfLastYear);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfLastYear);
-        getData(requiredDataURL);
     }
     else if (element.innerText == 'ALL TIME' && selectedOrderStatTime.innerText != element.innerText) {
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', '');
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
-        getData(requiredDataURL);
     }
+    getData(requiredDataURL);
     selectedOrderStatTime.innerText = element.innerText;
     orderStatsDropdown.classList.add('hide');
     orderStatTimeBtn.click();
@@ -197,154 +189,115 @@ function sortByDate(event) {
     let arrows;
     if (event.target.closest('button')) {
         arrows = event.target.closest('button').querySelectorAll('path');
-    }
-    else if (event.target.closest('th')) {
+    } else if (event.target.closest('th')) {
         arrows = event.target.closest('th').querySelectorAll('path');
     }
-    var table = document.getElementById("order-table");
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    switching = true;
-    dir = "asc";
+    const table = document.getElementById("order-table");
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
+    const currentOrder = sortOrders[2] || 'asc';
 
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = convertToDateTime(rowA.getElementsByTagName("td")[2].getAttribute('dateTime'));
+        const y = convertToDateTime(rowB.getElementsByTagName("td")[2].getAttribute('dateTime'));
 
-            x = convertToDateTime(rows[i].getElementsByTagName("td")[2].getAttribute('dateTime'));
-            y = convertToDateTime(rows[i + 1].getElementsByTagName("td")[2].getAttribute('dateTime'));
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
 
-            if (dir === "asc") {
-                if (x > y) {
-                    shouldSwitch = true;
-                    arrows[0].setAttribute('opacity', '.2');
-                    arrows[1].setAttribute('opacity', '1');
-                    break;
-                }
-            } else if (dir === "desc") {
-                if (x < y) {
-                    shouldSwitch = true;
-                    arrows[0].setAttribute('opacity', '1');
-                    arrows[1].setAttribute('opacity', '.2');
-                    break;
-                }
-            }
-        }
-
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount === 0 && dir === "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
+    // Clear table content
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
     }
+
+    // Append sorted rows to the table
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    // Toggle arrow opacity
+    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+    sortOrders[2] = currentOrder === 'asc' ? 'desc' : 'asc';
 }
+
+
+
+// Initialize an object to store the sort order for each column
+const sortOrders = {};
 
 
 function extractNumber(value) {
-    return parseFloat(value.match(/\d+/)[0]);
+    const match = value.match(/\d+/);
+    return match ? parseFloat(match[0]) : 0;
 }
 
 function sortByOrder(event, columnIndex) {
-    let columnArrows = event.target.closest('th').querySelectorAll('path');
-    var table = document.getElementById("order-table");
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    switching = true;
-    dir = "asc";
+    const columnArrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("order-table");
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-    
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-    
-            x = extractNumber(rows[i].getElementsByTagName("td")[columnIndex].textContent);
-            y = extractNumber(rows[i + 1].getElementsByTagName("td")[columnIndex].textContent);
-        
-            if (dir === "asc") {
-                columnArrows[0].setAttribute('opacity', '.2');
-                columnArrows[1].setAttribute('opacity', '1');
-                if (x > y) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (dir === "desc") {
-                columnArrows[0].setAttribute('opacity', '1');
-                columnArrows[1].setAttribute('opacity', '.2');
-                if (x < y) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-    
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount === 0 && dir === "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = extractNumber(rowA.getElementsByTagName("td")[columnIndex].textContent);
+        const y = extractNumber(rowB.getElementsByTagName("td")[columnIndex].textContent);
+
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
+
+    // Clear table content
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
     }
+
+    // Append sorted rows to the table
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    // Toggle arrow opacity and update sort order
+    columnArrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    columnArrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
 }
 
 
 function sortByAlphabets(event, columnIndex) {
-    let arrows = event.target.closest('th').querySelectorAll('path');
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("order-table");
-    switching = true;
-    dir = "asc";
+    const arrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("order-table");
+    const currentOrder = sortOrders[columnIndex] || 'asc';
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
+    const rows = Array.from(table.rows).slice(1); // Exclude the header row
 
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
+    rows.sort((rowA, rowB) => {
+        const valueA = rowA.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
+        const valueB = rowB.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
 
-            x = rows[i].getElementsByTagName("td")[columnIndex].textContent;
-            y = rows[i + 1].getElementsByTagName("td")[columnIndex].textContent;
+        return currentOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    });
 
-            if (dir === "asc") {
-                arrows[0].setAttribute('opacity', '.2');
-                arrows[1].setAttribute('opacity', '1');
-                if (x.toLowerCase() > y.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (dir === "desc") {
-                arrows[0].setAttribute('opacity', '1');
-                arrows[1].setAttribute('opacity', '.2');
-                if (x.toLowerCase() < y.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount === 0 && dir === "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
+    // Clear table content
+    const tbody = table.querySelector('tbody');
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
     }
+
+    // Append sorted rows to the table
+    for (let i = 0; i < rows.length; i++) {
+        tbody.appendChild(rows[i]);
+    }
+
+    // Toggle arrow opacity and update sortOrders object
+    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+    
+    // Update sort order for the current column
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
 }
+
 
 
 function reverseTableRows() {

@@ -438,7 +438,7 @@
 }
 
 
-.filter-btn {
+#activityCreate .filter-btn {
     width: 100%;
     height: 40px;
     padding: 0px 18px 0px 16px;
@@ -450,8 +450,8 @@
     justify-content: space-between;
 }
 
-.filter-btn > span,
-.radio-btn > label {
+#activityCreate .filter-btn > span,
+#activityCreate .radio-btn > label {
     color: #030706;
     leading-trim: both;
     text-edge: cap;
@@ -462,12 +462,12 @@
     line-height: 10px;
 }
 
-.filter-btn > span {
+#activityCreate .filter-btn > span {
     color: #030706;
     font-size: .875rem;
 }
 
-.filter-dropdown {
+#activityCreate .filter-dropdown {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -479,7 +479,7 @@
     z-index: 1;
 }
 
-.filter-dropdown .add-btn {
+#activityCreate .filter-dropdown .add-btn {
     width: 100%;
     padding: 15px;
     background-color: #E7E7E7;
@@ -488,7 +488,7 @@
     position: relative;
 }
 
-.filter-dropdown .add-btn button {
+#activityCreate .filter-dropdown .add-btn button {
     width: 100%;
     height: 30px;
     border: 1px solid transparent;
@@ -506,7 +506,7 @@
     letter-spacing: 2.4px;
 }
 
-.filter-dropdown .add-btn > input {
+#activityCreate .filter-dropdown .add-btn > input {
     margin-top: 5px;
     color: #000;
     leading-trim: both;
@@ -524,7 +524,7 @@
     padding: 0px 16px;
 }
 
-.radio-btn > label {
+#activityCreate .radio-btn > label {
     width: 100%;
     padding: 16px 15px;
     cursor: pointer;
@@ -534,22 +534,22 @@
     align-items: center;
 }
 /* 
-.radio-btn > label:first-of-type {
+#activityCreate .radio-btn > label:first-of-type {
     border-radius: 8px 0px 8px 0px;
 }
 
-.radio-btn > label:last-of-type {
+#activityCreate .radio-btn > label:last-of-type {
     border-radius: 0px 8px 8px 0px;
 } */
 
-.radio-btn:not(:first-child) {
+#activityCreate .radio-btn:not(:first-child) {
     border-top: 1px solid #E0E0DD;
 }
 
-.radio-btn > label:hover {
+#activityCreate .radio-btn > label:hover {
     background-color: #DDDDDD;
 }
 
-.filter-dropdown input {
+#activityCreate .filter-dropdown input {
     display: none;
 }

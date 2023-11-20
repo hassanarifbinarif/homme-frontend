@@ -237,6 +237,26 @@ def activity(request, api_response):
     return render(request, 'customer/activity.html', context)
 
 
+@csrf_exempt
+def get_activities_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        text_template = loader.get_template('ajax/customer-activities-table.html')
+        html = text_template.render({'activities':response})
+        context['activity_data'] = html
+        context['msg'] = 'Activities list retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
 @admin_signin_required
 def marketing(request, api_response):
     context = {}

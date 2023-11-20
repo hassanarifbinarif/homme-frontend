@@ -1,0 +1,28 @@
+version: '3.2'
+
+services:
+  homme-frontend:
+    container_name: "${PROJECT_NAME}_frontend_${ENV}"
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: bash -c 'python manage.py runserver 0.0.0.0:8002'
+    volumes:
+      - "./:/code"
+    # ports:
+    #   - $WEB_PORT:8000
+
+  # nginx:
+  #   container_name: "${PROJECT_NAME}_frontend_nginx_${ENV}"
+  #   image: nginx:latest
+  #   volumes:
+  #     - "./:/code/"
+  #     - "./nginx/nginx-$ENV.conf:/etc/nginx/conf.d/default.conf"
+  #   ports:
+  #     - $NGINX_PORT:80
+  #     - 443:443
+  #   depends_on:
+  #     - homme-frontend
+  #   restart: always
+  #   links:
+  #     - homme-frontend:homme-frontend

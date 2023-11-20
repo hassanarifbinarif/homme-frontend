@@ -156,7 +156,7 @@ criteriaDropdownBtn.addEventListener('click', toggleDropdown);
 
 
 function toggleDropdown(event) {
-    console.log('in toggle', event.target);
+    // console.log('in toggle', event.target);
     let elementBtn = event.target;
     if(!elementBtn.classList.contains('filter-btn')) {
         elementBtn = elementBtn.closest('.filter-btn');

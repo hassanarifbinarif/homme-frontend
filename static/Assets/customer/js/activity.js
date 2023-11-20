@@ -13,15 +13,52 @@ let netCashInputWrapper = document.getElementById('net-cash-selector');
 let rewardsBtn = document.getElementById('rewards-btn');
 let rewardsInputWrapper = document.getElementById('rewards-selector');
 
+let requiredDataURL = `${apiURL}/admin/activities?page=1&perPage=1000&ordering=-created_at`;
+
+
+window.onload = () => {
+    getData();
+}
+
 
 function searchForm(event) {
     event.preventDefault();
     let form = event.currentTarget;
     let formData = new FormData(form);
     let data = formDataToObject(formData);
-    // console.log(data);
-    // requiredDataURL = setParams(requiredDataURL, 'search', `${data.search}`);
-    // getData(requiredDataURL);
+    requiredDataURL = setParams(requiredDataURL, 'search', `${data.search}`);
+    getData(requiredDataURL);
+}
+
+
+async function getData(url=null) {
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`
+    }
+    let data;
+    let tableBody = document.getElementById('activity-table');
+    if (url == null) {
+        data = requiredDataURL;
+    }
+    else {
+        data = url;
+        document.getElementById('table-loader').classList.remove('hide');
+        tableBody.classList.add('hide');
+    }
+    try {
+        let response = await requestAPI('/get-activities-list/', JSON.stringify(data), {}, 'POST');
+        response.json().then(function(res) {
+            if (res.success) {
+                document.getElementById('table-loader').classList.add('hide');
+                tableBody.innerHTML = res.activity_data;
+                tableBody.classList.remove('hide');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 
@@ -43,6 +80,7 @@ function filterSalesChannelOption(event) {
 
 function filterTypeOption(event) {
     let element = event.target;
+    requiredDataURL = setParams(requiredDataURL, 'type', element.getAttribute('data-value'));
     // document.getElementById('selected-type').innerText = element.innerText;
 }
 
@@ -75,6 +113,20 @@ function dateRangeForm(event) {
     let form = event.target.closest('form');
     let formData = new FormData(form);
     let data = formDataToObject(formData);
+    if (data.start_date == '' || data.end_date == '') {
+        return false;
+    }
+    else if (isNaN(new Date(data.start_date)) || isNaN(new Date(data.end_date))) {
+        return false;
+    }
+    else if (new Date(data.end_date) - new Date(data.start_date) <= 0) {
+        return false;
+    }
+    else {
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', data.start_date);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', data.end_date);
+        getData(requiredDataURL);
+    }
 }
 
 
@@ -93,10 +145,25 @@ function toggleNetCashInputs(event) {
 }
 
 function netCashForm(event) {
-    event.preventDefault();
-    let form = event.target.closest('form');
-    let formData = new FormData(form);
-    let data = formDataToObject(formData);
+    if (event.key == 'Enter') {
+        let form = event.target.closest('form');
+        let formData = new FormData(form);
+        let data = formDataToObject(formData);
+        if (data.min_cash == '' || data.max_cash == '') {
+            return false;
+        }
+        else if (!(/^-?\d*\.?\d+$/.test(data.min_cash)) || !(/^-?\d*\.?\d+$/.test(data.max_cash))) {
+            return false;
+        }
+        else if (parseFloat(data.min_cash) >= parseFloat(data.max_cash)) {
+            return false;
+        }
+        else {
+            requiredDataURL = setParams(requiredDataURL, 'net_cash__gte', data.min_cash);
+            requiredDataURL = setParams(requiredDataURL, 'net_cash__lte', data.max_cash);
+            getData(requiredDataURL);
+        }
+    }
 }
 
 
@@ -115,10 +182,25 @@ function toggleRewardsInputs(event) {
 }
 
 function rewardForm(event) {
-    event.preventDefault();
-    let form = event.target.closest('form');
-    let formData = new FormData(form);
-    let data = formDataToObject(formData);
+    if (event.key == 'Enter') {
+        let form = event.target.closest('form');
+        let formData = new FormData(form);
+        let data = formDataToObject(formData);
+        if (data.min_rewards == '' || data.max_rewards == '') {
+            return false;
+        }
+        else if (!(/^-?\d*\.?\d+$/.test(data.min_rewards)) || !(/^-?\d*\.?\d+$/.test(data.max_rewards))) {
+            return false;
+        }
+        else if (parseInt(data.min_rewards) >= parseInt(data.max_rewards)) {
+            return false;
+        }
+        else {
+            requiredDataURL = setParams(requiredDataURL, 'rewards__gte', data.min_rewards);
+            requiredDataURL = setParams(requiredDataURL, 'rewards__lte', data.max_rewards);
+            getData(requiredDataURL);
+        }
+    }
 }
 
 
@@ -157,101 +239,115 @@ function reverseTableRows() {
 }
 
 
+// Initialize an object to store the sort order for each column
+const sortOrders = {};
+
+
 function sortByAlphabets(event, columnIndex) {
-    let arrows = event.target.closest('th').querySelectorAll('path');
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("activity-table");
-    switching = true;
-    dir = "asc";
+    const arrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("activity-table");
+    const currentOrder = sortOrders[columnIndex] || 'asc';
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
+    const rows = Array.from(table.rows).slice(1); // Exclude the header row
 
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
+    rows.sort((rowA, rowB) => {
+        const valueA = rowA.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
+        const valueB = rowB.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
 
-            x = rows[i].getElementsByTagName("td")[columnIndex].textContent;
-            y = rows[i + 1].getElementsByTagName("td")[columnIndex].textContent;
+        return currentOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    });
 
-            if (dir === "asc") {
-                arrows[0].setAttribute('opacity', '.2');
-                arrows[1].setAttribute('opacity', '1');
-                if (x.toLowerCase() > y.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (dir === "desc") {
-                arrows[0].setAttribute('opacity', '1');
-                arrows[1].setAttribute('opacity', '.2');
-                if (x.toLowerCase() < y.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount === 0 && dir === "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
+    // Clear table content
+    const tbody = table.querySelector('tbody');
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
     }
+
+    // Append sorted rows to the table
+    for (let i = 0; i < rows.length; i++) {
+        tbody.appendChild(rows[i]);
+    }
+
+    // Toggle arrow opacity and update sortOrders object
+    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+    
+    // Update sort order for the current column
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
+    
 }
 
 
 function extractNumber(value) {
-    return parseFloat(value.match(/\d+/)[0]);
+    const match = value.match(/\d+/);
+    return match ? parseFloat(match[0]) : 0;
 }
 
 function sortByDigits(event, columnIndex) {
-    let columnArrows = event.target.closest('th').querySelectorAll('path');
-    var table = document.getElementById("activity-table");
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    switching = true;
-    dir = "asc";
+    const columnArrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("activity-table");
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-    
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-    
-            x = extractNumber(rows[i].getElementsByTagName("td")[columnIndex].textContent);
-            y = extractNumber(rows[i + 1].getElementsByTagName("td")[columnIndex].textContent);
-        
-            if (dir === "asc") {
-                columnArrows[0].setAttribute('opacity', '.2');
-                columnArrows[1].setAttribute('opacity', '1');
-                if (x > y) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (dir === "desc") {
-                columnArrows[0].setAttribute('opacity', '1');
-                columnArrows[1].setAttribute('opacity', '.2');
-                if (x < y) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-    
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount === 0 && dir === "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = extractNumber(rowA.getElementsByTagName("td")[columnIndex].textContent);
+        const y = extractNumber(rowB.getElementsByTagName("td")[columnIndex].textContent);
+
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
+
+    // Clear table content
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
     }
+
+    // Append sorted rows to the table
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    // Toggle arrow opacity and update sort order
+    columnArrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    columnArrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
+}
+
+
+function sortByDate(event, columnIndex) {
+    let arrows;
+    if (event.target.closest('button')) {
+        arrows = event.target.closest('button').querySelectorAll('path');
+    } else if (event.target.closest('th')) {
+        arrows = event.target.closest('th').querySelectorAll('path');
+    }
+    const table = document.getElementById("activity-table");
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
+
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = new Date(rowA.getElementsByTagName("td")[columnIndex].getAttribute('dateTime'));
+        const y = new Date(rowB.getElementsByTagName("td")[columnIndex].getAttribute('dateTime'));
+
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
+
+    // Clear table content
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    // Append sorted rows to the table
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    // Toggle arrow opacity
+    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+    sortOrders[2] = currentOrder === 'asc' ? 'desc' : 'asc';
 }

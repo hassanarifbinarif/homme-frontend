@@ -125,11 +125,11 @@
                             <form class="filter-dropdown net-cash-selector" id="net-cash-selector" style="display: none;">
                                 <div>
                                     <label for="min-cash-value">Min</label>
-                                    <input type="number" min="0" oninput="netCashForm(event);" name="min_cash_value"  id="min-cash-value" />
+                                    <input type="number" min="0" onkeypress="netCashForm(event);" name="min_cash"  id="min-cash-value" />
                                 </div>
                                 <div>
                                     <label for="max-cash-value">Max</label>
-                                    <input type="number" min="1" oninput="netCashForm(event);" name="max_cash_value"  id="max-cash-value" />
+                                    <input type="number" min="1" onkeypress="netCashForm(event);" name="max_cash"  id="max-cash-value" />
                                 </div>
                             </form>
                         </button>
@@ -149,11 +149,11 @@
                             <form class="filter-dropdown rewards-selector" id="rewards-selector" style="display: none;">
                                 <div>
                                     <label for="min-rewards-value">Min</label>
-                                    <input type="number" min="0" oninput="rewardForm(event);" name="min_rewards_value"  id="min-rewards-value" />
+                                    <input type="number" min="0" onkeypress="rewardForm(event);" name="min_rewards"  id="min-rewards-value" />
                                 </div>
                                 <div>
                                     <label for="max-rewards-value">Max</label>
-                                    <input type="number" min="1" oninput="rewardForm(event);" name="max_rewards_value"  id="max-rewards-value" />
+                                    <input type="number" min="1" onkeypress="rewardForm(event);" name="max_rewards"  id="max-rewards-value" />
                                 </div>
                             </form>
                         </button>
@@ -171,10 +171,10 @@
                                 </defs>
                             </svg>
                             <div class="filter-dropdown" id="type-dropdown">
-                                <span onclick="filterTypeOption(event);" data-value="">Product Purchase</span>
-                                <span onclick="filterTypeOption(event);" data-value="">Manual Adjustments</span>
-                                <span onclick="filterTypeOption(event);" data-value="">Invitations Accepted</span>
-                                <span onclick="filterTypeOption(event);" data-value="">Earned Rewards</span>
+                                <span onclick="filterTypeOption(event);" data-value="purchase">Product Purchase</span>
+                                <span onclick="filterTypeOption(event);" data-value="adjustments">Manual Adjustments</span>
+                                <span onclick="filterTypeOption(event);" data-value="invitations">Invitations Accepted</span>
+                                <span onclick="filterTypeOption(event);" data-value="rewards">Earned Rewards</span>
                             </div>
                         </button>
                         <button class="sort-btn" onclick="reverseTableRows();">
@@ -185,7 +185,179 @@
                     </div>
                 </div>
                 <div class="order-details-table-wrapper">
+                    <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
+                        <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                        </span>
+                    </div>
                     {% include '../ajax/customer-activities-table.html' %}
+                    <!-- <tr data-bs-target="#activityProduct" data-bs-toggle="modal">
+                            <td>
+                                <div class="table-checkbox">
+                                    <input type="checkbox" />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Product Purchase</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="date-column">
+                                    <span>08-Jan-2023</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Courtney Henry</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Redge NYC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>$50.00</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>$50</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Purchase</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-bs-target="#activityReward" data-bs-toggle="modal">
+                            <td>
+                                <div class="table-checkbox">
+                                    <input type="checkbox" />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Manual Adjustments</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="date-column">
+                                    <span>08-Jan-2023</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Darrell Steward</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Redge NYC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>$0.00</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>-50</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Invitation</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-bs-target="#activityInvitation" data-bs-toggle="modal">
+                            <td>
+                                <div class="table-checkbox">
+                                    <input type="checkbox" />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Invitations Accepted</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="date-column">
+                                    <span>08-Jan-2023</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Ronald Richards</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Redge NYC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>$0.00</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>0</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Purchase</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr  data-bs-target="#activityEarnedReward" data-bs-toggle="modal">
+                            <td>
+                                <div class="table-checkbox">
+                                    <input type="checkbox" />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Earned Rewards</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="date-column">
+                                    <span>08-Jan-2023</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Kristin Watson</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Redge NYC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>$0.00</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>25</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span>Invitation</span>
+                                </div>
+                            </td>
+                        </tr> -->
                 </div>
             </div>
         </div>
