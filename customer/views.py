@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render
 from homme.decorators import admin_signin_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
 from homme.helpers import requestAPI
@@ -27,8 +27,9 @@ def homme(request, api_response):
 
 
 @admin_signin_required
-def orders(request, api_response):
+def orders(request, api_response, pk=None):
     context = {}
+    context['user'] = pk
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'orders'
@@ -154,7 +155,7 @@ def specific_customer(request, api_response, pk):
         status, response = requestAPI('GET', f'{settings.API_URL}/admin/user-profiles/{pk}', headers, {})
         status_last_order, response_last_order = requestAPI('GET', f'{settings.API_URL}/admin/orders?page=1&perPage=1&ordering=-created_at&user={response["data"]["user"]["id"]}', headers, {})
         context['last_order'] = response_last_order['data']
-        # print(response_last_order['data']['id'])
+        # print(response["data"]["user"]["id"])
         context['customer'] = response['data']
     except Exception as e:
         print(e)
@@ -295,3 +296,22 @@ def source(request, api_response):
     context['active_page'] = 'source'
     context['sidebar'] = 'customer'
     return render(request, 'customer/source.html', context)
+
+
+def get_packing_slip(request, pk):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}/admin/orders/{pk}', headers, {})
+        text_template = loader.get_template('email_templates/packing-slip-email.html')
+        html = text_template.render({'order':response['data']})
+
+        context['packing_data'] = html
+        context['msg'] = 'Packing slip retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)

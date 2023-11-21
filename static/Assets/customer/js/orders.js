@@ -15,7 +15,13 @@
 let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=${getStartOfWeek()}&created_at__lte=&status=&search=&purchase_type=`;
 
 window.onload = () => {
-    getData();
+    if (userID != null) {
+        requiredDataURL = setParams(requiredDataURL, 'user', userID);
+        getData(requiredDataURL);
+    }
+    else {
+        getData();
+    }
     populateDropdowns();
 }
 
@@ -68,6 +74,7 @@ async function getData(url=null) {
     else {
         data = url
     }
+    console.log(data);
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {

@@ -323,11 +323,17 @@
 
     {% include '../modals/order-shipping-label-modal.html' %}
 
+    {{user|json_script:"user_id"}}
+
     {% endblock %}
 </body>
 {% block scripts %}
 <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script> -->
+<script>
+    let userID = null;
+    userID = JSON.parse(document.getElementById('user_id').textContent);
+</script>
 <script src="{% static 'Assets/customer/js/orders.js' %}"></script>
 <script src="{% static 'Assets/modals/js/orderCreateModal.js' %}"></script>
 {% endblock %}

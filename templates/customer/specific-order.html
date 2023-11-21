@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{% static 'Assets/customer/css/orders.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/customer/css/order_details.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/order_shipping_label_modal.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     
     {% endblock %}
 
@@ -59,7 +61,7 @@
                     </svg>
                     <span>#{{order.id}}</span>
                 </div>
-                <button type="button">PRINT PACKING SLIP</button>
+                <button type="button" onclick="printPackingSlip('{{order.id}}');">PRINT PACKING SLIP</button>
             </div>
             <div class="specific-order-details-wrapper">
                 <div class="details-wrapper-col-1">
@@ -276,4 +278,8 @@
 
     {% endblock %}
 </body>
+{% block scripts %}
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="{% static 'Assets/customer/js/specificOrder.js' %}"></script>
+{% endblock %}
 </html>

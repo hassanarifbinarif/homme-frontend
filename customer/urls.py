@@ -5,6 +5,7 @@ urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('', views.homme, name='homme'),
     path('orders/', views.orders, name='orders'),
+    path('orders/<int:pk>/', views.orders, name='distinct_order'),
     path('get-order-list/', views.get_order_list, name='get_order_list'),
     path('specific-order/<int:pk>/', views.specific_order, name='specific_order'),
     path('referrals/', views.referrals, name='referrals'),
@@ -21,4 +22,5 @@ urlpatterns = [
     path('marketing/', views.marketing, name='marketing'),
     path('get-marketing-list/', views.get_marketing_list, name='get_marketing_list'),
     path('source/', views.source, name='source'),
+    path('get-packing-slip/<int:pk>/', views.get_packing_slip, name='get_packing_slip')
 ]
