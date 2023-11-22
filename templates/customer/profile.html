@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% extends '../layouts/base.html' %}
+    {% load static %}
+    
+    {% block links %}
+
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/orders.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/profile.css' %}" />
+    
+    {% endblock %}
+
+    <title>{% block title %}Homme Admin Profile{% endblock %}</title>
+</head>
+<body>
+    {% block body %}
+    <div class="main-page">
+        {% include '../includes/header.html' %}
+        <div class="content">
+            <div class="order-wrapper">
+                <span>PROFILE</span>
+            </div>
+            <div class="profile-setting-container">
+                <form action="" onsubmit="profileForm(event);">
+                    {% csrf_token %}
+                    <div class="profile-image-container">
+                        <label for="image-input" class="profile-image-uploader w-100 h-100">
+                            {% if admin_image %}
+                            <img src="{{admin_image}}" class="profile-image" id="profile-image" alt="Profile Image" />
+                            {% endif %}
+                            <svg class="edit-btn" width="38" height="38" viewBox="0 0 38 38" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.841797" y="0.841797" width="36.8421" height="36.8421" rx="18.4211" fill="#000" />
+                                <path
+                                    d="M28.3779 28.0477H10.1492C9.08776 28.0477 8.21094 27.1709 8.21094 26.1094V13.0955C8.21094 12.0341 9.08776 11.1572 10.1492 11.1572H28.3779C29.4394 11.1572 30.3162 12.0341 30.3162 13.0955V26.1094C30.3162 27.1709 29.4394 28.0477 28.3779 28.0477ZM10.103 12.4032C9.73385 12.4032 9.45695 12.6801 9.45695 13.0493V26.0633C9.45695 26.4325 9.73385 26.7094 10.103 26.7094H28.3318C28.701 26.7094 28.9779 26.4325 28.9779 26.0633V13.0493C28.9779 12.6801 28.701 12.4032 28.3318 12.4032H10.103Z"
+                                    fill="white" />
+                                <path
+                                    d="M22.5167 18.8645C21.0861 18.8645 19.9785 17.7107 19.9785 16.3263C19.9785 14.9418 21.1322 13.7881 22.5167 13.7881C23.9012 13.7881 25.0549 14.9418 25.0549 16.3263C25.0549 17.7107 23.9012 18.8645 22.5167 18.8645ZM22.5167 14.9418C21.7783 14.9418 21.1784 15.5417 21.1784 16.2801C21.1784 17.0185 21.7783 17.6184 22.5167 17.6184C23.2551 17.6184 23.855 17.0185 23.855 16.2801C23.855 15.5417 23.2551 14.9418 22.5167 14.9418Z"
+                                    fill="white" />
+                                <path
+                                    d="M25.9792 27.8172L15.3188 17.803L9.22716 23.4331L8.39648 22.5563L15.3188 16.1416L26.8098 26.9404L25.9792 27.8172Z"
+                                    fill="white" />
+                                <path
+                                    d="M29.3013 24.4947L25.7478 21.6335L22.7943 24.0794L22.0098 23.1103L25.7478 20.0645L30.0397 23.5718L29.3013 24.4947Z"
+                                    fill="white" />
+                            </svg>
+                            <input type="file" accept="image/jpeg, image/jpg, image/png" class="d-none" name="profile_picture" id="image-input" onchange="previewImage(event);" />
+                        </label>
+                    </div>
+                    <div class="profile-details-container">
+                        <div class="profile-input-wrapper">
+                            <span>Name</span>
+                            <div class="profile-input">
+                                <input type="text" name="fullname" value="{% if admin_name %}{{admin_name}}{% endif %}" placeholder="Daniel Russell" required />
+                            </div>
+                        </div>
+                        <div class="profile-input-wrapper password-input">
+                            <span>Current Password</span>
+                            <div class="profile-input">
+                                <input type="password" name="current_password" placeholder="**********" />
+                            </div>
+                        </div>
+                        <div class="profile-input-wrapper password-input">
+                            <span>New Password</span>
+                            <div class="profile-input">
+                                <input type="password" name="new_password" placeholder="**********" />
+                            </div>
+                        </div>
+                        <div class="profile-input-wrapper password-input">
+                            <span>Confirm Password</span>
+                            <div class="profile-input">
+                                <input type="password" name="confirm_password" placeholder="**********" />
+                            </div>
+                        </div>
+                        <small class="error-msg input-error-msg" style="width: 365px;"></small>
+                    </div>
+                    <button type="submit" class="save-profile-btn submit-btn">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">SAVE</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+</body>
+{% block scripts %}
+<script src="{% static 'Assets/customer/js/profile.js' %}"></script>
+{% endblock %}
+</html>

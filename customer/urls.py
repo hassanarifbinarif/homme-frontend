@@ -22,5 +22,6 @@ urlpatterns = [
     path('marketing/', views.marketing, name='marketing'),
     path('get-marketing-list/', views.get_marketing_list, name='get_marketing_list'),
     path('source/', views.source, name='source'),
+    path('profile/', views.profile, name='profile'),
     path('get-packing-slip/<int:pk>/', views.get_packing_slip, name='get_packing_slip')
 ]

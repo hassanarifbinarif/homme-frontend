@@ -12,7 +12,7 @@
 //     });
 // }
 
-let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=${getStartOfWeek()}&created_at__lte=&status=&search=&purchase_type=`;
+let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
 
 window.onload = () => {
     if (userID != null) {
@@ -26,28 +26,8 @@ window.onload = () => {
 }
 
 
-let notificationIcon = document.getElementById('notification-icon');
-let notificationDataWrapper = document.getElementById('notification-data-wrapper');
-let notificationCloseBtn = document.getElementById('notification-close-btn');
-
-notificationIcon.addEventListener('click', toggleNotifications);
-notificationCloseBtn.addEventListener('click', toggleNotifications);
-
-function toggleNotifications() {
-    if (notificationDataWrapper.classList.contains('hide')) {
-        notificationDataWrapper.classList.remove('hide');
-    }
-    else {
-        notificationDataWrapper.classList.add('hide');
-    }
-}
-
-
 function closeDropdowns(event) {
-    if((!notificationDataWrapper.contains(event.target)) && (!notificationIcon.contains(event.target)) && (!notificationDataWrapper.classList.contains('hide'))) {
-        notificationDataWrapper.classList.add('hide');
-    }
-    else if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
+    if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
     else if ((!orderCompletionTypeBtn.contains(event.target)) && orderCompletionTypeDropdown.style.display == 'flex') {
@@ -74,7 +54,6 @@ async function getData(url=null) {
     else {
         data = url
     }
-    console.log(data);
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {

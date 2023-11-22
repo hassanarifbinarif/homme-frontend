@@ -28,13 +28,11 @@ async function getData(url=null) {
     else {
         data = url
     }
-    console.log(data);
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {
         let response = await requestAPI('/get-referrals-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
-            console.log(res);
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.referrals_data;

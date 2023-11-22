@@ -203,11 +203,13 @@ function toggleDescriptionInputs() {
     if (updateDescriptionBtnWrapper.classList.contains('hide')) {
         updateDescriptionBtnWrapper.classList.remove('hide');
         document.getElementById('product-description-wrapper').querySelectorAll('input').forEach((input) => input.readOnly = false);
+        document.getElementById('product-description-wrapper').querySelector('textarea').readOnly = false;
         document.getElementById('product-description-wrapper').setAttribute('onsubmit', `updateProductDescriptions(event, ${specific_prod_id})`);
     }
     else {
         updateDescriptionBtnWrapper.classList.add('hide');
         document.getElementById('product-description-wrapper').querySelectorAll('input').forEach((input) => input.readOnly = true);
+        document.getElementById('product-description-wrapper').querySelector('textarea').readOnly = true;
         document.getElementById('product-description-wrapper').setAttribute('onsubmit', `updateProductDescriptions(event)`);
     }
 }
@@ -296,7 +298,6 @@ async function uploadImage(event, inputFieldName, oldImageID=null) {
 
 async function delImage(event, imageID) {
     event.preventDefault();
-    console.log(event, imageID);
     if (imageID != null || imageID != 'null') {
         let token = getCookie('admin_access');
         let headers = {
@@ -422,7 +423,6 @@ async function updateProductDescriptions(event, id=null) {
             else {
                 afterLoad(button, 'Error');
             }
-            console.log(res);
         })
     }
 }

@@ -12,10 +12,6 @@
         <img class="product-image hide" src="" alt="product image" />
         {% endif %}
     </label>
-    <!-- <label class="image-wrapper" for="{% if product.images.0.image %}prod-img-{{product.images.0.id}}{% else %}product-detail-0{% endif %}">
-        <input type="file" accept="image/jpeg, image/jpg, image/png" name="buy_page" id="{% if product.images.0.image %}prod-img-{{product.images.0.id}}{% else %}product-detail-0{% endif %}" oninput="previewImage(event);" />
-        <img class="product-image" src="{{product.images.0.image}}" alt="product image" />
-    </label> -->
     <div class="edit-btn">
         {% if product.images.0.image %}
         <div class="cursor-pointer del-image-btn" onclick="delImage(event, '{{product.images.0.id}}')">

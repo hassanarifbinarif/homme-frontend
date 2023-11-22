@@ -1,6 +1,11 @@
 let requiredDataURL = `${apiURL}/admin/user-profiles?user__is_blocked=false&perPage=1000`;
 
 window.onload = () => {
+    let url = new URL(location.href);
+    let search = url.searchParams.get('search');
+    if (search) {
+        requiredDataURL = setParams(requiredDataURL, 'search', search);
+    }
     getData();
 }
 

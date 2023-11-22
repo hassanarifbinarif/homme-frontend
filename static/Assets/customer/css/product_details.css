@@ -347,6 +347,8 @@ textarea::placeholder {
     width: 100%;
     height: 100%;
     border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .details-wrapper-col-1 .specific-product-media-wrapper .specific-product-media-images > div:first-of-type .edit-btn {

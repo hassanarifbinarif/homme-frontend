@@ -108,6 +108,8 @@
     width: 39px;
     height: 39px;
     border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
 }
 
 

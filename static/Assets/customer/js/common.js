@@ -404,15 +404,6 @@ function toggleSideSwitchDropdown() {
 }
 
 
-function closeSideSwitchDropdown(event) {
-    if((!sideSwitchBtn.contains(event.target)) && (!sideSwitchDropdown.classList.contains('hide'))) {
-        sideSwitchDropdown.classList.add('hide');
-    }
-}
-
-document.body.addEventListener('click', closeSideSwitchDropdown);
-
-
 function switchSide(event) {
     // event.preventDefault();
     let element = event.target;
@@ -424,5 +415,55 @@ function switchSide(event) {
         else {
             location.pathname = '/consumer/';
         }
+    }
+}
+
+
+let notificationIcon = document.getElementById('notification-icon');
+let notificationDataWrapper = document.getElementById('notification-data-wrapper');
+let notificationCloseBtn = document.getElementById('notification-close-btn');
+
+notificationIcon.addEventListener('click', toggleNotifications);
+notificationCloseBtn.addEventListener('click', toggleNotifications);
+
+function toggleNotifications() {
+    if (notificationDataWrapper.classList.contains('hide')) {
+        notificationDataWrapper.classList.remove('hide');
+    }
+    else {
+        notificationDataWrapper.classList.add('hide');
+    }
+}
+
+
+function closeSideSwitchDropdown(event) {
+    if((!sideSwitchBtn.contains(event.target)) && (!sideSwitchDropdown.classList.contains('hide'))) {
+        sideSwitchDropdown.classList.add('hide');
+    }
+    else if((!notificationDataWrapper.contains(event.target)) && (!notificationIcon.contains(event.target)) && (!notificationDataWrapper.classList.contains('hide'))) {
+        notificationDataWrapper.classList.add('hide');
+    }
+}
+
+document.body.addEventListener('click', closeSideSwitchDropdown);
+
+
+function searchCustomerForm(event) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let searchField = form.querySelector('input[name="search"]');
+
+    if (searchField.value.trim().length == 0) {
+        console.log('here');
+        const urlObj = new URL(location.href);
+        urlObj.searchParams.delete('search');
+        location.href = urlObj.toString();
+    }
+    else {
+        let url = location.origin + '/customers/' + location.search;
+        const urlObj = new URL(url);
+        urlObj.searchParams.set('search', searchField.value);
+        location.href = urlObj.toString();
+        // location.pathname = `/customers/?search=${searchField.value}`;
     }
 }

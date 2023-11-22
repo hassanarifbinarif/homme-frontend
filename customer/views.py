@@ -298,6 +298,15 @@ def source(request, api_response):
     return render(request, 'customer/source.html', context)
 
 
+@admin_signin_required
+def profile(request, api_response):
+    context = {}
+    context['admin_name'] = api_response['fullname']
+    context['admin_image'] = api_response['user']['profile_picture']
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/profile.html', context)
+
+
 def get_packing_slip(request, pk):
     context = {}
     context['success'] = False

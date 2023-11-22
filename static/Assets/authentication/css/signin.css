@@ -101,6 +101,25 @@
     padding-right: 30px;
 }
 
+.login-auth-content .forgot-password-div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.login-auth-content .forgot-password-div > a {
+    text-decoration: none;
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 10px;
+    color: #000093;
+}
+
+.login-auth-content .forgot-password-div > a:hover {
+    text-decoration: underline;
+}
+
 .login-btn {
     background-color: #000093;
     border: 1px solid transparent;
