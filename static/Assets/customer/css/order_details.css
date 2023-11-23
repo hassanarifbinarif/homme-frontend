@@ -130,6 +130,8 @@
     width: 100%;
     height: 100%;
     border-radius: 6px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .order-product-wrapper .order-product-quantity {

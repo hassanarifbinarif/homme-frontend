@@ -7,13 +7,27 @@ from django.template import loader
 from homme.helpers import requestAPI
 from django.conf import settings
 
-# Create your views here.
 
 
 
 def signin(request):
     context = {}
     return render(request, 'authentication/signin.html', context)
+
+
+def forgot_password(request):
+    context = {}
+    return render(request, 'authentication/forgot-password.html', context)
+
+
+def verify_code(request):
+    context = {}
+    return render(request, 'authentication/verify-code.html', context)
+
+
+def reset_password(request):
+    context = {}
+    return render(request, 'authentication/reset-password.html', context)
 
 
 @admin_signin_required

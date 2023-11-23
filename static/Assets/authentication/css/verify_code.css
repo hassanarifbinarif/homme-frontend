@@ -20,10 +20,18 @@
     margin-bottom: 30px;
 }
 
+.login-auth-content > h2 {
+    color: #FFFFFF;
+    font-size: 1.125rem;
+    font-family: Gotham Medium;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
 .login-auth-content .input-container {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
 }
 
 .login-auth-content .input-group {
@@ -60,67 +68,28 @@
     font-weight: 500;
 }
 
-.login-auth-content .password-input {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.login-auth-content .password-input > div:first-of-type {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.login-auth-content .password-input > div:first-of-type > a {
-    font-size: .875rem;
-    line-height: 1rem;
-    color: #000;
-    text-decoration: none;
-}
-
-.login-auth-content .password-input > div:first-of-type > a:hover {
-    text-decoration: underline;
-}
-
-.login-auth-content .password-input > div:last-of-type {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.login-auth-content .password-input > div:last-of-type > i {
-    position: absolute;
-    right: 10px;
-    pointer-events: all;
-    cursor: pointer;
-    color: #9A9A9A;
-}
-
-.login-auth-content .password-input > div:last-of-type > input {
-    padding-right: 30px;
-}
-
-.login-auth-content .forgot-password-div {
+.login-auth-content .resend-code-div {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.login-auth-content .forgot-password-div > a {
+.login-auth-content .resend-code-div > button {
     text-decoration: none;
     font-family: Gotham Book;
     font-size: .75rem;
     font-weight: 500;
     line-height: 10px;
-    /* color: #000093; */
+    color: #0a58ca;
+    background-color: transparent;
+    border: none;
 }
 
-.login-auth-content .forgot-password-div > a:hover {
+.login-auth-content .resend-code-div > button:hover {
     text-decoration: underline;
 }
 
-.login-btn {
+.verify-btn {
     background-color: #000093;
     border: 1px solid transparent;
     border-radius: 7px;
@@ -134,13 +103,6 @@
     height: 40px;
 }
 
-.login-auth-content > p {
-    font-weight: 300;
-    font-size: .75rem;
-    line-height: 1rem;
-    color: #000000;
-    margin: 20px 0 0;
-}
 
 @media (max-width: 480px) {
     .login-auth-content {

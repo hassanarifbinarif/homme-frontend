@@ -356,6 +356,8 @@
     height: 26px;
     width: 26px;
     border-radius: 3.164px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .order-details-table tbody tr td {

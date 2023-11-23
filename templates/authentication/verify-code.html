@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% extends '../layouts/auth-base.html' %}
+    {% load static %}
+
+    {% block links %}
+
+    <link rel="stylesheet" href="{% static 'Assets/authentication/css/verify_code.css' %}" />
+    
+    {% endblock %}
+
+    <title>{% block title %}Admin Verify Code{% endblock %}</title>
+</head>
+
+<body>
+    {% block body %}
+    <h2>OTP Code</h2>
+    <form class="input-container" onsubmit="verifyCodeForm(event);">
+        {% csrf_token %}
+        <div class="input-group">
+            <div class="input">
+                <input class="input-field" type="number" name="otp_code" placeholder="1234" tabindex="1" required />
+                <small class="code-msg input-error-msg"></small>
+            </div>
+            <div class="resend-code-div">
+                <button type="button" class="cursor-pointer" onclick="resendVerificationCode(event);" tabindex="4">
+                    <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                    <span class="btn-text">Resend Code</span>
+                </button>
+            </div>
+        </div>
+        <button type="submit" class="verify-btn" tabindex="3">
+            <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+            <span class="btn-text">VERIFY</span>
+        </button>
+    </form>
+    {% endblock %}
+</body>
+{% block scripts %}
+<script src="{% static 'Assets/authentication/js/verifyCode.js' %}"></script>
+{% endblock %}
+</html>

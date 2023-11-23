@@ -6,63 +6,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    {% extends '../layouts/auth-base.html' %}
     {% load static %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'Assets/customer/css/new_fonts/stylesheet.css' %}" />
-    <link rel="stylesheet" href="{% static 'Assets/customer/css/styles.css' %}" />
-    <link rel="stylesheet" href="{% static 'Assets/authentication/css/signin.css' %}" />
-    <script src="https://kit.fontawesome.com/0d5a0a2089.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="{% static 'Assets/customer/images/favicon.svg' %}" />
+    {% block links %}
 
-    <title>Admin Login</title>
+    <link rel="stylesheet" href="{% static 'Assets/authentication/css/signin.css' %}" />
+
+    {% endblock %}
+
+    <title>{% block title %}Admin Login{% endblock %}</title>
 </head>
 
 <body>
-    <div class="authentication-section">
-        <div class="login-auth-content">
-            <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="129" height="48" viewBox="0 0 129 48" fill="none">
-                <path d="M39.9688 0.890625L24.5087 15.9599L9.76203 1.58612L1.19948 9.93218L15.9461 24.5378L0.485962 39.6071L9.28638 47.9531L48.7691 9.46851L39.9688 0.890625Z" fill="white"/>
-                <path d="M30.6931 38.9099L39.4935 47.4878L48.2939 38.9099L39.4935 30.332L30.6931 38.9099Z" fill="white"/>
-                <path d="M61.0825 18.9984H63.0376V23.5068H68.3464V18.9984H70.3015V29.8434H68.3464V25.273H63.0376V29.8434H61.0825V18.9984Z" fill="white"/>
-                <path d="M80.0889 28.2786C80.6399 28.2786 81.1432 28.1805 81.5989 27.9843C82.0651 27.7777 82.4625 27.504 82.791 27.1632C83.1195 26.812 83.3738 26.404 83.5539 25.9392C83.7447 25.4744 83.84 24.9787 83.84 24.4519V24.4209C83.84 23.8942 83.7447 23.3984 83.5539 22.9336C83.3738 22.4585 83.1142 22.0505 82.7751 21.7097C82.4466 21.3585 82.0492 21.0796 81.583 20.8731C81.1167 20.6665 80.6081 20.5632 80.0571 20.5632C79.5061 20.5632 78.9974 20.6665 78.5312 20.8731C78.0756 21.0693 77.6835 21.343 77.355 21.6942C77.0265 22.035 76.7669 22.4378 76.5761 22.9026C76.396 23.3674 76.3059 23.8632 76.3059 24.3899V24.4209C76.3059 24.9477 76.396 25.4486 76.5761 25.9237C76.7669 26.3885 77.0265 26.7965 77.355 27.1477C77.6941 27.4885 78.0967 27.7622 78.563 27.9688C79.0292 28.1754 79.5379 28.2786 80.0889 28.2786ZM80.0571 30.0293C79.1988 30.0293 78.4146 29.8847 77.7047 29.5955C76.9947 29.296 76.3854 28.8932 75.8768 28.3871C75.3681 27.881 74.9708 27.2923 74.6847 26.6209C74.3986 25.9392 74.2555 25.2162 74.2555 24.4519V24.4209C74.2555 23.6566 74.3986 22.9388 74.6847 22.2674C74.9708 21.5857 75.3734 20.9918 75.8927 20.4857C76.4119 19.9693 77.0265 19.5613 77.7365 19.2618C78.4464 18.9623 79.2306 18.8125 80.0889 18.8125C80.9472 18.8125 81.7313 18.9623 82.4413 19.2618C83.1513 19.551 83.7606 19.9486 84.2692 20.4547C84.7778 20.9608 85.1752 21.5547 85.4613 22.2364C85.7474 22.9078 85.8905 23.6256 85.8905 24.3899V24.4209C85.8905 25.1852 85.7474 25.9082 85.4613 26.5899C85.1752 27.2613 84.7725 27.8552 84.2533 28.3716C83.7341 28.8777 83.1195 29.2805 82.4095 29.58C81.6995 29.8796 80.9154 30.0293 80.0571 30.0293Z" fill="white"/>
-                <path d="M89.842 18.9984H91.9242L95.3098 24.1266L98.6954 18.9984H100.778V29.8434H98.8226V22.066L95.3098 27.1786H95.2462L91.7653 22.097V29.8434H89.842V18.9984Z" fill="white"/>
-                <path d="M105.231 18.9984H107.313L110.699 24.1266L114.084 18.9984H116.166V29.8434H114.211V22.066L110.699 27.1786H110.635L107.154 22.097V29.8434H105.231V18.9984Z" fill="white"/>
-                <path d="M120.619 18.9984H128.869V20.7026H122.574V23.5223H128.154V25.2265H122.574V28.1392H128.948V29.8434H120.619V18.9984Z" fill="white"/>
-            </svg>
-            <form class="input-container" onsubmit="loginForm(event);" novalidate>
-                {% csrf_token %}
-                <div class="input-group">
-                    <div class="input">
-                        <span class="input-label">Email</span>
-                        <input class="input-field" type="email" name="email" id="login-email" placeholder="Email" tabindex="1" />
-                        <small class="email-msg input-error-msg"></small>
-                    </div>
-                    <div class="password-input">
-                        <div>
-                            <i class="fa fa-eye-slash hide-password-field"></i>
-                            <input class="input-field login-password-field" type="password" placeholder="Password" name="password"
-                                id="login-password" tabindex="2" />
-                        </div>
-                        <small class="password-msg input-error-msg"></small>
-                    </div>
-                    <div class="forgot-password-div">
-                        <a href="#" tabindex="4">Forgot Password?</a>
-                    </div>
+    {% block body %}
+    <form class="input-container" onsubmit="loginForm(event);" novalidate>
+        {% csrf_token %}
+        <div class="input-group">
+            <div class="input">
+                <input class="input-field" type="email" name="email" id="login-email" placeholder="Email" tabindex="1" />
+                <small class="email-msg input-error-msg"></small>
+            </div>
+            <div class="password-input">
+                <div>
+                    <i class="fa fa-eye-slash hide-password-field"></i>
+                    <input class="input-field login-password-field" type="password" placeholder="Password" name="password"
+                        id="login-password" tabindex="2" />
                 </div>
-                <button type="submit" class="login-btn" tabindex="3">
-                    <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
-                    <span class="btn-text">Login</span>
-                </button>
-            </form>
-            <!-- <p>Terms & Conditions</p> -->
+                <small class="password-msg input-error-msg"></small>
+            </div>
+            <div class="forgot-password-div">
+                <a href="{% url 'forgot_password' %}" tabindex="4">Forgot Password?</a>
+            </div>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        <button type="submit" class="login-btn" tabindex="3">
+            <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+            <span class="btn-text">LOGIN</span>
+        </button>
+    </form>
+    {% endblock %}
 </body>
-<script src="{% static 'Assets/customer/js/common.js' %}"></script>
+{% block scripts %}
 <script src="{% static 'Assets/authentication/js/login.js' %}"></script>
+{% endblock %}
 </html>

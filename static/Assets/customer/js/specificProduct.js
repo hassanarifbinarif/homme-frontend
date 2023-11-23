@@ -139,7 +139,7 @@ criteriaOptions.forEach((option) => {
             formData.append('is_active', status);
             let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}`, formData, headers, 'PATCH');
             response.json().then(function(res) {
-                console.log(res);
+                // console.log(res);
                 if (response.status == 200) {
                     if (res.data.is_active == true)
                         document.getElementById('specific-prod-current-state').innerText = 'ACTIVE';
@@ -151,7 +151,18 @@ criteriaOptions.forEach((option) => {
     })
 })
 
-criteriaDropdownBtn.addEventListener('click', toggleDropdown);
+criteriaDropdownBtn.addEventListener('click', (event) => {
+    // if (!document.getElementById('overlay-identification')) {
+    //     let overlay = document.createElement('span');
+    //     overlay.className = 'screen-darken';
+    //     overlay.id = 'overlay-identification';
+    //     document.body.appendChild(overlay);
+    // }
+    // else {
+    //     document.getElementById('overlay-identification').remove();
+    // }
+    toggleDropdown(event);
+});
 
 
 
@@ -175,8 +186,13 @@ function toggleDropdown(event) {
 
 function closeDropdowns(event) {
     let closestForm = event.target.closest('form');
+    // if (document.getElementById('overlay-identification').contains(event.target)) {
+    // }
     if ((!criteriaDropdownBtn.contains(event.target)) && criteriaDropdown.style.display == 'flex') {
         criteriaDropdown.style.display = 'none';
+        if (document.getElementById('overlay-identification')) {
+            document.getElementById('overlay-identification').remove();
+        }
     }
     else if ((!skinTypeDropdownBtn.contains(event.target)) && skinTypeDropdown.style.display == 'flex') {
         skinTypeDropdown.style.display = 'none';

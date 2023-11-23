@@ -6,11 +6,11 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: bash -c 'python manage.py runserver 0.0.0.0:8002'
+    command: bash -c 'python manage.py runserver 0.0.0.0:8000'
     volumes:
       - "./:/code"
     ports:
-      - $WEB_PORT:8002
+      - $WEB_PORT:8000
 
   # nginx:
   #   container_name: "${PROJECT_NAME}_frontend_nginx_${ENV}"

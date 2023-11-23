@@ -59,9 +59,11 @@ async function profileForm(event) {
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/me`, formData, headers, 'PATCH');
             response.json().then(function(res) {
-                console.log(res);
+                // console.log(res);
                 if (response.status == 200) {
                     afterLoad(button, 'Changes Saved');
+                    document.getElementById('nav-admin-name').innerText = res.fullname;
+                    document.getElementById('nav-admin-image').src = res.user.profile_picture;
                     setTimeout(() => {
                         afterLoad(button, buttonText);
                     }, 1500)

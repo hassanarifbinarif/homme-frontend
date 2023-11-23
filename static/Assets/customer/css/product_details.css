@@ -1117,6 +1117,7 @@ textarea::placeholder {
     display: none;
     flex-direction: column;
     position: absolute;
+    z-index: 2;
     top: 42px;
     background-color: #FFFFFF;
     width: 100%;
@@ -1179,9 +1180,9 @@ textarea::placeholder {
     height: 40px;
 }
 
-/* .radio-btn:first-of-type > label {
+.radio-btn:first-of-type > label {
     border-radius: 8px 8px 0px 0px;
-} */
+}
 
 .radio-btn:last-of-type > label {
     border-radius: 0px 0px 8px 8px;
