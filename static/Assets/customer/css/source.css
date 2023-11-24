@@ -212,13 +212,13 @@
     padding: 13px 20px;
 }
 
-.order-details-wrapper .order-details-filters > div:first-of-type {
+.order-details-wrapper .order-details-filters > form {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.order-details-wrapper .order-details-filters > div:first-of-type > input {
+.order-details-wrapper .order-details-filters > form > input {
     width: 681px;
     height: 30px;
     font-family: Gotham Book;
@@ -230,18 +230,18 @@
     padding-right: 10px;
 }
 
-.order-details-wrapper .order-details-filters > div:first-of-type > svg {
+.order-details-wrapper .order-details-filters > form > svg {
     position: absolute;
     left: 5px;
 }
 
-.order-details-wrapper .order-details-filters > div:last-of-type {
+.order-details-wrapper .order-details-filters > div {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.order-details-wrapper .order-details-filters > div:last-of-type button:last-of-type {
+.order-details-wrapper .order-details-filters > div button {
     width: 30px;
     height: 30px;
     border-radius: 4px;
@@ -257,6 +257,7 @@
     border-bottom: 1px solid #CECECE;
     background-color: #FFF;
     margin-bottom: 20px;
+    table-layout: fixed;
 }
 
 .order-details-table thead {

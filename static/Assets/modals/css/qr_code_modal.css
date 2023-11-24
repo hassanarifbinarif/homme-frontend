@@ -66,6 +66,15 @@
     margin-bottom: 20px;
 }
 
+#qrCodeDialog .modal-body .qr-code-info > img {
+    /* margin-top: 15px;
+    margin-bottom: 20px; */
+    width: 231px;
+    height: 231px;
+    /* width: 285px;
+    height: 285px; */
+}
+
 #qrCodeDialog .modal-footer {
     padding: 9px 12px!important;
     display: flex;
