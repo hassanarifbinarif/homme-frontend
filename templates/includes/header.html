@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 
 <div class="header">
     <form class="search-user" onsubmit="searchCustomerForm(event);">
@@ -27,8 +28,8 @@
                         <path d="M11.4127 11.4451C11.0916 11.7662 10.5591 11.7662 10.2381 11.4451L0.841211 2.04824C0.520151 1.72718 0.520151 1.19469 0.841211 0.873633C1.16227 0.552573 1.69476 0.552573 2.01582 0.873633L11.4127 10.2705C11.7338 10.5916 11.7338 11.1241 11.4127 11.4451Z" fill="#333333"/>
                     </svg>
                 </div>
-                <div class="notification-data">
-                    <div class="notification-card">
+                <div class="notification-data" id="notification-data">
+                    <!-- <div class="notification-card">
                         <div>
                             <span>Shortcuts Salon registered</span>
                             <span>July 21, 2023</span>
@@ -55,7 +56,7 @@
                             <span>July 21, 2023</span>
                         </div>
                         <span>Lorem ipsum dolor sit amet consectetur Gravida vitae sed nibh viverra id cursus nibh tincidunt.</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

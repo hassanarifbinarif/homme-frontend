@@ -22,6 +22,7 @@ window.onload = () => {
     else {
         getData();
     }
+    getNotifications();
     populateDropdowns();
 }
 

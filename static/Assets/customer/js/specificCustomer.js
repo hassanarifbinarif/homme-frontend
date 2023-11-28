@@ -46,6 +46,7 @@ function getRelativeTime(dateTime) {
 }
 
 window.onload = () => {
+    getNotifications();
     getRelativeTime(document.getElementById('customer-joining-time').getAttribute('data-value'));
 }
 

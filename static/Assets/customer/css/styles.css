@@ -258,7 +258,7 @@ input::-webkit-inner-spin-button {
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 20px; /* 166.667% */
+    line-height: 20px;
     letter-spacing: 1.2px;
 }
 
@@ -279,7 +279,7 @@ input::-webkit-inner-spin-button {
     background-color: #FFF;
     border: 1px solid #E0E0DD;
     border-radius: 6px;
-    padding: 26px 20px 16px 20px;
+    padding: 26px 0px 16px 0px;
     width: 431px;
     height: 396px;
 }
@@ -300,34 +300,49 @@ input::-webkit-inner-spin-button {
     text-transform: uppercase;
 
     padding-bottom: 16px;
-    border-bottom: 1px solid #E0E0DD;
+    margin-right: 20px;
+    margin-left: 20px;
+    /* border-bottom: 1px solid #E0E0DD; */
 }
 
 .nav-notification-wrapper .notification-data-wrapper .notification-data {
     display: flex;
     flex-direction: column;
+    height: 331px;
+    overflow-y: auto;
 }
 
 .nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-
-    padding: 13px 0px;
-    border-top: 1px solid #E0E0DD;
+    padding: 0px 20px;
 }
 
-.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card:first-of-type {
-    border-top: unset;
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card:hover {
+    background-color: #DDDDDD;
+}
+
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card:hover + .notification-card > div {
+    border-top: 1px solid transparent;
 }
 
 .nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid #E0E0DD;
+    padding: 13px 0px;
+}
+
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card:last-of-type > div {
+    border-bottom: unset;
+}
+
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div > span:first-of-type {
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div > div > span:first-of-type {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -339,8 +354,8 @@ input::-webkit-inner-spin-button {
     text-transform: capitalize;
 }
 
-.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div > span:last-of-type,
-.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > span {
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div > div > span:last-of-type,
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -353,7 +368,7 @@ input::-webkit-inner-spin-button {
     opacity: .6;
 }
 
-.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > span {
+.nav-notification-wrapper .notification-data-wrapper .notification-data .notification-card > div > span {
     font-size: .875rem;
     line-height: 16px;
 }

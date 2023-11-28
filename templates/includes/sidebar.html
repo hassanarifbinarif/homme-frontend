@@ -250,7 +250,7 @@
                         <span>Products</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'inventory' %}active{% endif %}" href="javascript:void(0);">
+                <a class="sidebar-link {% if active_page == 'inventory' %}active{% endif %}" href="{% url 'inventory' %}">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                             <path d="M9.67876 1.62472C9.58987 1.53583 9.41211 1.62471 9.41211 1.80249V17.891C9.41211 18.0688 9.50099 18.1577 9.67876 18.1577H17.2341C17.4119 18.1577 17.5008 18.0688 17.5008 17.891V5.53574C17.5008 5.35797 17.4119 5.18019 17.2341 5.18019L9.67876 1.62472Z" fill="white"/>
@@ -261,7 +261,7 @@
                         <span>Inventory</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'finances' %}active{% endif %}" href="javascript:void(0);">
+                <a class="sidebar-link" onclick="openFinanceDropdown(event);" href="javascript:void(0);">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                             <path d="M1 17.4381C1 17.7069 1.17921 17.8862 1.44801 17.8862H6.28657C6.55537 17.8862 6.73458 17.7069 6.73458 17.4381V12.3308C6.73458 12.062 6.91379 11.8828 7.18259 11.8828H10.7667C11.0355 11.8828 11.2147 12.062 11.2147 12.3308V17.4381C11.2147 17.7069 11.3939 17.8862 11.6627 17.8862H16.5909C16.8597 17.8862 17.0389 17.7069 17.0389 17.4381V6.50659C17.0389 6.23779 16.8597 5.96898 16.6805 5.78977L9.33306 1.39923C9.06425 1.30963 8.79544 1.30963 8.52664 1.39923L1.44801 5.87937C1.26881 5.96898 1.0896 6.23779 1.0896 6.50659L1 17.4381Z" stroke="#CECECE" stroke-width="1.25"/>
@@ -272,6 +272,32 @@
                         </svg>
                     </div>
                 </a>
+                <div class="submenu-div {% if active_page == 'commissions' or active_page == 'product_sales' or active_page == 'activity' %}{% else %}hide{% endif %}" id="finance-submenu">
+                    <a class="sidebar-link {% if active_page == 'commissions' %}active{% endif %}" href="javascript:void(0);">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Commissions</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'product_sales' %}active{% endif %}" href="javascript:void(0);">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Product Sales</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'activity' %}active{% endif %}" href="{% url 'consumer_activity' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Activity</span>
+                        </div>
+                    </a>
+                </div>
                 <a class="sidebar-link {% if active_page == 'analytics' %}active{% endif %}" href="javascript:void(0);">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -328,13 +354,22 @@
 
 <script>
     function openContentDropdown(event) {
-        console.log(event);
         let contentSubmenu = document.getElementById('content-submenu');
         if (contentSubmenu.classList.contains('hide')) {
             contentSubmenu.classList.remove('hide');
         }
         else {
             contentSubmenu.classList.add('hide');
+        }
+    }
+
+    function openFinanceDropdown(event) {
+        let financeSubmenu = document.getElementById('finance-submenu');
+        if (financeSubmenu.classList.contains('hide')) {
+            financeSubmenu.classList.remove('hide');
+        }
+        else {
+            financeSubmenu.classList.add('hide');
         }
     }
 </script>

@@ -1,3 +1,7 @@
+window.onload = () => {
+    getNotifications();
+}
+
 async function printPackingSlip(id) {
     let response = await requestAPI(`/get-packing-slip/${id}/`, null, {}, 'GET');
     response.json().then(function(res) {

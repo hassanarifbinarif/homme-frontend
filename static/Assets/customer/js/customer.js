@@ -6,6 +6,7 @@ window.onload = () => {
     if (search) {
         requiredDataURL = setParams(requiredDataURL, 'search', search);
     }
+    getNotifications();
     getData();
 }
 
@@ -16,25 +17,6 @@ function searchForm(event) {
     let data = formDataToObject(formData);
     urlParams = setParams(requiredDataURL, 'search', `${data.search}`);
     getData(urlParams);
-    // event.preventDefault();
-    // let searchField = document.getElementById('search-customer');
-    // const table = document.getElementById("customer-table");
-    // const rows = table.getElementsByTagName("tr");
-    // for (let i = 1; i < rows.length; i++) {
-    //     const cellValue = rows[i].getElementsByTagName("td")[1].children[0].children[0].innerText;
-
-    //     if (cellValue.toLowerCase().includes(searchField.value.toLowerCase())) {
-    //         rows[i].style.display = "";
-    //         rows[i].setAttribute('search-filtered', true);
-    //     } else if (searchField.value == '') {
-    //         rows[i].style.display = "";
-    //         rows[i].setAttribute('search-filtered', true);
-    //     }
-    //     else {
-    //         rows[i].style.display = "none";
-    //         rows[i].setAttribute('search-filtered', false);
-    //     }
-    // }
 }
 
 let totalCustomers = null;
@@ -132,7 +114,8 @@ async function createSourceForm(event) {
                     setTimeout(() => {
                         afterLoad(button, buttonText);
                         document.querySelector('.createSource').click();
-                    }, 1500)
+                        location.href = location.origin + '/source/';
+                    }, 1000)
                 }
                 else if (response.status == 400) {
                     afterLoad(button, 'ERROR');

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="{% static 'Assets/consumer/css/events.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/event_create_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/event_create_offer_modal.css' %}" />
     
     {% endblock %}
 
@@ -27,7 +28,7 @@
                         <path d="M18.4531 17.9219L13.4531 12.9219M15.1198 8.75521C15.1198 9.52125 14.9689 10.2798 14.6758 10.9875C14.3826 11.6953 13.9529 12.3383 13.4112 12.88C12.8696 13.4217 12.2265 13.8514 11.5188 14.1445C10.811 14.4377 10.0525 14.5885 9.28646 14.5885C8.52041 14.5885 7.76187 14.4377 7.05414 14.1445C6.34641 13.8514 5.70334 13.4217 5.16167 12.88C4.61999 12.3383 4.19031 11.6953 3.89716 10.9875C3.60401 10.2798 3.45312 9.52125 3.45313 8.75521C3.45313 7.20811 4.06771 5.72438 5.16167 4.63042C6.25563 3.53646 7.73936 2.92187 9.28646 2.92188C10.8336 2.92187 12.3173 3.53646 13.4112 4.63042C14.5052 5.72438 15.1198 7.20811 15.1198 8.75521Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <input type="text" name="search" value="" placeholder="SEARCH BY CONSUMER" />
+                <input type="text" name="search" value="" placeholder="SEARCH BY SALON" />
             </form>
             <div class="user-info">
                 <div class="nav-notification-wrapper">
@@ -51,7 +52,7 @@
             <div class="order-wrapper">
                 <span>EVENTS</span>
                 <div>
-                    <button type="button">CREATE SPECIAL OFFER</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#eventCreateOffer">CREATE SPECIAL OFFER</button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#eventCreate">CREATE EVENT</button>
                 </div>
             </div>
@@ -592,6 +593,7 @@
     </div>
 
     {% include '../modals/event-create-modal.html' %}
+    {% include '../modals/event-create-offer-modal.html' %}
 
     {% endblock %}
 </body>

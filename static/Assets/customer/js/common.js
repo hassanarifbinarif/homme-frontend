@@ -467,3 +467,31 @@ function searchCustomerForm(event) {
         // location.pathname = `/customers/?search=${searchField.value}`;
     }
 }
+
+
+async function getNotifications() {
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`
+    };
+    let response = await requestAPI(`${apiURL}/admin/notifications?page=1&perPage=1000&ordering=-created_at`, null, headers, 'GET');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            let notificationData = document.getElementById('notification-data');
+            res.data.forEach((notification) => {
+                const dateTime = new Date(notification.created_at);
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = dateTime.toLocaleDateString(undefined, options);
+                notificationData.innerHTML += `<div class="notification-card" ${notification.source == 'order' ? `onclick = "location.pathname = '/specific-order/${notification.ref_id}/'"` : ''}>
+                                                    <div>
+                                                        <div>
+                                                            <span>${notification.title}</span>
+                                                            <span>${formattedDate}</span>
+                                                        </div>
+                                                        <span>${notification.message}</span>
+                                                    </div>
+                                                </div>`;
+            })
+        }
+    })
+}

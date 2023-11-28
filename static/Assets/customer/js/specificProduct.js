@@ -3,6 +3,7 @@ let requiredDataURL = `${apiURL}`;
 window.onload = () => {
     initializeDropdowns();
     populateDropdowns();
+    getNotifications();
 }
 
 async function populateDropdowns() {

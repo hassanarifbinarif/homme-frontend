@@ -2,6 +2,10 @@ let orderChannelBtn = document.getElementById('select-order-channel-btn');
 let selectedOrderChannel = document.getElementById('selected-order-channel-opt');
 let orderChannelDropdown = document.getElementById('order-channel-dropdown');
 
+window.onload = () => {
+    getNotifications();
+}
+
 orderChannelBtn.addEventListener('click', function() {
     if (orderChannelDropdown.classList.contains('hide')) {
         orderChannelDropdown.classList.remove('hide');

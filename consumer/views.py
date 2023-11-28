@@ -30,6 +30,20 @@ def specific_salon(request):
     return render(request, 'consumer/specific-salon.html', context)
 
 
+def activity(request):
+    context = {}
+    context['active_page'] = 'activity'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/consumer-activity.html', context)
+
+
+def inventory(request):
+    context = {}
+    context['active_page'] = 'inventory'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/inventory.html', context)
+
+
 def consumer_marketing(request):
     context = {}
     context['active_page'] = 'marketing'

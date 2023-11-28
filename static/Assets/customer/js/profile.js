@@ -1,3 +1,8 @@
+window.onload = () => {
+    getNotifications();
+}
+
+
 // Preview Image on profile form
 
 function previewImage(event) {

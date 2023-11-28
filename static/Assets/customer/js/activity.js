@@ -17,6 +17,7 @@ let requiredDataURL = `${apiURL}/admin/activities?page=1&perPage=1000&ordering=-
 
 
 window.onload = () => {
+    getNotifications();
     getData();
 }
 

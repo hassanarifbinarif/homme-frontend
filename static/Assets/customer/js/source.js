@@ -1,6 +1,7 @@
 let requiredDataURL = `${apiURL}/admin/sources?page=1&perPage=1000&search=&ordering=-created_at`;
 
 window.onload = () => {
+    getNotifications();
     getData();
 }
 
