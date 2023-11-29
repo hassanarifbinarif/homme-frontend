@@ -37,6 +37,13 @@ def activity(request):
     return render(request, 'consumer/consumer-activity.html', context)
 
 
+def commissions(request):
+    context = {}
+    context['active_page'] = 'commissions'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/commission.html', context)
+
+
 def inventory(request):
     context = {}
     context['active_page'] = 'inventory'
