@@ -16,6 +16,11 @@
     {% block links %} {% endblock %}
 
     <title>{% block title %} {% endblock %}</title>
+    
+    <script>
+        // Inject API base URL as a global variable
+        window.API_BASE_URL = "{{ API_BASE_URL }}";
+    </script>
 </head>
 <body>
     {% include '../includes/sidebar.html' %}

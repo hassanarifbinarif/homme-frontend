@@ -110,8 +110,7 @@ function getCookieExpirationTime(name) {
     return ca
 }
 
-const apiURL = 'http://dev.crymzee.com:8001/api';
-// const apiURL = 'https://seagull-one-gannet.ngrok-free.app/api';
+const apiURL = window.API_BASE_URL;
 
 async function onRefreshToken() {
     let refreshToken = getRefreshTokenFromCookie();
