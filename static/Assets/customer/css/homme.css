@@ -229,7 +229,14 @@
     height: fit-content;
 }
 
-.order-filters > #select-order-channel-btn > .order-channel-dropdown > span {
+.order-filters > #select-order-channel-btn > .order-channel-dropdown > label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+
+.order-filters > #select-order-channel-btn > .order-channel-dropdown > label > span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
@@ -247,13 +254,13 @@
     align-items: center;
 }
 
-.order-filters > #select-order-channel-btn > .order-channel-dropdown > span:not(:last-of-type) {
+.order-filters > #select-order-channel-btn > .order-channel-dropdown > label:not(:last-of-type) {
     border-bottom: 1px solid #CECECE;
 }
 
-.order-filters > #select-order-channel-btn > .order-channel-dropdown > span:hover {
+/* .order-filters > #select-order-channel-btn > .order-channel-dropdown > label:hover {
     background: #DDDDDD;
-}
+} */
 
 .order-table-wrapper {
     max-height: 290px;
@@ -385,9 +392,10 @@
 .chart-wrapper > .chart-btn > button {
     display: inline-flex;
     position: relative;
-    width: 192px;
+    width: fit-content;
     height: 40px;
     justify-content: space-between;
+    gap: 15px;
     align-items: center;
     flex-shrink: 0;
     padding: 14px 18px;
@@ -404,6 +412,57 @@
     font-weight: 500;
     line-height: normal;
     height: 18px;
+}
+
+.chart-wrapper > .chart-btn > #chart-type-btn {
+    padding: 0px;
+}
+
+.chart-wrapper > .chart-btn > #chart-type-btn > span {
+    padding-left: 18px;
+}
+
+.chart-wrapper > .chart-btn > #chart-type-btn > div:first-of-type {
+    padding-right: 18px;
+    display: flex;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown {
+    position: absolute;
+    top: 40px;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown > span {
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .65rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown span:not(:last-of-type) {
+    border-bottom: 1px solid #CECECE;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown span:hover {
+    background: #DDDDDD;
 }
 
 .chart-wrapper > .chart-btn > button:last-of-type {

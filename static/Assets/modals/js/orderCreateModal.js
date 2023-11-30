@@ -65,7 +65,7 @@ function selectProduct(event) {
         let checkDuplicateCard = document.querySelector(`.product-card[data-id="${id}"]`);
         if (checkDuplicateCard == null) {
             let selectedProduct = productData.filter(product => product.id == id)[0];
-            orderData.products.push({product: selectedProduct.id, qty: 1, price: parseFloat(selectedProduct.price)});
+            orderData.products.push({product: selectedProduct.id, qty: 1});
             let productToBeAdded =  `<div class="product-card" data-id="${selectedProduct.id}">
                                             <div class="product-details">
                                                 <div class="product-image">
@@ -86,7 +86,7 @@ function selectProduct(event) {
                                                 </div>
                                                 <div>
                                                     <span>Price</span>
-                                                    <input type="number" class="particular-product-price" min="0" original-price="${selectedProduct.price}" value="${selectedProduct.price}" placeholder="$25.00" name="price" id="" />
+                                                    <input type="number" oninput="updatePrices(event);" class="particular-product-price" min="0" original-price="${selectedProduct.price}" value="${selectedProduct.price}" placeholder="$25.00" name="price" id="" />
                                                 </div>
                                             </div>
                                             <div class="delete-btn cursor-pointer">
@@ -118,6 +118,11 @@ function delSelectedProduct(event, id) {
     if (document.querySelectorAll('.product-card').length == 0) {
         addedProductsWrapper.classList.add('hide');
         productTotalWrapper.classList.add('hide');
+        subTotal.innerText = '$0';
+        percentDiscount.innerText = '0%';
+        shippingCost.value = 0;
+        totalTax.innerText = 'Not Calculated';
+        grandTotal.innerText = '$0';
     }
     orderCreate();
     // calculateTotals();
@@ -236,11 +241,38 @@ function changePrices(event) {
     orderData.products.forEach((product) => {
         if (product.product == currentInput.closest('.product-card').getAttribute('data-id')) {
             product.qty = parseInt(currentInput.value);
-            product.price = parseFloat(price.value);
+            delete product.price;
+            // product.price = parseFloat(price.value);
         }
     })
     orderCreate()
     // calculateTotals();
+}
+
+
+function updatePrices(event) {
+    let currentInput = event.target;
+    if (currentInput.value < 0)
+        currentInput.value = 0;
+    let quantity = currentInput.closest('.product-card').querySelector('input[name="quantity"]');
+    let updatedUnitPrice = parseFloat(currentInput.value / quantity.value) || 0;
+    orderData.products.forEach((product) => {
+        if (product.product == currentInput.closest('.product-card').getAttribute('data-id')) {
+            product.price = updatedUnitPrice;
+        }
+    })
+    orderCreate()
+}
+
+
+function updateShippingCost(event) {
+    let currentInput = event.target;
+    if (parseFloat(currentInput.value) < 0 || currentInput.value == '') {
+        currentInput.value = parseInt(0);
+        // console.log('here');
+    }
+    orderData.shipping = currentInput.value;
+    orderCreate();
 }
 
 
@@ -293,7 +325,7 @@ async function openCreateOrderModal(modalId) {
         billing_address: null,
         pickup_type: "ship",
         is_preview: true,
-        user: null
+        user: null,
     };
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
@@ -303,6 +335,7 @@ async function openCreateOrderModal(modalId) {
         subTotal.innerText = '$0';
         percentDiscount.innerText = '0%';
         shippingCost.value = 0;
+        totalTax.innerText = 'Not Calculated';
         grandTotal.innerText = '$0';
     })
     document.querySelector(`.${modalId}`).click();
@@ -373,7 +406,7 @@ async function orderCreate(event) {
     let response = await requestAPI(`${apiURL}/admin/orders`, JSON.stringify(data), headers, 'POST');
     // console.log(response);
     response.json().then(function(res) {
-        console.log(res);
+        // console.log(res);
         if (response.status == 201) {
             if (data.is_preview == false) {
                 getData();
@@ -387,7 +420,7 @@ async function orderCreate(event) {
                 subTotal.innerText = '$' + res.data.discount_sub_total;
                 percentDiscount.innerText = res.data.percent_discount + '%';
                 shippingCost.value = res.data.shipping;
-                grandTotal.innerText = res.data.total;
+                grandTotal.innerText = '$' + res.data.total;
                 totalTax.innerText = '$' + res.data.tax_amount;
             }
         }

@@ -453,7 +453,7 @@ function searchCustomerForm(event) {
     let searchField = form.querySelector('input[name="search"]');
 
     if (searchField.value.trim().length == 0) {
-        console.log('here');
+        // console.log('here');
         const urlObj = new URL(location.href);
         urlObj.searchParams.delete('search');
         location.href = urlObj.toString();

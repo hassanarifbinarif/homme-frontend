@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% extends '../layouts/base.html' %}
+    {% load static %}
+    {% load custom_tags %}
+
+    {% block links %}
+    
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/orders.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/customer/css/order_details.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/order_shipping_label_modal.css' %}" />
+    
+    {% endblock %}
+
+    <title>{% block title %}Homme Specific Product Sale{% endblock %}</title>
+</head>
+<body>
+    {% block body %}
+    <div class="main-page">
+        <div class="header">
+            <form action="" class="search-user">
+                {% csrf_token %}
+                <div class="search-logo-wrapper">
+                    <svg class="search-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.4531 17.9219L13.4531 12.9219M15.1198 8.75521C15.1198 9.52125 14.9689 10.2798 14.6758 10.9875C14.3826 11.6953 13.9529 12.3383 13.4112 12.88C12.8696 13.4217 12.2265 13.8514 11.5188 14.1445C10.811 14.4377 10.0525 14.5885 9.28646 14.5885C8.52041 14.5885 7.76187 14.4377 7.05414 14.1445C6.34641 13.8514 5.70334 13.4217 5.16167 12.88C4.61999 12.3383 4.19031 11.6953 3.89716 10.9875C3.60401 10.2798 3.45312 9.52125 3.45313 8.75521C3.45313 7.20811 4.06771 5.72438 5.16167 4.63042C6.25563 3.53646 7.73936 2.92187 9.28646 2.92188C10.8336 2.92187 12.3173 3.53646 13.4112 4.63042C14.5052 5.72438 15.1198 7.20811 15.1198 8.75521Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <input type="text" name="search" value="" placeholder="SEARCH BY SALON" />
+            </form>
+            <div class="user-info">
+                <div class="nav-notification-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="31" viewBox="0 0 28 31" fill="none">
+                        <path d="M27.4206 23.8407H19.0037V25.5241C19.0037 26.8634 18.4716 28.148 17.5246 29.095C16.5775 30.0421 15.2929 30.5742 13.9536 30.5742C12.6142 30.5742 11.3297 30.0421 10.3826 29.095C9.43551 28.148 8.90345 26.8634 8.90345 25.5241V23.8407H0.486572L2.85171 21.4755C3.49308 20.8342 3.85332 19.9639 3.85332 19.0582V13.7404C3.85332 9.34346 6.66456 5.60132 10.5868 4.21422V3.64019C10.5868 2.74727 10.9415 1.89092 11.5729 1.25954C12.2043 0.628148 13.0607 0.273438 13.9536 0.273438C14.8465 0.273438 15.7028 0.628148 16.3342 1.25954C16.9656 1.89092 17.3203 2.74727 17.3203 3.64019V4.21422C19.2899 4.91107 20.9949 6.20133 22.2008 7.90735C23.4067 9.61338 24.0541 11.6513 24.0538 13.7404V19.0565C24.0538 19.5058 24.1422 19.9506 24.314 20.3657C24.4859 20.7807 24.7378 21.1579 25.0554 21.4755L27.4206 23.8407Z" fill="white"/>
+                    </svg>
+                    <svg class="notification-count" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect width="14.8372" height="14.8372" rx="3" transform="matrix(-1 0 0 1 15.0022 0.277344)" fill="#000093"/>
+                        <path d="M8.85626 4.79209H4.63226V3.49609H10.5363V4.61209L6.74426 11.8961H5.08826L8.85626 4.79209Z" fill="white"/>
+                    </svg>
+                </div>
+                <a href="javascript:void(0);">
+                    <div class="nav-profile-image">
+                        <span>Homme Superadmin</span>
+                        <img src="{% static 'Assets/customer/images/avatar.png' %}" alt="Profile Image" />
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="specific-order-content">
+            <div class="specific-order-wrapper">
+                <div>
+                    <svg class="cursor-pointer" onclick="location.pathname = '/consumer/product-sales/'" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                        <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>#1260</span>
+                </div>
+                <button type="button">REPRINT LABEL</button>
+            </div>
+            <div class="specific-order-details-wrapper">
+                <div class="details-wrapper-col-1">
+                    <div class="order-delivery-status-wrapper">
+                        <div class="order-delivery-status-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.62315 1.55296C7.04804 2.04697 6.33301 2.34552 5.57982 2.40612C4.72853 2.4744 3.92923 2.84628 3.32537 3.45504C2.72151 4.06379 2.35261 4.86956 2.28489 5.72776C2.22477 6.48704 1.92862 7.20787 1.43858 7.78764C0.884453 8.44277 0.580078 9.27554 0.580078 10.1365C0.580078 10.9975 0.884453 11.8302 1.43858 12.4854C1.92862 13.0651 2.22477 13.786 2.28489 14.5452C2.35261 15.4034 2.72151 16.2092 3.32537 16.818C3.92923 17.4267 4.72853 17.7986 5.57982 17.8669C6.33301 17.9275 7.04804 18.226 7.62315 18.72C8.27301 19.2787 9.09909 19.5855 9.95312 19.5855C10.8072 19.5855 11.6332 19.2787 12.2831 18.72C12.8582 18.226 13.5732 17.9275 14.3264 17.8669C15.1777 17.7986 15.977 17.4267 16.5809 16.818C17.1847 16.2092 17.5536 15.4034 17.6214 14.5452C17.6815 13.786 17.9776 13.0651 18.4677 12.4854C19.0218 11.8302 19.3262 10.9975 19.3262 10.1365C19.3262 9.27554 19.0218 8.44277 18.4677 7.78764C17.9776 7.20787 17.6815 6.48704 17.6214 5.72776C17.5536 4.86956 17.1847 4.06379 16.5809 3.45504C15.977 2.84628 15.1777 2.4744 14.3264 2.40612C13.5732 2.34552 12.8582 2.04697 12.2831 1.55296C11.6332 0.994342 10.8072 0.6875 9.95312 0.6875C9.09909 0.6875 8.27301 0.994342 7.62315 1.55296Z" fill="#000093"/>
+                                <path d="M6.80286 10.1366L8.90288 12.2536L13.1029 8.01953" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Complete</span>
+                            <span>#1260</span>
+                        </div>
+                        <div class="order-product-wrapper">
+                            <div>
+                                <div class="order-product-image">
+                                    <img src="{% static 'Assets/customer/images/product_image.png' %}" alt="product image" />
+                                    <div class="order-product-quantity">
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                                <div class="order-product-identity">
+                                    <span>Face Serum</span>
+                                    <span>#1260</span>
+                                </div>
+                            </div>
+                            <span>$25.00 x 1</span>
+                            <span>$25.00</span>
+                        </div>
+                        <hr />
+                        <div class="order-product-stats">
+                            <div class="order-product-stat-1 stat">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
+                                        <path d="M9.86549 9.93714L7.11113 12.7138C6.99068 12.8354 6.84764 12.9318 6.6902 12.9976C6.53275 13.0634 6.36399 13.0972 6.19356 13.0972C6.02312 13.0972 5.85436 13.0634 5.69691 12.9976C5.53947 12.9318 5.39643 12.8354 5.27598 12.7138L2.52097 9.93714C1.79471 9.20495 1.30013 8.27211 1.09977 7.25657C0.899409 6.24103 1.00227 5.18839 1.39534 4.23178C1.78841 3.27517 2.45404 2.45754 3.30806 1.88229C4.16207 1.30704 5.16612 1 6.19323 1C7.22034 1 8.22439 1.30704 9.07841 1.88229C9.93242 2.45754 10.5981 3.27517 10.9911 4.23178C11.3842 5.18839 11.4871 6.24103 11.2867 7.25657C11.0863 8.27211 10.5918 9.20495 9.86549 9.93714V9.93714Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7.57062 7.6249C7.93584 7.25672 8.14102 6.75736 8.14102 6.23668C8.14102 5.71599 7.93584 5.21664 7.57062 4.84846C7.2054 4.48028 6.71005 4.27344 6.19355 4.27344C5.67706 4.27344 5.18171 4.48028 4.81649 4.84846C4.45127 5.21664 4.24609 5.71599 4.24609 6.23668C4.24609 6.75736 4.45127 7.25672 4.81649 7.6249C5.18171 7.99308 5.67706 8.19992 6.19355 8.19992C6.71005 8.19992 7.2054 7.99308 7.57062 7.6249Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>Pickup Location</span>
+                                </div>
+                                <span>Redge NYC, 775 Rolling Green Rd.</span>
+                            </div>
+                            <div class="order-product-stat-2 stat">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                        <path d="M6.51953 4.3724V7.03906L8.51953 9.03906M12.5195 7.03906C12.5195 7.82699 12.3643 8.60721 12.0628 9.33516C11.7613 10.0631 11.3193 10.7246 10.7622 11.2817C10.205 11.8389 9.54359 12.2808 8.81563 12.5823C8.08768 12.8839 7.30746 13.0391 6.51953 13.0391C5.7316 13.0391 4.95138 12.8839 4.22343 12.5823C3.49548 12.2808 2.83404 11.8389 2.27689 11.2817C1.71974 10.7246 1.27778 10.0631 0.976254 9.33516C0.674726 8.60721 0.519531 7.82699 0.519531 7.03906C0.519531 5.44776 1.15167 3.92164 2.27689 2.79642C3.40211 1.6712 4.92823 1.03906 6.51953 1.03906C8.11083 1.03906 9.63695 1.6712 10.7622 2.79642C11.8874 3.92164 12.5195 5.44776 12.5195 7.03906Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>Pick-Up Date And Time</span>
+                                </div>
+                                <span>June 5, 2023 at 12:01 PM</span>
+                            </div>
+                            <div class="order-product-stat-3 stat">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+                                        <path d="M8.39292 8.92081V1.72007C8.39292 1.5291 8.31766 1.34594 8.18371 1.2109C8.04975 1.07586 7.86807 1 7.67863 1H1.96435C1.77491 1 1.59322 1.07586 1.45927 1.2109C1.32532 1.34594 1.25006 1.5291 1.25006 1.72007V8.92081C1.25006 9.11178 1.32532 9.29494 1.45927 9.42998C1.59322 9.56502 1.77491 9.64088 1.96435 9.64088H2.67863M8.39292 8.92081C8.39292 9.11178 8.31766 9.29494 8.18371 9.42998C8.04975 9.56502 7.86807 9.64088 7.67863 9.64088H5.53578M8.39292 8.92081V3.16022C8.39292 2.96925 8.46817 2.78609 8.60213 2.65105C8.73608 2.51601 8.91776 2.44015 9.1072 2.44015H10.9543C11.1438 2.44019 11.3254 2.51608 11.4593 2.65113L13.8979 5.10946C14.0319 5.24447 14.1072 5.42759 14.1072 5.61855V8.92081C14.1072 9.11178 14.0319 9.29494 13.898 9.42998C13.764 9.56502 13.5824 9.64088 13.3929 9.64088H12.6786M8.39292 8.92081C8.39292 9.11178 8.46817 9.29494 8.60213 9.42998C8.73608 9.56502 8.91776 9.64088 9.1072 9.64088H9.82149M2.67863 9.64088C2.67863 10.0228 2.82914 10.3891 3.09705 10.6592C3.36496 10.9293 3.72832 11.081 4.1072 11.081C4.48608 11.081 4.84945 10.9293 5.11736 10.6592C5.38527 10.3891 5.53578 10.0228 5.53578 9.64088M2.67863 9.64088C2.67863 9.25893 2.82914 8.89263 3.09705 8.62255C3.36496 8.35247 3.72832 8.20074 4.1072 8.20074C4.48608 8.20074 4.84945 8.35247 5.11736 8.62255C5.38527 8.89263 5.53578 9.25893 5.53578 9.64088M12.6786 9.64088C12.6786 10.0228 12.5281 10.3891 12.2602 10.6592C11.9923 10.9293 11.6289 11.081 11.2501 11.081C10.8712 11.081 10.5078 10.9293 10.2399 10.6592C9.972 10.3891 9.82149 10.0228 9.82149 9.64088M12.6786 9.64088C12.6786 9.25893 12.5281 8.89263 12.2602 8.62255C11.9923 8.35247 11.6289 8.20074 11.2501 8.20074C10.8712 8.20074 10.5078 8.35247 10.2399 8.62255C9.972 8.89263 9.82149 9.25893 9.82149 9.64088" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>Tracking ID</span>
+                                </div>
+                                <span>N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-paid-status-wrapper">
+                        <div class="order-paid-status-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.62315 1.55296C7.04804 2.04697 6.33301 2.34552 5.57982 2.40612C4.72853 2.4744 3.92923 2.84628 3.32537 3.45504C2.72151 4.06379 2.35261 4.86956 2.28489 5.72776C2.22477 6.48704 1.92862 7.20787 1.43858 7.78764C0.884453 8.44277 0.580078 9.27554 0.580078 10.1365C0.580078 10.9975 0.884453 11.8302 1.43858 12.4854C1.92862 13.0651 2.22477 13.786 2.28489 14.5452C2.35261 15.4034 2.72151 16.2092 3.32537 16.818C3.92923 17.4267 4.72853 17.7986 5.57982 17.8669C6.33301 17.9275 7.04804 18.226 7.62315 18.72C8.27301 19.2787 9.09909 19.5855 9.95312 19.5855C10.8072 19.5855 11.6332 19.2787 12.2831 18.72C12.8582 18.226 13.5732 17.9275 14.3264 17.8669C15.1777 17.7986 15.977 17.4267 16.5809 16.818C17.1847 16.2092 17.5536 15.4034 17.6214 14.5452C17.6815 13.786 17.9776 13.0651 18.4677 12.4854C19.0218 11.8302 19.3262 10.9975 19.3262 10.1365C19.3262 9.27554 19.0218 8.44277 18.4677 7.78764C17.9776 7.20787 17.6815 6.48704 17.6214 5.72776C17.5536 4.86956 17.1847 4.06379 16.5809 3.45504C15.977 2.84628 15.1777 2.4744 14.3264 2.40612C13.5732 2.34552 12.8582 2.04697 12.2831 1.55296C11.6332 0.994342 10.8072 0.6875 9.95312 0.6875C9.09909 0.6875 8.27301 0.994342 7.62315 1.55296Z" fill="#000093"/>
+                                <path d="M6.80286 10.1366L8.90288 12.2536L13.1029 8.01953" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Paid</span>
+                        </div>
+                        <div class="order-paid-details-wrapper">
+                            <div class="order-paid-details">
+                                <span>Subtotal</span>
+                                <span>$25.00</span>
+                            </div>
+                            <div class="order-paid-details">
+                                <span>Discount</span>
+                                <span>10%</span>
+                            </div>
+                            <div class="order-paid-details">
+                                <span>Discount Subtotal</span>
+                                <span>$22.50</span>
+                            </div>
+                            <div class="order-paid-details">
+                                <span>Reward Points Redeemed</span>
+                                <span>250</span>
+                            </div>
+                            <div class="order-paid-details">
+                                <span>Post Redemption Cost</span>
+                                <span>$0</span>
+                            </div>
+                            <div class="order-paid-details">
+                                <span>Shipping</span>
+                                <span>$0</span>
+                            </div>
+                            <div class="order-paid-details">
+                                <span>Tax</span>
+                                <span>$0</span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="order-paid-total">
+                            <span>Grand Total</span>
+                            <span>$0</span>
+                        </div>
+                    </div>
+
+                    <div class="order-shipping-confirmation-wrapper">
+                        <div class="order-shipping-confirmation-header">
+                            <span>Shipping Confirmation</span>
+                            <span data-bs-toggle="modal" data-bs-target="#orderShippingLabel">GENERATE SHIPPING LABEL</span>
+                        </div>
+                        <div class="order-shipping-status">
+                            <div>
+                                <span>Order confirmation email was sent to Albert Flores at 10:30 PM on June 2, 2023</span>
+                                <span>Albert Flores123@gmail.com</span>
+                            </div>
+                            <button type="button">RESEND EMAIL</button>
+                        </div>
+                    </div>
+
+
+                    <!-- ---------------------Here is updated Shipping Information----------------------- -->
+                    
+                    
+                    <div class="order-shipping-confirmation-wrapper-2 hide">
+                        <div class="order-shipping-confirmation-header">
+                            <span>Shipping Confirmation</span>
+                        </div>
+                        <div class="order-shipping-status">
+                            <div>
+                                <span>Order confirmation email was sent to Albert Flores at 10:30 PM on June 2, 2023</span>
+                                <span>Albert Flores123@gmail.com</span>
+                            </div>
+                            <button type="button">RESEND EMAIL</button>
+                        </div>
+                        <div class="order-shipping-details">
+                            <div>
+                                <div>
+                                    <span>Shipping Type</span>
+                                    <span>UPS</span>
+                                </div>
+                                <div>
+                                    <span>Shipping Speed</span>
+                                    <span>UPS GROUND</span>
+                                </div>
+                                <div>
+                                    <span>Tracking ID</span>
+                                    <span class="tracking-id">34026</span>
+                                </div>
+                                <div>
+                                    <span>Pricing</span>
+                                    <span>$10.85</span>
+                                </div>
+                                <div>
+                                    <span>Tracking ID</span>
+                                    <span>34026</span>
+                                </div>
+                            </div>
+                            <button>REPRINT LABEL</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-wrapper-col-2">
+                    <div class="order-product-other-details-wrapper">
+                        <div class="order-customer">
+                            <span>Customer</span>
+                            <div>
+                                <span>Albert Flores</span>
+                                <span>1 Order</span>
+                            </div>
+                        </div>
+                        <div class="order-contact-info">
+                            <span>Contact Information</span>
+                            <div class="order-contact-info-details">
+                                <div>
+                                    <span>Albert Flores123@gmail.com</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                                        <path d="M3.45312 7.08984L10.0281 11.4732C10.302 11.6559 10.6239 11.7534 10.9531 11.7534C11.2824 11.7534 11.6042 11.6559 11.8781 11.4732L18.4531 7.08984M5.11979 16.2565H16.7865C17.2285 16.2565 17.6524 16.0809 17.965 15.7684C18.2775 15.4558 18.4531 15.0319 18.4531 14.5898V6.25651C18.4531 5.81448 18.2775 5.39056 17.965 5.078C17.6524 4.76544 17.2285 4.58984 16.7865 4.58984H5.11979C4.67776 4.58984 4.25384 4.76544 3.94128 5.078C3.62872 5.39056 3.45313 5.81448 3.45312 6.25651V14.5898C3.45313 15.0319 3.62872 15.4558 3.94128 15.7684C4.25384 16.0809 4.67776 16.2565 5.11979 16.2565Z" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span>+1 917-498-1302</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                                        <path d="M3.94128 3.41003C3.62872 3.72259 3.45312 4.14651 3.45312 4.58854V5.42188C3.45312 12.3252 9.04979 17.9219 15.9531 17.9219H16.7865C17.2285 17.9219 17.6524 17.7463 17.965 17.4337C18.2775 17.1212 18.4531 16.6972 18.4531 16.2552V13.5227C18.4532 13.3477 18.3981 13.1772 18.2958 13.0352C18.1935 12.8933 18.0491 12.7872 17.8831 12.7319L14.139 11.4835C13.9487 11.4203 13.742 11.4278 13.5568 11.5046C13.3715 11.5815 13.2202 11.7225 13.1306 11.9019L12.189 13.7827C10.1485 12.8608 8.51422 11.2265 7.59229 9.18604L9.47312 8.24437C9.6525 8.15475 9.79355 8.00346 9.87039 7.81825C9.94723 7.63303 9.95471 7.42632 9.89146 7.23604L8.64312 3.49187C8.58788 3.32601 8.48186 3.18171 8.34009 3.07942C8.19831 2.97712 8.02795 2.92201 7.85312 2.92188H5.11979C4.67776 2.92188 4.25384 3.09747 3.94128 3.41003Z" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-shipping-address">
+                            <span>Shipping address</span>
+                            <span>4517 Washington Ave. Manchester, Kentucky 39495</span>
+                        </div>
+                        <div class="order-shipping-address">
+                            <span>Billing address</span>
+                            <span>Same as shipping address</span>
+                        </div>
+                        <div class="order-shipping-address">
+                            <span>Associated Salon</span>
+                            <span>ZALON NYC</span>
+                        </div>
+                    </div>
+                    <div class="order-product-notes-wrapper">
+                        <span>Notes</span>
+                        <span>No notes recorded.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include '../modals/order-shipping-label-modal.html' %}
+
+    {% endblock %}
+</body>
+</html>

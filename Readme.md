@@ -1,7 +1,6 @@
 # Homme Admin Portal
 
 Repository of Homme Admin Portal to view and manage B2B and D2C application contents.
-
 ## Setup Instructions
 
 The application utilizes docker container for easy setup and deployments. Following are the steps for setup:

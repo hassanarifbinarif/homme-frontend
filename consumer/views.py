@@ -44,6 +44,20 @@ def commissions(request):
     return render(request, 'consumer/commission.html', context)
 
 
+def product_sales(request):
+    context = {}
+    context['active_page'] = 'product_sales'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/product-sales.html', context)
+
+
+def specific_sale(request):
+    context = {}
+    context['active_page'] = 'product_sales'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/specific-sale.html', context)
+
+
 def inventory(request):
     context = {}
     context['active_page'] = 'inventory'
@@ -106,3 +120,10 @@ def events(request):
     context['active_page'] = 'events'
     context['sidebar'] = 'consumer'
     return render(request, 'consumer/events.html', context)
+
+
+def slider(request):
+    context = {}
+    context['active_page'] = 'sliders'
+    context['sidebar'] = 'consumer'
+    return render(request, 'consumer/slider.html', context)

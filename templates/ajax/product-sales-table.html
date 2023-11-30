@@ -1,0 +1,1080 @@
+{% load custom_tags %}
+
+<table class="order-details-table" id="product-sales-table">
+    <thead>
+        <th>
+            <div class="table-checkbox">
+                <input type="checkbox" />
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Order</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Date</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Customer</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Channel</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Net Sales</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Payment status</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Status</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Items</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th>
+            <div>
+                <span>Delivery method</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+    </thead>
+    <tbody>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Pending Shipment</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Shipped</span></div>
+            </td>
+        </tr>
+        <tr onclick="location.pathname = '/consumer/specific-sale'">
+            <td onclick="event.stopPropagation();">
+                <div class="table-checkbox">
+                    <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div><span>#1260</span></div>
+            </td>
+            <td>
+                <div><span class="order-date">2-Jun-2023 @ 04:30 PM</span></div>
+            </td>
+            <td>
+                <div><span>Daniel Russell</span></div>
+            </td>
+            <td>
+                <div><span>Redge NYC</span></div>
+            </td>
+            <td>
+                <div><span>$25.00</span></div>
+            </td>
+            <td>
+                <div><span>Paid</span></div>
+            </td>
+            <td>
+                <div><span>Complete</span></div>
+            </td>
+            <td>
+                <div><span>1 Items</span></div>
+            </td>
+            <td>
+                <div><span>Pick-Up</span></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
