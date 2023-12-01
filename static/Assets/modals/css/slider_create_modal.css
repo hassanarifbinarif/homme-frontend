@@ -1,0 +1,157 @@
+#createSlider .modal-dialog {
+    max-width: unset;
+    width: 621px;
+}
+
+#createSlider .modal-header {
+    padding: 9px 20px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#createSlider .modal-footer,
+#createSlider .modal-content {
+    border-radius: 0px!important;
+}
+
+#createSlider .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#createSlider .modal-body {
+    padding: 20px 0px 0px 0px!important;
+}
+
+#createSlider input::placeholder,
+#createSlider textarea::placeholder {
+    color: rgba(3, 7, 6, 0.60);
+}
+
+#createSlider .modal-body > .general-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 17px;
+    padding: 0px 20px;
+}
+
+#createSlider .modal-body > .general-inputs > input {
+    width: 100%;
+    height: 40px;
+    padding: 0px 18px;
+
+    color: rgba(3, 7, 6, 1);
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: #FFF;
+}
+
+#createSlider .modal-body .image-wrapper {
+    padding: 15px 20px;
+}
+
+#createSlider .modal-body .image-wrapper > label {
+    width: 100%;
+    height: 256px;
+    border: 1px dashed #C5C5C5;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#createSlider .modal-body .image-wrapper > label > input {
+    display: none;
+}
+
+#createSlider .modal-body .image-wrapper > label > svg {
+    margin-bottom: 8px;
+}
+
+#createSlider .modal-body .image-wrapper > label > span:first-of-type {
+    color: var(--C-07, #333);
+    text-align: center;
+    font-family: Gotham Book;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#createSlider .modal-body .image-wrapper > label > span:last-of-type {
+    color: #B3B3B3;
+    text-align: center;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#createSlider .modal-body .image-wrapper > label > .event-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 6px;
+}
+
+#createSlider .modal-body .error-div {
+    text-align: left;
+}
+
+
+#createSlider .modal-footer {
+    padding: 15px 20px!important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#createSlider .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 170px;
+    height: 30px;
+    margin: 0px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+#createSlider .modal-footer > button:first-of-type {
+    background-color: #FFF;
+    border: 1px solid #000;
+    color: #000;
+    width: 125px;
+}

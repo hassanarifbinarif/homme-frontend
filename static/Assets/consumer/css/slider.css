@@ -299,6 +299,7 @@
     border-bottom: 1px solid #E0E0DD;
     background-color: #FFF;
     margin-bottom: 20px;
+    table-layout: fixed;
 }
 
 .order-details-table thead {

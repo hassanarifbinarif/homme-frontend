@@ -10,6 +10,7 @@
     {% block links %}
 
     <link rel="stylesheet" href="{% static 'Assets/consumer/css/slider.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/slider_create_modal.css' %}" />
 
     {% endblock %}
 
@@ -49,7 +50,7 @@
         <div class="content">
             <div class="order-wrapper">
                 <span>B2B SLIDER</span>
-                <button type="button">CREATE SLIDE</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createSlider">CREATE SLIDE</button>
             </div>
             <div class="order-details-wrapper">
                 <div class="order-details-filters">
@@ -66,11 +67,13 @@
                     </button>
                 </div>
                 <div class="order-details-table-wrapper">
-                    {% include '../ajax/slider-table.html' %}
+                    {% include '../ajax/consumer-slider-table.html' %}
                 </div>
             </div>
         </div>
     </div>
+
+    {% include '../modals/slider-create-modal.html' %}
 
     {% endblock %}
 </body>

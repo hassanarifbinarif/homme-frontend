@@ -40,6 +40,57 @@ def homme(request, api_response):
     return render(request, 'customer/homme.html', context)
 
 
+@csrf_exempt
+def homme_orders_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        text_template = loader.get_template('ajax/homme-order-table.html')
+        html = text_template.render({'orders':response})
+        context['orders_data'] = html
+        context['paginationData'] = response['pagination']
+        context['msg'] = 'Orders retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
+@admin_signin_required
+def sliders(request, api_response):
+    context = {}
+    context['admin_name'] = api_response['fullname']
+    context['admin_image'] = api_response['user']['profile_picture']
+    context['active_page'] = 'sliders'
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/sliders.html', context)
+
+
+@csrf_exempt
+def get_sliders_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        text_template = loader.get_template('ajax/slider-table.html')
+        html = text_template.render({'sliders':response})
+        context['sliders_data'] = html
+        context['msg'] = 'Sliders retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
 @admin_signin_required
 def orders(request, api_response, pk=None):
     context = {}

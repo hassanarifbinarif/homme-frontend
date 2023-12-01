@@ -95,7 +95,7 @@ button {
 }
 
 .no-record-row {
-    text-align: center;
+    text-align: center!important;
     font-size: 1rem!important;
     color: black!important;
     font-weight: 700!important;
@@ -155,6 +155,73 @@ input::-webkit-inner-spin-button {
     background: ; 
 } */
 
+
+.pagination-div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+    padding-right: 20px;
+}
+
+.pagination-div > .prev-btn,
+.pagination-div > .next-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #515254;
+    border-radius: 6px;
+}
+
+.pagination-div > .prev-btn > svg,
+.pagination-div > .next-btn > svg {
+    width: 15px;
+    height: 15px;
+}
+
+.pagination-div > .pages {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination-div > .pages > span {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #515254;
+    border-radius: 6px;
+    color: var(--primary-black, #000);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.pagination-div > .pages > span.active {
+    background-color: #000093;
+    border-color: #000093;
+    color: #FFF;
+}
+
+.pagination-div > .pages > .ellipsis-container {
+    border: unset;
+    align-items: flex-end;
+    width: 15px;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
 
 .table-text-overflow {
     overflow: hidden;

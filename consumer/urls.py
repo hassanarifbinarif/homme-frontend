@@ -15,5 +15,6 @@ urlpatterns = [
     path('get-product-list/', views.get_product_list, name='get_product_list'),
     path('specific-product/<int:pk>/', views.specific_product, name='specific_product'),
     path('events/', views.events, name="events"),
-    path('slider/', views.slider, name='slider')
+    path('get-events-list/', views.get_events_list, name='get_events_list'),
+    path('slider/', views.consumer_slider, name='consumer_slider')
 ]

@@ -122,8 +122,28 @@ def events(request):
     return render(request, 'consumer/events.html', context)
 
 
-def slider(request):
+@csrf_exempt
+def get_events_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        text_template = loader.get_template('ajax/events-table.html')
+        html = text_template.render({'events':response})
+        context['events_data'] = html
+        context['msg'] = 'Events retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
+def consumer_slider(request):
     context = {}
     context['active_page'] = 'sliders'
     context['sidebar'] = 'consumer'
-    return render(request, 'consumer/slider.html', context)
+    return render(request, 'consumer/consumer-slider.html', context)

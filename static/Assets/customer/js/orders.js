@@ -1,17 +1,3 @@
-// window.onload = () => {
-//     let table = new DataTable('#myTable', {
-//         order: [],
-//         columnDefs: [
-//             {orderable: false, targets: 0}
-//         ],
-//         paging: false,
-//         searching: false,
-//         language: {
-//             info: "",
-//         },
-//     });
-// }
-
 let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
 
 window.onload = () => {

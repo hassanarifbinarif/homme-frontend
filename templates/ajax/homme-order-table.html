@@ -1,0 +1,45 @@
+{% load static %}
+{% load custom_tags %}
+
+<div class="order-table-wrapper">
+    <table class="order-table">
+        <thead>
+            <th>ORDER ID</th>
+            <th>ORDERED DATE</th>
+            <th>CUSTOMER NAME</th>
+            <th>PRODUCT PRICE</th>
+            <th>STATUS</th>
+        </thead>
+        <tbody>
+            {% for obj in orders.data %}
+            <tr>
+                <td>#{{obj.id}}</td>
+                <td class="order-time">{{obj.created_at|custom_date:"j-M-Y @ h:i A"}}</td>
+                <td>{{obj.user_profile.first_name}} {{obj.user_profile.last_name}}</td>
+                <td>${{obj.total}}</td>
+                <td>{{obj.status|title}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-record-row">No record available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<div class="pagination-div" id="pagination-container">
+    <div class="prev-btn {% if orders.pagination.currentPage == 1 %}opacity-point-3-5{% endif %}" {% if orders.pagination.currentPage > 1 %}onclick="getData('{{orders.pagination.links.previous}}')"{% endif %}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+            <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <div class="pages" id="pages-container">
+    </div>
+    <div class="next-btn {% if orders.pagination.total == orders.pagination.currentPage %}opacity-point-3-5{% endif %}" {% if orders.pagination.total != orders.pagination.currentPage and orders.pagination.total > orders.pagination.currentPage %}onclick="getData('{{orders.pagination.links.next}}')"{% endif %}>
+        <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+            <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+</div>
