@@ -33,10 +33,6 @@ function searchForm(event) {
 
 
 async function getData(url=null) {
-    let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    }
     let data;
     let tableBody = document.getElementById('activity-table');
     if (url == null) {
@@ -44,9 +40,9 @@ async function getData(url=null) {
     }
     else {
         data = url;
-        document.getElementById('table-loader').classList.remove('hide');
-        tableBody.classList.add('hide');
     }
+    document.getElementById('table-loader').classList.remove('hide');
+    tableBody.classList.add('hide');
     try {
         let response = await requestAPI('/get-activities-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
@@ -74,7 +70,7 @@ function toggleSalesChannelDropdown() {
 
 function filterSalesChannelOption(event) {
     let element = event.target;
-    document.getElementById('selected-sales-channel').innerText = element.innerText;
+    // document.getElementById('selected-sales-channel').innerText = element.innerText;
 }
 
 
@@ -96,7 +92,7 @@ function toggleTypeDropdown() {
 }
 
 
-function toggleDateSelectorInputs(event) {
+function toggleDateSelectorDropdown(event) {
     if ((dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'none') {
         dateSelectorInputWrapper.style.display = 'flex';
     }
@@ -108,6 +104,43 @@ function toggleDateSelectorInputs(event) {
     else {
         dateSelectorInputWrapper.style.display = 'none';
     }
+}
+
+function toggleDateInputs(event) {
+    if (event.target.nextElementSibling.classList.contains('hide')) {
+        event.target.nextElementSibling.classList.remove('hide');
+        event.target.style.background = '#FFF';
+        event.target.style.color = '#000093';
+    }
+    else {
+        event.target.nextElementSibling.classList.add('hide');
+        event.target.style.color = '#FFF';
+        event.target.style.background = '#000093';
+    }
+}
+
+function filterDataRangeOption(event) {
+    let element = event.target;
+    let startDate, endDate;
+    if (element.innerText == 'CURRENT WEEK') {
+        startDate = getStartOfWeek();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startDate);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
+    }
+    else if (element.innerText == 'LAST WEEK') {
+        const { startOfPreviousWeek, endOfPreviousWeek } = getStartAndEndOfPreviousWeek();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfPreviousWeek);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfPreviousWeek);
+    }
+    else if (element.innerText == 'LAST MONTH') {
+        const { startOfLastMonth, endOfLastMonth } = getStartAndEndOfLastMonth();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfLastMonth);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfLastMonth);
+    }
+    getData();
+    setTimeout(() => {
+        dateSelectorBtn.click();
+    }, 100)
 }
 
 function dateRangeForm(event) {
@@ -132,7 +165,7 @@ function dateRangeForm(event) {
 }
 
 
-function toggleNetCashInputs(event) {
+function toggleNetCashDropdown(event) {
     if ((netCashBtn.contains(event.target)) && netCashInputWrapper.style.display == 'none') {
         netCashInputWrapper.style.display = 'flex';
     }
@@ -144,6 +177,29 @@ function toggleNetCashInputs(event) {
     else {
         netCashInputWrapper.style.display = 'none';
     }
+}
+
+function toggleNetCashInputs(event) {
+    if (event.target.nextElementSibling.classList.contains('hide')) {
+        event.target.nextElementSibling.classList.remove('hide');
+        event.target.style.background = '#FFF';
+        event.target.style.color = '#000093';
+    }
+    else {
+        event.target.nextElementSibling.classList.add('hide');
+        event.target.style.color = '#FFF';
+        event.target.style.background = '#000093';
+    }
+}
+
+function filterNetCashOption(event) {
+    let element = event.target;
+    requiredDataURL = setParams(requiredDataURL, 'net_cash__gte', element.getAttribute('data-min'));
+    requiredDataURL = setParams(requiredDataURL, 'net_cash__lte', element.getAttribute('data-max') || '');
+    getData();
+    setTimeout(() => {
+        netCashBtn.click();
+    }, 100)
 }
 
 function netCashForm(event) {
@@ -169,7 +225,7 @@ function netCashForm(event) {
 }
 
 
-function toggleRewardsInputs(event) {
+function toggleRewardsDropdown(event) {
     if ((rewardsBtn.contains(event.target)) && rewardsInputWrapper.style.display == 'none') {
         rewardsInputWrapper.style.display = 'flex';
     }
@@ -181,6 +237,29 @@ function toggleRewardsInputs(event) {
     else {
         rewardsInputWrapper.style.display = 'none';
     }
+}
+
+function toggleRewardsInputs(event) {
+    if (event.target.nextElementSibling.classList.contains('hide')) {
+        event.target.nextElementSibling.classList.remove('hide');
+        event.target.style.background = '#FFF';
+        event.target.style.color = '#000093';
+    }
+    else {
+        event.target.nextElementSibling.classList.add('hide');
+        event.target.style.color = '#FFF';
+        event.target.style.background = '#000093';
+    }
+}
+
+function filterRewardOption(event) {
+    let element = event.target;
+    requiredDataURL = setParams(requiredDataURL, 'rewards__gte', element.getAttribute('data-min'));
+    requiredDataURL = setParams(requiredDataURL, 'rewards__lte', element.getAttribute('data-max') || '');
+    getData();
+    setTimeout(() => {
+        rewardsBtn.click();
+    }, 100)
 }
 
 function rewardForm(event) {
@@ -352,4 +431,86 @@ function sortByDate(event, columnIndex) {
     arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
     arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
     sortOrders[2] = currentOrder === 'asc' ? 'desc' : 'asc';
+}
+
+
+// For current week
+
+function getStartOfWeek() {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const daysUntilMonday = (dayOfWeek + 6) % 7;
+    const startOfWeek = new Date(now);
+
+    startOfWeek.setDate(now.getDate() - daysUntilMonday + 1);
+
+    startOfWeek.setHours(0, 0, 0, 0);
+    const formattedDate = startOfWeek.toISOString().split('T')[0];
+
+    return formattedDate;
+}
+
+
+// For last week
+
+function getStartAndEndOfWeek(date) {
+    const startOfWeek = new Date(date);
+    const endOfWeek = new Date(date);
+
+    const dayOfWeek = date.getDay();
+
+    startOfWeek.setDate(date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    endOfWeek.setDate(date.getDate() + (7 - dayOfWeek + (dayOfWeek === 0 ? -6 : 0)));
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    return {
+        startOfWeek,
+        endOfWeek,
+    };
+}
+
+function getStartAndEndOfPreviousWeek() {
+    const today = new Date();
+    const lastWeek = new Date(today);
+    lastWeek.setDate(today.getDate() - 7);
+
+    const { startOfWeek, endOfWeek } = getStartAndEndOfWeek(lastWeek);
+
+    const timezoneOffset = today.getTimezoneOffset() * 60000;
+    return {
+        startOfPreviousWeek: new Date(startOfWeek.getTime() - timezoneOffset).toISOString().split('T')[0],
+        endOfPreviousWeek: new Date(endOfWeek.getTime() - timezoneOffset).toISOString().split('T')[0],
+    };
+}
+
+
+// For last month
+
+function getStartAndEndOfLastMonth() {
+    const today = new Date();
+    const lastMonth = new Date(today);
+  
+    lastMonth.setDate(1);
+  
+    lastMonth.setDate(0);
+  
+    let startOfLastMonth = new Date(lastMonth);
+    startOfLastMonth.setDate(1);
+    startOfLastMonth.setHours(0, 0, 0, 0);
+  
+    let endOfLastMonth = new Date(lastMonth);
+    endOfLastMonth.setHours(23, 59, 59, 999);
+
+    // Adjust for time zone offset
+    const timezoneOffset = today.getTimezoneOffset() * 60000;
+    
+    startOfLastMonth = new Date(startOfLastMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
+    endOfLastMonth = new Date(endOfLastMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
+  
+    return {
+        startOfLastMonth,
+        endOfLastMonth,
+    };
 }

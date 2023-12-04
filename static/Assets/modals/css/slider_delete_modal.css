@@ -1,0 +1,80 @@
+#delSlider .modal-dialog {
+    max-width: unset;
+    width: 621px;
+}
+
+#delSlider .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#delSlider .modal-footer,
+#delSlider .modal-content {
+    border-radius: 0px!important;
+    border: unset!important;
+}
+
+#delSlider .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#delSlider .modal-body {
+    padding: 10px!important;
+}
+
+#delSlider .modal-body > p {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 0px;
+}
+
+
+#delSlider .modal-footer {
+    padding: 9px 12px!important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#delSlider .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 150px;
+    height: 30px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
+
+#delSlider .modal-footer > button:first-of-type {
+    background: #FFF;
+    color: #000;
+    border-color: #000;
+}

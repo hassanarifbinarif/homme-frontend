@@ -401,6 +401,11 @@
     gap: 15px;
 }
 
+.order-details-table tbody tr td > .actions-div > .icon-size {
+    font-size: 17px;
+    color: #515254;
+}
+
 
 @media (max-width: 1439px) {
     .content {

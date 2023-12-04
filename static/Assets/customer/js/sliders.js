@@ -96,6 +96,7 @@ function openCreateSliderModal(modalID) {
     form.setAttribute("onsubmit", `createSliderForm(event)`);
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
+        form.removeAttribute("onsubmit");
         let label = modal.querySelector('label');
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -151,11 +152,13 @@ async function createSliderForm(event) {
                 "Authorization": `Bearer ${token}`
             };
             beforeLoad(button);
+            formData.append("is_visible", true);
             let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
             // console.log(response);
             response.json().then(function(res) {
                 // console.log(res);
                 if (response.status == 201) {
+                    form.removeAttribute("onsubmit");
                     afterLoad(button, 'CREATED');
                     getData();
                     setTimeout(() => {
@@ -185,12 +188,116 @@ async function createSliderForm(event) {
 }
 
 
+function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
+    let modal = document.querySelector(`#${modalID}`);
+    modal.querySelector('#slider-modal-header').innerText = 'Edit Slide';
+    let form = modal.querySelector("form");
+    form.setAttribute("onsubmit", `updateSliderForm(event, ${id})`);
+    form.querySelector('input[name="name"]').value = name;
+    form.querySelector('input[name="text"]').value = description;
+    form.querySelector('.event-img').src = imageUrl;
+    form.querySelector('.event-img').classList.remove('hide');
+    let label = modal.querySelector('label');
+    label.querySelector('svg').style.display = 'none';
+    label.querySelectorAll('span').forEach((span) => {
+        span.style.display = 'none';
+    })
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        modal.querySelector('#slider-modal-header').innerText = 'Create Slide';
+        form.removeAttribute("onsubmit");
+        label.querySelector('.event-img').src = '';
+        label.querySelector('.event-img').classList.add('hide');
+        label.querySelector('svg').style.display = 'block';
+        label.querySelectorAll('span').forEach((span) => {
+            span.style.display = 'block';
+        })
+        modal.querySelector('.btn-text').innerText = 'SAVE';
+        document.querySelector('.error-div').classList.add('hide');
+        document.querySelector('.create-error-msg').classList.remove('active');
+        document.querySelector('.create-error-msg').innerText = "";
+    })
+    document.querySelector(`.${modalID}`).click();
+}
+
+async function updateSliderForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    // console.log(data);
+    let imageInput = form.querySelector('input[name="image"]');
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+    let errorDiv = form.querySelector('.error-div');
+    let errorMsg = form.querySelector('.create-error-msg');
+
+    if (data.name.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter valid name';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.text.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter valid description';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else {
+        try {
+            if (imageInput.files.length == 0) {
+                formData.delete("image");
+            }
+            errorDiv.classList.add('hide');
+            errorMsg.innerText = '';
+            errorMsg.classList.remove('active');
+            let token = getCookie('admin_access');
+            let headers = {
+                "Authorization": `Bearer ${token}`
+            };
+            beforeLoad(button);
+            let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
+            // console.log(response);
+            response.json().then(function(res) {
+                // console.log(res);
+                if (response.status == 200) {
+                    form.removeAttribute("onsubmit");
+                    afterLoad(button, 'SAVED');
+                    getData();
+                    setTimeout(() => {
+                        afterLoad(button, 'SAVE');
+                        document.querySelector('.createSlider').click();
+                    }, 1000)
+                }
+                else if (response.status == 400) {
+                    afterLoad(button, buttonText);
+                    errorDiv.classList.remove('hide');
+                    let keys = Object.keys(res.messages);
+                    keys.forEach((key) => {
+                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                    })
+                    errorMsg.classList.add('active');
+                }
+                else {
+                    afterLoad(button, 'ERROR');
+                }
+            })
+        }
+        catch (err) {
+            console.log(err);
+            afterLoad(button, 'ERROR');
+        }
+    }
+}
+
+
+
 function verifyEventImage(input) {
     if (input.files.length > 0) {
         let label = input.closest('label');
         let width = 330;
         let height = 330;
-        // console.log(width, height);
         const img = document.createElement('img');
         const selectedImage = input.files[0];
         const objectURL = URL.createObjectURL(selectedImage);
@@ -224,5 +331,88 @@ function verifyEventImage(input) {
         };
   
         img.src = objectURL;
+    }
+}
+
+
+async function toggleVisibility(event, id, isVisible) {
+    let element = event.target.closest('.visibility');
+    let data = {
+        is_visible: isVisible == 'True' ? false : true
+    };
+    let token = getCookie('admin_access');
+    let headers = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    };
+    try {
+        element.style.pointerEvents = "none";
+        let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify(data), headers, 'PATCH');
+        response.json().then(function(res) {
+            element.style.pointerEvents = "auto";
+            // console.log(res);
+            if (response.status == 200) {
+                element.removeAttribute("onclick");
+                element.classList.add('hide');
+                if (res.data.is_visible) {
+                    element.closest('.actions-div').querySelector('.is_visible').classList.remove('hide');
+                    element.closest('.actions-div').querySelector('.is_visible').setAttribute("onclick", `toggleVisibility(event, '${res.data.id}', 'True')`);
+                }
+                else {
+                    element.closest('.actions-div').querySelector('.is_not_visible').classList.remove('hide');
+                    element.closest('.actions-div').querySelector('.is_not_visible').setAttribute("onclick", `toggleVisibility(event, '${res.data.id}', 'False')`);
+                }
+            }
+        })
+    }
+    catch (err) {
+        element.style.pointerEvents = "auto";
+        console.log(err);
+    }
+}
+
+
+function openDelSliderModal(modalID, id) {
+    let modal = document.querySelector(`#${modalID}`);
+    let form = modal.querySelector('form');
+    form.setAttribute("onsubmit", `delSliderForm(event, ${id})`);
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        modal.querySelector('.btn-text').innerText = 'DELETE';
+    })
+    document.querySelector(`.${modalID}`).click();
+}
+
+async function delSliderForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, null, headers, 'DELETE');
+        // console.log(response);
+        if (response.status == 204) {
+            form.reset();
+            form.removeAttribute("onsubmit");
+            afterLoad(button, 'DELETED');
+            getData()
+            setTimeout(() => {
+                document.querySelector('.delSlider').click();
+            }, 1000)
+        }
+        else {
+            afterLoad(button, 'Error');
+        }
+    }
+    catch (err) {
+        afterLoad(button, 'Error');
+        console.log(res);
     }
 }

@@ -125,11 +125,14 @@
 #eventCreate .modal-body .image-wrapper > label > .event-img {
     width: 100%;
     height: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: center;
 }
 
 #eventCreate .modal-body .error-div {
     text-align: left;
-    margin-top: 20px;
+    padding: 0px 20px;
 }
 
 

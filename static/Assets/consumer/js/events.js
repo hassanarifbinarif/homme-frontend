@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/content/events?page=1&perPage=1000&search=`;
+let requiredDataURL = `${apiURL}/admin/content/events?page=1&perPage=1000&search=&ordering=-created_at`;
 
 window.onload = () => {
     getData();
@@ -15,10 +15,6 @@ function searchForm(event) {
 
 
 async function getData(url=null) {
-    let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    }
     let data;
     let tableBody = document.getElementById('events-table');
     if (url == null) {
@@ -26,9 +22,9 @@ async function getData(url=null) {
     }
     else {
         data = url;
-        document.getElementById('table-loader').classList.remove('hide');
-        tableBody.classList.add('hide');
     }
+    document.getElementById('table-loader').classList.remove('hide');
+    tableBody.classList.add('hide');
     try {
         let response = await requestAPI('/consumer/get-events-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {

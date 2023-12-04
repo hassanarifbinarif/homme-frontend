@@ -117,6 +117,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-height: calc(100vh - 98px);
 }
 
 .order-wrapper {
@@ -389,7 +390,10 @@
     width: 184px;
 }
 
-.order-details-wrapper .order-details-filters .sales-btn > div  span {
+.order-details-wrapper .order-details-filters .sales-btn > div span,
+.order-details-wrapper .order-details-filters .date-selector > span,
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector > span,
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector > span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
@@ -401,13 +405,15 @@
     line-height: normal;
     letter-spacing: 1.2px;
 
-    height: 30px;
+    height: 28px;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-.order-details-wrapper .order-details-filters .sales-btn > div span:not(:first-of-type) {
+.order-details-wrapper .order-details-filters .sales-btn > div span:not(:first-of-type),
+.order-details-wrapper .order-details-filters .date-selector > span:not(:first-of-type),
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector > span:not(:first-of-type),
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector > span:not(:first-of-type) {
     border-top: 1px solid #CECECE;
 }
 
@@ -419,23 +425,6 @@
     width: 158px;
 }
 
-.order-details-wrapper .order-details-filters .date-range-btn > .date-selector,
-.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector,
-.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector {
-    position: absolute;
-    top: 32px;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    background: white;
-    border-radius: 8px;
-    border: 1px solid #E0E0DD;
-    padding: 5px;
-    width: 100%;
-}
-
-.order-details-wrapper .order-details-filters .date-range-btn > .date-selector > div,
 .order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector > div,
 .order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector > div {
     text-align: left;
@@ -445,13 +434,11 @@
     width: 100%;
 }
 
-.order-details-wrapper .order-details-filters .date-range-btn > .date-selector > div > label,
 .order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector > div > label,
 .order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector > div > label {
     color: #A9A9A9;
 }
 
-.order-details-wrapper .order-details-filters .date-range-btn > .date-selector > div > input,
 .order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector > div > input,
 .order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector > div > input {
     border: 1px solid #515254;
@@ -461,7 +448,7 @@
 }
 
 .order-details-wrapper .order-details-filters .net-cash-btn {
-    width: 136px;
+    width: 142px;
 }
 
 .order-details-wrapper .order-details-filters .rewards-btn {
@@ -473,24 +460,23 @@
 }
 
 .order-details-wrapper .order-details-filters .types-btn > div {
-    width: 150px;
+    padding: 0px 8px;
 }
 
-.order-details-wrapper .order-details-filters .types-btn > div  span {
+.order-details-wrapper .order-details-filters .types-btn > div span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
     text-edge: cap;
     font-family: Gotham Medium;
-    font-size: .65rem;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     letter-spacing: 1.2px;
 
-    height: 30px;
+    height: 28px;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -498,9 +484,9 @@
     border-top: 1px solid #CECECE;
 }
 
-.order-details-wrapper .order-details-filters .types-btn > div span:hover {
+/* .order-details-wrapper .order-details-filters .types-btn > div span:hover {
     background-color: #DDDDDD;
-}
+} */
 
 .order-details-wrapper .order-details-filters .sort-btn {
     justify-content: center;
@@ -512,6 +498,166 @@
 .order-details-wrapper .order-details-filters .sort-btn > svg {
     position: relative;
     right: unset;
+}
+
+.order-details-wrapper .order-details-filters .sales-channel-dropdown {
+    padding: 10px 11px 0px 11px;
+}
+
+.order-details-wrapper .order-details-filters .sales-channel-dropdown > .search-div {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.order-details-wrapper .order-details-filters .sales-channel-dropdown > .search-div svg {
+    position: absolute;
+    left: 15px;
+}
+
+.order-details-wrapper .order-details-filters .sales-channel-dropdown > .search-div input {
+    border: 1px solid #000;
+    border-radius: 7px;
+    height: 36px;
+    width: 100%;
+
+    color: #030706;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-left: 40px;
+    padding-right: 10px;
+}
+
+.order-details-wrapper .order-details-filters .date-range-btn > .date-selector {
+    padding: 10px 10px 0px 10px;
+    min-width: 158px;
+    width: fit-content;
+}
+
+.order-details-wrapper .order-details-filters .date-range-btn > .date-selector div[role="button"],
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector div[role="button"],
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector div[role="button"] {
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 100%;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+}
+
+.order-details-wrapper .order-details-filters .date-range-btn > .date-selector .date-range-div,
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector .net-range-div,
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector .rewards-range-div {
+    width: 274px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.order-details-wrapper .order-details-filters .date-range-btn > .date-selector .date-range-div > div,
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector .net-range-div > div,
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector .rewards-range-div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 132px;
+}
+
+.order-details-wrapper .order-details-filters .date-range-btn > .date-selector .date-range-div > div > label,
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector .net-range-div > div > label,
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector .rewards-range-div > div > label {
+    color: #030706;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    text-transform: capitalize;
+    opacity: 0.5;
+    text-align: left;
+}
+
+.order-details-wrapper .order-details-filters .date-range-btn > .date-selector .date-range-div > div > input {
+    border-radius: 7px;
+    border: 1px solid rgba(0, 0, 0, 0.70);
+    font-family: Gotham Book;
+    font-weight: 500;
+    height: 36px;
+    width: 100%;
+    padding: 0px 10px;
+}
+
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector {
+    padding: 10px 10px 0px 10px;
+    min-width: 142px;
+    width: fit-content;
+}
+
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector .net-range-div > div > div,
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector .rewards-range-div > div > div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector .net-range-div > div > div > span,
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector .rewards-range-div > div > div > span {
+    color: #9D9D9D;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.order-details-wrapper .order-details-filters .net-cash-btn > .net-cash-selector .net-range-div > div > div > input,
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector .rewards-range-div > div > div > input {
+    width: 100%;
+    height: 36px;
+    padding: 0px 10px;
+    border-radius: 7px;
+    border: 1px solid rgba(0, 0, 0, 0.70);
+    color: rgba(0, 0, 0);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.6px;
+}
+
+.order-details-wrapper .order-details-filters .rewards-btn > .rewards-selector {
+    padding: 10px 10px 0px 10px;
+    min-width: 136px;
+    width: fit-content;
 }
 
 .order-details-table {
