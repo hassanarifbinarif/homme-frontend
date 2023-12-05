@@ -2,12 +2,12 @@
 
 <table class="order-details-table hide" id="order-table">
     <thead>
-        <th>
+        <th width="26px">
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th onclick="sortByOrder(event, 1);">
+        <th width="6.24%" onclick="sortByOrder(event, 1);">
             <div>
                 <span>Order</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -16,7 +16,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDate(event);">
+        <th width="10.22%" onclick="sortByDate(event);">
             <div>
                 <span>Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -25,7 +25,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 3);">
+        <th width="13.39%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Customer</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -34,7 +34,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 4);">
+        <th width="9.86%" onclick="sortByAlphabets(event, 4);">
             <div>
                 <span>Sales Channel</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -43,7 +43,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 5);">
+        <th width="11.4%" onclick="sortByAlphabets(event, 5);">
             <div>
                 <span>Source</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -52,7 +52,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 6);">
+        <th width="8.59%" onclick="sortByOrder(event, 6);">
             <div>
                 <span>Net Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -61,7 +61,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 7);">
+        <th width="8.95%" onclick="sortByAlphabets(event, 7);">
             <div>
                 <span>Payment</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -70,7 +70,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 8);">
+        <th width="11.76%" onclick="sortByAlphabets(event, 8);">
             <div>
                 <span>Purchase Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -79,7 +79,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 9);">
+        <th width="11.76%" onclick="sortByAlphabets(event, 9);">
             <div>
                 <span>Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -88,7 +88,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 10);">
+        <th width="5.42%" onclick="sortByOrder(event, 10);">
             <div>
                 <span>Items</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -118,7 +118,7 @@
             </td>
             <td onclick="event.stopPropagation();location.pathname = '/specific-customer/{{obj.user_profile.id}}'">
                 <div>
-                    <span>{% if obj.user_profile.first_name %}{{obj.user_profile.first_name|title}}{% endif %} {% if obj.user_profile.last_name %}{{obj.user_profile.last_name|title}}{% endif %}</span>
+                    <span title="{{obj.user_profile.first_name|title}} {{obj.user_profile.last_name|title}}" class="table-text-overflow">{% if obj.user_profile.first_name %}{{obj.user_profile.first_name|title}}{% endif %} {% if obj.user_profile.last_name %}{{obj.user_profile.last_name|title}}{% endif %}</span>
                 </div>
             </td>
             <td>

@@ -2,17 +2,17 @@
 
 <table class="order-details-table hide" id="referrals-table">
     <thead>
-        <th>
+        <th width="26px">
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th>
+        <th width="12.69%">
             <div>
                 <span>Referrer</span>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 2);">
+        <th width="13.13%" onclick="sortByAlphabets(event, 2);">
             <div>
                 <span>Referrer Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -21,7 +21,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 3);">
+        <th width="12.08%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Referree</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -30,7 +30,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 4);">
+        <th width="14.88%" onclick="sortByAlphabets(event, 4);">
             <div>
                 <span>Location</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -39,7 +39,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDate(event);">
+        <th width="11.73%" onclick="sortByDate(event);">
             <div>
                 <span>Registration Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -48,7 +48,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDigits(event, 6)">
+        <th width="6.12%" onclick="sortByDigits(event, 6)">
             <div>
                 <span>Visits</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -57,7 +57,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortPurchaseDate(7);">
+        <th width="12.25%" onclick="sortPurchaseDate(7);">
             <div>
                 <span>First Puchase Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -66,7 +66,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDigits(event, 8)">
+        <th width="7%" onclick="sortByDigits(event, 8)">
             <div>
                 <span>Net Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -75,7 +75,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDigits(event, 9)">
+        <th width="9.63%" onclick="sortByDigits(event, 9)">
             <div>
                 <span>Points Earned</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -95,7 +95,7 @@
             </td>
             <td>
                 <div>
-                    <span class="referrer-referree-name">{% if obj.referrer == None %}No Referrer{% else %}{{obj.referrer.name}}{% endif %}</span>
+                    <span title="{{obj.referrer.name}}" class="referrer-referree-name table-text-overflow">{% if obj.referrer == None %}No Referrer{% else %}{{obj.referrer.name}}{% endif %}</span>
                 </div>
             </td>
             <td>
@@ -105,12 +105,12 @@
             </td>
             <td>
                 <div>
-                    <span class="referrer-referree-name">{% if obj.first_name %}{{obj.first_name|title}}{% endif %} {% if obj.last_name %}{{obj.last_name|title}}{% endif %}</span>
+                    <span title="{{obj.first_name|title}} {{obj.last_name|title}}" class="referrer-referree-name table-text-overflow">{% if obj.first_name %}{{obj.first_name|title}}{% endif %} {% if obj.last_name %}{{obj.last_name|title}}{% endif %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{% if obj.billing_address == None %}No Location{% else %}{{obj.billing_address.address}}{% endif %}</span>
+                    <span class="table-text-overflow">{% if obj.billing_address == None %}No Location{% else %}{{obj.billing_address.address}}{% endif %}</span>
                 </div>
             </td>
             <td dateTime="{{obj.created_at}}">

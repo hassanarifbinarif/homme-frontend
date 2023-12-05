@@ -2,12 +2,12 @@
 
 <table class="order-details-table hide" id="activity-table">
     <thead>
-        <th>
+        <th width="26px">
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 1);">
+        <th width="18.03%" onclick="sortByAlphabets(event, 1);">
             <div>
                 <span>Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -16,7 +16,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDate(event, 2);">
+        <th width="11.12%" onclick="sortByDate(event, 2);">
             <div>
                 <span>Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -25,7 +25,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 3);">
+        <th width="14.88%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Name</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -34,7 +34,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 4);">
+        <th width="14.88%" onclick="sortByAlphabets(event, 4);">
             <div>
                 <span>Sales Channel</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -43,7 +43,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDigits(event, 5)">
+        <th width="13.13%" onclick="sortByDigits(event, 5)">
             <div>
                 <span>Net Cash</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -52,7 +52,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByDigits(event, 6)">
+        <th width="13.13%" onclick="sortByDigits(event, 6)">
             <div>
                 <span>Rewards</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -61,7 +61,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 7);">
+        <th width="12.52%" onclick="sortByAlphabets(event, 7);">
             <div>
                 <span>Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -91,7 +91,7 @@
             </td>
             <td>
                 <div>
-                    <span>{{obj.fullname}}</span>
+                    <span title="{{obj.fullname}}" class="table-text-overflow">{{obj.fullname}}</span>
                 </div>
             </td>
             <td>

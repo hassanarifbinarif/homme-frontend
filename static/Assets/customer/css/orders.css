@@ -1,12 +1,3 @@
-.main-page {
-    position: relative;
-    left: 255px;
-    min-height: 100vh;
-    padding: 0px 20px 0px 20px;
-    width: calc(100vw - 255px);
-    margin-top: 27px;
-}
-
 .content {
     display: flex;
     flex-direction: column;
@@ -389,6 +380,7 @@
     width: 100%;
     border-bottom: 1px solid #CECECE;
     background-color: #FFF;
+    table-layout: fixed;
 }
 
 .order-details-table thead {

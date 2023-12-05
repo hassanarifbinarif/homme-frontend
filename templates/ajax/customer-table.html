@@ -1,11 +1,11 @@
 <table class="order-details-table hide" id="customer-table">
     <thead>
-        <th>
+        <th width="26px">
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 1);">
+        <th width="13.13%" onclick="sortByAlphabets(event, 1);">
             <div>
                 <span>Customer Name</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -14,7 +14,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 2);">
+        <th width="15.76%" onclick="sortByAlphabets(event, 2);">
             <div>
                 <span>Location</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -23,7 +23,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 3);">
+        <th width="9.36%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Referrals</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -32,7 +32,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 4);">
+        <th width="14.44%" onclick="sortByAlphabets(event, 4);">
             <div>
                 <span>Tier</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -41,7 +41,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 5);">
+        <th width="7.96%" onclick="sortByOrder(event, 5);">
             <div>
                 <span>Orders</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -50,7 +50,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 6);">
+        <th width="12.34%" onclick="sortByAlphabets(event, 6);">
             <div>
                 <span>Sales Channel</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -59,7 +59,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 7);">
+        <th width="13.22%" onclick="sortByAlphabets(event, 7);">
             <div>
                 <span>Source</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -68,7 +68,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 8);">
+        <th width="11.47%" onclick="sortByOrder(event, 8);">
             <div>
                 <span>Amount Spent</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -88,12 +88,12 @@
             </td>
             <td>
                 <div>
-                    <span>{{obj.first_name}} {{obj.last_name}}</span>
+                    <span title="{{obj.first_name}} {{obj.last_name}}" class="table-text-overflow">{{obj.first_name}} {{obj.last_name}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{% if obj.shipping_address == None %}No Address{% else %}{{obj.shipping_address.address}}{% endif %}</span>
+                    <span title="{% if obj.shipping_address == None %}No Address{% else %}{{obj.shipping_address.address}}{% endif %}" class="table-text-overflow">{% if obj.shipping_address == None %}No Address{% else %}{{obj.shipping_address.address}}{% endif %}</span>
                 </div>
             </td>
             <td>
@@ -104,13 +104,13 @@
             <td>
                 <div>
                     {% if obj.salon == None %}
-                    <span>Bronze (No Salon)</span>
+                    <span class="table-text-overflow">Bronze (No Salon)</span>
                     {% elif obj.reward_summary.membership_level.level_name == 'Newly registered' %}
-                    <span>Bronze ({{obj.reward_summary.total_rewards}})</span>
+                    <span class="table-text-overflow">Bronze ({{obj.reward_summary.total_rewards}})</span>
                     {% elif obj.reward_summary.membership_level.level_name == 'New User / Bronze' %}
-                    <span>Bronze ({{obj.reward_summary.total_rewards}})</span>
+                    <span class="table-text-overflow">Bronze ({{obj.reward_summary.total_rewards}})</span>
                     {% else %}
-                    <span>{{obj.reward_summary.membership_level.level_name}} ({{obj.reward_summary.total_rewards}})</span>
+                    <span class="table-text-overflow">{{obj.reward_summary.membership_level.level_name}} ({{obj.reward_summary.total_rewards}})</span>
                     {% endif %}
                 </div>
             </td>

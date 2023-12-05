@@ -1,7 +1,7 @@
 <table class="order-details-table hide" id="product-table">
     <thead>
-        <th></th>
-        <th onclick="sortByAlphabets(event, 1);">
+        <th width="60px"></th>
+        <th width="20.4%" onclick="sortByAlphabets(event, 1);">
             <div>
                 <span>Products</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -10,22 +10,22 @@
                 </svg>
             </div>
         </th>
-        <th>
+        <th width="14.88%">
             <div>
                 <span>Status</span>
             </div>
         </th>
-        <th>
+        <th width="18.56%">
             <div>
                 <span>Inventory</span>
             </div>
         </th>
-        <th width="22%">
+        <th width="22.06%">
             <div class="description-col">
                 <span>Description</span>
             </div>
         </th>
-        <th>
+        <th width="18.82%">
             <div>
                 <span>Category</span>
             </div>
@@ -54,14 +54,14 @@
                     <span>Inventory Not Tracked</span>
                 </div>
             </td>
-            <td width="22%">
-                <div class="description-col">
-                    <span>{{obj.short_description}}</span>
+            <td>
+                <div>
+                    <span title="{{obj.short_description}}" class="table-text-overflow">{{obj.short_description}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{{obj.category.name|title}}</span>
+                    <span class="table-text-overflow">{{obj.category.name|title}}</span>
                 </div>
             </td>
         </tr>
