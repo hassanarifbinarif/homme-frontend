@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/products?page=1&perPage=1000`;
+let requiredDataURL = `/admin/products?page=1&perPage=1000`;
 
 let productCategoryDropdown = document.getElementById('product-category-dropdown');
 let productCategoryDropdownBtn = document.getElementById('product-category');
@@ -29,10 +29,6 @@ function searchForm(event) {
 
 
 async function getData(url=null) {
-    let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    }
     let data;
     let tableBody = document.getElementById('product-table');
     if (url == null) {
@@ -40,9 +36,9 @@ async function getData(url=null) {
     }
     else {
         data = url;
-        document.getElementById('table-loader').classList.remove('hide');
-        tableBody.classList.add('hide');
     }
+    document.getElementById('table-loader').classList.remove('hide');
+    tableBody.classList.add('hide');
     try {
         let response = await requestAPI('/consumer/get-product-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {

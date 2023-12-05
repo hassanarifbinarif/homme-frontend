@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/content/events?page=1&perPage=1000&search=&ordering=-created_at`;
+let requiredDataURL = `/admin/content/events?page=1&perPage=1000&search=&ordering=-created_at`;
 
 window.onload = () => {
     getData();

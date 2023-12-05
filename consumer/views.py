@@ -91,7 +91,7 @@ def get_product_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/consumer-product-table.html')
         html = text_template.render({'products':response})
         context['product_data'] = html
@@ -131,7 +131,7 @@ def get_events_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/events-table.html')
         html = text_template.render({'events':response})
         context['events_data'] = html
