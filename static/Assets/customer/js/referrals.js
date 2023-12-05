@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/referrals?page=1&perPage=1000&ordering=-user__created_at&search=`;
+let requiredDataURL = `/admin/referrals?page=1&perPage=1000&ordering=-user__created_at&search=`;
 
 window.onload = () => {
     getNotifications();
@@ -17,10 +17,6 @@ function searchForm(event) {
 
 
 async function getData(url=null) {
-    let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    }
     let data;
     let tableBody = document.getElementById('referrals-table');
     if (url == null) {
@@ -58,21 +54,29 @@ async function getData(url=null) {
 
 function sortByDateBtn(event) {
     let arrows = event.target.closest('button').querySelectorAll('path');
-    const url = new URL(requiredDataURL);
-    let ordering = url.searchParams.get('ordering');
-    if (ordering == '-user__created_at') {
-        ordering = 'user__created_at';
-        arrows[0].setAttribute('opacity', '.2');
-        arrows[1].setAttribute('opacity', '1');
-        url.searchParams.set('ordering', ordering);
+    let newOrderingValue = '';
+    let paramsArray = requiredDataURL.split('&');
+    let currentOrderingValue;
+
+    for (let i = 0; i < paramsArray.length; i++) {
+        if (paramsArray[i].startsWith('ordering=')) {
+            currentOrderingValue = paramsArray[i].substring('ordering='.length);
+            if (currentOrderingValue == '-user__created_at') {
+                newOrderingValue = 'user__created_at';
+                arrows[0].setAttribute('opacity', '.2');
+                arrows[1].setAttribute('opacity', '1');
+            }
+            else {
+                newOrderingValue = '-user__created_at';
+                arrows[0].setAttribute('opacity', '1');
+                arrows[1].setAttribute('opacity', '.2');
+            }
+            paramsArray[i] = 'ordering=' + newOrderingValue;
+            break;
+        }
     }
-    else {
-        ordering = '-user__created_at';
-        arrows[0].setAttribute('opacity', '1');
-        arrows[1].setAttribute('opacity', '.2');
-        url.searchParams.set('ordering', ordering);
-    }
-    requiredDataURL = url.toString();
+
+    requiredDataURL = paramsArray.join('&');
     getData(requiredDataURL);
 }
 

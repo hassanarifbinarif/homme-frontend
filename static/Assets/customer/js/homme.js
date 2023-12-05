@@ -5,7 +5,7 @@ let orderChannelDropdown = document.getElementById('order-channel-dropdown');
 let chartTypeBtn = document.getElementById('chart-type-btn');
 let chartTypeDropdown = document.getElementById('chart-type-dropdown');
 
-let requiredDataURL = `${apiURL}/admin/orders?perPage=8&page=1&ordering=-created_at&created_at__gte=&created_at__lte=&search=`;
+let requiredDataURL = `/admin/orders?perPage=8&page=1&ordering=-created_at&created_at__gte=&created_at__lte=&search=`;
 
 
 window.onload = () => {

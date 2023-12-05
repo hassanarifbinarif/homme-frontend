@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
+let requiredDataURL = `/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
 
 window.onload = () => {
     if (userID != null) {
@@ -139,22 +139,47 @@ function convertToDateTime(dateTimeString) {
 
 function sortByDateBtn(event) {
     let arrows = event.target.closest('button').querySelectorAll('path');
-    const url = new URL(requiredDataURL);
-    let ordering = url.searchParams.get('ordering');
-    if (ordering == '-created_at') {
-        ordering = 'created_at';
-        arrows[0].setAttribute('opacity', '.2');
-        arrows[1].setAttribute('opacity', '1');
-        url.searchParams.set('ordering', ordering);
+    let newOrderingValue = '';
+    let paramsArray = requiredDataURL.split('&');
+    let currentOrderingValue;
+
+    for (let i = 0; i < paramsArray.length; i++) {
+        if (paramsArray[i].startsWith('ordering=')) {
+            currentOrderingValue = paramsArray[i].substring('ordering='.length);
+            if (currentOrderingValue == '-created_at') {
+                newOrderingValue = 'created_at';
+                arrows[0].setAttribute('opacity', '.2');
+                arrows[1].setAttribute('opacity', '1');
+            }
+            else {
+                newOrderingValue = '-created_at';
+                arrows[0].setAttribute('opacity', '1');
+                arrows[1].setAttribute('opacity', '.2');
+            }
+            paramsArray[i] = 'ordering=' + newOrderingValue;
+            break;
+        }
     }
-    else {
-        ordering = '-created_at';
-        arrows[0].setAttribute('opacity', '1');
-        arrows[1].setAttribute('opacity', '.2');
-        url.searchParams.set('ordering', ordering);
-    }
-    requiredDataURL = url.toString();
+
+    requiredDataURL = paramsArray.join('&');
     getData(requiredDataURL);
+
+    // const url = new URL(requiredDataURL);
+    // let ordering = url.searchParams.get('ordering');
+    // if (ordering == '-created_at') {
+    //     ordering = 'created_at';
+    //     arrows[0].setAttribute('opacity', '.2');
+    //     arrows[1].setAttribute('opacity', '1');
+    //     url.searchParams.set('ordering', ordering);
+    // }
+    // else {
+    //     ordering = '-created_at';
+    //     arrows[0].setAttribute('opacity', '1');
+    //     arrows[1].setAttribute('opacity', '.2');
+    //     url.searchParams.set('ordering', ordering);
+    // }
+    // requiredDataURL = url.toString();
+    // getData(requiredDataURL);
 }
 
 

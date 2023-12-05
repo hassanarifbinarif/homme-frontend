@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/user-profiles?user__is_blocked=false&perPage=1000`;
+let requiredDataURL = `/admin/user-profiles?user__is_blocked=false&perPage=1000&search=`;
 
 window.onload = () => {
     let url = new URL(location.href);
@@ -22,10 +22,6 @@ function searchForm(event) {
 let totalCustomers = null;
 
 async function getData(url=null) {
-    let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    }
     let data;
     let tableBody = document.getElementById('customer-table');
     if (url == null) {
@@ -33,9 +29,10 @@ async function getData(url=null) {
     }
     else {
         data = url;
-        document.getElementById('table-loader').classList.remove('hide');
-        tableBody.classList.add('hide');
     }
+    console.log(data);
+    document.getElementById('table-loader').classList.remove('hide');
+    tableBody.classList.add('hide');
     try {
         let response = await requestAPI('/get-customer-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {

@@ -49,7 +49,7 @@ def homme_orders_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/homme-order-table.html')
         html = text_template.render({'orders':response})
         context['orders_data'] = html
@@ -80,7 +80,7 @@ def get_sliders_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/slider-table.html')
         html = text_template.render({'sliders':response})
         context['sliders_data'] = html
@@ -111,11 +111,7 @@ def get_order_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
-        # context['total_orders'] = len(response['data'])
-        # context['ordered_items'] = 0
-        # for order in response['data']:
-        #     context['ordered_items'] += len(order['products'])
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/customer-order-table.html')
         html = text_template.render({'orders':response})
         context['order_data'] = html
@@ -147,40 +143,6 @@ def specific_order(request, api_response, pk):
 
 
 @admin_signin_required
-def referrals(request, api_response):
-    context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
-    context['active_page'] = 'referrals'
-    context['sidebar'] = 'customer'
-    return render(request, 'customer/referrals.html', context)
-
-
-@csrf_exempt
-def get_referrals_list(request):
-    context = {}
-    context['success'] = False
-    context['msg'] = None
-    try:
-        request_data = json.loads(request.body.decode('utf-8'))
-        admin_access_token = request.COOKIES.get('admin_access')
-        headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
-        text_template = loader.get_template('ajax/referrals-table.html')
-        html = text_template.render({'referrals':response})
-        context['total_referrals'] = response['stats']['total_referrals'] or None
-        context['rewards_by_referrals'] = response['stats']['rewards_by_referrals'] or None
-        context['rewards_by_sales'] = response['stats']['rewards_by_sales'] or None
-        context['total_rewards'] = response['stats']['total_rewards'] or None
-        context['referrals_data'] = html
-        context['msg'] = 'Referrals retrieved'
-        context['success'] = True
-    except Exception as e:
-        print(e)
-    return JsonResponse(context)    
-
-
-@admin_signin_required
 def customers(request, api_response):
     context = {}
     context['admin_name'] = api_response['fullname']
@@ -199,7 +161,7 @@ def get_customer_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/customer-table.html')
         html = text_template.render({'customers':response})
         context['customer_data'] = html
@@ -250,7 +212,7 @@ def get_product_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/customer-product-table.html')
         html = text_template.render({'products':response})
         context['product_data'] = html
@@ -292,7 +254,6 @@ def get_product_images(request):
     return JsonResponse(context)
 
 
-
 @admin_signin_required
 def activity(request, api_response):
     context = {}
@@ -312,11 +273,45 @@ def get_activities_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/customer-activities-table.html')
         html = text_template.render({'activities':response})
         context['activity_data'] = html
         context['msg'] = 'Activities list retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
+@admin_signin_required
+def referrals(request, api_response):
+    context = {}
+    context['admin_name'] = api_response['fullname']
+    context['admin_image'] = api_response['user']['profile_picture']
+    context['active_page'] = 'referrals'
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/referrals.html', context)
+
+
+@csrf_exempt
+def get_referrals_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
+        text_template = loader.get_template('ajax/referrals-table.html')
+        html = text_template.render({'referrals':response})
+        context['total_referrals'] = response['stats']['total_referrals'] or None
+        context['rewards_by_referrals'] = response['stats']['rewards_by_referrals'] or None
+        context['rewards_by_sales'] = response['stats']['rewards_by_sales'] or None
+        context['total_rewards'] = response['stats']['total_rewards'] or None
+        context['referrals_data'] = html
+        context['msg'] = 'Referrals retrieved'
         context['success'] = True
     except Exception as e:
         print(e)
@@ -342,7 +337,7 @@ def get_marketing_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/marketing-table.html')
         html = text_template.render({'marketing':response})
         context['marketing_data'] = html
@@ -372,7 +367,7 @@ def get_source_list(request):
         request_data = json.loads(request.body.decode('utf-8'))
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
-        status, response = requestAPI('GET', f'{request_data}', headers, {})
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/source-table.html')
         html = text_template.render({'source':response})
         context['source_data'] = html

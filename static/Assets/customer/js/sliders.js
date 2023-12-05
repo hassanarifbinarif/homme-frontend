@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=`;
+let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=`;
 
 window.onload = () => {
     getNotifications();
@@ -23,10 +23,9 @@ async function getData(url=null) {
     }
     else {
         data = url;
-        document.getElementById('table-loader').classList.remove('hide');
-        tableBody.classList.add('hide');
     }
-    // console.log(data);
+    document.getElementById('table-loader').classList.remove('hide');
+    tableBody.classList.add('hide');
     try {
         let response = await requestAPI('/get-sliders-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
@@ -402,7 +401,7 @@ async function delSliderForm(event, id) {
             form.reset();
             form.removeAttribute("onsubmit");
             afterLoad(button, 'DELETED');
-            getData()
+            getData();
             setTimeout(() => {
                 document.querySelector('.delSlider').click();
             }, 1000)

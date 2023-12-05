@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/marketings?page=1&perPage=1000&ordering=-created_at`;
+let requiredDataURL = `/admin/marketings?page=1&perPage=1000&ordering=-created_at`;
 
 window.onload = () => {
     getNotifications();
@@ -8,10 +8,6 @@ window.onload = () => {
 
 
 async function getData(url=null) {
-    let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    }
     let data;
     if (url == null) {
         data = requiredDataURL;
@@ -20,6 +16,8 @@ async function getData(url=null) {
         data = url
     }
     let tableBody = document.getElementById('marketing-table');
+    tableBody.classList.add('hide');
+    document.getElementById('table-loader').classList.remove('hide');
     try {
         let response = await requestAPI('/get-marketing-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {

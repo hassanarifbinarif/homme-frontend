@@ -13,7 +13,7 @@ let netCashInputWrapper = document.getElementById('net-cash-selector');
 let rewardsBtn = document.getElementById('rewards-btn');
 let rewardsInputWrapper = document.getElementById('rewards-selector');
 
-let requiredDataURL = `${apiURL}/admin/activities?page=1&perPage=1000&ordering=-created_at`;
+let requiredDataURL = `/admin/activities?page=1&perPage=1000&ordering=-created_at`;
 
 
 window.onload = () => {
@@ -59,8 +59,8 @@ async function getData(url=null) {
 }
 
 
-function toggleSalesChannelDropdown() {
-    if (salesChannelDropdown.style.display == 'flex') {
+function toggleSalesChannelDropdown(event) {
+    if (salesChannelDropdown.style.display == 'flex' && (!salesChannelBtn.querySelector('.search-div').contains(event.target))) {
         salesChannelDropdown.style.display = 'none';
     }
     else {

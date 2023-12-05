@@ -1,4 +1,4 @@
-let requiredDataURL = `${apiURL}/admin/sources?page=1&perPage=1000&search=&ordering=-created_at`;
+let requiredDataURL = `/admin/sources?page=1&perPage=1000&search=&ordering=-created_at`;
 
 window.onload = () => {
     getNotifications();
@@ -25,6 +25,7 @@ async function getData(url=null) {
     else {
         data = url
     }
+    console.log(data);
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {
