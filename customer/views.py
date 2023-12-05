@@ -406,5 +406,11 @@ def get_packing_slip(request, pk):
     return JsonResponse(context)
 
 
-def redirect_url(request):
-    return redirect(f'{settings.REDIRECT_URL_STRING}')
+def user_register_redirector(request):
+    # Get all query parameters from the request
+    query_params = request.GET.urlencode()
+
+    # Append the query parameters to the redirect URL
+    redirect_url_with_params = f'{settings.REDIRECT_URL_STRING}?{query_params}'
+
+    return redirect(redirect_url_with_params)
