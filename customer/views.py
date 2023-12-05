@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from homme.decorators import admin_signin_required
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -404,3 +404,7 @@ def get_packing_slip(request, pk):
     except Exception as e:
         print(e)
     return JsonResponse(context)
+
+
+def redirect_url(request):
+    return redirect(f'{settings.REDIRECT_URL_STRING}')

@@ -25,7 +25,6 @@ async function getData(url=null) {
     else {
         data = url
     }
-    console.log(data);
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {

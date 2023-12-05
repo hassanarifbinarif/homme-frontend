@@ -140,3 +140,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 API_URL = env.str('API_URL')
 FRONTEND_API_URL = env.str('FRONTEND_API_URL')
+REDIRECT_URL_STRING = env.str('REDIRECT_URL_STRING')
