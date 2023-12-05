@@ -8,6 +8,7 @@ todo/static/
 # ignore ssl related files
 nginx/.well-known
 nginx/ssl
+.well-known/
 
 migrations/
 db.sqlite3
