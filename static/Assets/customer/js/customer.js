@@ -30,7 +30,6 @@ async function getData(url=null) {
     else {
         data = url;
     }
-    console.log(data);
     document.getElementById('table-loader').classList.remove('hide');
     tableBody.classList.add('hide');
     try {

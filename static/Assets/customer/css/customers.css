@@ -101,15 +101,15 @@
     border: 1px solid #E0E0DD;
     border-radius: 6px;
     margin-bottom: 28px;
-    min-width: 1142px;
 }
 
 .order-details-wrapper .order-details-filters {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* margin-bottom: 15.58px; */
     padding: 13px 20px;
+    width: 100%;
+    min-width: 1142px;
 }
 
 .order-details-wrapper .order-details-filters > form {
@@ -150,6 +150,11 @@
     justify-content: center;
     align-items: center;
     background-color: #FFF;
+}
+
+.order-details-table-wrapper {
+    width: 100%;
+    min-width: 1142px;
 }
 
 .order-details-table {
@@ -256,7 +261,7 @@
 
 
 @media (max-width: 1439px) {
-    .content {
+    .order-details-wrapper {
         overflow-x: auto;
     }
 }

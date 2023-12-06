@@ -133,11 +133,11 @@
     background-color: #FFF;
     border: 1px solid #E0E0DD;
     margin-bottom: 28px;
-    min-width: 1142px;
 }
 
 .order-details-table {
     width: 100%;
+    min-width: 1142px;
     border-bottom: 1px solid #CECECE;
     background-color: #FFF;
     margin-bottom: 18px;
@@ -230,7 +230,7 @@
 
 
 @media (max-width: 1439px) {
-    .content {
+    .order-details-wrapper {
         overflow-x: auto;
     }
 }

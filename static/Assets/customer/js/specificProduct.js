@@ -70,6 +70,7 @@ let productCategoryOptions;
 let addCategoryWrapper;
 let addCategoryBtn
 
+
 function initializeDropdowns() {
 
     skinTypeDropdown = document.getElementById('skin-type-dropdown');
@@ -185,6 +186,39 @@ function toggleDropdown(event) {
 }
 
 
+let insightDiv = document.getElementById('insight-div');
+let insightDropdown = document.getElementById('insight-dropdown');
+
+function toggleInsightDropdown() {
+    if (insightDropdown.style.display == 'none') {
+        insightDropdown.style.display = 'flex';
+    }
+    else {
+        insightDropdown.style.display = 'none';
+    }
+}
+
+
+async function selectInsightTime(event) {
+    let elementValue = event.target.getAttribute('data-value');
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`
+    };
+    try {
+        let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}?insight_days=${elementValue}`, null, headers, 'GET');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                document.getElementById('insight-stat').innerText = res.data.insights;
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
 function closeDropdowns(event) {
     let closestForm = event.target.closest('form');
     // if (document.getElementById('overlay-identification').contains(event.target)) {
@@ -203,6 +237,9 @@ function closeDropdowns(event) {
             productCategoryDropdown.style.display = 'none';
             addCategoryBtn.type == 'button';
         }
+    }
+    else if ((!insightDiv.contains(event.target) && insightDropdown.style.display == 'flex')) {
+        insightDropdown.style.display = 'none';
     }
     document.querySelector('.cat-name-msg').classList.remove('active');
     document.querySelector('.cat-name-msg').innerText = '';

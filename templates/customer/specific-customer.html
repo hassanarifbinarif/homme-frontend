@@ -275,14 +275,15 @@
                     </div>
                 </div>
                 <div class="details-wrapper-col-2">
-                    <div class="order-product-notes-wrapper">
+                    <form class="order-product-notes-wrapper" onsubmit="customerNotesForm(event, '{{customer.id}}');">
                         <div>
                             <span>Notes</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                            <svg class="cursor-pointer" {% if customer.salon %}id="edit-customer-notes"{% endif %} xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
                                 <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <p>{% if customer.salon_customer.notes == '' %}No notes recorded{% else %}{{customer.salon_customer.notes}}{% endif %}</p>
+                        <p id="notes-paragraph">{% if customer.salon_customer.notes == '' %}No notes recorded{% else %}{{customer.salon_customer.notes}}{% endif %}</p>
+                        <textarea name="notes" id="notes-textarea" oninput="autoResize(this)" class="hide"></textarea>
                         <div class="specific-customer-favourite-products">
                             <span>Favourite Products</span>
                             <div>
@@ -295,16 +296,45 @@
                         </div>
                         <div class="specific-customer-past-hairstyle">
                             <span>Past Hairstyle</span>
+                            {% if customer.salon %}
                             {% if customer.salon_customer.style_image == None %}
-                            <span class="no-data-text">No past hairstyle</span>
+                            <div class="label-wrapper" data-status="image-none">
+                                <span id="no-style-image-txt" class="no-data-text">No past hairstyle</span>
+                                <label for="style_image" class="cursor-pointer hide" id="image-label">
+                                    <input type="file" class="hide" accept="image/jpeg, image/jpg, image/png" name="style_image" id="style_image" onchange="previewImage(event)" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                        <path d="M3.89581 13.332V14.1654C3.89581 14.8284 4.15921 15.4643 4.62805 15.9331C5.09689 16.402 5.73277 16.6654 6.39581 16.6654H14.7291C15.3922 16.6654 16.0281 16.402 16.4969 15.9331C16.9658 15.4643 17.2291 14.8284 17.2291 14.1654V13.332M13.8958 6.66536L10.5625 3.33203M10.5625 3.33203L7.22915 6.66536M10.5625 3.33203V13.332" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <img src="" class="hairstyle-image hide" alt="customer style image" />
+                                </label>
+                                <span>-{{customer.salon.salon_name}}</span>
+                            </div>
                             {% else %}
-                            <div>
-                                <img src="{{customer.salon_customer.style_image}}" alt="customer style image" />
+                            <div class="label-wrapper" data-status="image-contains">
+                                <label for="" class="cursor-pointer" id="image-label">
+                                    <input type="file" class="hide" accept="image/jpeg, image/jpg, image/png" name="style_image" id="style_image" onchange="previewImage(event)" />
+                                    <svg class="hide" xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                        <path d="M3.89581 13.332V14.1654C3.89581 14.8284 4.15921 15.4643 4.62805 15.9331C5.09689 16.402 5.73277 16.6654 6.39581 16.6654H14.7291C15.3922 16.6654 16.0281 16.402 16.4969 15.9331C16.9658 15.4643 17.2291 14.8284 17.2291 14.1654V13.332M13.8958 6.66536L10.5625 3.33203M10.5625 3.33203L7.22915 6.66536M10.5625 3.33203V13.332" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <img src="{{customer.salon_customer.style_image}}" class="hairstyle-image" alt="customer style image" />
+                                </label>
                                 <span>-{{customer.salon.salon_name}}</span>
                             </div>
                             {% endif %}
+                            {% else %}
+                            <span class="no-data-text">No past hairstyle</span>
+                            {% endif %}
                         </div>
-                    </div>
+                        {% if customer.salon != None %}
+                        <div class="save-cancel-btn hide" id="edit-customer-notes-btn">
+                            <button type="button" onclick="toggleCustomerNotesInputs();">CANCEL</button>
+                            <button type="submit">
+                                <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                                <span class="btn-text">SAVE</span>
+                            </button>
+                        </div>
+                        {% endif %}
+                    </form>
                     <div class="order-product-other-details-wrapper">
                         <div class="order-customer">
                             <div>

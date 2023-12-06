@@ -737,6 +737,32 @@ ul.comment-section > li .post-area > button {
     line-height: 16px;
     opacity: .7;
     margin-bottom: 25px;
+    border: 1px solid transparent;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > textarea {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    opacity: .7;
+    margin-bottom: 25px;
+    outline: none;
+    border: 1px solid #CECECE;
+    resize: none;
+    width: 100%;
+    max-width: 100%;
+    min-height: 16px;
+    box-sizing: border-box;
+    overflow-y: hidden;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper > textarea:focus {
+    border: 1px solid #CECECE;
 }
 
 .details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-favourite-products {
@@ -825,6 +851,61 @@ ul.comment-section > li .post-area > button {
     opacity: .7;
 
     align-self: flex-end;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle > div > label {
+    width: 54px;
+    height: 54px;
+    border: 1px solid #CECECE;
+    border-radius: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-past-hairstyle > div > label > img {
+    width: 54px;
+    height: 54px;
+    border-radius: 54px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .save-cancel-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .save-cancel-btn > button {
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 7px;
+    border: 1px solid #000;
+    background-color: #FFF;
+    width: 125px;
+    height: 30px;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+}
+
+.details-wrapper-col-2 .order-product-notes-wrapper .save-cancel-btn > button:last-of-type {
+    width: 122px;
+    border: 1px solid transparent;
+    background: var(--Brand-color, #000093);
+    color: var(--white, #FFF);
 }
 
 .details-wrapper-col-2 .order-product-other-details-wrapper {

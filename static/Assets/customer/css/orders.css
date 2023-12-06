@@ -58,6 +58,8 @@
     align-items: center;
     gap: 10px;
     padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
     min-width: 1142px;
 }
 
@@ -172,19 +174,19 @@
 }
 
 .order-details-wrapper {
-    background-color: #FFF;
-    border: 1px solid #E0E0DD;
     border-radius: 6px;
-    padding: 16px 20px 21px 20px;
     margin-bottom: 28px;
-    min-width: 1142px;
 }
 
 .order-details-wrapper .order-details-filters {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15.58px;
+    width: 100%;
+    min-width: 1142px;
+    padding: 16px 20px;
+    background-color: #FFFFFF;
+    border-radius: 6px 6px 0px 0px;
 }
 
 .order-details-wrapper .order-details-filters > div:first-of-type {
@@ -376,6 +378,14 @@
     height: 30px;
 }
 
+.order-details-table-wrapper {
+    width: 100%;
+    min-width: 1142px;
+    background-color: #FFFFFF;
+    padding: 0px 17px 18px 20px;
+    border-radius: 0px 0px 6px 6px;
+}
+
 .order-details-table {
     width: 100%;
     border-bottom: 1px solid #CECECE;
@@ -477,7 +487,7 @@
 
 
 @media (max-width: 1439px) {
-    .content {
+    .order-details-wrapper {
         overflow-x: auto;
     }
 }

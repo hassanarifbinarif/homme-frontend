@@ -378,11 +378,29 @@ async function createProductForm(event) {
     let prodDetailImg2 = form.querySelector('input[name="prod_detail_img_2"]');
     let prodDetailImg3 = form.querySelector('input[name="prod_detail_img_3"]');
     let prodDetailImg4 = form.querySelector('input[name="prod_detail_img_4"]');
-    formData.append('images', prodBuyPageImg.files[0]);
-    formData.append('images', prodDetailImg1.files[0]);
-    formData.append('images', prodDetailImg2.files[0]);
-    formData.append('images', prodDetailImg3.files[0]);
-    formData.append('images', prodDetailImg4.files[0]);
+    
+    let atLeastOneImageSelected = false;
+    if (prodBuyPageImg.files.length > 0) {
+        formData.append('images', prodBuyPageImg.files[0]);
+        atLeastOneImageSelected = true;
+    }
+    if (prodDetailImg1.files.length > 0) {
+        formData.append('images', prodDetailImg1.files[0]);
+        atLeastOneImageSelected = true;
+    }
+    if (prodDetailImg2.files.length > 0) {
+        formData.append('images', prodDetailImg2.files[0]);
+        atLeastOneImageSelected = true;
+    }
+    if (prodDetailImg3.files.length > 0) {
+        formData.append('images', prodDetailImg3.files[0]);
+        atLeastOneImageSelected = true;
+    }
+    if (prodDetailImg4.files.length > 0) {
+        formData.append('images', prodDetailImg4.files[0]);
+        atLeastOneImageSelected = true;
+    }
+
     formData.append('is_active', true);
     formData.delete('prod_buy_page_img');
     formData.delete('prod_detail_img_1');
@@ -394,7 +412,6 @@ async function createProductForm(event) {
     formData.delete('skin_type_radio');
 
     data = formDataToObject(formData);
-    console.log(data);
     if(form.querySelector('input[name="title"]').value.trim().length == 0) {
         errorMsg.classList.add('active');
         errorMsg.innerText = 'Enter valid title'
@@ -440,9 +457,9 @@ async function createProductForm(event) {
         errorMsg.innerText = 'Enter description'
         return false;
     }
-    else if(data.images == "undefined") {
+    else if(atLeastOneImageSelected == false) {
         errorMsg.classList.add('active');
-        errorMsg.innerText = 'Upload all images'
+        errorMsg.innerText = 'Upload atleast one image';
         return false;
     }
     else if(form.querySelector('input[name="length"]').value.trim().length == 0) {
@@ -475,9 +492,9 @@ async function createProductForm(event) {
             };
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/products`, formData, headers, 'POST');
-            console.log(response);
+            // console.log(response);
             response.json().then(function(res) {
-                console.log(res);
+                // console.log(res);
                 if (response.status == 201) {
                     form.reset();
                     afterLoad(button, 'CREATED');

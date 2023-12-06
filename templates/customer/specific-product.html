@@ -216,15 +216,20 @@
                     <div class="specific-product-insights">
                         <div>
                             <span>Insights</span>
-                            <div>
-                                <span>Last 30 days</span>
+                            <div class="insight-div cursor-pointer" id="insight-div" onclick="toggleInsightDropdown();">
+                                <span id="selected-insight">Last 30 days</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5" fill="none">
                                     <path opacity="0.7" d="M10 0L5 5L0 0H10Z" fill="#030706"/>
                                 </svg>
+                                <div class="insight-dropdown" id="insight-dropdown" style="display: none;">
+                                    <span onclick="selectInsightTime(event);" data-value="7">Last 7 days</span>
+                                    <span onclick="selectInsightTime(event);" data-value="15">Last 15 days</span>
+                                    <span onclick="selectInsightTime(event);" data-value="30">Last 30 days</span>
+                                </div>
                             </div>
                         </div>
                         <div>
-                            <p>{% if product.insights %}{{product.insights}}{% else %}No Insights{% endif %}</p>
+                            <p id="insight-stat">{% if product.insights %}{{product.insights}}{% else %}No Insights{% endif %}</p>
                         </div>
                     </div>
                     <div class="specific-product-organization">

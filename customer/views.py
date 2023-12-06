@@ -228,7 +228,7 @@ def specific_product(request, api_response, pk):
     context = {}
     admin_access_token = request.COOKIES.get('admin_access')
     headers = {"Authorization": f'Bearer {admin_access_token}'}
-    status, response = requestAPI('GET', f'{settings.API_URL}/admin/products/{pk}', headers, {})
+    status, response = requestAPI('GET', f'{settings.API_URL}/admin/products/{pk}?insight_days=30', headers, {})
     context['product'] = response['data']
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
