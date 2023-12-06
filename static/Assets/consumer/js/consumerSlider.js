@@ -1,7 +1,6 @@
-let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=&target_role=user`;
+let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=&target_role=salon`;
 
 window.onload = () => {
-    getNotifications();
     getData();
 }
 
@@ -152,6 +151,7 @@ async function createSliderForm(event) {
             };
             beforeLoad(button);
             formData.append("is_visible", true);
+            formData.append("target_role", 'salon');
             let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
             // console.log(response);
             response.json().then(function(res) {

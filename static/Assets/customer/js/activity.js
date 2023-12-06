@@ -126,16 +126,22 @@ function filterDataRangeOption(event) {
         startDate = getStartOfWeek();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startDate);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
+        document.getElementById('start-date').value = startDate;
+        document.getElementById('end-date').value = '';
     }
     else if (element.innerText == 'LAST WEEK') {
         const { startOfPreviousWeek, endOfPreviousWeek } = getStartAndEndOfPreviousWeek();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfPreviousWeek);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfPreviousWeek);
+        document.getElementById('start-date').value = startOfPreviousWeek;
+        document.getElementById('end-date').value = endOfPreviousWeek;
     }
     else if (element.innerText == 'LAST MONTH') {
         const { startOfLastMonth, endOfLastMonth } = getStartAndEndOfLastMonth();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfLastMonth);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfLastMonth);
+        document.getElementById('start-date').value = startOfLastMonth;
+        document.getElementById('end-date').value = endOfLastMonth;
     }
     getData();
     setTimeout(() => {
@@ -196,6 +202,8 @@ function filterNetCashOption(event) {
     let element = event.target;
     requiredDataURL = setParams(requiredDataURL, 'net_cash__gte', element.getAttribute('data-min'));
     requiredDataURL = setParams(requiredDataURL, 'net_cash__lte', element.getAttribute('data-max') || '');
+    document.getElementById('min-cash-value').value = element.getAttribute('data-min');
+    document.getElementById('max-cash-value').value = element.getAttribute('data-max') || '';
     getData();
     setTimeout(() => {
         netCashBtn.click();
@@ -256,6 +264,8 @@ function filterRewardOption(event) {
     let element = event.target;
     requiredDataURL = setParams(requiredDataURL, 'rewards__gte', element.getAttribute('data-min'));
     requiredDataURL = setParams(requiredDataURL, 'rewards__lte', element.getAttribute('data-max') || '');
+    document.getElementById('min-rewards-value').value = element.getAttribute('data-min');
+    document.getElementById('max-rewards-value').value = element.getAttribute('data-max') || '';
     getData();
     setTimeout(() => {
         rewardsBtn.click();
