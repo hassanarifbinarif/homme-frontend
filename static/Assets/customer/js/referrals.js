@@ -37,6 +37,7 @@ async function getData(url=null) {
                 document.getElementById('total-rewards-accumulated').innerHTML = res.total_rewards || 0;
                 document.getElementById('total-rewards-by-referrals').innerHTML = res.rewards_by_referrals || 0;
                 document.getElementById('total-rewards-by-sales').innerHTML = res.rewards_by_sales || 0;
+                convertDateTime();
                 tableBody.classList.remove('hide');
             }
             else {
@@ -286,3 +287,18 @@ const sortPurchaseDate = (columnIndex) => {
 
     table.setAttribute('data-sort-order', sortOrder);
 };
+
+
+function convertDateTime() {
+    let times = document.querySelectorAll('.reg-date');
+    times.forEach((dateTime) => {
+        const inputDate = new Date(dateTime.textContent);
+
+        const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+        const result = `${day}-${month}-${year}`;
+
+        dateTime.textContent = result;
+    })
+}

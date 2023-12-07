@@ -200,7 +200,8 @@ function toggleInsightDropdown() {
 
 
 async function selectInsightTime(event) {
-    let elementValue = event.target.getAttribute('data-value');
+    let element = event.target;
+    let elementValue = element.getAttribute('data-value');
     let token = getCookie('admin_access');
     let headers = {
         "Authorization": `Bearer ${token}`
@@ -211,6 +212,7 @@ async function selectInsightTime(event) {
             if (response.status == 200) {
                 document.getElementById('insight-stat').innerText = res.data.insights;
             }
+            document.getElementById('selected-insight').innerText = element.innerText;
         })
     }
     catch (err) {
@@ -473,6 +475,7 @@ async function updateProductDescriptions(event, id=null) {
                 setTimeout(() => {
                     afterLoad(button, 'SAVE');
                 }, 1000);
+                toggleDescriptionInputs();
             }
             else {
                 afterLoad(button, 'Error');
@@ -500,6 +503,7 @@ async function updateShippingSizes(event, id) {
                 setTimeout(() => {
                     afterLoad(button, 'SAVE');
                 }, 1000);
+                toggleShippingInputs();
             }
             else {
                 afterLoad(button, 'Error');

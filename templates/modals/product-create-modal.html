@@ -40,10 +40,6 @@
                                         <input type="text" id="add-category-inp" onkeypress="getCatField(event);" name="name" style="display: none;" />
                                         <small class="cat-name-msg input-error-msg"></small>
                                     </div>
-                                    <!-- <div class="radio-btn">
-                                        <input id="hair-care" type="radio" value="hair_care" name="product_category_radio" />
-                                        <label for="hair-care" class="radio-label">Hair Care</label>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -95,10 +91,11 @@
                                     </svg>
                                 </button>
                                 <div class="filter-dropdown" id="skin-type-dropdown">
-                                    <!-- <div class="radio-btn">
-                                        <input id="shampoo" type="radio" value="shampoo" name="product_type_radio" />
-                                        <label for="shampoo" class="radio-label">Shampoo</label>
-                                    </div> -->
+                                    <div class="add-btn" id="add-skin-wrapper">
+                                        <button id="add-skin-btn" type="button" onclick="getNewSkinTypeInput();">ADD NEW SKIN TYPE</button>
+                                        <input type="text" id="add-skin-inp" onkeypress="getSkinField(event);" name="name" style="display: none;" />
+                                        <small class="skin-type-msg input-error-msg"></small>
+                                    </div>
                                 </div>
                             </div>
                         </div>

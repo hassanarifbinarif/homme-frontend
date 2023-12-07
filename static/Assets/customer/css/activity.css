@@ -266,6 +266,10 @@
 
 .order-details-wrapper .order-details-filters button > span {
     padding-left: 17px;
+    padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .order-details-wrapper .order-details-filters button > svg {

@@ -73,7 +73,7 @@
     </thead>
     <tbody>
         {% for obj in activities.data %}
-        <tr>
+        <tr {% if obj.type  == 'order' %}onclick="openProductPurchaseModal('activityProduct', '{{obj.activity_id}}');"{% endif %}>
             <td>
                 <div class="table-checkbox">
                     <input type="checkbox" />
@@ -86,7 +86,7 @@
             </td>
             <td dateTime="{{obj.created_at}}">
                 <div class="date-column">
-                    <span>{{obj.created_at|custom_date:"j-M-Y"}}</span>
+                    <span class="date-value">{{obj.created_at}}</span>
                 </div>
             </td>
             <td>

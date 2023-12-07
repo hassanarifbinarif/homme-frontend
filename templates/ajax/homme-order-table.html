@@ -14,7 +14,7 @@
             {% for obj in orders.data %}
             <tr>
                 <td>#{{obj.id}}</td>
-                <td class="order-time">{{obj.created_at|custom_date:"j-M-Y @ h:i A"}}</td>
+                <td class="order-time">{{obj.created_at}}</td>
                 <td>{{obj.user_profile.first_name}} {{obj.user_profile.last_name}}</td>
                 <td>${{obj.total}}</td>
                 <td>{{obj.status|title}}</td>

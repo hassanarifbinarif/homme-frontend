@@ -1,5 +1,6 @@
 let addCategoryBtn = document.getElementById('add-category-btn');
 let addTypeBtn = document.getElementById('add-type-btn');
+let addSkinTypeBtn = document.getElementById('add-skin-btn');
 
 
 async function populateModalDropdowns() {
@@ -43,12 +44,20 @@ async function populateModalDropdowns() {
     })
     responseSkinTypes.json().then(function(res) {
         let skinTypes = [...res.data];
-        skinTypeDropdown.innerHTML = null;
         skinTypes.forEach((skinType) => {
-            skinTypeDropdown.innerHTML += `<div class="radio-btn">
-                                                <input onchange="selectSkinType(event);" required id="skin-type-${skinType.id}" data-id="${skinType.id}" type="radio" value="${skinType.name}" name="skin_type_radio" />
-                                                <label for="skin-type-${skinType.id}" class="radio-label">${skinType.name}</label>
+            skinTypeDropdown.innerHTML += `<div class="radio-btn" id="skin-type${skinType.id}">
+                                                <input onchange="selectSkinType(event);" id="skin-${skinType.id}" data-id="${skinType.id}" type="radio" value="${skinType.name}" name="skin_type_radio" />
+                                                <label for="skin-${skinType.id}" class="radio-label">
+                                                    <span>${skinType.name}</span>
+                                                    <svg class="del-icon" onclick="delSkinType(event, ${skinType.id});" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                        <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </label>
                                             </div>`
+            // skinTypeDropdown.innerHTML += `<div class="radio-btn">
+            //                                     <input onchange="selectSkinType(event);" required id="skin-type-${skinType.id}" data-id="${skinType.id}" type="radio" value="${skinType.name}" name="skin_type_radio" />
+            //                                     <label for="skin-type-${skinType.id}" class="radio-label">${skinType.name}</label>
+            //                                 </div>`
         })
     })
 }
@@ -62,6 +71,8 @@ async function openProductCreateModal(modalID) {
     document.querySelector('.cat-name-msg').innerText = '';
     document.querySelector('.type-name-msg').classList.remove('active');
     document.querySelector('.type-name-msg').innerText = '';
+    document.querySelector('.skin-type-msg').classList.remove('active');
+    document.querySelector('.skin-type-msg').innerText = '';
     document.querySelector('.create-error-msg').classList.remove('active');
     document.querySelector('.create-error-msg').innerText = '';
     form.querySelector('.btn-text').innerText = 'CREATE';
@@ -89,6 +100,8 @@ function toggleDropdown(event) {
     document.querySelector('.cat-name-msg').innerText = '';
     document.querySelector('.type-name-msg').classList.remove('active');
     document.querySelector('.type-name-msg').innerText = '';
+    document.querySelector('.skin-type-msg').classList.remove('active');
+    document.querySelector('.skin-type-msg').innerText = '';
     let elementBtn = event.target;
     if(!elementBtn.classList.contains('filter-btn')) {
         elementBtn = elementBtn.closest('.filter-btn');
@@ -136,6 +149,25 @@ function getNewTypeInput() {
     }
     else {
         document.getElementById('add-type-inp').style.display = 'block';
+    }
+}
+
+
+function getNewSkinTypeInput() {
+    document.querySelector('.skin-type-msg').classList.remove('active');
+    document.querySelector('.skin-type-msg').innerText = '';
+    let inputField = document.getElementById('add-skin-inp');
+    if (inputField.style.display == 'block') {
+        const newEvent = new KeyboardEvent('keypress', {
+            key: 'Enter',
+            code: 'Enter',
+            which: 13,
+            keyCode: 13,
+        });
+        inputField.dispatchEvent(newEvent);
+    }
+    else {
+        document.getElementById('add-skin-inp').style.display = 'block';
     }
 }
 
@@ -226,6 +258,49 @@ async function getTypeField(event) {
 }
 
 
+async function getSkinField(event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+        let skinTypeNameField = document.getElementById('add-skin-inp');
+        let skinTypeNameMsg = document.querySelector('.skin-type-msg');
+        if(!isValidName(skinTypeNameField)) {
+            skinTypeNameMsg.classList.add('active');
+            return false;
+        }
+        else {
+            skinTypeNameMsg.classList.remove('active');
+            skinTypeNameMsg.innerText = '';
+            let formData = new FormData();
+            formData.append('name', skinTypeNameField.value);
+            let data = formDataToObject(formData);
+            // console.log(data);
+            try {
+                let token = getCookie('admin_access');
+                let headers = {
+                    "Authorization": `Bearer ${token}`
+                }
+                let response = await requestAPI(`${apiURL}/admin/skin-types`, formData, headers, 'POST');
+                response.json().then(function(res) {
+                    // console.log(res);
+                    skinTypeDropdown.innerHTML += `<div class="radio-btn" id="skin-type${res.data.id}">
+                                                            <input onchange="selectSkinType(event);" id="skin-${res.data.id}" data-id="${res.data.id}" type="radio" value="${res.data.name}" name="skin_type_radio" />
+                                                            <label for="skin-${res.data.id}" class="radio-label">
+                                                                <span>${res.data.name}</span>
+                                                                <svg class="del-icon" onclick="delSkinType(event, ${res.data.id});" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                    <path d="M8.3369 9.16667V14.1667M11.6709 9.16667V14.1667M3.33594 5.83333H16.6718M15.8383 5.83333L15.1157 15.9517C15.0858 16.3722 14.8976 16.7657 14.589 17.053C14.2805 17.3403 13.8745 17.5 13.4529 17.5H6.55489C6.13326 17.5 5.72729 17.3403 5.41874 17.053C5.1102 16.7657 4.92201 16.3722 4.89207 15.9517L4.16943 5.83333H15.8383ZM12.5044 5.83333V3.33333C12.5044 3.11232 12.4165 2.90036 12.2602 2.74408C12.1039 2.5878 11.8919 2.5 11.6709 2.5H8.3369C8.11584 2.5 7.90384 2.5878 7.74753 2.74408C7.59122 2.90036 7.5034 3.11232 7.5034 3.33333V5.83333H12.5044Z" stroke="#CF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                </svg>
+                                                            </label>
+                                                        </div>`
+                })
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    }
+}
+
+
 async function delCategory(event, id) {
     event.preventDefault();
     event.stopPropagation();
@@ -276,6 +351,31 @@ async function delType(event, id) {
 }
 
 
+async function delSkinType(event, id) {
+    event.preventDefault();
+    event.stopPropagation();
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        }
+        let response = await requestAPI(`${apiURL}/admin/skin-types/${id}`, null, headers, 'DELETE');
+        if (response.status == 204) {
+            let divToDelete = document.getElementById(`skin-type${id}`);
+            let selectedType = document.getElementById('selected-skin-type');
+            let deletedType = document.getElementById(`skin-${id}`);
+            if (selectedType.innerText == deletedType.value) {
+                selectedType.innerText = '';
+            }
+            divToDelete.remove();
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
 function closeDropdowns(event) {
     let closestForm = event.target.closest('.add-btn');
     if((!productCategoryDropdownBtn.contains(event.target)) && productCategoryDropdown.style.display == 'flex') {
@@ -283,23 +383,21 @@ function closeDropdowns(event) {
             productCategoryDropdown.style.display = 'none';
             addCategoryBtn.type == 'button';
         }
-
-        // productCategoryDropdown.style.display = 'none';
     }
     else if((!productTypeDropdownBtn.contains(event.target)) && productTypeDropdown.style.display == 'flex') {
         if (closestForm == null) {
             productTypeDropdown.style.display = 'none';
             addTypeBtn.type == 'button';
         }
-
-        // productTypeDropdown.style.display = 'none';
     }
     else if((!skinTypeDropdownBtn.contains(event.target)) && skinTypeDropdown.style.display == 'flex') {
-        skinTypeDropdown.style.display = 'none';
+        if (closestForm == null) {
+            skinTypeDropdown.style.display = 'none';
+            addSkinTypeBtn.type == 'button'
+        }
+        // skinTypeDropdown.style.display = 'none';
     }
-    // else if(categoryList.contains(event.target)) {
-    //     categoryList.classList.add('hide');
-    // }
+    
 }
 
 document.body.addEventListener('click', closeDropdowns);
@@ -331,7 +429,7 @@ function selectProductType(event) {
 function selectSkinType(event) {
     let inputElement = event.target;
     if(inputElement.checked) {
-        document.getElementById('selected-skin-type').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-skin-type').innerText = inputElement.nextElementSibling.children[0].innerText;
         document.getElementById('selected-skin-type').style.color = '#000';
     }
 }
@@ -515,6 +613,7 @@ async function createProductForm(event) {
             })
         }
         catch (err) {
+            afterLoad(button, 'ERROR');
             console.log(err);
         }
     }

@@ -947,6 +947,8 @@ textarea::placeholder {
     font-style: normal;
     font-weight: 500;
     line-height: 10px;
+    display: inline-block;
+    width: 76px;
 }
 
 .details-wrapper-col-2 .specific-product-insights > div:first-of-type > .insight-div {

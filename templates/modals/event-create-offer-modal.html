@@ -101,19 +101,19 @@
                         <input type="url" name="hyperlink" placeholder="Hyperlink (Optional)" />
                     </div>
                     <div class="image-wrapper">
-                        <label for="event-img">
+                        <label for="special-offer-img">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 50 35" fill="none">
                                 <path d="M42.36 15.28C41.2675 6.675 33.9 0 25 0C18.11 0 12.125 4.0275 9.3925 10.375C4.0225 11.98 0 17.05 0 22.5C0 29.3925 5.6075 35 12.5 35H40C45.515 35 50 30.515 50 25C49.9962 22.759 49.2416 20.5839 47.8567 18.8221C46.4719 17.0602 44.5366 15.8131 42.36 15.28ZM27.5 22.5V30H22.5V22.5H15L25 10L35 22.5H27.5Z" fill="#000093"/>
                             </svg>
-                            <input type="file" accept="image/jpeg, image/jpg, image/png" name="event_img" id="event-img" oninput="previewImage(event);" />
+                            <input type="file" accept="image/jpeg, image/jpg, image/png" name="event_img" id="special-offer-img" oninput="previewImage(event);" />
                             <span>Upload an Image</span>
                             <span>(supported dimension: 330x330px)</span>
                             <img src="" class="event-img hide" name="event_image" alt="event image" />
                         </label>
                     </div>
-                    <!-- <div class="error-div">
-                        <small class="create-error-msg input-error-msg"></small>
-                    </div> -->
+                    <div class="special-error-div hide">
+                        <small class="create-special-error-msg input-error-msg"></small>
+                    </div>
                 </div>
                 <div class="modal-footer border-top-0">
                     <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">

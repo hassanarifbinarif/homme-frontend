@@ -115,17 +115,17 @@
             </td>
             <td dateTime="{{obj.created_at}}">
                 <div>
-                    <span class="date-visits">{{obj.created_at|custom_date:"j-M-Y"}}</span>
+                    <span class="opacity-point-6 reg-date">{{obj.created_at}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="date-visits">0</span>
+                    <span class="opacity-point-6">0</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="date-visits">{% if obj.first_purchase_date %}{{obj.first_purchase_date|custom_date:"j-M-Y"}}{% else %}No Purchase Date{% endif %}</span>
+                    <span class="opacity-point-6">{% if obj.first_purchase_date %}{{obj.first_purchase_date|custom_date:"j-M-Y"}}{% else %}No Purchase Date{% endif %}</span>
                 </div>
             </td>
             <td>

@@ -140,6 +140,7 @@ async function customerNotesForm(event, id) {
                 else {
                     document.getElementById('notes-paragraph').innerText = res.data.notes;
                 }
+                toggleCustomerNotesInputs();
             }
             else {
                 afterLoad(button, 'ERROR');

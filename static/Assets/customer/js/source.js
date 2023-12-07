@@ -33,6 +33,7 @@ async function getData(url=null) {
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.source_data;
+                convertDateTime();
                 tableBody.classList.remove('hide');
             }
             else {
@@ -110,10 +111,8 @@ async function createSourceForm(event) {
             };
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/sources`, JSON.stringify(data), headers, 'POST');
-            // console.log(response);
             response.json().then(function(res) {
                 afterLoad(button, buttonText);
-                // console.log(res);
                 if (response.status == 201) {
                     form.removeAttribute('onsubmit');
                     getData();
@@ -232,4 +231,19 @@ function sortByDate(event) {
     arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
     arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
     sortOrders[2] = currentOrder === 'asc' ? 'desc' : 'asc';
+}
+
+
+function convertDateTime() {
+    let times = document.querySelectorAll('.created-at-date');
+    times.forEach((dateTime) => {
+        const inputDate = new Date(dateTime.textContent);
+
+        const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+        const result = `${day}-${month}-${year}`;
+
+        dateTime.textContent = result;
+    })
 }

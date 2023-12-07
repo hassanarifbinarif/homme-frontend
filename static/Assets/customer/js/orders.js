@@ -29,10 +29,6 @@ document.body.addEventListener('click', closeDropdowns);
 
 
 async function getData(url=null) {
-    let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    }
     let data;
     let tableBody = document.getElementById('order-table');
     if (url == null) {
@@ -55,6 +51,7 @@ async function getData(url=null) {
                 document.getElementById('total-orders-completed').innerHTML = res.completed_orders;
                 document.getElementById('total-open-orders').innerHTML = res.open_orders;
                 document.getElementById('total-order-completion-time').innerHTML = (parseFloat(res.completion_time) / 24) + ' Days';
+                convertDateTime();
             }
         })
     }
@@ -653,4 +650,22 @@ function getStartAndEndOfLastYear() {
         startOfLastYear,
         endOfLastYear,
     };
+}
+
+
+function convertDateTime() {
+    let orderTimes = document.querySelectorAll('.order-date');
+    orderTimes.forEach((dateTime) => {
+        const inputDate = new Date(dateTime.textContent);
+
+        // Format date components
+        const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+
+        // Create the desired format
+        const result = `${day}-${month}-${year}`;
+
+        dateTime.textContent = result;
+    })
 }

@@ -389,6 +389,11 @@ function roundDecimalPlaces(number) {
 }
 
 
+function captalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+
 let sideSwitchBtn = document.getElementById('side-switch-btn');
 let sideSwitchDropdown = document.getElementById('side-switch-dropdown');
 

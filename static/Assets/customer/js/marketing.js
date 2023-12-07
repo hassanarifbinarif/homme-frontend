@@ -25,6 +25,7 @@ async function getData(url=null) {
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.marketing_data;
+                convertDateTime();
                 tableBody.classList.remove('hide');
             }
         })
@@ -132,4 +133,19 @@ function sortByDate(event) {
             }
         }
     }
+}
+
+
+function convertDateTime() {
+    let times = document.querySelectorAll('.created-at-date');
+    times.forEach((dateTime) => {
+        const inputDate = new Date(dateTime.textContent);
+
+        const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+        const result = `${day}-${month}-${year}`;
+
+        dateTime.textContent = result;
+    })
 }

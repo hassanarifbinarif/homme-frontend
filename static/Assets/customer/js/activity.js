@@ -49,6 +49,7 @@ async function getData(url=null) {
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.activity_data;
+                convertDateTime();
                 tableBody.classList.remove('hide');
             }
         })
@@ -128,6 +129,8 @@ function filterDataRangeOption(event) {
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
         document.getElementById('start-date').value = startDate;
         document.getElementById('end-date').value = '';
+        document.getElementById('selected-date-range').innerText = startDate + ' / ';
+        document.getElementById('selected-date-range').title = startDate + ' / ';
     }
     else if (element.innerText == 'LAST WEEK') {
         const { startOfPreviousWeek, endOfPreviousWeek } = getStartAndEndOfPreviousWeek();
@@ -135,6 +138,8 @@ function filterDataRangeOption(event) {
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfPreviousWeek);
         document.getElementById('start-date').value = startOfPreviousWeek;
         document.getElementById('end-date').value = endOfPreviousWeek;
+        document.getElementById('selected-date-range').innerText = startOfPreviousWeek + ' / ' + endOfPreviousWeek;
+        document.getElementById('selected-date-range').title = startOfPreviousWeek + ' / ' + endOfPreviousWeek;
     }
     else if (element.innerText == 'LAST MONTH') {
         const { startOfLastMonth, endOfLastMonth } = getStartAndEndOfLastMonth();
@@ -142,6 +147,8 @@ function filterDataRangeOption(event) {
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfLastMonth);
         document.getElementById('start-date').value = startOfLastMonth;
         document.getElementById('end-date').value = endOfLastMonth;
+        document.getElementById('selected-date-range').innerText = startOfLastMonth + ' / ' + endOfLastMonth;
+        document.getElementById('selected-date-range').title = startOfLastMonth + ' / ' + endOfLastMonth;
     }
     getData();
     setTimeout(() => {
@@ -167,6 +174,8 @@ function dateRangeForm(event) {
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', data.start_date);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', data.end_date);
         getData(requiredDataURL);
+        document.getElementById('selected-date-range').innerText = data.start_date + ' / ' + data.end_date;
+        document.getElementById('selected-date-range').title = data.start_date + ' / ' + data.end_date;
     }
 }
 
@@ -205,6 +214,8 @@ function filterNetCashOption(event) {
     document.getElementById('min-cash-value').value = element.getAttribute('data-min');
     document.getElementById('max-cash-value').value = element.getAttribute('data-max') || '';
     getData();
+    document.getElementById('selected-net-cash-range').innerText = element.getAttribute('data-min') + ' - ' + (element.getAttribute('data-max') || '');
+    document.getElementById('selected-net-cash-range').title = element.getAttribute('data-min') + ' - ' + (element.getAttribute('data-max') || '');
     setTimeout(() => {
         netCashBtn.click();
     }, 100)
@@ -228,6 +239,8 @@ function netCashForm(event) {
             requiredDataURL = setParams(requiredDataURL, 'net_cash__gte', data.min_cash);
             requiredDataURL = setParams(requiredDataURL, 'net_cash__lte', data.max_cash);
             getData(requiredDataURL);
+            document.getElementById('selected-net-cash-range').innerText = data.min_cash + ' - ' + data.max_cash;
+            document.getElementById('selected-net-cash-range').title = data.min_cash + ' - ' + data.max_cash;
         }
     }
 }
@@ -267,6 +280,8 @@ function filterRewardOption(event) {
     document.getElementById('min-rewards-value').value = element.getAttribute('data-min');
     document.getElementById('max-rewards-value').value = element.getAttribute('data-max') || '';
     getData();
+    document.getElementById('selected-rewards-range').innerText = element.getAttribute('data-min') + ' - ' + (element.getAttribute('data-max') || '');
+    document.getElementById('selected-rewards-range').title = element.getAttribute('data-min') + ' - ' + (element.getAttribute('data-max') || '');
     setTimeout(() => {
         rewardsBtn.click();
     }, 100)
@@ -290,6 +305,8 @@ function rewardForm(event) {
             requiredDataURL = setParams(requiredDataURL, 'rewards__gte', data.min_rewards);
             requiredDataURL = setParams(requiredDataURL, 'rewards__lte', data.max_rewards);
             getData(requiredDataURL);
+            document.getElementById('selected-rewards-range').innerText = data.min_rewards + ' - ' + data.max_rewards;
+            document.getElementById('selected-rewards-range').title = data.min_rewards + ' - ' + data.max_rewards;
         }
     }
 }
@@ -523,4 +540,55 @@ function getStartAndEndOfLastMonth() {
         startOfLastMonth,
         endOfLastMonth,
     };
+}
+
+
+function convertDateTime() {
+    let activityTimes = document.querySelectorAll('.date-value');
+    activityTimes.forEach((dateTime) => {
+        const inputDate = new Date(dateTime.textContent);
+
+        const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+        const result = `${day}-${month}-${year}`;
+
+        dateTime.textContent = result;
+    })
+}
+
+
+async function openProductPurchaseModal(modalID, id) {
+    let modal = document.getElementById(`${modalID}`);
+    modal.querySelector('.modal-content').classList.add('hide');
+    modal.querySelector('.loader').classList.remove('hide');
+    document.querySelector(`.${modalID}`).click();
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}/admin/orders/${id}`, null, headers, 'GET');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                modal.querySelector('#purchase-total').innerText = res.data.total;
+                modal.querySelector('#purchase-rewards').innerText = res.data.rewards_earned;
+                if (res.data.salon)
+                    modal.querySelector('#purchase-salon').innerText = res.data.salon.salon_name;
+                else
+                    modal.querySelector('#purchase-salon').innerText = 'No Salon';
+                modal.querySelector('#purchase-status').innerText = captalizeFirstLetter(res.data.status);
+                modal.querySelector('#purchase-tracking').innerText = 'No tracking link';
+                if (res.data.shipping_address)
+                    modal.querySelector('#purchase-location').innerText = res.data.shipping_address.address;
+                else
+                    modal.querySelector('#purchase-location').innerText = 'No location';
+                modal.querySelector('.loader').classList.add('hide');
+                modal.querySelector('.modal-content').classList.remove('hide');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
 }

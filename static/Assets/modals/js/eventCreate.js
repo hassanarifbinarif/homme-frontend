@@ -73,7 +73,6 @@ async function createEventForm(event) {
     let buttonText = button.innerText;
     let errorDiv = form.querySelector('.error-div');
     let errorMsg = form.querySelector('.create-error-msg');
-    console.log(data);
 
     if (data.title.trim().length == 0) {
         errorDiv.classList.remove('hide');

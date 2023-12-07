@@ -55,11 +55,11 @@ function selectChartType(event) {
 
 
 function closeDropdowns(event) {
-    if (!(orderChannelBtn.contains(event.target)) && !(orderChannelDropdown.contains(event.target))) {
-        orderChannelDropdown.classList.add('hide');
-    }
-    else if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
+    if (!(orderStatTimeBtn.contains(event.target)) && !(orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
+    }
+    else if (!(orderChannelBtn.contains(event.target)) && !(orderChannelDropdown.contains(event.target))) {
+        orderChannelDropdown.classList.add('hide');
     }
 }
 
@@ -74,7 +74,8 @@ async function getData(url=null) {
         data = requiredDataURL;
     }
     else {
-        data = url
+        let temp = url.split(`${apiURL}`);
+        data = temp.length > 1 ? temp[1] : temp[0];
     }
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
@@ -86,6 +87,7 @@ async function getData(url=null) {
                 tableBody.innerHTML = res.orders_data;
                 tableBody.classList.remove('hide');
                 generatePages(res.paginationData.currentPage, res.paginationData.total);
+                convertDateTime();
             }
             else {
                 document.getElementById('table-loader').classList.add('hide');
@@ -159,15 +161,16 @@ function selectOrderStatTime(event) {
     let startDate, endDate;
     if (element.innerText == 'TODAY' && selectedOrderStatTime.innerText != element.innerText) {
         let today = new Date();
+        today.setHours(0, 0, 0, 0);
         const timezoneOffset = today.getTimezoneOffset() * 60000;
-        let todayStartingTime = new Date(today.getTime() - timezoneOffset).toISOString().split('T')[0];
+        let todayStartingTime = new Date(today.getTime() - timezoneOffset).toISOString();
         requiredDataURL = setParams(requiredDataURL, 'created_at__gte', todayStartingTime);
         requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
     }
     else if (element.innerText == 'CURRENT WEEK' && selectedOrderStatTime.innerText != element.innerText) {
-        startDate = getStartOfWeek();
-        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startDate);
-        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
+        const { startOfWeek, endOfWeek } = getStartOfWeek();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfWeek);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfWeek);
     }
     else if (element.innerText == 'LAST WEEK' && selectedOrderStatTime.innerText != element.innerText) {
         const { startOfPreviousWeek, endOfPreviousWeek } = getStartAndEndOfPreviousWeek();
@@ -222,14 +225,25 @@ function getStartOfWeek() {
     const now = new Date();
     const dayOfWeek = now.getDay();
     const daysUntilMonday = (dayOfWeek + 6) % 7;
-    const startOfWeek = new Date(now);
+    let startOfWeek = new Date(now);
+    let endOfWeek = new Date(now);
 
-    startOfWeek.setDate(now.getDate() - daysUntilMonday + 1);
-
+    startOfWeek.setDate(now.getDate() - daysUntilMonday);
     startOfWeek.setHours(0, 0, 0, 0);
-    const formattedDate = startOfWeek.toISOString().split('T')[0];
 
-    return formattedDate;
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const timezoneOffset = now.getTimezoneOffset() * 60000;
+
+    startOfWeek = new Date(startOfWeek.getTime() - timezoneOffset).toISOString();
+    endOfWeek = new Date(endOfWeek.getTime() - timezoneOffset).toISOString();
+
+    return {
+        startOfWeek,
+        endOfWeek,
+    };
+
 }
 
 
@@ -262,8 +276,8 @@ function getStartAndEndOfPreviousWeek() {
 
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     return {
-        startOfPreviousWeek: new Date(startOfWeek.getTime() - timezoneOffset).toISOString().split('T')[0],
-        endOfPreviousWeek: new Date(endOfWeek.getTime() - timezoneOffset).toISOString().split('T')[0],
+        startOfPreviousWeek: new Date(startOfWeek.getTime() - timezoneOffset).toISOString(),
+        endOfPreviousWeek: new Date(endOfWeek.getTime() - timezoneOffset).toISOString(),
     };
 }
 
@@ -285,8 +299,8 @@ function getStartAndEndOfMonth(date) {
     // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     
-    startOfMonth = new Date(startOfMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
-    endOfMonth = new Date(endOfMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
+    startOfMonth = new Date(startOfMonth.getTime() - timezoneOffset).toISOString();
+    endOfMonth = new Date(endOfMonth.getTime() - timezoneOffset).toISOString();
   
     return {
         startOfMonth,
@@ -315,8 +329,8 @@ function getStartAndEndOfLastMonth() {
     // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     
-    startOfLastMonth = new Date(startOfLastMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
-    endOfLastMonth = new Date(endOfLastMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
+    startOfLastMonth = new Date(startOfLastMonth.getTime() - timezoneOffset).toISOString();
+    endOfLastMonth = new Date(endOfLastMonth.getTime() - timezoneOffset).toISOString();
   
     return {
         startOfLastMonth,
@@ -354,8 +368,8 @@ function getStartAndEndOfQuarter() {
     // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
-    startOfQuarter = new Date(startOfQuarter.getTime() - timezoneOffset).toISOString().split('T')[0];
-    endOfQuarter = new Date(endOfQuarter.getTime() - timezoneOffset).toISOString().split('T')[0];
+    startOfQuarter = new Date(startOfQuarter.getTime() - timezoneOffset).toISOString();
+    endOfQuarter = new Date(endOfQuarter.getTime() - timezoneOffset).toISOString();
   
     return {
         startOfQuarter,
@@ -395,8 +409,8 @@ function getStartAndEndOfLastQuarter() {
     // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
-    startOfLastQuarter = new Date(startOfLastQuarter.getTime() - timezoneOffset).toISOString().split('T')[0];
-    endOfLastQuarter = new Date(endOfLastQuarter.getTime() - timezoneOffset).toISOString().split('T')[0];
+    startOfLastQuarter = new Date(startOfLastQuarter.getTime() - timezoneOffset).toISOString();
+    endOfLastQuarter = new Date(endOfLastQuarter.getTime() - timezoneOffset).toISOString();
   
     return {
         startOfLastQuarter,
@@ -417,8 +431,8 @@ function getStartAndEndOfYear() {
     // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
-    startOfYear = new Date(startOfYear.getTime() - timezoneOffset).toISOString().split('T')[0];
-    endOfYear = new Date(endOfYear.getTime() - timezoneOffset).toISOString().split('T')[0];
+    startOfYear = new Date(startOfYear.getTime() - timezoneOffset).toISOString();
+    endOfYear = new Date(endOfYear.getTime() - timezoneOffset).toISOString();
 
     return {
         startOfYear,
@@ -439,11 +453,36 @@ function getStartAndEndOfLastYear() {
     // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
-    startOfLastYear = new Date(startOfLastYear.getTime() - timezoneOffset).toISOString().split('T')[0];
-    endOfLastYear = new Date(endOfLastYear.getTime() - timezoneOffset).toISOString().split('T')[0];
+    startOfLastYear = new Date(startOfLastYear.getTime() - timezoneOffset).toISOString();
+    endOfLastYear = new Date(endOfLastYear.getTime() - timezoneOffset).toISOString();
   
     return {
         startOfLastYear,
         endOfLastYear,
     };
+}
+
+
+function convertDateTime() {
+    let orderTimes = document.querySelectorAll('.order-time');
+    orderTimes.forEach((dateTime) => {
+        // Input date in the format '2023-11-30T04:44:12.156070Z'
+        const inputDate = new Date(dateTime.textContent);
+
+        // Format date components
+        const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+
+        const formattedTime = new Intl.DateTimeFormat('en-US', {
+            hour: '2-digit',
+            minute: 'numeric',
+            hour12: true,
+        }).format(inputDate);
+
+        // Create the desired format
+        const result = `${day}-${month}-${year} @ ${formattedTime}`;
+
+        dateTime.textContent = result;
+    })
 }
