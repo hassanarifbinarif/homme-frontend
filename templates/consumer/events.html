@@ -52,7 +52,7 @@
             <div class="order-wrapper">
                 <span>EVENTS</span>
                 <div>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#eventCreateOffer">CREATE SPECIAL OFFER</button>
+                    <button type="button" onclick="openSpecialOfferModal('eventCreateOffer')">CREATE SPECIAL OFFER</button>
                     <button type="button" onclick="openCreateEventModal('eventCreate')">CREATE EVENT</button>
                 </div>
             </div>
@@ -89,5 +89,6 @@
 {% block scripts %}
 <script src="{% static 'Assets/consumer/js/events.js' %}"></script>
 <script src="{% static 'Assets/modals/js/eventCreate.js' %}"></script>
+<script src="{% static 'Assets/modals/js/createSpecialOfferModal.js' %}"></script>
 {% endblock %}
 </html>

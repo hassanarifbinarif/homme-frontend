@@ -11,6 +11,7 @@
     
     <link rel="stylesheet" href="{% static 'Assets/customer/css/products.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/customer/css/product_details.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/delete_modal.css' %}" />
 
     {% endblock %}
 
@@ -262,6 +263,8 @@
             </div>
         </div>
     </div>
+
+    {% include '../modals/delete-modal.html' %}
 
     {{product.id|json_script:"specific-prod-id"}}
     {% endblock %}

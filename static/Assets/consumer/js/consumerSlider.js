@@ -375,9 +375,13 @@ function openDelSliderModal(modalID, id) {
     let modal = document.querySelector(`#${modalID}`);
     let form = modal.querySelector('form');
     form.setAttribute("onsubmit", `delSliderForm(event, ${id})`);
+    modal.querySelector('#modal-header-text').innerText = 'Delete Slider';
+    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this slider?';
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
+        modal.querySelector('#modal-header-text').innerText = '';
+        modal.querySelector('#warning-statement').innerText = '';
         modal.querySelector('.btn-text').innerText = 'DELETE';
     })
     document.querySelector(`.${modalID}`).click();
@@ -403,7 +407,7 @@ async function delSliderForm(event, id) {
             afterLoad(button, 'DELETED');
             getData();
             setTimeout(() => {
-                document.querySelector('.delSlider').click();
+                document.querySelector('.delModal').click();
             }, 1000)
         }
         else {

@@ -2,6 +2,7 @@ let requiredDataURL = `/admin/content/events?page=1&perPage=1000&search=&orderin
 
 window.onload = () => {
     getData();
+    populateProducts();
 }
 
 function searchForm(event) {

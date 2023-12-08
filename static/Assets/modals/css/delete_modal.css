@@ -1,22 +1,22 @@
-#delSlider .modal-dialog {
+#delModal .modal-dialog {
     max-width: unset;
     width: 621px;
 }
 
-#delSlider .modal-header {
+#delModal .modal-header {
     padding: 9px 10px!important;
     background-color: #EEE;
     height: 40px;
     border-radius: 0px!important;
 }
 
-#delSlider .modal-footer,
-#delSlider .modal-content {
+#delModal .modal-footer,
+#delModal .modal-content {
     border-radius: 0px!important;
     border: unset!important;
 }
 
-#delSlider .modal-header > span {
+#delModal .modal-header > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -27,11 +27,11 @@
     line-height: 10px;
 }
 
-#delSlider .modal-body {
+#delModal .modal-body {
     padding: 10px!important;
 }
 
-#delSlider .modal-body > p {
+#delModal .modal-body > p {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -44,14 +44,14 @@
 }
 
 
-#delSlider .modal-footer {
+#delModal .modal-footer {
     padding: 9px 12px!important;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-#delSlider .modal-footer > button {
+#delModal .modal-footer > button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,7 +73,7 @@
     letter-spacing: 2.4px;
 }
 
-#delSlider .modal-footer > button:first-of-type {
+#delModal .modal-footer > button:first-of-type {
     background: #FFF;
     color: #000;
     border-color: #000;

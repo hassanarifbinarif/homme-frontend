@@ -11,6 +11,7 @@
     
     <link rel="stylesheet" href="{% static 'Assets/customer/css/products.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/customer/css/product_details.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/delete_modal.css' %}" />
 
     {% endblock %}
 
@@ -41,8 +42,6 @@
                 </div>
                 <a href="javascript:void(0);">
                     <div class="nav-profile-image">
-                        <!-- <span>{{admin_name}}</span>
-                        <img src="{{admin_image}}" alt="Profile Image" /> -->
                         <span>Homme Superadmin</span>
                         <img src="{% static 'Assets/customer/images/avatar.png' %}" alt="Profile Image" />
                     </div>
@@ -245,15 +244,20 @@
                     <div class="specific-product-insights">
                         <div>
                             <span>Insights</span>
-                            <div>
-                                <span>Last 30 days</span>
+                            <div class="insight-div cursor-pointer" id="insight-div" onclick="toggleInsightDropdown();">
+                                <span id="selected-insight">Last 30 days</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5" fill="none">
                                     <path opacity="0.7" d="M10 0L5 5L0 0H10Z" fill="#030706"/>
                                 </svg>
+                                <div class="insight-dropdown" id="insight-dropdown" style="display: none;">
+                                    <span onclick="selectInsightTime(event);" data-value="7">Last 7 days</span>
+                                    <span onclick="selectInsightTime(event);" data-value="15">Last 15 days</span>
+                                    <span onclick="selectInsightTime(event);" data-value="30">Last 30 days</span>
+                                </div>
                             </div>
                         </div>
                         <div>
-                            <p>Sold 3 units to 1 customer for $75.00 in net sale.</p>
+                            <p id="insight-stat">{% if product.insights %}{{product.insights}}{% else %}No Insights{% endif %}</p>
                         </div>
                     </div>
                     <div class="specific-product-organization">
@@ -287,6 +291,8 @@
         </div>
     </div>
 
+    {% include '../modals/delete-modal.html' %}
+
     {{product.id|json_script:"specific-prod-id"}}
     {% endblock %}
 </body>
@@ -294,6 +300,6 @@
 <script>
     const specific_prod_id = JSON.parse(document.getElementById('specific-prod-id').textContent);
 </script>
-<script src="{% static 'Assets/customer/js/specificProduct.js' %}"></script>
+<script src="{% static 'Assets/consumer/js/consumerSpecificProduct.js' %}"></script>
 {% endblock %}
 </html>

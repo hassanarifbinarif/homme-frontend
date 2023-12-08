@@ -54,10 +54,6 @@ async function populateModalDropdowns() {
                                                     </svg>
                                                 </label>
                                             </div>`
-            // skinTypeDropdown.innerHTML += `<div class="radio-btn">
-            //                                     <input onchange="selectSkinType(event);" required id="skin-type-${skinType.id}" data-id="${skinType.id}" type="radio" value="${skinType.name}" name="skin_type_radio" />
-            //                                     <label for="skin-type-${skinType.id}" class="radio-label">${skinType.name}</label>
-            //                                 </div>`
         })
     })
 }
@@ -301,78 +297,118 @@ async function getSkinField(event) {
 }
 
 
-async function delCategory(event, id) {
+async function delForm(event, id, type) {
     event.preventDefault();
-    event.stopPropagation();
+    let form = event.currentTarget;
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`
+    };
     try {
-        let token = getCookie('admin_access');
-        let headers = {
-            "Authorization": `Bearer ${token}`
-        }
-        let response = await requestAPI(`${apiURL}/admin/categories/${id}`, null, headers, 'DELETE');
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/${type}/${id}`, null, headers, 'DELETE');
         if (response.status == 204) {
-            let divToDelete = document.getElementById(`prod-cat${id}`);
-            let selectedCat = document.getElementById('selected-product-category');
-            let deletedCat = document.getElementById(`cat-${id}`);
-            if (selectedCat.innerText == deletedCat.value) {
-                selectedCat.innerText = '';
+            form.reset();
+            form.removeAttribute("onsubmit");
+            afterLoad(button, 'DELETED');
+            setTimeout(() => {
+                document.querySelector('.delModal').click();
+            }, 1000)
+            if (type == 'categories') {
+                let divToDelete = document.getElementById(`prod-cat${id}`);
+                let selectedCat = document.getElementById('selected-product-category');
+                let deletedCat = document.getElementById(`cat-${id}`);
+                if (selectedCat.innerText == deletedCat.value) {
+                    selectedCat.innerText = '';
+                }
+                divToDelete.remove();
             }
-            divToDelete.remove();
+            else if (type == 'product-types') {
+                let divToDelete = document.getElementById(`prod-type${id}`);
+                let selectedType = document.getElementById('selected-product-type');
+                let deletedType = document.getElementById(`type-${id}`);
+                if (selectedType.innerText == deletedType.value) {
+                    selectedType.innerText = '';
+                }
+                divToDelete.remove();
+            }
+            else if (type == 'skin-types') {
+                let divToDelete = document.getElementById(`skin-type${id}`);
+                let selectedType = document.getElementById('selected-skin-type');
+                let deletedType = document.getElementById(`skin-${id}`);
+                if (selectedType.innerText == deletedType.value) {
+                    selectedType.innerText = '';
+                }
+                divToDelete.remove();
+            }
+        }
+        else {
+            afterLoad(button, 'ERROR');
         }
     }
     catch (err) {
+        afterLoad(button, 'ERROR');
         console.log(err);
     }
+}
+
+
+async function delCategory(event, id) {
+    event.preventDefault();
+    event.stopPropagation();
+    let modal = document.querySelector(`#delModal`);
+    let form = modal.querySelector('form');
+    form.setAttribute("onsubmit", `delForm(event, ${id}, 'categories')`);
+    modal.querySelector('#modal-header-text').innerText = 'Delete Product Category';
+    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this product category?';
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        modal.querySelector('#modal-header-text').innerText = '';
+        modal.querySelector('#warning-statement').innerText = '';
+        modal.querySelector('.btn-text').innerText = 'DELETE';
+    })
+    document.querySelector(`.delModal`).click();
 }
 
 
 async function delType(event, id) {
     event.preventDefault();
     event.stopPropagation();
-    try {
-        let token = getCookie('admin_access');
-        let headers = {
-            "Authorization": `Bearer ${token}`
-        }
-        let response = await requestAPI(`${apiURL}/admin/product-types/${id}`, null, headers, 'DELETE');
-        if (response.status == 204) {
-            let divToDelete = document.getElementById(`prod-type${id}`);
-            let selectedType = document.getElementById('selected-product-type');
-            let deletedType = document.getElementById(`type-${id}`);
-            if (selectedType.innerText == deletedType.value) {
-                selectedType.innerText = '';
-            }
-            divToDelete.remove();
-        }
-    }
-    catch (err) {
-        console.log(err);
-    }
+    let modal = document.querySelector(`#delModal`);
+    let form = modal.querySelector('form');
+    form.setAttribute("onsubmit", `delForm(event, ${id}, 'product-types')`);
+    modal.querySelector('#modal-header-text').innerText = 'Delete Product Type';
+    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this product type?';
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        modal.querySelector('#modal-header-text').innerText = '';
+        modal.querySelector('#warning-statement').innerText = '';
+        modal.querySelector('.btn-text').innerText = 'DELETE';
+    })
+    document.querySelector(`.delModal`).click();
 }
 
 
 async function delSkinType(event, id) {
     event.preventDefault();
     event.stopPropagation();
-    try {
-        let token = getCookie('admin_access');
-        let headers = {
-            "Authorization": `Bearer ${token}`
-        }
-        let response = await requestAPI(`${apiURL}/admin/skin-types/${id}`, null, headers, 'DELETE');
-        if (response.status == 204) {
-            let divToDelete = document.getElementById(`skin-type${id}`);
-            let selectedType = document.getElementById('selected-skin-type');
-            let deletedType = document.getElementById(`skin-${id}`);
-            if (selectedType.innerText == deletedType.value) {
-                selectedType.innerText = '';
-            }
-            divToDelete.remove();
-        }
-    }
-    catch (err) {
-        console.log(err);
-    }
+    let modal = document.querySelector(`#delModal`);
+    let form = modal.querySelector('form');
+    form.setAttribute("onsubmit", `delForm(event, ${id}, 'skin-types')`);
+    modal.querySelector('#modal-header-text').innerText = 'Delete Skin Type';
+    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this skin type?';
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        modal.querySelector('#modal-header-text').innerText = '';
+        modal.querySelector('#warning-statement').innerText = '';
+        modal.querySelector('.btn-text').innerText = 'DELETE';
+    })
+    document.querySelector(`.delModal`).click();
 }
 
 

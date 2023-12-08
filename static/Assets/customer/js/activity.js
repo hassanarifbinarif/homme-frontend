@@ -80,7 +80,7 @@ function filterTypeOption(event) {
     let element = event.target;
     requiredDataURL = setParams(requiredDataURL, 'type', element.getAttribute('data-value'));
     getData(requiredDataURL);
-    // document.getElementById('selected-type').innerText = element.innerText;
+    document.getElementById('selected-type').innerText = element.innerText;
 }
 
 function toggleTypeDropdown() {
