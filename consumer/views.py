@@ -23,6 +23,26 @@ def salon(request):
     return render(request, 'consumer/salon.html', context)
 
 
+@csrf_exempt
+def get_salon_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
+        text_template = loader.get_template('ajax/salon-table.html')
+        html = text_template.render({'salons':response})
+        context['salon_data'] = html
+        context['msg'] = 'Salons retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
 def specific_salon(request):
     context = {}
     context['active_page'] = 'salons'

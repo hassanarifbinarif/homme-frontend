@@ -69,6 +69,10 @@
                     </button>
                 </div>
                 <div class="order-details-table-wrapper">
+                    <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
+                        <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                        </span>
+                    </div>
                     {% include '../ajax/salon-table.html' %}
                 </div>
             </div>
@@ -84,6 +88,7 @@
     {% endblock %}
 </body>
 {% block scripts %}
+<script src="{% static 'Assets/consumer/js/salon.js' %}"></script>
 <script src="{% static 'Assets/modals/js/salonDetailModal.js' %}"></script>
 {% endblock %}
 </html>
