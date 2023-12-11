@@ -4,15 +4,15 @@
 }
 
 #orderShippingLabel .modal-header {
-    padding: 9px 10px!important;
-    background-color: #EEE;
+    padding: 20px 18px 0px 18px!important;
+    /* background-color: #EEE; */
     height: 40px;
     border-radius: 0px!important;
 }
 
 #orderShippingLabel .modal-footer,
 #orderShippingLabel .modal-content {
-    border-radius: 0px!important;
+    border-radius: 6px!important;
 }
 
 #orderShippingLabel .modal-header > span {
@@ -20,7 +20,7 @@
     leading-trim: both;
     text-edge: cap;
     font-family: Gotham Medium;
-    font-size: .875rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 500;
     line-height: 10px;
@@ -239,6 +239,11 @@
 }
 
 
+#orderShippingLabel .label-error-div {
+    padding: 0px 15px;
+}
+
+
 #orderShippingLabel .modal-footer {
     padding: 5px 15px 20px 15px!important;
     display: flex;
@@ -247,6 +252,7 @@
 }
 
 #orderShippingLabel .modal-footer > button {
+    margin: 0px!important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -273,4 +279,18 @@
     border: 1px solid #000;
     color: #000;
     width: 112px;
+}
+
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.divToRotate {
+    animation: rotate infinite 2s linear;
 }

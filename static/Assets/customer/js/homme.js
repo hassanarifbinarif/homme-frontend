@@ -74,7 +74,7 @@ async function getData(url=null) {
         data = requiredDataURL;
     }
     else {
-        let temp = url.split(`${apiURL}`);
+        let temp = url.split(`api`);
         data = temp.length > 1 ? temp[1] : temp[0];
     }
     tableBody.classList.add('hide');

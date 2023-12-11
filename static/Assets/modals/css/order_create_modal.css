@@ -365,7 +365,13 @@
     line-height: 16px;
 }
 
-#orderCreate .modal-body .product-shipping-details > .product-shipping-header > span:last-of-type {
+#orderCreate .modal-body .product-shipping-details > .product-shipping-header > #generate-div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#orderCreate .modal-body .product-shipping-details > .product-shipping-header .label-text {
     color: #000093;
     text-align: right;
     leading-trim: both;

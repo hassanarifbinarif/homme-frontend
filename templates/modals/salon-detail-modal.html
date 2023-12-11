@@ -139,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="general-info-wrapper">
+                    <div class="general-info-wrapper hide">
                         <div class="general-info-header">
                             <span>Salon Information</span>
                         </div>
@@ -306,15 +306,19 @@
                                     <label for="status-type-registered" class="radio-label">Registered</label>
                                 </div>
                                 <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-pending" data-id="2" type="radio" value="Pending" name="status_type_radio" />
+                                    <input onchange="selectStatusType(event);" id="status-type-approved" data-id="1" type="radio" value="Approved" name="status_type_radio" />
+                                    <label for="status-type-approved" class="radio-label">Approved</label>
+                                </div>
+                                <div class="radio-btn">
+                                    <input onchange="selectStatusType(event);" id="status-type-pending" data-id="3" type="radio" value="Pending" name="status_type_radio" />
                                     <label for="status-type-pending" class="radio-label">Pending</label>
                                 </div>
                                 <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-rejected" data-id="3" type="radio" value="Rejected" name="status_type_radio" />
+                                    <input onchange="selectStatusType(event);" id="status-type-rejected" data-id="4" type="radio" value="Rejected" name="status_type_radio" />
                                     <label for="status-type-rejected" class="radio-label">Rejected</label>
                                 </div>
                                 <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-active" data-id="4" type="radio" value="Active" name="status_type_radio" />
+                                    <input onchange="selectStatusType(event);" id="status-type-active" data-id="5" type="radio" value="Active" name="status_type_radio" />
                                     <label for="status-type-active" class="radio-label">Active</label>
                                 </div>
                             </div>

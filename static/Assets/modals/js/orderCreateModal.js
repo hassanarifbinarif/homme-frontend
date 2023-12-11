@@ -12,10 +12,13 @@ let grandTotal = document.getElementById('selected-products-grand-total');
 let percentDiscount = document.getElementById('selected-products-discount');
 let totalTax = document.getElementById('calculated-tax');
 let shippingCost = document.getElementById('shipping-cost');
+let generateLabelBtn = document.getElementById('generate-label-btn');
 
 let customerData = [];
 let productData = [];
 let selectedCustomer = {};
+let generateLabelData = {};
+let base64Image = null;
 
 let orderData = {
     products: [],
@@ -176,7 +179,8 @@ function selectCustomer(event) {
                 phone: selectedCustomer.user.phone,
                 city: customerDetails[0].city,
                 country: customerDetails[0].country,
-                zip_code: customerDetails[0].zip_code
+                zip_code: customerDetails[0].zip_code,
+                state: customerDetails[0].state
             };
             orderData.billing_address = orderData.shipping_address;
             document.querySelector('#orderCreate input[name="address"]').value = customerDetails[0].address;
@@ -318,6 +322,8 @@ document.body.addEventListener('click', closeDropdowns);
 async function openCreateOrderModal(modalId) {
     let modal = document.querySelector(`#${modalId}`);
     let form = modal.querySelector('form');
+    let generateDiv = modal.querySelector('#generate-div');
+    let labelDiv = modal.querySelector('#label-div');
 
     orderData = {
         products: [],
@@ -329,6 +335,12 @@ async function openCreateOrderModal(modalId) {
     };
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
+        generateDiv.classList.remove('hide');
+        generateDiv.classList.add('opacity-point-3-5');
+        generateLabelBtn.removeAttribute('onclick');
+        generateLabelBtn.removeAttribute('title');
+        labelDiv.removeAttribute('onclick');
+        labelDiv.classList.add('hide');
         addedProductsWrapper.innerHTML = '';
         addedProductsWrapper.classList.add('hide');
         productTotalWrapper.classList.add('hide');
@@ -385,6 +397,16 @@ async function orderCreate(event) {
         "Authorization": `Bearer ${token}`
     };
     // console.log(data);
+    if (data.shipping_address == null || data.shipping_address.address.trim().length == 0 || data.shipping_address.city.trim().length == "" || selectedCustomer.shipping_address.state.trim().length == 0 || data.shipping_address.zip_code == "" || data.shipping_address.country.trim().length == 0) {
+        generateLabelBtn.classList.add('opacity-point-3-5');
+        generateLabelBtn.removeAttribute('onclick');
+        generateLabelBtn.setAttribute('title', 'Complete all shipping details');
+    }
+    else {
+        generateLabelBtn.classList.remove('opacity-point-3-5');
+        generateLabelBtn.setAttribute('onclick', "openGenerateShippingLabelModal('orderShippingLabel')");
+        generateLabelBtn.removeAttribute('title');
+    }
     if (data.is_preview == false) {
         if (data.user == null) {
             errorMsg.classList.add('active');
@@ -406,7 +428,6 @@ async function orderCreate(event) {
     let response = await requestAPI(`${apiURL}/admin/orders`, JSON.stringify(data), headers, 'POST');
     // console.log(response);
     response.json().then(function(res) {
-        // console.log(res);
         if (response.status == 201) {
             if (data.is_preview == false) {
                 getData();
@@ -435,5 +456,269 @@ async function orderCreate(event) {
                 afterLoad(button, 'Error');
             }
         }
+    })
+}
+
+
+async function openGenerateShippingLabelModal(modalID) {
+    let modal = document.getElementById(`${modalID}`);
+    let errorMsg = document.querySelector('.create-error-msg');
+    let form = modal.querySelector('form');
+    form.setAttribute('onsubmit', "generateShippingLabelForm(event)");
+    let generateLabelLoader = document.getElementById('generate-loader');
+    try {
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+        let generateLabelData = {
+            address: orderData.shipping_address.address,
+            city: orderData.shipping_address.city,
+            state: orderData.shipping_address.state,
+            zipcode: orderData.shipping_address.zip_code,
+            simple_rate_size: 'S'
+        };
+        generateLabelLoader.classList.remove('hide');
+        generateLabelBtn.style.pointerEvents = 'none';
+        let response = await requestAPI(`${apiURL}/admin/shippings/ups/rating`, JSON.stringify(generateLabelData), headers, 'POST');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                let shippingSpeedsWrapper = document.getElementById('shipping-speeds');
+                shippingSpeedsWrapper.innerHTML = '';
+                res.data.forEach((shippingType, index) => {
+                    shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
+                                                            <div>
+                                                                <input type="radio" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                                <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
+                                                            </div>
+                                                            <span>${shippingType.transportation_charges.monetary_value}</span>
+                                                        </div>`;
+                })
+                initializeShippingSpeeds();
+                document.getElementById('generate-btn').style.pointerEvents = 'auto';
+                document.getElementById('refresh-costs-btn').setAttribute('onclick', "refreshShippingCosts(this);");
+                document.querySelector('.label-error-div').classList.add('hide');
+                document.querySelector('.label-error-msg').classList.remove('active');
+                document.querySelector('.label-error-msg').innerHTML = '';
+                modal.addEventListener('hidden.bs.modal', event => {
+                    form.reset();
+                    form.removeAttribute('onsubmit');
+                    shippingSpeedsWrapper.innerHTML = '';
+                    document.getElementById('generate-btn').style.pointerEvents = 'auto';
+                    document.getElementById('refresh-costs-btn').removeAttribute('onclick');
+                    document.querySelector('.label-error-div').classList.add('hide');
+                    document.querySelector('.label-error-msg').classList.remove('active');
+                    document.querySelector('.label-error-msg').innerHTML = '';
+                    document.getElementById('modal-tracker-field').innerText = 'N/A';
+                    document.getElementById('modal-shipping-price-field').innerText = '$0';
+                })
+                document.querySelector(`.${modalID}`).click();
+            }
+            else if (response.status == 400) {
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.classList.add('active');
+                    errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                })
+            }
+            generateLabelLoader.classList.add('hide');
+            generateLabelBtn.style.pointerEvents = 'auto';
+        })
+    }
+    catch (err) {
+        generateLabelLoader.classList.add('hide');
+        generateLabelBtn.style.pointerEvents = 'auto';
+        console.log(err);
+    }
+}
+
+
+let boxSizeRadioBtn = document.querySelectorAll('input[name="simple_rate_size"]');
+let customSizeInputDiv = document.querySelectorAll('.input-div');
+boxSizeRadioBtn.forEach((radioBtn) => {
+    radioBtn.addEventListener('click', function() {
+        if (this.value == 'custom' || this.value == 'CUSTOM') {
+            customSizeInputDiv.forEach((div) => {
+                div.classList.remove('opacity-point-6');
+                div.querySelectorAll('input').forEach((input) => {
+                    input.readOnly = false;
+                })
+            })
+        }
+        else {
+            customSizeInputDiv.forEach((div) => {
+                div.classList.add('opacity-point-6');
+                div.querySelectorAll('input').forEach((input) => {
+                    input.readOnly = true;
+                })
+            })
+        }
+    })
+})
+
+
+function initializeShippingSpeeds() {
+    let shippingSpeedInputs = document.querySelectorAll('input[name="service_type"]');
+    shippingSpeedInputs.forEach((radioInput) => {
+        radioInput.addEventListener('change', function() {
+            document.querySelectorAll('input[name="service_type"]').forEach((input) => {
+                let inputWrapper = input.closest('.shipping-type');
+                if (input.checked) {
+                    inputWrapper.classList.remove('opacity-point-3-5');
+                }
+                else {
+                    inputWrapper.classList.add('opacity-point-3-5');
+                }
+            })
+        })
+    })
+}
+
+
+async function generateShippingLabelForm(event) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+    let errorDiv = form.querySelector('.label-error-div');
+    let errorMsg = form.querySelector('.label-error-msg');
+
+
+    data.address = orderData.shipping_address.address;
+    data.city = orderData.shipping_address.city;
+    data.state = orderData.shipping_address.state;
+    data.zipcode = orderData.shipping_address.zip_code;
+    data.to_name = selectedCustomer.full_name;
+    data.to_phone = selectedCustomer.user.phone;
+    data.to_email = selectedCustomer.user.email;
+    if (data.simple_rate_size.toLowerCase() == 'custom') {
+        if (data.package_length.trim().length == 0) {
+            errorDiv.classList.remove('hide');
+            errorMsg.classList.add('active');
+            errorMsg.innerText = 'Length required';
+            return false;
+        }
+        if (data.package_width.trim().length == 0) {
+            console.log('Width required');
+            errorDiv.classList.remove('hide');
+            errorMsg.classList.add('active');
+            errorMsg.innerText = 'Width required';
+            return false;
+        }
+        if (data.package_height.trim().length == 0) {
+            errorDiv.classList.remove('hide');
+            errorMsg.classList.add('active');
+            errorMsg.innerText = 'Depth required';
+            return false;
+        }
+    }
+    else {
+        delete data.package_length;
+        delete data.package_width;
+        delete data.package_height;
+        delete data.packaging_type;
+    }
+    try {
+        errorDiv.classList.add('hide');
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/shippings/ups/shipping`, JSON.stringify(data), headers, 'POST');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                orderData.order_shipping = res.data.id;
+                document.getElementById('modal-tracker-field').innerText = res.data.tracking_number;
+                document.getElementById('modal-shipping-price-field').innerText = '$' + res.data.total;
+                base64Image = res.data.shipping_label;
+                document.getElementById('generate-div').classList.add('hide');
+                document.getElementById('label-div').classList.remove('hide');
+                document.getElementById('label-div').setAttribute('onclick', 'openShippingLabel()');
+                afterLoad(button, 'GENERATED');
+                button.style.pointerEvents = 'none';
+                document.getElementById('refresh-costs-btn').removeAttribute('onclick');
+                form.removeAttribute('onsubmit');
+            }
+            else {
+                let keys = Object.keys(res.messages);
+                errorMsg.classList.add('active');
+                errorDiv.classList.remove('hide');
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                })
+                afterLoad(button, 'ERROR');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
+    }
+}
+
+
+function openShippingLabel() {
+    const newTabDocument = document.implementation.createHTMLDocument();
+
+    // Create an image element
+    const imgElement = newTabDocument.createElement("img");
+
+    // Set the base64 string as the source of the image
+    imgElement.src = "data:image/png;base64," + base64Image;
+
+    // Append the image element to the body of the new document
+    newTabDocument.body.appendChild(imgElement);
+
+    // Create a new window or tab and open the document
+    const newTab = window.open();
+    newTab.document.write(newTabDocument.documentElement.outerHTML);
+}
+
+
+async function refreshShippingCosts(element) {
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": 'application/json'
+    };
+    let selectedRateSize = 'S';
+    document.querySelectorAll('input[name="simple_rate_size"]').forEach((input) => {
+        if (input.checked)
+            selectedRateSize = input.value;
+    })
+    let generateLabelData = {
+        address: orderData.shipping_address.address,
+        city: orderData.shipping_address.city,
+        state: orderData.shipping_address.state,
+        zipcode: orderData.shipping_address.zip_code,
+        simple_rate_size: selectedRateSize
+    };
+    element.classList.add('divToRotate');
+    let response = await requestAPI(`${apiURL}/admin/shippings/ups/rating`, JSON.stringify(generateLabelData), headers, 'POST');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            let shippingSpeedsWrapper = document.getElementById('shipping-speeds');
+            shippingSpeedsWrapper.innerHTML = '';
+            res.data.forEach((shippingType, index) => {
+                shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
+                                                        <div>
+                                                            <input type="radio" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                            <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
+                                                        </div>
+                                                        <span>${shippingType.transportation_charges.monetary_value}</span>
+                                                    </div>`;
+            })
+            initializeShippingSpeeds();
+        }
+        element.classList.remove('divToRotate');
     })
 }
