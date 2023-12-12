@@ -141,34 +141,43 @@
                         </div>
                     </div>
 
-                    <div class="order-shipping-confirmation-wrapper">
+                    <div class="order-shipping-confirmation-wrapper {% if order.order_shipping != None %}hide{% endif %}" id="before-label">
                         <div class="order-shipping-confirmation-header">
                             <span>Shipping Confirmation</span>
-                            <span data-bs-toggle="modal" data-bs-target="#orderShippingLabel">GENERATE SHIPPING LABEL</span>
+                            <div class="cursor-pointer" id="generate-div">
+                                <div class="d-flex justify-content-center align-items-center hide" id="generate-loader">
+                                    <span class="spinner-border spinner-border-sm" style="color: #000093;" role="status" aria-hidden="true">
+                                    </span>
+                                </div>
+                                <span class="cursor-pointer label-text" id="generate-label-btn" onclick="openGenerateShippingLabelModal('{{order.id}}', '{{order.shipping_address.first_name}}', '{{order.shipping_address.last_name}}', '{{order.shipping_address.phone}}', '{{order.user_profile.user.email}}', '{{order.shipping_address.address}}', '{{order.shipping_address.city}}', '{{order.shipping_address.state}}', '{{order.shipping_address.zip_code}}', 'S')">GENERATE SHIPPING LABEL</span>
+                            </div>
+                        </div>
+                        <div class="error-div hide" style="position: relative; top: -15px;">
+                            <small class="generate-error-msg input-error-msg"></small>
                         </div>
                         <div class="order-shipping-status">
                             <div>
                                 <span>Order confirmation email was sent to {{order.user_profile.first_name|title}} {{order.user_profile.last_name|title}} at <span class="time-value">{{order.created_at}}</span> on <span class="date-value">{{order.created_at}}</span></span>
                                 <span>{{order.user_profile.user.email}}</span>
                             </div>
-                            <button type="button">RESEND EMAIL</button>
+                            <button type="button" class="opacity-point-6">RESEND EMAIL</button>
                         </div>
                     </div>
-
-
                     <!-- ---------------------Here is updated Shipping Information----------------------- -->
                     
-                    
-                    <div class="order-shipping-confirmation-wrapper-2 hide">
+                    <div class="order-shipping-confirmation-wrapper-2 {% if order.order_shipping == None %}hide{% endif %}" id="after-label">
                         <div class="order-shipping-confirmation-header">
                             <span>Shipping Confirmation</span>
                         </div>
                         <div class="order-shipping-status">
                             <div>
                                 <span>Pick-up confirmation email was sent to {{order.user_profile.first_name|title}} {{order.user_profile.last_name|title}} at {{order.created_at|custom_date:"f A"}} on {{order.created_at|custom_date:"F j, Y"}}</span>
-                                <span>{{order.user_profile.email}}</span>
+                                <span>{{order.user_profile.user.email}}</span>
                             </div>
-                            <button type="button">RESEND EMAIL</button>
+                            <button type="button" id="resend-email-btn" onclick="resendEmail(this, '{{order.id}}')">
+                                <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                                <span class="btn-text">RESEND EMAIL</span>
+                            </button>
                         </div>
                         <div class="order-shipping-details">
                             <div>
@@ -178,22 +187,18 @@
                                 </div>
                                 <div>
                                     <span>Shipping Speed</span>
-                                    <span>UPS GROUND</span>
+                                    <span id="shipping-speed">{{order.order_shipping.service_type_name}}</span>
                                 </div>
                                 <div>
                                     <span>Tracking ID</span>
-                                    <span class="tracking-id">34026</span>
+                                    <span class="tracking-id" id="tracking-id">{{order.order_shipping.tracking_number}}</span>
                                 </div>
                                 <div>
                                     <span>Pricing</span>
-                                    <span>$10.85</span>
-                                </div>
-                                <div>
-                                    <span>Tracking ID</span>
-                                    <span>34026</span>
+                                    <span id="shipping-price">${{order.order_shipping.total}}</span>
                                 </div>
                             </div>
-                            <button>REPRINT LABEL</button>
+                            <button id="shipping-label-btn" onclick="openShippingLabel('{{order.order_shipping.shipping_label}}')">REPRINT LABEL</button>
                         </div>
                     </div>
                 </div>
@@ -251,6 +256,7 @@
 </body>
 {% block scripts %}
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="{% static 'Assets/customer/js/states.js' %}"></script>
 <script src="{% static 'Assets/customer/js/specificOrder.js' %}"></script>
 {% endblock %}
 </html>

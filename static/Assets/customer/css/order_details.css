@@ -335,7 +335,14 @@
     margin-bottom: 20px;
 }
 
-.order-shipping-confirmation-header > span:last-of-type {
+
+.order-shipping-confirmation-wrapper .order-shipping-confirmation-header > #generate-div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.order-shipping-confirmation-wrapper .order-shipping-confirmation-header > #generate-div .label-text {
     color: #000093;
     text-align: right;
     leading-trim: both;

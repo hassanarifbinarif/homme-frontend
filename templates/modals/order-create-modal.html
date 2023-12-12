@@ -24,10 +24,6 @@
                         <input type="text" placeholder="First Name" name="first_name" id="" />
                         <input type="text" placeholder="Last Name" name="last_name" id="" />
                     </div>
-                    <!-- <div class="registration-check">
-                        <input type="checkbox" name="registration_status" id="registration-status-checkbox" />
-                        <span>Not a registered Customer</span>
-                    </div> -->
                     <div class="selection-div">
                         <input type="text" placeholder="Search Product" name="product" id="product-field" />
                         <div class="filter-dropdown" id="product-dropdown">
@@ -85,7 +81,13 @@
                         <input type="text" oninput="getShippingDetails();" placeholder="Street Address" name="address" id="" />
                         <div class="group-inputs">
                             <input type="text" oninput="getShippingDetails();" placeholder="City" name="city" id="" />
-                            <input type="text" oninput="getShippingDetails();" placeholder="State" name="state" id="" />
+                            <div class="selection-div">
+                                <input type="text" placeholder="State" name="state" id="states-field" />
+                                <div class="filter-dropdown" id="states-dropdown">
+                                    <span class="hide" id="no-state-text">No State</span>
+                                </div>
+                            </div>
+                            <!-- <input type="text" oninput="getShippingDetails();" placeholder="State" name="state" id="" /> -->
                         </div>
                         <div class="group-inputs">
                             <input type="number" oninput="getShippingDetails();" placeholder="ZIP" name="zip_code" id="" />

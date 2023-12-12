@@ -130,7 +130,7 @@
                     <span>0</span>
                 </div>
             </td>
-            <td class="cursor-pointer" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonDetail">
+            <td class="cursor-pointer" onclick="event.stopPropagation(); openSalonDetailModal('{{obj.salon_name|safe}}', '{{obj.partnership_application}}');">
                 <div>
                     <span>Approved</span>
                 </div>

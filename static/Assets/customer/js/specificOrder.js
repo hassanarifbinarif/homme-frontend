@@ -31,6 +31,311 @@ async function printPackingSlip(id) {
 }
 
 
+function openShippingLabel(base64Image) {
+    const newTabDocument = document.implementation.createHTMLDocument();
+    const imgElement = newTabDocument.createElement("img");
+
+    imgElement.src = "data:image/png;base64," + base64Image;
+
+    newTabDocument.body.appendChild(imgElement);
+
+    const newTab = window.open();
+    newTab.document.write(newTabDocument.documentElement.outerHTML);
+}
+
+
+let generateLabelBtn = document.getElementById('generate-label-btn');
+let userName = null;
+let userPhone = null;
+let userEmail = null;
+let generateLabelData = {};
+let orderId = null;
+
+async function openGenerateShippingLabelModal(orderID, firstName, lastName, phone, email, address, city, state, zipcode, simple_rate_size) {
+    orderId = orderID;
+    userName = `${firstName} ${lastName}`;
+    userPhone = phone;
+    userEmail = email;
+    let modal = document.getElementById('orderShippingLabel');
+    let errorDiv = document.querySelector('.error-div');
+    let errorMsg = document.querySelector('.generate-error-msg');
+    let form = modal.querySelector('form');
+    form.setAttribute('onsubmit', "generateShippingLabelForm(event)");
+    let generateLabelLoader = document.getElementById('generate-loader');
+    try {
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
+        errorDiv.classList.add('hide');
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+        generateLabelData = {
+            address: address,
+            city: city,
+            state: getStateCode(state),
+            zipcode: zipcode,
+            simple_rate_size: simple_rate_size
+        };
+        generateLabelLoader.classList.remove('hide');
+        generateLabelBtn.style.pointerEvents = 'none';
+        let response = await requestAPI(`${apiURL}/admin/shippings/ups/rating`, JSON.stringify(generateLabelData), headers, 'POST');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                let shippingSpeedsWrapper = document.getElementById('shipping-speeds');
+                shippingSpeedsWrapper.innerHTML = '';
+                res.data.forEach((shippingType, index) => {
+                    shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
+                                                            <div>
+                                                                <input type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                                <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
+                                                            </div>
+                                                            <span>$${shippingType.total_charges.monetary_value}</span>
+                                                        </div>`;
+                })
+                document.getElementById('modal-shipping-price-field').innerText = '$' + res.data[0].total_charges.monetary_value;
+                initializeShippingSpeeds();
+                document.getElementById('generate-btn').style.pointerEvents = 'auto';
+                document.getElementById('refresh-costs-btn').setAttribute('onclick', `refreshShippingCosts(this, '${address}', '${city}', '${state}', '${zipcode}');`);
+                document.querySelector('.label-error-div').classList.add('hide');
+                document.querySelector('.label-error-msg').classList.remove('active');
+                document.querySelector('.label-error-msg').innerHTML = '';
+                modal.addEventListener('hidden.bs.modal', event => {
+                    form.reset();
+                    form.removeAttribute('onsubmit');
+                    shippingSpeedsWrapper.innerHTML = '';
+                    document.getElementById('generate-btn').style.pointerEvents = 'auto';
+                    document.getElementById('refresh-costs-btn').removeAttribute('onclick');
+                    document.querySelector('.label-error-div').classList.add('hide');
+                    document.querySelector('.label-error-msg').classList.remove('active');
+                    document.querySelector('.label-error-msg').innerHTML = '';
+                    document.getElementById('modal-tracker-field').innerText = 'N/A';
+                    document.getElementById('modal-shipping-price-field').innerText = '$0';
+                    userName = null;
+                    userPhone = null;
+                    userEmail = null;
+                    generateLabelData = {};
+                    orderID = null;
+                })
+                document.querySelector('.orderShippingLabel').click();
+            }
+            else if (response.status == 400) {
+                errorDiv.classList.remove('hide');
+                errorMsg.classList.add('active');
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                })
+            }
+            generateLabelLoader.classList.add('hide');
+            generateLabelBtn.style.pointerEvents = 'auto';
+        })
+    }
+    catch (err) {
+        generateLabelLoader.classList.add('hide');
+        generateLabelBtn.style.pointerEvents = 'auto';
+        console.log(err);
+    }
+}
+
+
+function getStateCode(stateName) {
+    let stateCode = stateName;
+    statesList.forEach((state) => {
+        if (state.name.toLowerCase() == stateName.toLowerCase() || state.abbreviation.toLowerCase() == stateName.toLowerCase()) {
+            stateCode =  state.abbreviation;
+        }
+    })
+    return stateCode;
+}
+
+
+function initializeShippingSpeeds() {
+    let shippingSpeedInputs = document.querySelectorAll('input[name="service_type"]');
+    shippingSpeedInputs.forEach((radioInput) => {
+        radioInput.addEventListener('change', function() {
+            document.querySelectorAll('input[name="service_type"]').forEach((input) => {
+                let inputWrapper = input.closest('.shipping-type');
+                if (input.checked) {
+                    inputWrapper.classList.remove('opacity-point-3-5');
+                    document.getElementById('modal-shipping-price-field').innerText = '$' + input.getAttribute('data-cost');
+                }
+                else {
+                    inputWrapper.classList.add('opacity-point-3-5');
+                }
+            })
+        })
+    })
+}
+
+
+async function refreshShippingCosts(element, address, city, state, zipcode) {
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": 'application/json'
+    };
+    let selectedRateSize = 'S';
+    document.querySelectorAll('input[name="simple_rate_size"]').forEach((input) => {
+        if (input.checked)
+            selectedRateSize = input.value;
+    })
+    generateLabelData = {
+        address: address,
+        city: city,
+        state: getStateCode(state),
+        zipcode: zipcode,
+        simple_rate_size: selectedRateSize
+    };
+    element.classList.add('divToRotate');
+    let response = await requestAPI(`${apiURL}/admin/shippings/ups/rating`, JSON.stringify(generateLabelData), headers, 'POST');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            let shippingSpeedsWrapper = document.getElementById('shipping-speeds');
+            shippingSpeedsWrapper.innerHTML = '';
+            res.data.forEach((shippingType, index) => {
+                shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
+                                                        <div>
+                                                            <input type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                            <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
+                                                        </div>
+                                                        <span>$${shippingType.total_charges.monetary_value}</span>
+                                                    </div>`;
+            })
+            document.getElementById('modal-shipping-price-field').innerText = '$' + res.data[0].total_charges.monetary_value;
+            initializeShippingSpeeds();
+        }
+        element.classList.remove('divToRotate');
+    })
+}
+
+
+async function generateShippingLabelForm(event) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+    let errorDiv = form.querySelector('.label-error-div');
+    let errorMsg = form.querySelector('.label-error-msg');
+
+    data.address = generateLabelData.address;
+    data.city = generateLabelData.city;
+    data.state = generateLabelData.state;
+    data.zipcode = generateLabelData.zipcode;
+    data.to_name = userName;
+    data.to_phone = userPhone;
+    data.to_email = userEmail;
+
+    if (data.simple_rate_size.toLowerCase() == 'custom') {
+        if (data.package_length.trim().length == 0) {
+            errorDiv.classList.remove('hide');
+            errorMsg.classList.add('active');
+            errorMsg.innerText = 'Length required';
+            return false;
+        }
+        if (data.package_width.trim().length == 0) {
+            errorDiv.classList.remove('hide');
+            errorMsg.classList.add('active');
+            errorMsg.innerText = 'Width required';
+            return false;
+        }
+        if (data.package_height.trim().length == 0) {
+            errorDiv.classList.remove('hide');
+            errorMsg.classList.add('active');
+            errorMsg.innerText = 'Depth required';
+            return false;
+        }
+    }
+    else {
+        delete data.package_length;
+        delete data.package_width;
+        delete data.package_height;
+        delete data.packaging_type;
+    }
+    try {
+        errorDiv.classList.add('hide');
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/shippings/ups/shipping`, JSON.stringify(data), headers, 'POST');
+        response.json().then(async function(res) {
+            if (response.status == 200) {
+                document.getElementById('modal-tracker-field').innerText = res.data.tracking_number;
+                document.getElementById('modal-shipping-price-field').innerText = '$' + res.data.total;
+                document.getElementById('before-label').classList.add('hide');
+                document.getElementById('shipping-speed').innerText = res.data.service_type_name;
+                document.getElementById('tracking-id').innerText = res.data.tracking_number;
+                document.getElementById('shipping-price').innerText = res.data.total;
+                document.getElementById('shipping-label-btn').setAttribute('onclick', `openShippingLabel('${res.data.shipping_label}')`);
+                document.getElementById('after-label').classList.remove('hide');
+                
+                button.style.pointerEvents = 'none';
+                document.getElementById('refresh-costs-btn').removeAttribute('onclick');
+                form.removeAttribute('onsubmit');
+                let patchOrderResponse = await requestAPI(`${apiURL}/admin/orders/${orderId}`, JSON.stringify({"order_shipping": res.data.id}), headers, 'PATCH');
+                patchOrderResponse.json().then(function(res) {
+                    document.getElementById('resend-email-btn').setAttribute('onclick', `resendEmail(this, '${orderId}')`);
+                    if (patchOrderResponse.status == 200) {
+                        afterLoad(button, 'GENERATED');
+                    }
+                })
+            }
+            else {
+                let keys = Object.keys(res.messages);
+                errorMsg.classList.add('active');
+                errorDiv.classList.remove('hide');
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                })
+                afterLoad(button, 'ERROR');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
+    }
+}
+
+
+async function resendEmail(button, id) {
+    let buttonText = button.innerText;
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/orders/${id}/resend-shipping-confirmation`, null, headers, 'POST');
+        if (response.status == 200) {
+            afterLoad(button, 'EMAIL RESENT');
+        }
+        else {
+            afterLoad(button, 'ERROR');
+            setTimeout(() => {
+                afterLoad(button, 'RESEND EMAIL');
+            }, 2000)
+        }
+    }
+    catch (err) {
+        afterLoad(button, 'ERROR');
+        setTimeout(() => {
+            afterLoad(button, 'RESEND EMAIL');
+        }, 2000)
+        console.log(err);
+    }
+}
+
+
 function convertDateTime() {
     let times = document.querySelectorAll('.time-value');
     times.forEach((dateTime) => {

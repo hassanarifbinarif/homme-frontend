@@ -1,6 +1,7 @@
 #salonDetail .modal-dialog {
     max-width: unset;
     width: 1023px;
+    justify-content: center;
 }
 
 #salonDetail .modal-header {
@@ -28,7 +29,7 @@
     border-radius: 0px!important;
 }
 
-#salonDetail .modal-header > span {
+#salonDetail .modal-header > div span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -39,8 +40,9 @@
     line-height: 10px;
 }
 
-#salonDetail .modal-header > span .salon-current-status {
+#salonDetail .modal-header > div > .salon-current-status {
     font-size: .75rem;
+    font-family: Gotham Book;
 }
 
 #salonDetail .modal-body {
@@ -395,6 +397,27 @@
     letter-spacing: 2.4px;
 }
 
+#salonDetail .loader {
+    width: 60px!important;
+    height: 60px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#salonDetail .partnership-none {
+    padding: 10px 0px;
+}
+
+#salonDetail .partnership-none > span {
+    color: var(--Black, #030706);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+}
 
 
 #salonDetail .filter-btn {

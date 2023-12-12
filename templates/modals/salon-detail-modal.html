@@ -4,14 +4,19 @@
     aria-labelledby="salonDetailLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <form>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
-                    <span>Redge NYC <span class="salon-current-status">(Registered)</span></span>
+                    <div>
+                        <span id="header-salon-name">Redge NYC</span>
+                        <span class="salon-current-status" id="salon-current-status">(Registered)</span>
+                    </div>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
                         <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                </div>
+                <div class="partnership-none hide" id="partnership-none">
+                    <span>Salon has not filled the application</span>
                 </div>
                 <div class="modal-body">
                     <div class="general-info-wrapper">
@@ -24,7 +29,7 @@
                                     <span class="opacity-point-6">Name</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>Chris Sander</span>
+                                    <span id="general-info-name">Chris Sander</span>
                                 </div>
                             </div>
                             <div class="phone-div">
@@ -32,7 +37,7 @@
                                     <span class="opacity-point-6">Phone Number</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>+1 212-577-4747</span>
+                                    <span id="general-info-phone">+1 212-577-4747</span>
                                 </div>
                             </div>
                             <div class="email-div">
@@ -40,7 +45,7 @@
                                     <span class="opacity-point-6">Email Address</span>
                                 </div>
                                 <div>
-                                    <span>mathias@hommeproduct.com</span>
+                                    <span id="general-info-email">mathias@hommeproduct.com</span>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +60,7 @@
                                     <span class="opacity-point-6">Full Legal Name</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>Chris Sander</span>
+                                    <span id="entity-info-name">Chris Sander</span>
                                 </div>
                             </div>
                             <div class="phone-div">
@@ -63,7 +68,7 @@
                                     <span class="opacity-point-6">Doing Business As (DBA)</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>REDGE Salon</span>
+                                    <span id="entity-info-business-name">REDGE Salon</span>
                                 </div>
                             </div>
                             <div class="tax-id-div">
@@ -71,7 +76,7 @@
                                     <span class="opacity-point-6">Tax Payer ID</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>12-2176480</span>
+                                    <span id="entity-info-tax-id">12-2176480</span>
                                 </div>
                             </div>
                             <div class="street-div">
@@ -79,7 +84,7 @@
                                     <span class="opacity-point-6">Dunn & Bradstreet Number</span>
                                 </div>
                                 <div>
-                                    <span>35-1472659</span>
+                                    <span id="entity-info-dunn-brad-number">35-1472659</span>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +99,7 @@
                                     <span class="opacity-point-6">Address 1</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>775 Rolling Green Rd.</span>
+                                    <span id="legal-address-1">775 Rolling Green Rd.</span>
                                 </div>
                             </div>
                             <div class="address-2-div">
@@ -102,7 +107,7 @@
                                     <span class="opacity-point-6">Address 2</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>650 Main St.</span>
+                                    <span id="legal-address-2">650 Main St.</span>
                                 </div>
                             </div>
                             <div class="city-div">
@@ -110,7 +115,7 @@
                                     <span class="opacity-point-6">City</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>New York</span>
+                                    <span id="legal-city">New York</span>
                                 </div>
                             </div>
                             <div class="state-div">
@@ -118,7 +123,7 @@
                                     <span class="opacity-point-6">State</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>NY</span>
+                                    <span id="legal-state">NY</span>
                                 </div>
                             </div>
                             <div class="zip-div">
@@ -126,7 +131,7 @@
                                     <span class="opacity-point-6">ZIP</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>10005</span>
+                                    <span id="legal-zipcode">10005</span>
                                 </div>
                             </div>
                             <div class="country-div">
@@ -134,7 +139,7 @@
                                     <span class="opacity-point-6">Country</span>
                                 </div>
                                 <div>
-                                    <span>USA</span>
+                                    <span id="legal-country">USA</span>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +200,7 @@
                                     <span class="opacity-point-6">Address 1</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>775 Rolling Green Rd.</span>
+                                    <span id="salon-addr-1">775 Rolling Green Rd.</span>
                                 </div>
                             </div>
                             <div class="address-2-div">
@@ -203,7 +208,7 @@
                                     <span class="opacity-point-6">Address 2</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>650 Main St.</span>
+                                    <span id="salon-addr-2">650 Main St.</span>
                                 </div>
                             </div>
                             <div class="city-div">
@@ -211,7 +216,7 @@
                                     <span class="opacity-point-6">City</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>New York</span>
+                                    <span id="salon-addr-city">New York</span>
                                 </div>
                             </div>
                             <div class="state-div">
@@ -219,7 +224,7 @@
                                     <span class="opacity-point-6">State</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>NY</span>
+                                    <span id="salon-addr-state">NY</span>
                                 </div>
                             </div>
                             <div class="zip-div">
@@ -227,7 +232,7 @@
                                     <span class="opacity-point-6">ZIP</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>10005</span>
+                                    <span id="salon-addr-zipcode">10005</span>
                                 </div>
                             </div>
                             <div class="country-div">
@@ -235,7 +240,7 @@
                                     <span class="opacity-point-6">Country</span>
                                 </div>
                                 <div>
-                                    <span>USA</span>
+                                    <span id="salon-addr-country">USA</span>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +255,7 @@
                                     <span class="opacity-point-6">Name</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>Chris Sander</span>
+                                    <span id="payment-info-name">Chris Sander</span>
                                 </div>
                             </div>
                             <div class="phone-div">
@@ -258,7 +263,7 @@
                                     <span class="opacity-point-6">Account Type</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>ACH</span>
+                                    <span id="payment-info-account-type">ACH</span>
                                 </div>
                             </div>
                             <div class="tax-id-div">
@@ -266,7 +271,7 @@
                                     <span class="opacity-point-6">Bank</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>Chase</span>
+                                    <span id="payment-info-bank">Chase</span>
                                 </div>
                             </div>
                             <div class="routing-num-div">
@@ -274,7 +279,7 @@
                                     <span class="opacity-point-6">Routing Number</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>1547321</span>
+                                    <span id="payment-info-routing-number">1547321</span>
                                 </div>
                             </div>
                             <div class="account-num-div">
@@ -282,7 +287,7 @@
                                     <span class="opacity-point-6">Account Number</span>
                                 </div>
                                 <div>
-                                    <span>4585 2548 1472 3549</span>
+                                    <span id="payment-info-account-number">4585 2548 1472 3549</span>
                                 </div>
                             </div>
                         </div>
@@ -302,34 +307,31 @@
                             </button>
                             <div class="filter-dropdown" id="status-type-dropdown">
                                 <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-registered" data-id="1" type="radio" value="Registered" name="status_type_radio" />
-                                    <label for="status-type-registered" class="radio-label">Registered</label>
-                                </div>
-                                <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-approved" data-id="1" type="radio" value="Approved" name="status_type_radio" />
+                                    <input onchange="selectStatusType(event);" id="status-type-approved" data-id="1" type="radio" value="approved" name="status" />
                                     <label for="status-type-approved" class="radio-label">Approved</label>
                                 </div>
                                 <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-pending" data-id="3" type="radio" value="Pending" name="status_type_radio" />
+                                    <input onchange="selectStatusType(event);" id="status-type-pending" data-id="2" type="radio" value="pending" name="status" />
                                     <label for="status-type-pending" class="radio-label">Pending</label>
                                 </div>
                                 <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-rejected" data-id="4" type="radio" value="Rejected" name="status_type_radio" />
+                                    <input onchange="selectStatusType(event);" id="status-type-rejected" data-id="3" type="radio" value="rejected" name="status" />
                                     <label for="status-type-rejected" class="radio-label">Rejected</label>
-                                </div>
-                                <div class="radio-btn">
-                                    <input onchange="selectStatusType(event);" id="status-type-active" data-id="5" type="radio" value="Active" name="status_type_radio" />
-                                    <label for="status-type-active" class="radio-label">Active</label>
                                 </div>
                             </div>
                         </div>
-                        <input type="text" name="note" placeholder="Add Note...." />
-                        <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
-                            Save
+                        <input type="text" name="admin_comment" placeholder="Add Note...." />
+                        <button class="submit-btn" type="submit">
+                            <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                            <span class="btn-text">SAVE</span>
                         </button>
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="w-100 d-flex justify-content-center align-items-center pt-2 pb-2 loader hide">
+            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status"
+                aria-hidden="true"></span>
         </div>
     </div>
 </div>

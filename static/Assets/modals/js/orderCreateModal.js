@@ -4,8 +4,11 @@ let customerField = document.getElementById('customer-field');
 let productDropdown = document.getElementById('product-dropdown');
 let productField = document.getElementById('product-field');
 let productTotalWrapper = document.getElementById('product-totals-wrapper');
-
 let addedProductsWrapper = document.getElementById('added-products-wrapper');
+
+let statesDropdown = document.getElementById('states-dropdown');
+let statesField = document.getElementById('states-field');
+let selectedState = null;
 
 let subTotal = document.getElementById('selected-products-subtotal');
 let grandTotal = document.getElementById('selected-products-grand-total');
@@ -22,8 +25,26 @@ let base64Image = null;
 
 let orderData = {
     products: [],
-    shipping_address: null,
-    billing_address: null,
+    shipping_address: {
+        first_name: "",
+        last_name: "",
+        address: "",
+        phone: "",
+        city: "",
+        country: "",
+        zip_code: "",
+        state: ""
+    },
+    billing_address: {
+        first_name: "",
+        last_name: "",
+        address: "",
+        phone: "",
+        city: "",
+        country: "",
+        zip_code: "",
+        state: ""
+    },
     pickup_type: "ship",
     is_preview: true,
     user: null
@@ -46,7 +67,6 @@ async function populateDropdowns() {
                                                                 <input onchange="selectCustomer(event);" id="cust-${customer.user.id}" type="radio" value="${customer.user.id}" name="customer_radio" />
                                                                 <label for="cust-${customer.user.id}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
                                                             </div>`);
-            // customerDropdown.innerHTML += 
         })
     })
     response.json().then(function(res) {
@@ -57,6 +77,12 @@ async function populateDropdowns() {
                                             <label for="prod-${product.id}" class="radio-label">${product.title}</label>
                                         </div>`;
         });
+    })
+    statesList.forEach((state, index) => {
+        statesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
+                                                            <input onchange="selectState(this);" id="state-${index}" type="radio" value="${state.abbreviation}" name="state_radio" />
+                                                            <label for="state-${index}" class="radio-label">${state.name}</label>
+                                                        </div>`)
     })
 }
 
@@ -172,6 +198,10 @@ function selectCustomer(event) {
         selectedCustomer = customerData.filter(customer => customer.user.id == inputElement.value)[0];
         let customerDetails = customerData.filter(customer => customer.user.id == inputElement.value).map(customer => customer.shipping_address);
         if (customerDetails[0]) {
+            statesList.forEach((state) => {
+                if (state.name.toLowerCase() == customerDetails[0].state.toLowerCase())
+                    selectedState = state.abbreviation;
+            })
             orderData.shipping_address = {
                 first_name: customerDetails[0].first_name,
                 last_name: customerDetails[0].last_name,
@@ -215,6 +245,7 @@ customerField.addEventListener('blur', function(event) {
 customerField.addEventListener('input', function() {
     let filteredCustomer = [];
     filteredCustomer = customerData.filter(customer => customer.full_name.toLowerCase().includes(this.value.toLowerCase())).map((customer => customer.user.id));
+    console.log(filteredCustomer);
     if (filteredCustomer.length == 0) {
         document.getElementById('no-customer-text').classList.remove('hide');
         document.querySelectorAll('.customer-item-list').forEach((item) => item.classList.add('hide'));
@@ -224,6 +255,47 @@ customerField.addEventListener('input', function() {
         document.querySelectorAll('.customer-item-list').forEach((item) => {
             let itemID = item.getAttribute('data-id');
             if (filteredCustomer.includes(parseInt(itemID, 10))) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+})
+
+
+function selectState(inputField) {
+    if (inputField.checked) {
+        statesField.value = inputField.nextElementSibling.innerText;
+        orderData.shipping_address.state = inputField.nextElementSibling.innerText; 
+        selectedState = inputField.value;
+    }
+    orderCreate();
+}
+
+statesField.addEventListener('focus', function() {
+    statesDropdown.style.display = 'flex';
+})
+
+statesField.addEventListener('blur', function(event) {
+    setTimeout(() => {
+        statesDropdown.style.display = 'none';
+    }, 200);
+})
+
+statesField.addEventListener('input', function() {
+    let filteredState = [];
+    filteredState = statesList.filter(state => state.name.toLowerCase().includes(this.value.toLowerCase())).map(state => state.id);
+    if (filteredState.length == 0) {
+        document.getElementById('no-state-text').classList.remove('hide');
+        document.querySelectorAll('.state-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-state-text').classList.add('hide');
+        document.querySelectorAll('.state-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredState.includes(parseInt(itemID, 10))) {
                 item.classList.remove('hide');
             }
             else {
@@ -327,16 +399,35 @@ async function openCreateOrderModal(modalId) {
 
     orderData = {
         products: [],
-        shipping_address: null,
-        billing_address: null,
+        shipping_address: {
+            first_name: "",
+            last_name: "",
+            address: "",
+            phone: "",
+            city: "",
+            country: "",
+            zip_code: "",
+            state: ""
+        },
+        billing_address: {
+            first_name: "",
+            last_name: "",
+            address: "",
+            phone: "",
+            city: "",
+            country: "",
+            zip_code: "",
+            state: ""
+        },
         pickup_type: "ship",
         is_preview: true,
         user: null,
     };
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
+        selectedState = null;
         generateDiv.classList.remove('hide');
-        generateDiv.classList.add('opacity-point-3-5');
+        generateLabelBtn.classList.add('opacity-point-3-5');
         generateLabelBtn.removeAttribute('onclick');
         generateLabelBtn.removeAttribute('title');
         labelDiv.removeAttribute('onclick');
@@ -382,7 +473,6 @@ function getShippingDetails() {
 }
 
 async function orderCreate(event) {
-    // event.preventDefault();
     let errorMsg = document.querySelector('.create-error-msg');
     let button = document.querySelector('#order-submit-btn');
     let data = JSON.parse(JSON.stringify(orderData));
@@ -397,7 +487,7 @@ async function orderCreate(event) {
         "Authorization": `Bearer ${token}`
     };
     // console.log(data);
-    if (data.shipping_address == null || data.shipping_address.address.trim().length == 0 || data.shipping_address.city.trim().length == "" || selectedCustomer.shipping_address.state.trim().length == 0 || data.shipping_address.zip_code == "" || data.shipping_address.country.trim().length == 0) {
+    if (data.shipping_address == null || data.shipping_address.address.trim().length == 0 || data.shipping_address.city.trim().length == "" || data.shipping_address.state.trim().length == 0 || data.shipping_address.zip_code == "" || data.shipping_address.country.trim().length == 0) {
         generateLabelBtn.classList.add('opacity-point-3-5');
         generateLabelBtn.removeAttribute('onclick');
         generateLabelBtn.setAttribute('title', 'Complete all shipping details');
@@ -423,6 +513,8 @@ async function orderCreate(event) {
             errorMsg.innerHTML = 'Complete all fields of shipping details';
             return false;
         }
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
         beforeLoad(button);
     }
     let response = await requestAPI(`${apiURL}/admin/orders`, JSON.stringify(data), headers, 'POST');
@@ -431,7 +523,7 @@ async function orderCreate(event) {
         if (response.status == 201) {
             if (data.is_preview == false) {
                 getData();
-                afterLoad(button, 'Created');
+                afterLoad(button, 'CREATED');
                 setTimeout(()=> {
                     afterLoad(button, 'CREATE');
                     document.querySelector(`.orderCreate`).click();
@@ -474,10 +566,10 @@ async function openGenerateShippingLabelModal(modalID) {
             "Authorization": `Bearer ${token}`,
             "Content-Type": 'application/json'
         };
-        let generateLabelData = {
+        generateLabelData = {
             address: orderData.shipping_address.address,
             city: orderData.shipping_address.city,
-            state: orderData.shipping_address.state,
+            state: selectedState,
             zipcode: orderData.shipping_address.zip_code,
             simple_rate_size: 'S'
         };
@@ -491,12 +583,13 @@ async function openGenerateShippingLabelModal(modalID) {
                 res.data.forEach((shippingType, index) => {
                     shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
                                                             <div>
-                                                                <input type="radio" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                                <input type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
                                                                 <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
                                                             </div>
-                                                            <span>${shippingType.transportation_charges.monetary_value}</span>
+                                                            <span>$${shippingType.total_charges.monetary_value}</span>
                                                         </div>`;
                 })
+                document.getElementById('modal-shipping-price-field').innerText = '$' + res.data[0].total_charges.monetary_value;
                 initializeShippingSpeeds();
                 document.getElementById('generate-btn').style.pointerEvents = 'auto';
                 document.getElementById('refresh-costs-btn').setAttribute('onclick', "refreshShippingCosts(this);");
@@ -568,6 +661,7 @@ function initializeShippingSpeeds() {
                 let inputWrapper = input.closest('.shipping-type');
                 if (input.checked) {
                     inputWrapper.classList.remove('opacity-point-3-5');
+                    document.getElementById('modal-shipping-price-field').innerText = '$' + input.getAttribute('data-cost');
                 }
                 else {
                     inputWrapper.classList.add('opacity-point-3-5');
@@ -591,7 +685,7 @@ async function generateShippingLabelForm(event) {
 
     data.address = orderData.shipping_address.address;
     data.city = orderData.shipping_address.city;
-    data.state = orderData.shipping_address.state;
+    data.state = selectedState;
     data.zipcode = orderData.shipping_address.zip_code;
     data.to_name = selectedCustomer.full_name;
     data.to_phone = selectedCustomer.user.phone;
@@ -604,7 +698,6 @@ async function generateShippingLabelForm(event) {
             return false;
         }
         if (data.package_width.trim().length == 0) {
-            console.log('Width required');
             errorDiv.classList.remove('hide');
             errorMsg.classList.add('active');
             errorMsg.innerText = 'Width required';
@@ -639,6 +732,8 @@ async function generateShippingLabelForm(event) {
                 orderData.order_shipping = res.data.id;
                 document.getElementById('modal-tracker-field').innerText = res.data.tracking_number;
                 document.getElementById('modal-shipping-price-field').innerText = '$' + res.data.total;
+                document.getElementById('shipping-cost').value = roundDecimalPlaces(res.data.total);
+                orderData.shipping = roundDecimalPlaces(res.data.total);
                 base64Image = res.data.shipping_label;
                 document.getElementById('generate-div').classList.add('hide');
                 document.getElementById('label-div').classList.remove('hide');
@@ -647,6 +742,7 @@ async function generateShippingLabelForm(event) {
                 button.style.pointerEvents = 'none';
                 document.getElementById('refresh-costs-btn').removeAttribute('onclick');
                 form.removeAttribute('onsubmit');
+                orderCreate();
             }
             else {
                 let keys = Object.keys(res.messages);
@@ -668,17 +764,11 @@ async function generateShippingLabelForm(event) {
 
 function openShippingLabel() {
     const newTabDocument = document.implementation.createHTMLDocument();
-
-    // Create an image element
+    
     const imgElement = newTabDocument.createElement("img");
-
-    // Set the base64 string as the source of the image
     imgElement.src = "data:image/png;base64," + base64Image;
-
-    // Append the image element to the body of the new document
     newTabDocument.body.appendChild(imgElement);
 
-    // Create a new window or tab and open the document
     const newTab = window.open();
     newTab.document.write(newTabDocument.documentElement.outerHTML);
 }
@@ -695,7 +785,7 @@ async function refreshShippingCosts(element) {
         if (input.checked)
             selectedRateSize = input.value;
     })
-    let generateLabelData = {
+    generateLabelData = {
         address: orderData.shipping_address.address,
         city: orderData.shipping_address.city,
         state: orderData.shipping_address.state,
@@ -711,12 +801,13 @@ async function refreshShippingCosts(element) {
             res.data.forEach((shippingType, index) => {
                 shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
                                                         <div>
-                                                            <input type="radio" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                            <input type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
                                                             <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
                                                         </div>
-                                                        <span>${shippingType.transportation_charges.monetary_value}</span>
+                                                        <span>$${shippingType.total_charges.monetary_value}</span>
                                                     </div>`;
             })
+            document.getElementById('modal-shipping-price-field').innerText = '$' + res.data[0].total_charges.monetary_value;
             initializeShippingSpeeds();
         }
         element.classList.remove('divToRotate');
