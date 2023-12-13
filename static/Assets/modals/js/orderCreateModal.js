@@ -764,13 +764,19 @@ async function generateShippingLabelForm(event) {
 
 function openShippingLabel() {
     const newTabDocument = document.implementation.createHTMLDocument();
-    
     const imgElement = newTabDocument.createElement("img");
-    imgElement.src = "data:image/png;base64," + base64Image;
-    newTabDocument.body.appendChild(imgElement);
 
+    imgElement.src = "data:image/png;base64," + base64Image;
+    imgElement.style.transform = 'rotate(90deg)';
+    imgElement.style.position = 'absolute';
+    imgElement.style.top = '650px';
+
+    newTabDocument.body.appendChild(imgElement);
     const newTab = window.open();
     newTab.document.write(newTabDocument.documentElement.outerHTML);
+    setTimeout(() => {
+        newTab.print();
+    }, 1000)
 }
 
 

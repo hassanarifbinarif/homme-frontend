@@ -74,6 +74,41 @@ function sortByAlphabets(event, columnIndex) {
 }
 
 
+function extractNumber(value) {
+    const match = value.match(/\d+/);
+    return match ? parseFloat(match[0]) : 0;
+}
+
+function sortByOrder(event, columnIndex) {
+    const columnArrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("salon-table");
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
+
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = extractNumber(rowA.getElementsByTagName("td")[columnIndex].textContent);
+        const y = extractNumber(rowB.getElementsByTagName("td")[columnIndex].textContent);
+
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
+
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    columnArrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    columnArrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
+}
+
+
 function reverseTableRows() {
     const table = document.getElementById('salon-table');
     const tableBody = table.querySelector('tbody');

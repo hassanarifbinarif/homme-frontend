@@ -179,14 +179,14 @@
     border-top: none;
 }
 
-.order-details-wrapper .order-details-filters > div {
+.order-details-wrapper .order-details-filters > form {
     display: flex;
     align-items: center;
     position: relative;
     width: 681px;
 }
 
-.order-details-wrapper .order-details-filters > div > input {
+.order-details-wrapper .order-details-filters > form > input {
     width: 100%;
     height: 30px;
     font-family: Gotham Book;
@@ -198,7 +198,7 @@
     padding-right: 10px;
 }
 
-.order-details-wrapper .order-details-filters > div > svg {
+.order-details-wrapper .order-details-filters > form > svg {
     position: absolute;
     left: 5px;
 }

@@ -39,11 +39,17 @@ function openShippingLabel(base64Image) {
     const imgElement = newTabDocument.createElement("img");
 
     imgElement.src = "data:image/png;base64," + base64Image;
+    imgElement.style.transform = 'rotate(90deg)';
+    imgElement.style.position = 'absolute';
+    imgElement.style.top = '650px';
 
     newTabDocument.body.appendChild(imgElement);
-
+    // console.log(newTabDocument.documentElement.outerHTML);
     const newTab = window.open();
     newTab.document.write(newTabDocument.documentElement.outerHTML);
+    setTimeout(() => {
+        newTab.print();
+    }, 1000)
 }
 
 
