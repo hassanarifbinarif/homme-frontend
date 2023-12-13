@@ -245,7 +245,6 @@ customerField.addEventListener('blur', function(event) {
 customerField.addEventListener('input', function() {
     let filteredCustomer = [];
     filteredCustomer = customerData.filter(customer => customer.full_name.toLowerCase().includes(this.value.toLowerCase())).map((customer => customer.user.id));
-    console.log(filteredCustomer);
     if (filteredCustomer.length == 0) {
         document.getElementById('no-customer-text').classList.remove('hide');
         document.querySelectorAll('.customer-item-list').forEach((item) => item.classList.add('hide'));
@@ -397,32 +396,6 @@ async function openCreateOrderModal(modalId) {
     let generateDiv = modal.querySelector('#generate-div');
     let labelDiv = modal.querySelector('#label-div');
 
-    orderData = {
-        products: [],
-        shipping_address: {
-            first_name: "",
-            last_name: "",
-            address: "",
-            phone: "",
-            city: "",
-            country: "",
-            zip_code: "",
-            state: ""
-        },
-        billing_address: {
-            first_name: "",
-            last_name: "",
-            address: "",
-            phone: "",
-            city: "",
-            country: "",
-            zip_code: "",
-            state: ""
-        },
-        pickup_type: "ship",
-        is_preview: true,
-        user: null,
-    };
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         selectedState = null;
@@ -440,6 +413,32 @@ async function openCreateOrderModal(modalId) {
         shippingCost.value = 0;
         totalTax.innerText = 'Not Calculated';
         grandTotal.innerText = '$0';
+        orderData = {
+            products: [],
+            shipping_address: {
+                first_name: "",
+                last_name: "",
+                address: "",
+                phone: "",
+                city: "",
+                country: "",
+                zip_code: "",
+                state: ""
+            },
+            billing_address: {
+                first_name: "",
+                last_name: "",
+                address: "",
+                phone: "",
+                city: "",
+                country: "",
+                zip_code: "",
+                state: ""
+            },
+            pickup_type: "ship",
+            is_preview: true,
+            user: null,
+        };
     })
     document.querySelector(`.${modalId}`).click();
 }
@@ -486,7 +485,6 @@ async function orderCreate(event) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
     };
-    // console.log(data);
     if (data.shipping_address == null || data.shipping_address.address.trim().length == 0 || data.shipping_address.city.trim().length == "" || data.shipping_address.state.trim().length == 0 || data.shipping_address.zip_code == "" || data.shipping_address.country.trim().length == 0) {
         generateLabelBtn.classList.add('opacity-point-3-5');
         generateLabelBtn.removeAttribute('onclick');
@@ -543,7 +541,7 @@ async function orderCreate(event) {
                 keys.forEach((key) => {
                     // console.log(key);
                     errorMsg.classList.add('active');
-                    errorMsg.innerHTML += `${key}: ${res.messages[key]}. <br />`;
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
                 })
                 afterLoad(button, 'Error');
             }
@@ -730,6 +728,7 @@ async function generateShippingLabelForm(event) {
         response.json().then(function(res) {
             if (response.status == 200) {
                 orderData.order_shipping = res.data.id;
+                orderData.status = "delivered";
                 document.getElementById('modal-tracker-field').innerText = res.data.tracking_number;
                 document.getElementById('modal-shipping-price-field').innerText = '$' + res.data.total;
                 document.getElementById('shipping-cost').value = roundDecimalPlaces(res.data.total);
@@ -794,7 +793,7 @@ async function refreshShippingCosts(element) {
     generateLabelData = {
         address: orderData.shipping_address.address,
         city: orderData.shipping_address.city,
-        state: orderData.shipping_address.state,
+        state: selectedState,
         zipcode: orderData.shipping_address.zip_code,
         simple_rate_size: selectedRateSize
     };

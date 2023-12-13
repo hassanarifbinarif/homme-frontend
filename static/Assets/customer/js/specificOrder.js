@@ -179,6 +179,30 @@ function initializeShippingSpeeds() {
 }
 
 
+let boxSizeRadioBtn = document.querySelectorAll('input[name="simple_rate_size"]');
+let customSizeInputDiv = document.querySelectorAll('.input-div');
+boxSizeRadioBtn.forEach((radioBtn) => {
+    radioBtn.addEventListener('click', function() {
+        if (this.value == 'custom' || this.value == 'CUSTOM') {
+            customSizeInputDiv.forEach((div) => {
+                div.classList.remove('opacity-point-6');
+                div.querySelectorAll('input').forEach((input) => {
+                    input.readOnly = false;
+                })
+            })
+        }
+        else {
+            customSizeInputDiv.forEach((div) => {
+                div.classList.add('opacity-point-6');
+                div.querySelectorAll('input').forEach((input) => {
+                    input.readOnly = true;
+                })
+            })
+        }
+    })
+})
+
+
 async function refreshShippingCosts(element, address, city, state, zipcode) {
     let token = getCookie('admin_access');
     let headers = {
@@ -289,7 +313,7 @@ async function generateShippingLabelForm(event) {
                 button.style.pointerEvents = 'none';
                 document.getElementById('refresh-costs-btn').removeAttribute('onclick');
                 form.removeAttribute('onsubmit');
-                let patchOrderResponse = await requestAPI(`${apiURL}/admin/orders/${orderId}`, JSON.stringify({"order_shipping": res.data.id}), headers, 'PATCH');
+                let patchOrderResponse = await requestAPI(`${apiURL}/admin/orders/${orderId}`, JSON.stringify({"order_shipping": res.data.id, "status": "delivered"}), headers, 'PATCH');
                 patchOrderResponse.json().then(function(res) {
                     document.getElementById('resend-email-btn').setAttribute('onclick', `resendEmail(this, '${orderId}')`);
                     if (patchOrderResponse.status == 200) {
