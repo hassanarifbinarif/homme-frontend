@@ -1,4 +1,4 @@
-<table class="order-details-table" id="inventory-table">
+<table class="order-details-table hide" id="inventory-table">
     <thead>
         <th width="12.13%">
             <div>
@@ -65,36 +65,37 @@
         </th>
     </thead>
     <tbody>
-        <tr onclick="showInventoryDetails(this);">
+        {% for obj in inventory.data %}
+        <tr onclick="showInventoryDetails(this, {{obj.products}});">
             <td>
                 <div>
-                    <span>Fulfilled</span>
+                    <span>{{obj.status|title}}</span>
                 </div>
             </td>
             <td>
                 <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">New York, NY</span>
+                    <span class="table-text-overflow w-100" title="{{obj.salon.salon_name}}">{{obj.salon.salon_name}}</span>
+                    <span class="opacity-point-6 table-text-overflow w-100" title="{{obj.salon.address.city}}, {{obj.salon.address.state}}">{{obj.salon.address.city}}, {{obj.salon.address.state}}</span>
                 </div>
             </td>
             <td>
                 <div class="sku-cell">
-                    <span class="opacity-point-6">Face Serum, Face Wash, Hair mask, Face Tonic, Body....</span>
+                    <span class="opacity-point-6" title="{% for prod in obj.products %}{{prod.product.title}}, {% empty %}No Products{% endfor %}">{% for prod in obj.products %}{{prod.product.title}}, {% empty %}No Products{% endfor %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">$475</span>
+                    <span class="opacity-point-6">${{obj.retail_value}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">7/30</span>
+                    <span class="opacity-point-6">{{obj.movement_week}}/{{obj.movement_month}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">19 products</span>
+                    <span class="opacity-point-6">{{obj.items_count}} products</span>
                 </div>
             </td>
             <td>
@@ -103,157 +104,10 @@
                 </div>
             </td>
         </tr>
-        <tr onclick="showInventoryDetails(this);">
-            <td>
-                <div>
-                    <span>Unfulfilled</span>
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">New York, NY</span>
-                </div>
-            </td>
-            <td>
-                <div class="sku-cell">
-                    <span class="opacity-point-6">Face Serum, Face Wash, Hair mask, Face Tonic, Body....</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">7/30</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19 products</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="print-cell-text">PRINT PDF</span>
-                </div>
-            </td>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="no-record-row">No record available</td>
         </tr>
-        <tr onclick="showInventoryDetails(this);">
-            <td>
-                <div>
-                    <span>Unfulfilled</span>
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">New York, NY</span>
-                </div>
-            </td>
-            <td>
-                <div class="sku-cell">
-                    <span class="opacity-point-6">Face Serum, Face Wash, Hair mask, Face Tonic, Body....</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">7/30</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19 products</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="print-cell-text">PRINT PDF</span>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showInventoryDetails(this);">
-            <td>
-                <div>
-                    <span>Fulfilled</span>
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">New York, NY</span>
-                </div>
-            </td>
-            <td>
-                <div class="sku-cell">
-                    <span class="opacity-point-6">Face Serum, Face Wash, Hair mask, Face Tonic, Body....</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">7/30</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19 products</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="print-cell-text">PRINT PDF</span>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showInventoryDetails(this);">
-            <td>
-                <div>
-                    <span>Unfulfilled</span>
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">New York, NY</span>
-                </div>
-            </td>
-            <td>
-                <div class="sku-cell">
-                    <span class="opacity-point-6">Face Serum, Face Wash, Hair mask, Face Tonic, Body....</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">7/30</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19 products</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="print-cell-text">PRINT PDF</span>
-                </div>
-            </td>
-        </tr>
+        {% endfor %}
     </tbody>
 </table>

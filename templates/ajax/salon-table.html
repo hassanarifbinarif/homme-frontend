@@ -1,11 +1,11 @@
 <table class="order-details-table hide" id="salon-table">
     <thead>
-        <th>
+        <th width="26px">
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 1);">
+        <th width="9.8%" onclick="sortByAlphabets(event, 1);">
             <div>
                 <span>Salon Name</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -14,7 +14,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 2);">
+        <th width="12.51%" onclick="sortByAlphabets(event, 2);">
             <div>
                 <span>Location</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -23,7 +23,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 3);">
+        <th width="8.89%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Country</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -32,7 +32,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 4);">
+        <th width="11%" onclick="sortByAlphabets(event, 4);">
             <div>
                 <span>Contact Name</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -41,7 +41,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 5);">
+        <th width="7.34%" onclick="sortByOrder(event, 5);">
             <div>
                 <span>Orders</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -50,7 +50,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 6);">
+        <th width="9.89%" onclick="sortByOrder(event, 6);">
             <div>
                 <span>Net Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -59,7 +59,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByOrder(event, 7);">
+        <th width="14.42%" onclick="sortByOrder(event, 7);">
             <div>
                 <span>Customers Registered</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -68,7 +68,7 @@
                 </svg>
             </div>
         </th>
-        <th onclick="sortByAlphabets(event, 8);">
+        <th width="10%" onclick="sortByAlphabets(event, 8);">
             <div>
                 <span>Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -77,7 +77,7 @@
                 </svg>
             </div>
         </th>
-        <th>
+        <th width="11%">
             <div>
                 <span>Stock</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -86,7 +86,7 @@
                 </svg>
             </div>
         </th>
-        <th>
+        <th width="68px">
             <div>
                 <span>QR Code</span>
             </div>
@@ -99,25 +99,25 @@
                 <div class="table-checkbox"><input type="checkbox" /></div>
             </td>
             <td>
-                <div><span>{{obj.salon_name}}</span></div>
+                <div><span class="table-text-overflow" title="{{obj.salon_name}}">{{obj.salon_name}}</span></div>
             </td>
             <td>
-                <div><span>No location</span></div>
+                <div><span class="table-text-overflow" title="{% if obj.address %}{{obj.address.city}}, {{obj.address.state}}, {{obj.address.zip_code}}{% else %}No location{% endif %}">{% if obj.address %}{{obj.address.city}}, {{obj.address.state}}, {{obj.address.zip_code}}{% else %}No location{% endif %}</span></div>
             </td>
             <td>
-                <div><span>No country</span></div>
+                <div><span class="table-text-overflow">{% if obj.address %}{{obj.address.country}}{% else %}No country{% endif %}<span></div>
             </td>
             <td>
-                <div><span>{{obj.contact_name}}</span></div>
+                <div><span class="table-text-overflow" title="{{obj.contact_name}}">{{obj.contact_name}}</span></div>
             </td>
             <td>
-                <div><span>0</span></div>
+                <div><span>{{obj.orders_count}}</span></div>
             </td>
             <td>
-                <div><span>$0</span></div>
+                <div><span>${% if obj.net_sales %}{{obj.net_sales}}{% else %}0{% endif %}</span></div>
             </td>
             <td>
-                <div><span>0</span></div>
+                <div><span>{{obj.customers_count}}</span></div>
             </td>
             <td class="cursor-pointer" onclick="event.stopPropagation(); openSalonDetailModal(`{{obj.salon_name}}`, '{{obj.partnership_application}}');">
                 <div><span>{{obj.status|title}}</span></div>

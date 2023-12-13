@@ -1,4 +1,47 @@
-function showInventoryDetails(clickedRow) {
+let requiredDataURL = `/admin/inventory?page=1&perPage=1000&search=`;
+
+window.onload = () => {
+    getData();
+}
+
+function searchForm(event) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    requiredDataURL = setParams(requiredDataURL, 'search', `${data.search}`);
+    getData(requiredDataURL);
+}
+
+
+async function getData(url=null) {
+    let data;
+    let tableBody = document.getElementById('inventory-table');
+    if (url == null) {
+        data = requiredDataURL;
+    }
+    else {
+        data = url;
+    }
+    document.getElementById('table-loader').classList.remove('hide');
+    tableBody.classList.add('hide');
+    try {
+        let response = await requestAPI('/consumer/get-inventory-list/', JSON.stringify(data), {}, 'POST');
+        response.json().then(function(res) {
+            if (res.success) {
+                document.getElementById('table-loader').classList.add('hide');
+                tableBody.innerHTML = res.inventory_data;
+                tableBody.classList.remove('hide');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+function showInventoryDetails(clickedRow, productList) {
     let table = document.getElementById('inventory-table');
     let nextRow = clickedRow.nextElementSibling;
     if (nextRow && nextRow.getAttribute('data-status') == "true") {

@@ -85,6 +85,26 @@ def inventory(request):
     return render(request, 'consumer/inventory.html', context)
 
 
+@csrf_exempt
+def get_inventory_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
+        text_template = loader.get_template('ajax/inventory-table.html')
+        html = text_template.render({'inventory':response})
+        context['inventory_data'] = html
+        context['msg'] = 'Inventory retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
 def consumer_marketing(request):
     context = {}
     context['active_page'] = 'marketing'

@@ -124,14 +124,20 @@
                                 </div>
                             </form> -->
                         </button>
-                        <button class="sort-btn" onclick="reverseTableRows();">
+                        <button class="sort-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                 <path d="M15.1198 17.0872L11.7865 13.7539M6.78646 13.7539V3.75391V13.7539ZM6.78646 3.75391L3.45312 7.08724L6.78646 3.75391ZM6.78646 3.75391L10.1198 7.08724L6.78646 3.75391ZM15.1198 7.08724V17.0872V7.08724ZM15.1198 17.0872L18.4531 13.7539L15.1198 17.0872Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
                     </div>
                 </div>
-                {% include '../ajax/inventory-table.html' %}
+                <div class="table-wrapper">
+                    <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
+                        <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                        </span>
+                    </div>
+                    {% include '../ajax/inventory-table.html' %}
+                </div>
             </div>
         </div>
     </div>

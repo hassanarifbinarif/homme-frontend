@@ -216,12 +216,15 @@
 
 .order-details-table-wrapper {
     padding: 18px 20px 20px 20px;
+    overflow-x: auto;
 }
 
 .order-details-table {
     width: 100%;
     border: 1px solid #E0E0DD;
     background-color: #FFF;
+    min-width: 1102px;
+    table-layout: fixed;
 }
 
 .order-details-table thead {
@@ -234,7 +237,6 @@
     font-family: Gotham Medium;
     font-size: .75rem;
     font-style: normal;
-    font-weight: 500;
     line-height: 20px;
 }
 
@@ -251,6 +253,7 @@
     border-left: 1px solid #CECECE;
     border-bottom: unset;
     background: #EEE;
+    font-weight: 500;
 }
 
 .order-details-table thead th > div {
