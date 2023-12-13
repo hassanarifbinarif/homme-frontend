@@ -64,18 +64,6 @@ function openCreateSourceModal(modalId) {
 }
 
 
-function openQRCodeModal(modalId, referralCode, qrCodeString) {
-    let modal = document.getElementById(`${modalId}`);
-    modal.querySelector('#modal-referral-code').innerText = referralCode;
-    modal.querySelector('#modal-qr-code').src = `data:image/png;base64,${qrCodeString}`;
-    modal.addEventListener('hidden.bs.modal', event => {
-        modal.querySelector('#modal-referral-code').innerText = '';
-        modal.querySelector('#modal-qr-code').src = '';  
-    })
-    document.querySelector(`.${modalId}`).click();
-}
-
-
 async function createSourceForm(event) {
     event.preventDefault();
     let form = event.currentTarget;

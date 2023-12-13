@@ -570,6 +570,7 @@ async function openProductPurchaseModal(modalID, id) {
         };
         let response = await requestAPI(`${apiURL}/admin/orders/${id}`, null, headers, 'GET');
         response.json().then(function(res) {
+            console.log(res);
             if (response.status == 200) {
                 modal.querySelector('#purchase-total').innerText = res.data.total;
                 modal.querySelector('#purchase-rewards').innerText = res.data.rewards_earned;
@@ -578,7 +579,10 @@ async function openProductPurchaseModal(modalID, id) {
                 else
                     modal.querySelector('#purchase-salon').innerText = 'No Salon';
                 modal.querySelector('#purchase-status').innerText = captalizeFirstLetter(res.data.status);
-                modal.querySelector('#purchase-tracking').innerText = 'No tracking link';
+                if (res.data.order_shipping)
+                    modal.querySelector('#purchase-tracking').innerText = res.data.order_shipping.tracking_number;
+                else
+                    modal.querySelector('#purchase-tracking').innerText = 'No tracking link';
                 if (res.data.shipping_address)
                     modal.querySelector('#purchase-location').innerText = res.data.shipping_address.address;
                 else

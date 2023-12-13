@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_create_modal.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_add_stock_modal.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_detail_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/qr_code_modal.css' %}" />
     
     {% endblock %}
 
@@ -85,10 +86,13 @@
 
     {% include '../modals/salon-detail-modal.html' %}
 
+    {% include '../modals/qr-code-modal.html' %}
+
     {% endblock %}
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/consumer/js/salon.js' %}"></script>
 <script src="{% static 'Assets/modals/js/salonDetailModal.js' %}"></script>
+<script src="{% static 'Assets/modals/js/qrCodeModal.js' %}"></script>
 {% endblock %}
 </html>

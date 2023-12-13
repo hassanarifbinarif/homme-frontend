@@ -3,7 +3,9 @@ window.onload = () => {
     convertDateTime();
 }
 
-async function printPackingSlip(id) {
+async function printPackingSlip(button, id) {
+    let buttonText = button.innerText;
+    beforeLoad(button);
     let response = await requestAPI(`/get-packing-slip/${id}/`, null, {}, 'GET');
     response.json().then(function(res) {
 
@@ -19,6 +21,7 @@ async function printPackingSlip(id) {
         html2pdf().from(res.packing_data).set(options).toPdf().get('pdf').then(function (pdf) {
             window.open(pdf.output('bloburl'), '_blank');
         });
+        afterLoad(button, buttonText);
 
         // html2pdf().from(res.packing_data).set({ html2canvas: { scale: 4, useCORS: true } }).save();
         

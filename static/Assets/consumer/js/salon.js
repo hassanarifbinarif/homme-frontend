@@ -1,4 +1,4 @@
-let requiredDataURL = `/admin/salon-profiles?page=1&perPage=1000&search=&ordering=-created_at`;
+let requiredDataURL = `/admin/salon-profiles?page=1&perPage=1000&search=&ordering=-id&user__is_blocked=false`;
 
 window.onload = () => {
     getData();
