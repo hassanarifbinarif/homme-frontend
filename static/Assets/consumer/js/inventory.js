@@ -93,7 +93,7 @@ function showInventoryDetails(clickedRow, productList, salonName, salonContactNu
                                     <div class="container-header">
                                         <span>Stock Details</span>
                                         <div>
-                                            <span>PRINT PURCHASE ORDER</span>
+                                            <span onclick="getPurchaseOrder(event, 1);">PRINT PURCHASE ORDER</span>
                                             <div>
                                                 <span>Shipped</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
@@ -125,4 +125,28 @@ function showInventoryDetails(clickedRow, productList, salonName, salonContactNu
                                 </div>
                             </td>`;
     }
+}
+
+
+async function getPurchaseOrder(event, id) {
+    event.stopPropagation();
+
+    // let loader = event.target.closest('td').querySelector('.inrow-loader');
+    // loader.classList.remove('hide');
+    let response = await requestAPI(`/consumer/get-purchase-order/${id}/`, null, {}, 'GET');
+    response.json().then(function(res) {
+        var options = {
+            filename: 'generated-pdf.pdf',
+            html2canvas: { scale: 4, useCORS: true },
+        };
+
+        // Use html2pdf to generate the PDF
+        // html2pdf().from(res.packing_data).set(options).save();
+
+        html2pdf().from(res.purchase_data).set(options).toPdf().get('pdf').then(function (pdf) {
+            // loader.classList.add('hide');
+            let some = window.open(pdf.output('bloburl'), '_blank');
+        });
+        // afterLoad(button, buttonText);
+    })
 }

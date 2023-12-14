@@ -98,9 +98,13 @@
                     <span class="opacity-point-6">{{obj.items_count}} products</span>
                 </div>
             </td>
-            <td>
+            <td class="cursor-pointer" onclick="getPurchaseOrder(event, '{{obj.id}}')">
                 <div>
                     <span class="print-cell-text">PRINT PDF</span>
+                    <div class="d-flex justify-content-center align-items-center hide inrow-loader">
+                        <span class="spinner-border spinner-border-sm" style="color: #000093;" role="status" aria-hidden="true">
+                        </span>
+                    </div>
                 </div>
             </td>
         </tr>

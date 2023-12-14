@@ -603,7 +603,7 @@
 .order-details-table tbody tr td > div {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 5px;
     padding: 9px 10px;
     height: 43px;
 }
