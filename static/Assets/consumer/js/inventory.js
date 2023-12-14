@@ -2,6 +2,7 @@ let requiredDataURL = `/admin/inventory?page=1&perPage=1000&search=`;
 
 window.onload = () => {
     getData();
+    getNotifications();
 }
 
 function searchForm(event) {

@@ -1,3 +1,8 @@
+window.onload = () => {
+    getNotifications();
+}
+
+
 function showCommissionDetails(clickedRow) {
     let table = document.getElementById('commission-table');
     let nextRow = clickedRow.nextElementSibling;

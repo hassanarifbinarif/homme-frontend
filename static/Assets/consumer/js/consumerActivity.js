@@ -16,6 +16,10 @@ let rewardsInputWrapper = document.getElementById('rewards-selector');
 let requiredDataURL = `${apiURL}/admin/activities?page=1&perPage=1000&ordering=-created_at`;
 
 
+window.onload = () => {
+    getNotifications();
+}
+
 
 function toggleSalesChannelDropdown(event) {
     if (salesChannelDropdown.style.display == 'flex' && (!salesChannelBtn.querySelector('.search-div').contains(event.target))) {

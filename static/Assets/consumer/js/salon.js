@@ -2,6 +2,7 @@ let requiredDataURL = `/admin/salon-profiles?page=1&perPage=1000&search=&orderin
 
 window.onload = () => {
     getData();
+    getNotifications();
 }
 
 function searchForm(event) {

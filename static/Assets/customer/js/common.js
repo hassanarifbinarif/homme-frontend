@@ -452,7 +452,7 @@ function closeSideSwitchDropdown(event) {
 document.body.addEventListener('click', closeSideSwitchDropdown);
 
 
-function searchCustomerForm(event) {
+function searchCustomerForm(event, catgeory) {
     event.preventDefault();
     let form = event.currentTarget;
     let searchField = form.querySelector('input[name="search"]');
@@ -464,7 +464,8 @@ function searchCustomerForm(event) {
         location.href = urlObj.toString();
     }
     else {
-        let url = location.origin + '/customers/' + location.search;
+        let searchSide = catgeory == 'customer' ? '/customers/' : '/consumer/salon/';
+        let url = location.origin + searchSide + location.search;
         const urlObj = new URL(url);
         urlObj.searchParams.set('search', searchField.value);
         location.href = urlObj.toString();
