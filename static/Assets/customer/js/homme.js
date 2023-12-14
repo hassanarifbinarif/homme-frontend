@@ -30,14 +30,16 @@ function selectOrderChannel(event) {
 }
 
 
-chartTypeBtn.addEventListener('click', function() {
-    if (chartTypeDropdown.classList.contains('hide')) {
-        chartTypeDropdown.classList.remove('hide');
-    }
-    else {
-        chartTypeDropdown.classList.add('hide');
-    }
-})
+if (chartTypeBtn) {
+    chartTypeBtn.addEventListener('click', function() {
+        if (chartTypeDropdown.classList.contains('hide')) {
+            chartTypeDropdown.classList.remove('hide');
+        }
+        else {
+            chartTypeDropdown.classList.add('hide');
+        }
+    })
+}
 
 function selectChartType(event) {
     let element = event.target;

@@ -1,115 +1,3 @@
-.main-page {
-    position: relative;
-    left: 255px;
-    min-height: 100vh;
-    padding: 0px 20px 0px 20px;
-    width: calc(100vw - 255px);
-    margin-top: 27px;
-}
-
-.main-page > .header {
-    display: flex;
-    justify-content: space-between;
-    height: 48px;
-    margin-bottom: 22px;
-}
-
-.search-user {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.search-logo-wrapper {
-    display: flex;
-    padding: 5px 12px;
-    align-items: center;
-    border-radius: 8px 0px 0px 8px;
-    border-top: 0.8px solid var(--secondary-line-color, #515254);
-    border-bottom: 0.8px solid var(--secondary-line-color, #515254);
-    border-left: 0.8px solid var(--secondary-line-color, #515254);
-    background: var(--primary-white, #FFF);
-    width: 44px;
-    height: 30px;
-}
-
-.search-user > input {
-    display: flex;
-    width: 400px;
-    height: 30px;
-    padding: 11px 89px;
-    align-items: center;
-    border-radius: 0px 8px 8px 0px;
-    border-top: 0.8px solid var(--secondary-line-color, #515254);
-    border-right: 0.8px solid var(--secondary-line-color, #515254);
-    border-bottom: 0.8px solid var(--secondary-line-color, #515254);
-    border-left: 0px;
-    background: var(--primary-white, #FFF);
-
-    color: var(--primary-black, #000);
-    text-align: center;
-    leading-trim: both;
-    text-edge: cap;
-    font-family: Gotham Medium;
-    font-size: .75rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: 1.68px;
-}
-
-.search-user > input::placeholder {
-    color: var(--primary-black, #000);
-}
-
-.header .user-info {
-    display: flex;
-    align-items: center;
-    gap: 34px;
-}
-
-.user-info .nav-notification-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.user-info a {
-    text-decoration: none!important;
-    color: #FFF;
-    text-align: center;
-    leading-trim: both;
-    text-edge: cap;
-    font-family: Gotham Book;
-    font-size: .75rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 10px;
-    letter-spacing: 1.2px;
-}
-
-.nav-notification-wrapper .notification-count {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    position: absolute;
-    top: -4px;
-    right: -4px;
-}
-
-.header .nav-profile-image {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.header .nav-profile-image > img {
-    width: 39px;
-    height: 39px;
-}
-
-
 .content {
     display: flex;
     gap: 20px;
@@ -125,8 +13,9 @@
     background-color: #FFF;
     border: 1px solid #E0E0DD;
     width: 100%;
-    height: 366px;
-    padding: 20px 17px 14px 20px;
+    height: 415px;
+    /* height: 366px; */
+    /* padding: 20px 17px 14px 20px; */
     border-radius: 6px;
     margin-bottom: 20px;
     overflow: hidden;
@@ -137,6 +26,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    padding: 20px 17px 0px 20px;
 }
 
 .order-header > span {
@@ -154,13 +44,13 @@
 .order-filters {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 21px;
 }
 
 .order-filters > button {
     display: inline-flex;
     position: relative;
-    width: 166px;
+    width: 171px;
     height: 30px;
     justify-content: center;
     align-items: center;
@@ -168,6 +58,76 @@
     padding: 0px;
     border: .8px solid #515254;
     border-radius: 6px;
+}
+
+.order-filters > #select-order-stat-time-btn {
+    display: inline-flex;
+    position: relative;
+    width: 225px;
+    height: 30px;
+    justify-content: space-around;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0px;
+    border: .8px solid #515254;
+    border-radius: 6px;
+    background-color: #FFF;
+}
+
+.order-filters > #select-order-stat-time-btn > span {
+    display: flex;
+    align-items: center;
+    height: 30px;
+
+    color: var(--Black, #030706);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.order-filters > #select-order-stat-time-btn > .order-stats-dropdown {
+    position: absolute;
+    top: 33px;
+    z-index: 2;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+}
+
+.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span {
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .65rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span:not(:last-of-type) {
+    border-bottom: 1px solid #CECECE;
+}
+
+.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span:hover {
+    background: #DDDDDD;
 }
 
 .order-filters > button > span {
@@ -213,8 +173,69 @@
     width: 34px;
 }
 
+.order-filters > #select-order-channel-btn > .order-channel-dropdown {
+    position: absolute;
+    top: 33px;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+}
+
+.order-filters > #select-order-channel-btn > .order-channel-dropdown > label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+
+.order-filters > #select-order-channel-btn > .order-channel-dropdown > label > span {
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .65rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-filters > #select-order-channel-btn > .order-channel-dropdown > label:not(:last-of-type) {
+    border-bottom: 1px solid #CECECE;
+}
+
+/* .order-filters > #select-order-channel-btn > .order-channel-dropdown > label:hover {
+    background: #DDDDDD;
+} */
+
+#homme-order-table {
+    height: 328px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.order-table-wrapper {
+    /* max-height: 290px; */
+    height: fit-content;
+    /* overflow-y: auto; */
+    width: 100%;
+    padding: 0px 20px 0px 20px;
+}
+
 .order-table {
     width: 100%;
+    table-layout: fixed;
 }
 
 .order-table thead {

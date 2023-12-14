@@ -42,7 +42,29 @@ async function getData(url=null) {
 }
 
 
-function showInventoryDetails(clickedRow, productList) {
+function insertTableHeaderRows(headerList, headerRow) {
+    for (let i = 0; i < headerList.length; i++) {
+        var th = document.createElement('th');
+        th.innerHTML = `<div><span>${headerList[i]}</span></div>`;
+        headerRow.appendChild(th);
+    }
+}
+
+
+function insertTableBodyRows(data, tableBody) {
+    data.forEach((item) => {
+        var tr = document.createElement('tr');
+        tr.innerHTML = `<td><div><span>${item.product.title}</span></div></td>
+                        <td><div><span>${item.product.sku_num}</span></div></td>
+                        <td><div><span>${item.current_stock}</span></div></td>
+                        <td><div><span>4/31</span></div></td>
+                        <td><div><span>${item.quantity}</span></div></td>`;
+        tableBody.appendChild(tr);
+    })
+}
+
+
+function showInventoryDetails(clickedRow, productList, salonName, salonContactNumber, salonAddress, salonNotes) {
     let table = document.getElementById('inventory-table');
     let nextRow = clickedRow.nextElementSibling;
     if (nextRow && nextRow.getAttribute('data-status') == "true") {
@@ -51,6 +73,21 @@ function showInventoryDetails(clickedRow, productList) {
     else {
         let newRow = table.insertRow(clickedRow.rowIndex + 1);
         newRow.setAttribute('data-status', true);
+        let inventoryDetailTable = document.createElement('table');
+        let inventoryDetailThead = document.createElement('thead');
+        let inventoryDetailBody = document.createElement('tbody');
+        let inventoryDetailTheadRow = document.createElement('tr');
+        let inventoryDetailHeaderListItems = ['Product Name', 'SKU #', 'Current Stock', 'Movement (7/30 Days)', 'Quantity To Ship']
+        
+        insertTableHeaderRows(inventoryDetailHeaderListItems, inventoryDetailTheadRow);
+        inventoryDetailThead.appendChild(inventoryDetailTheadRow);
+
+        insertTableBodyRows(productList, inventoryDetailBody);
+        
+        inventoryDetailTable.appendChild(inventoryDetailThead);
+        inventoryDetailTable.appendChild(inventoryDetailBody);
+        inventoryDetailTable.classList.add('inventory-details-table');
+        
         newRow.innerHTML = `<td colspan="7">
                                 <div class="stock-details-container">
                                     <div class="container-header">
@@ -65,299 +102,23 @@ function showInventoryDetails(clickedRow, productList) {
                                             </div>
                                         </div>
                                     </div>
-                                    <table class="inventory-details-table">
-                                        <thead>
-                                            <th>
-                                                <div><span>Product Name</span></div>
-                                            </th>
-                                            <th>
-                                                <div>
-                                                    <span>SKU #</span>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div>
-                                                    <span>Current Stock</span>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div>
-                                                    <span>Movement (7/30 Days)</span>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div>
-                                                    <span>Quantity To Ship</span>
-                                                </div>
-                                            </th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Face Serum</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07834</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>4/31</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>5</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Body Wash</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07533</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>5</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3/20</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>0</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Concealer</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07533</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>7</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3/20</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>2</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Face Mask</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07834</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>4/31</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>5</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Body Wash</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07533</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>5</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3/20</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>0</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Concealer</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07533</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>7</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3/20</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>2</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Face Mask</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07834</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>4/31</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>5</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Body Wash</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>07533</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>5</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>3/20</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>0</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    ${inventoryDetailTable.outerHTML}
                                     <div class="salon-info-header">
                                         <span>Salon Information</span>
                                     </div>
                                     <table class="inventory-details-table address-info-table">
                                         <thead>
-                                            <th>
-                                                <div>
-                                                    <span>Salon Name</span>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div>
-                                                    <span>Phone Number</span>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div>
-                                                    <span>Address</span>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div>
-                                                    <span>Notes</span>
-                                                </div>
-                                            </th>
+                                            <th><div><span>Salon Name</span></div></th>
+                                            <th><div><span>Phone Number</span></div></th>
+                                            <th><div><span>Address</span></div></th>
+                                            <th><div><span>Notes</span></div></th>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <div>
-                                                        <span>Redge NYC</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>(316) 555-0116</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>775 Rolling Green Rd, New York, NY 10012</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <span>Lorem Ipsum is simply dummy text of the print industry.</span>
-                                                    </div>
-                                                </td>
+                                                <td><div><span class="table-text-overflow" title="${salonName}">${salonName}</span></div></td>
+                                                <td><div><span>${salonContactNumber}</span></div></td>
+                                                <td><div><span class="table-text-overflow" title="${salonAddress.street1}, ${salonAddress.city}, ${salonAddress.state} ${salonAddress.zip_code}">${salonAddress.street1}, ${salonAddress.city}, ${salonAddress.state} ${salonAddress.zip_code}</span></div></td>
+                                                <td><div><span class="table-text-overflow" title="${salonNotes}">${salonNotes}</span></div></td>
                                             </tr>
                                         </tbody>
                                     </table>

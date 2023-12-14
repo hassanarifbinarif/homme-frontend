@@ -25,8 +25,8 @@
                     <div class="order-header">
                         <span>ORDERS</span>
                         <div class="order-filters">
-                            <button>
-                                <span>ALL CUSTOMERS</span>
+                            <button id="select-order-channel-btn" style="width: 200px;">
+                                <span id="selected-order-channel-opt">ALL SALES CHANNEL</span>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                         <g clip-path="url(#clip0_771_3739)">
@@ -40,92 +40,59 @@
                                         </defs>
                                     </svg>
                                 </div>
+                                <div class="order-channel-dropdown hide" id="order-channel-dropdown">
+                                    <label for="channel-1">
+                                        <span>HOMME</span>
+                                        <input type="checkbox" id="channel-1" value="HOMME" name="sales_channel" />
+                                    </label>
+                                    <label for="channel-2">
+                                        <span>SALONS</span>
+                                        <input type="checkbox" id="channel-2" value="SALONS" name="sales_channel" />
+                                    </label>
+                                    <label for="channel-3">
+                                        <span>REFERRERS</span>
+                                        <input type="checkbox" id="channel-3" value="REFERRERS" name="sales_channel" />
+                                    </label>
+                                </div>
                             </button>
-                            <button>
-                                <span>TODAY</span>
+                            <button id="select-order-stat-time-btn">
+                                <span id="selected-order-stat-opt">ALL TIME</span>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                         <g clip-path="url(#clip0_771_3739)">
-                                          <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
-                                          <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                            <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                            <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
                                         </g>
                                         <defs>
-                                          <clipPath id="clip0_771_3739">
+                                            <clipPath id="clip0_771_3739">
                                             <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
-                                          </clipPath>
+                                            </clipPath>
                                         </defs>
                                     </svg>
+                                </div>
+                                <div class="order-stats-dropdown hide" id="order-stats-dropdown">
+                                    <span onclick="selectOrderStatTime(event);">TODAY</span>
+                                    <span onclick="selectOrderStatTime(event);">CURRENT WEEK</span>
+                                    <span onclick="selectOrderStatTime(event);">LAST WEEK</span>
+                                    <span onclick="selectOrderStatTime(event);">CURRENT MONTH</span>
+                                    <span onclick="selectOrderStatTime(event);">LAST MONTH</span>
+                                    <span onclick="selectOrderStatTime(event);">CURRENT QUARTER</span>
+                                    <span onclick="selectOrderStatTime(event);">LAST QUARTER</span>
+                                    <span onclick="selectOrderStatTime(event);">CURRENT YEAR</span>
+                                    <span onclick="selectOrderStatTime(event);">LAST YEAR</span>
+                                    <span onclick="selectOrderStatTime(event);">ALL TIME</span>
                                 </div>
                             </button>
                         </div>
                     </div>
-                    <div class="order-table-wrapper">
-                        <table class="order-table">
-                            <thead>
-                                <th>ORDER ID</th>
-                                <th>ORDERED DATE</th>
-                                <th>PRODUCT NAME</th>
-                                <th>PRODUCT PRICE</th>
-                                <th>STATUS</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Fullfill</td>
-                                </tr>
-                                <tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Pending</td>
-                                </tr>
-                                <tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Fullfill</td>
-                                </tr>
-                                <tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Pending</td>
-                                </tr><tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Fullfill</td>
-                                </tr>
-                                <tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Pending</td>
-                                </tr>
-                                <tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Fullfill</td>
-                                </tr>
-                                <tr>
-                                    <td>#719261</td>
-                                    <td>Feb 28 2023</td>
-                                    <td>Face Serum</td>
-                                    <td>$45</td>
-                                    <td>Pending</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div style="height: 100%;">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
+                        </div>
+                        <div class="hide" id="homme-order-table">
+                            {% include '../ajax/homme-order-table.html' %}
+                        </div>
                     </div>
                 </div>
                 <div class="fulfill-order-wrapper">
@@ -461,4 +428,7 @@
 
     {% endblock %}
 </body>
+{% block scripts %}
+<script src="{% static 'Assets/customer/js/homme.js' %}"></script>
+{% endblock %}
 </html>
