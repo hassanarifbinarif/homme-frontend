@@ -129,6 +129,7 @@ function selectProduct(event) {
             addedProductsWrapper.insertAdjacentHTML('beforeend', productToBeAdded);
             addedProductsWrapper.classList.remove('hide');
             productTotalWrapper.classList.remove('hide');
+            filterNumberInputs();
             orderCreate();
             // calculateTotals();
         }
@@ -816,5 +817,18 @@ async function refreshShippingCosts(element) {
             initializeShippingSpeeds();
         }
         element.classList.remove('divToRotate');
+    })
+}
+
+
+function filterNumberInputs() {
+    let numberInputs = document.querySelectorAll('input[type=number]');
+    numberInputs.forEach((input) => {
+        input.addEventListener('beforeinput', function (event) {
+            if (event.data === "e")
+                event.preventDefault();
+            else
+                return event;
+        })
     })
 }
