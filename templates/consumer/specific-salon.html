@@ -26,38 +26,38 @@
         <div class="specific-order-content">
             <div class="specific-salon-overview">
                 <div class="specific-salon-overview-header">
-                    <svg class="cursor-pointer" onclick="location.pathname = '/consumer/salon/'" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                    <svg class="cursor-pointer" onclick="history.back();" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                         <path d="M9.36198 17.5482L2.94531 11.1315M2.94531 11.1315L9.36198 4.71484M2.94531 11.1315H19.4453" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span>Redge NYC</span>
+                    <span>{{salon.salon_name}}</span>
                 </div>
                 <div class="specific-salon-address">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
                         <path d="M10.0608 9.52307L7.30645 12.2998C7.18599 12.4213 7.04295 12.5177 6.88551 12.5835C6.72806 12.6493 6.5593 12.6832 6.38887 12.6832C6.21843 12.6832 6.04967 12.6493 5.89223 12.5835C5.73478 12.5177 5.59174 12.4213 5.47129 12.2998L2.71628 9.52307C1.99002 8.79089 1.49544 7.85805 1.29508 6.84251C1.09472 5.82696 1.19758 4.77433 1.59065 3.81772C1.98372 2.86111 2.64935 2.04348 3.50337 1.46823C4.35738 0.892976 5.36143 0.585938 6.38854 0.585938C7.41566 0.585938 8.4197 0.892976 9.27372 1.46823C10.1277 2.04348 10.7934 2.86111 11.1864 3.81772C11.5795 4.77433 11.6824 5.82696 11.482 6.84251C11.2816 7.85805 10.7871 8.79089 10.0608 9.52307V9.52307Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M7.76593 7.21084C8.13115 6.84266 8.33633 6.3433 8.33633 5.82262C8.33633 5.30193 8.13115 4.80257 7.76593 4.43439C7.40071 4.06622 6.90537 3.85938 6.38887 3.85938C5.87237 3.85938 5.37702 4.06622 5.0118 4.43439C4.64658 4.80257 4.44141 5.30193 4.44141 5.82262C4.44141 6.3433 4.64658 6.84266 5.0118 7.21084C5.37702 7.57902 5.87237 7.78586 6.38887 7.78586C6.90537 7.78586 7.40071 7.57902 7.76593 7.21084Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span>775 Rolling Green Rd., New York, NY 10017 USA</span>
+                    <span>{% if salon.address %}{{salon.address.street1}}, {{salon.address.city}}, {{salon.address.state}} {{salon.address.zip_code}} {{salon.address.country}}{% else %}No Address{% endif %}</span>
                 </div>
             </div>
             <div class="specific-order-details-wrapper">
                 <div class="details-wrapper-col-1">
                     <div class="specific-salon-overview-data-wrapper">
-                        <div class="salon-overview-data">
+                        <div class="salon-overview-data net-sales">
                             <span>Net Sales</span>
-                            <span>$500.00</span>
+                            <span title="${{salon.net_sales|default_if_none:'0'}}" class="w-100 table-text-overflow">${{salon.net_sales|default_if_none:"0"}}</span>
                         </div>
                         <div class="vr"></div>
-                        <div class="salon-overview-data">
+                        <div class="salon-overview-data registered-customers">
                             <span>Registered Customers</span>
-                            <span>5</span>
+                            <span>{{salon.customers_count}}</span>
                         </div>
                         <div class="vr"></div>
-                        <div class="salon-overview-data">
-                            <span>Commission Earned Latest Week</span>
-                            <span>$45.00</span>
+                        <div class="salon-overview-data commission">
+                            <span class="align-self-center">Commission Earned Latest Week</span>
+                            <span class="align-self-center">$45.00</span>
                         </div>
                         <div class="vr"></div>
-                        <div class="salon-overview-data">
+                        <div class="salon-overview-data weekly-sales">
                             <span>Weekly Average Sales</span>
                             <span>$125.00</span>
                         </div>
@@ -457,7 +457,7 @@
                                     <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <span>Active</span>
+                            <span>{{salon.status|title}}</span>
                         </div>
                         <div class="order-contact-info">
                             <div>
@@ -468,16 +468,16 @@
                             </div>
                             <div class="order-contact-info-details">
                                 <div>
-                                    <span>Jane Cooper</span>
+                                    <span>{{salon.contact_name}}</span>
                                 </div>
                                 <div>
-                                    <span>jcooper123@gmail.com</span>
+                                    <span>{{salon.user.email}}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                         <path d="M3.45312 7.08984L10.0281 11.4732C10.302 11.6559 10.6239 11.7534 10.9531 11.7534C11.2824 11.7534 11.6042 11.6559 11.8781 11.4732L18.4531 7.08984M5.11979 16.2565H16.7865C17.2285 16.2565 17.6524 16.0809 17.965 15.7684C18.2775 15.4558 18.4531 15.0319 18.4531 14.5898V6.25651C18.4531 5.81448 18.2775 5.39056 17.965 5.078C17.6524 4.76544 17.2285 4.58984 16.7865 4.58984H5.11979C4.67776 4.58984 4.25384 4.76544 3.94128 5.078C3.62872 5.39056 3.45313 5.81448 3.45312 6.25651V14.5898C3.45313 15.0319 3.62872 15.4558 3.94128 15.7684C4.25384 16.0809 4.67776 16.2565 5.11979 16.2565Z" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
                                 <div>
-                                    <span>+1 917-498-1302</span>
+                                    <span>{{salon.user.phone}}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                         <path d="M3.94128 3.41003C3.62872 3.72259 3.45312 4.14651 3.45312 4.58854V5.42188C3.45312 12.3252 9.04979 17.9219 15.9531 17.9219H16.7865C17.2285 17.9219 17.6524 17.7463 17.965 17.4337C18.2775 17.1212 18.4531 16.6972 18.4531 16.2552V13.5227C18.4532 13.3477 18.3981 13.1772 18.2958 13.0352C18.1935 12.8933 18.0491 12.7872 17.8831 12.7319L14.139 11.4835C13.9487 11.4203 13.742 11.4278 13.5568 11.5046C13.3715 11.5815 13.2202 11.7225 13.1306 11.9019L12.189 13.7827C10.1485 12.8608 8.51422 11.2265 7.59229 9.18604L9.47312 8.24437C9.6525 8.15475 9.79355 8.00346 9.87039 7.81825C9.94723 7.63303 9.95471 7.42632 9.89146 7.23604L8.64312 3.49187C8.58788 3.32601 8.48186 3.18171 8.34009 3.07942C8.19831 2.97712 8.02795 2.92201 7.85312 2.92188H5.11979C4.67776 2.92188 4.25384 3.09747 3.94128 3.41003Z" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
@@ -491,7 +491,7 @@
                                     <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <span>775 Rolling Green Rd., New York, NY 10014 USA</span>
+                            <span>{% if salon.address %}{{salon.address.street1}}, {{salon.address.city}}, {{salon.address.state}} {{salon.address.zip_code}} {{salon.address.country}}{% else %}No Address{% endif %}</span>
                         </div>
                     </div>
                     <div class="hair-stylist-wrapper">

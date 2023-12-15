@@ -50,8 +50,12 @@ def get_salon_list(request):
 
 
 @admin_signin_required
-def specific_salon(request, api_response):
+def specific_salon(request, api_response, pk):
     context = {}
+    admin_access_token = request.COOKIES.get('admin_access')
+    headers = {"Authorization": f'Bearer {admin_access_token}'}
+    status, response = requestAPI('GET', f'{settings.API_URL}/admin/salon-profiles/{pk}', headers, {})
+    context['salon'] = response['data']
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'salons'
@@ -138,7 +142,12 @@ def get_purchase_order(request, pk):
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}/admin/inventory/{pk}', headers, {})
         text_template = loader.get_template('email_templates/purchase-order-email.html')
-        html = text_template.render({'order':response['data']})
+        total_price = 0
+        if response['data']['products']:
+            for prod in response['data']['products']:
+                total_price += prod['quantity'] * float(prod['product']['price'])
+                
+        html = text_template.render({'order':response['data'], 'total_price': total_price})
 
         context['purchase_data'] = html
         context['msg'] = 'Purchase order retrieved'

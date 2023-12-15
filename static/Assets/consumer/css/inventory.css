@@ -613,6 +613,7 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
+    gap: 0px;
 }
 
 .order-details-table tbody tr td > .stock-details-container .container-header {

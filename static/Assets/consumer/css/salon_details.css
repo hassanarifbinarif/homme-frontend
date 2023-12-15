@@ -59,7 +59,7 @@
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .details-wrapper-col-1 .specific-salon-overview-data-wrapper .vr {
@@ -81,6 +81,22 @@
     text-edge: cap;
     font-style: normal;
     font-weight: 500;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data.net-sales {
+    width: 10.5%;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data.registered-customers {
+    width: 19.7%;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data.commission {
+    width: 29%;
+}
+
+.details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data.weekly-sales {
+    width: 19.34%;
 }
 
 .details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data > span:first-of-type {

@@ -94,7 +94,7 @@
     </thead>
     <tbody>
         {% for obj in salons.data %}
-        <tr onclick="location.pathname = '/consumer/specific-salon/'">
+        <tr onclick="location.pathname = '/consumer/specific-salon/{{obj.id}}/'">
             <td onclick="event.stopPropagation();">
                 <div class="table-checkbox"><input type="checkbox" /></div>
             </td>
@@ -119,7 +119,7 @@
             <td>
                 <div><span>{{obj.customers_count}}</span></div>
             </td>
-            <td class="cursor-pointer" onclick="event.stopPropagation(); openSalonDetailModal(`{{obj.salon_name}}`, '{{obj.partnership_application}}');">
+            <td class="cursor-pointer" onclick="event.stopPropagation(); openSalonDetailModal(`{{obj.salon_name}}`, `{% if obj.partnership_application %}{{obj.partnership_application.id}}{% else %}None{% endif %}`);">
                 <div><span>{{obj.status|title}}</span></div>
             </td>
             <td class="cursor-pointer" {% if obj.status == 'approved' %}onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonAddStock"{% else %}onclick="event.stopPropagation();"{% endif %}>

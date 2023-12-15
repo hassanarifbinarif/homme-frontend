@@ -219,7 +219,7 @@
                                                                                 </td>
                                                                                 <td style="padding-top: 12px;">
                                                                                     <div style="text-align: right;height: 32px;display: flex;align-items: center;justify-content: center;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;text-align: center;">${{obj.product.price}}</span>
+                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;text-align: center;">${{obj.product.price|multiply:obj.quantity}}</span>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
@@ -285,8 +285,8 @@
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 10px;font-style: normal;font-weight: 700;line-height: 10px;text-transform: capitalize;">Notes</span>
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 10px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">{{order.notes}}</span>
                                                                     </div>
-                                                                    <div style="display: flex;flex-direction: column;width: 170px;">
-                                                                        <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 12px;">
+                                                                    <div style="align-self: flex-start; display: flex;flex-direction: column;width: 170px;">
+                                                                        <!-- <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 12px;">
                                                                             <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">Subtotal</span>
                                                                             <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">$0</span>
                                                                         </div>
@@ -297,10 +297,10 @@
                                                                         <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 20px;">
                                                                             <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">Tax (NY%)</span>
                                                                             <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">$0</span>
-                                                                        </div>
+                                                                        </div> -->
                                                                         <div style="display: flex;align-items: center;justify-content: space-between;">
                                                                             <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;">Total</span>
-                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;">$0.00</span>
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;">${{total_price}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

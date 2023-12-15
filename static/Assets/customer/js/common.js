@@ -500,3 +500,14 @@ async function getNotifications() {
         }
     })
 }
+
+
+let numberInputs = document.querySelectorAll('input[type=number]');
+numberInputs.forEach((input) => {
+    input.addEventListener('beforeinput', function (event) {
+        if (event.data === "e")
+            event.preventDefault();
+        else
+            return event;
+    })
+})

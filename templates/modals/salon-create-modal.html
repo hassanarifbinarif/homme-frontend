@@ -4,8 +4,7 @@
     aria-labelledby="salonCreateLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <form onsubmit="createSalonForm(event);">
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Add New Salon</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -19,9 +18,10 @@
                             <span>General Information</span>
                         </div>
                         <div class="general-info-input">
-                            <input type="text" placeholder="Name" name="name" id="" />
-                            <input type="number" placeholder="Phone Number" name="phone" id="" />
-                            <input type="email" placeholder="Email Address" name="email" id="" />
+                            <input type="text" placeholder="Name" name="person_name" id="" />
+                            <input type="tel" placeholder="Phone Number" name="person_phone" id="" />
+                            <input type="email" placeholder="Email Address" name="person_email" id="" />
+                            <input type="text" placeholder="Salon Name" name="salon_name" id="" />
                         </div>
                     </div>
                     <div class="general-info-wrapper">
@@ -29,8 +29,8 @@
                             <span>Entity Information</span>
                         </div>
                         <div class="entity-info-input">
-                            <input type="text" placeholder="Full Legal Name" name="name" id="" />
-                            <input type="text" placeholder="Doing Business As (DBA)" name="business" id="" />
+                            <input type="text" placeholder="Full Legal Name" name="legal_name" id="" />
+                            <input type="text" placeholder="Doing Business As (DBA)" name="business_name" id="" />
                             <input type="text" placeholder="Tax Payer ID" name="tax_id" id="" />
                             <input type="text" placeholder="Dunn & Bradstreet Number" name="street_number" id="" />
                         </div>
@@ -41,14 +41,14 @@
                         </div>
                         <div class="legal-info-input">
                             <div>
-                                <input type="text" placeholder="Address 1" name="address_1" id="" />
-                                <input type="text" placeholder="Address 2" name="address_2" id="" />
-                                <input type="text" placeholder="City" name="city" id="" />
+                                <input type="text" placeholder="Address 1" name="legal_street1" id="" />
+                                <input type="text" placeholder="Address 2" name="legal_street2" id="" />
+                                <input type="text" placeholder="City" name="legal_city" id="" />
                             </div>
                             <div>
-                                <input type="text" placeholder="State" name="State" id="" />
-                                <input type="number" placeholder="ZIP" name="zip" id="" />
-                                <input type="text" placeholder="Country" name="country" id="" />
+                                <input type="text" placeholder="State" name="legal_state" id="" />
+                                <input type="number" placeholder="ZIP" name="legal_zip_code" id="" />
+                                <input type="text" placeholder="Country" name="legal_country" id="" />
                             </div>
                         </div>
                     </div>
@@ -63,18 +63,18 @@
                                         <path d="M42.86 15.28C41.7675 6.675 34.4 0 25.5 0C18.61 0 12.625 4.0275 9.8925 10.375C4.5225 11.98 0.5 17.05 0.5 22.5C0.5 29.3925 6.1075 35 13 35H40.5C46.015 35 50.5 30.515 50.5 25C50.4962 22.759 49.7416 20.5839 48.3567 18.8221C46.9719 17.0602 45.0366 15.8131 42.86 15.28ZM28 22.5V30H23V22.5H15.5L25.5 10L35.5 22.5H28Z" fill="black"/>
                                     </svg>
                                     <span class="opacity-point-6">Upload an image</span>
-                                    <input type="file" accept="image/jpeg, image/jpg, image/png" name="salon_image" id="salon-image" oninput="previewImage(event);" />
+                                    <input type="file" accept="image/jpeg, image/jpg, image/png" name="salon_picture" id="salon-image" oninput="previewImage(event);" />
                                     <img class="salon-image hide" src="" alt="salon image" />
                                 </label>
                             </div>
                             <div class="salon-detail-input">
                                 <div>
-                                    <input type="text" placeholder="Website" name="website" id="" />
-                                    <input type="number" placeholder="Phone" name="phone" id="" />
+                                    <input type="url" placeholder="Website" name="salon_website" id="" />
+                                    <input type="tel" placeholder="Phone" name="salon_phone" id="" />
                                 </div>
                                 <div>
-                                    <input type="text" placeholder="Map Link" name="map_link" id="" />
-                                    <input type="text" placeholder="Add Short Description..." name="short_description" id="" />
+                                    <input type="url" placeholder="Map Link" name="salon_map" id="" />
+                                    <input type="text" placeholder="Add Short Description..." name="salon_description" id="" />
                                 </div>
                             </div>
                         </div>
@@ -85,13 +85,13 @@
                         </div>
                         <div class="legal-info-input">
                             <div>
-                                <input type="text" placeholder="Address 1" name="salon_address_1" id="" />
-                                <input type="text" placeholder="Address 2" name="salon_address_2" id="" />
+                                <input type="text" placeholder="Address 1" name="salon_street1" id="" />
+                                <input type="text" placeholder="Address 2" name="salon_street2" id="" />
                                 <input type="text" placeholder="City" name="salon_city" id="" />
                             </div>
                             <div>
                                 <input type="text" placeholder="State" name="salon_state" id="" />
-                                <input type="number" placeholder="ZIP" name="salon_zip" id="" />
+                                <input type="number" placeholder="ZIP" name="salon_zip_code" id="" />
                                 <input type="text" placeholder="Country" name="salon_country" id="" />
                             </div>
                         </div>
@@ -102,20 +102,24 @@
                         </div>
                         <div class="legal-info-input">
                             <div>
-                                <input type="text" placeholder="Name" name="payment_name" id="" />
-                                <input type="text" placeholder="Account Type" name="account_type" id="" />
-                                <input type="text" placeholder="Bank" name="bank" id="" />
+                                <input type="text" placeholder="Name" name="name_on_account" id="" />
+                                <input type="text" placeholder="Account Type" value="ach" name="payment_type" readonly id="" />
+                                <input type="text" placeholder="Bank" name="bank_name" id="" />
                             </div>
                             <div>
-                                <input type="number" placeholder="Routing Number" name="routing_number" id="" />
-                                <input type="number" placeholder="Account Number" name="account_number" id="" />
+                                <input type="text" placeholder="Routing Number" name="routing_number" id="" />
+                                <input type="text" placeholder="Account Number" name="account_number" id="" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="data-id" class="submit-btn" type="button" data-bs-dismiss="modal">
-                        Save
+                    <div class="error-div" style="text-align: left;">
+                        <small style="text-align: left;" class="create-error-msg input-error-msg"></small>
+                    </div>
+                    <button id="data-id" class="submit-btn" type="submit">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">SAVE</span>
                     </button>
                 </div>
             </form>
@@ -123,14 +127,3 @@
     </div>
 </div>
 <input type="hidden" class="salonCreate" data-bs-toggle="modal" data-bs-target="#salonCreate" />
-<script>
-    function previewImage(event) {
-        let imageInput = event.currentTarget;
-        let image = imageInput.files;
-        let imageTag = imageInput.closest('label').querySelector('.salon-image');
-        imageTag.src = window.URL.createObjectURL(image[0]);
-        imageTag.classList.remove('hide');
-        imageInput.closest('label').querySelector('svg').style.display = 'none';
-        imageInput.closest('label').querySelector('span').style.display = 'none';
-    }
-</script>

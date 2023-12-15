@@ -64,7 +64,7 @@ function insertTableBodyRows(data, tableBody) {
 }
 
 
-function showInventoryDetails(clickedRow, productList, salonName, salonContactNumber, salonAddress, salonNotes) {
+function showInventoryDetails(clickedRow, productList, salonName, salonContactNumber, salonAddress, salonNotes, id) {
     let table = document.getElementById('inventory-table');
     let nextRow = clickedRow.nextElementSibling;
     if (nextRow && nextRow.getAttribute('data-status') == "true") {
@@ -93,7 +93,7 @@ function showInventoryDetails(clickedRow, productList, salonName, salonContactNu
                                     <div class="container-header">
                                         <span>Stock Details</span>
                                         <div>
-                                            <span onclick="getPurchaseOrder(event, 1);">PRINT PURCHASE ORDER</span>
+                                            <span class="cursor-pointer" onclick="getPurchaseOrder(event, ${id});">PRINT PURCHASE ORDER</span>
                                             <div>
                                                 <span>Shipped</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
@@ -137,7 +137,7 @@ async function getPurchaseOrder(event, id) {
     response.json().then(function(res) {
         var options = {
             filename: 'generated-pdf.pdf',
-            html2canvas: { scale: 4, useCORS: true },
+            html2canvas: { scale: 4, useCORS: true, scrollY: 0, scrollX: 0 },
         };
 
         // Use html2pdf to generate the PDF
