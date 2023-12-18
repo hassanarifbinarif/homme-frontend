@@ -227,6 +227,7 @@ input::-webkit-inner-spin-button {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding-bottom: 1px;
 }
 
 

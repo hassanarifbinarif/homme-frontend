@@ -1,3 +1,61 @@
+let paymentTypeDropdown = document.getElementById('payment-type-dropdown');
+let paymentTypeDropdownBtn = document.getElementById('payment-type');
+let paymentTypeOptions = document.querySelectorAll('input[name="payment_type"]');
+
+paymentTypeDropdownBtn.addEventListener('click', toggleDropdown);
+
+
+function toggleDropdown(event) {
+    let elementBtn = event.target;
+    if(!elementBtn.classList.contains('filter-btn')) {
+        elementBtn = elementBtn.closest('.filter-btn');
+    }
+    let elementDropdown = elementBtn.nextElementSibling;
+    if(elementDropdown.style.display == 'flex') {
+        elementDropdown.style.display = 'none';
+    }
+    else {
+        elementDropdown.style.display = 'flex';
+    }
+}
+
+
+function closeDropdowns(event) {
+    if((!paymentTypeDropdownBtn.contains(event.target)) && paymentTypeDropdown.style.display == 'flex') {
+        paymentTypeDropdown.style.display = 'none';
+    }
+}
+
+document.body.addEventListener('click', closeDropdowns);
+
+
+function selectPaymentType(event) {
+    let inputElement = event.target;
+    let modal = document.getElementById('salonCreate');
+    
+    if(inputElement.checked) {
+        document.getElementById('selected-payment-type').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-payment-type').style.color = '#000';
+        if (inputElement.value == 'ach') {
+            modal.querySelectorAll('input[data-name="for_ach"]').forEach((input) => {
+                input.classList.remove('hide');
+            })
+            modal.querySelectorAll('input[data-name="for_cheque"]').forEach((input) => {
+                input.classList.add('hide');
+            })
+        }
+        else if (inputElement.value == 'check') {
+            modal.querySelectorAll('input[data-name="for_cheque"]').forEach((input) => {
+                input.classList.remove('hide');
+            })
+            modal.querySelectorAll('input[data-name="for_ach"]').forEach((input) => {
+                input.classList.add('hide');
+            })
+        }
+    }
+}
+
+
 function previewImage(event) {
     let imageInput = event.currentTarget;
     let image = imageInput.files;
@@ -60,9 +118,17 @@ async function createSalonForm(event) {
         errorMsg.innerHTML += "Salon Address: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (data.name_on_account.trim().length == 0 || data.bank_name.trim().length == 0 || data.routing_number.trim().length == 0 || data.account_number.trim().length == 0) {
-        errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
-        checkValidations = false;
+    if (data.payment_type == 'ach') {
+        if (data.name_on_account.trim().length == 0 || data.bank_name.trim().length == 0 || data.routing_number.trim().length == 0 || data.account_number.trim().length == 0) {
+            errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
+            checkValidations = false;
+        }
+    }
+    else {
+        if (data.payment_street1.trim().length == 0 || data.payment_street2.trim().length == 0 || data.payment_city.trim().length == 0 || data.payment_state.trim().length == 0 || data.payment_zip_code.trim().length != 5 || data.payment_country.trim().length == 0) {
+            errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
+            checkValidations = false;
+        }
     }
     if (!checkValidations) {
         errorMsg.classList.add('active');
@@ -106,14 +172,6 @@ async function createSalonForm(event) {
                         "state": data.salon_state,
                         "country": data.salon_country
                     },
-                    "payment_address": {
-                        "street1": data.salon_street1,
-                        "street2": data.salon_street2,
-                        "zip_code": data.salon_zip_code,
-                        "city": data.salon_city,
-                        "state": data.salon_state,
-                        "country": data.salon_country
-                    },
                     "other_information": {
                         "hear_about_us": "Current client",
                         "looking_in_mens_products": "",
@@ -121,6 +179,22 @@ async function createSalonForm(event) {
                         "annual_sales": 5000,
                         "number_of_location": 3
                     }
+                }
+            }
+            if (data.payment_type == 'ach') {
+                salonData.partnership_application.name_on_account = data.name_on_account;
+                salonData.partnership_application.bank_name = data.bank_name;
+                salonData.partnership_application.routing_number = data.routing_number;
+                salonData.partnership_application.account_number = data.account_number;
+            }
+            else {
+                salonData.partnership_application.payment_address = {
+                    "street1": data.payment_street1,
+                    "street2": data.payment_street2,
+                    "zip_code": data.payment_zip_code,
+                    "city": data.payment_city,
+                    "state": data.payment_state,
+                    "country": data.payment_country
                 }
             }
             let token = getCookie('admin_access');
@@ -131,13 +205,15 @@ async function createSalonForm(event) {
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/salon-profiles`, JSON.stringify(salonData), headers, 'POST');
             response.json().then(async function(res) {
-                // console.log(res)
+                // console.log(res);
 
                 if (response.status == 201) {
                     delete headers["Content-Type"];
-                    let resp = await requestAPI(`${apiURL}/admin/salon-profiles/${res.data.id}`, formData, headers, 'PATCH');
+                    let imageFormData = new FormData();
+                    imageFormData.append('salon_picture', imageInput.files[0]);
+
+                    let resp = await requestAPI(`${apiURL}/admin/salon-profiles/${res.data.id}`, imageFormData, headers, 'PATCH');
                     resp.json().then(function(updateRes) {
-                        // console.log(updateRes);
 
                         if (resp.status == 200) {
                             afterLoad(button, 'SAVED');
@@ -161,8 +237,17 @@ async function createSalonForm(event) {
                     afterLoad(button, 'ERROR');
                     errorMsg.classList.add('active');
                     let keys = Object.keys(res.messages);
+                    // keys.forEach((key) => {
+                    //     console.log(typeof res.messages[key]['phone'], res.messages[key]['phone']);
+                    //     errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                    // })
                     keys.forEach((key) => {
-                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                        if (typeof res.messages[key] === 'object') {
+                            const nestedKeys = Object.keys(res.messages[key]);
+                            nestedKeys.forEach((nestedKey) => {
+                                errorMsg.innerHTML += `${nestedKey}: ${res.messages[key][nestedKey][0]} <br />`;
+                            });
+                        }
                     })
                 }
             })

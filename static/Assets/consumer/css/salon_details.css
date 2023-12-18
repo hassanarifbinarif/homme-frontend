@@ -114,7 +114,7 @@
 
 .details-wrapper-col-1 .specific-salon-latest-commission {
     background-color: #FFF;
-    border: 1px solid #E0E0DD;
+    /* border: 1px solid #E0E0DD; */
     border-radius: 6px;
     width: 100%;
     margin-bottom: 20px;
@@ -143,6 +143,7 @@
 
 .details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table {
     width: 100%;
+    table-layout: fixed;
 }
 
 .details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead th {
@@ -150,6 +151,7 @@
     border-right: 1px solid #CECECE;
     border-left: 1px solid #CECECE;
     border-bottom: unset;
+    padding: 0px;
 }
 
 .details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table thead th:first-of-type {

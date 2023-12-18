@@ -101,14 +101,35 @@
                             <span>Payment Detail</span>
                         </div>
                         <div class="legal-info-input">
-                            <div>
-                                <input type="text" placeholder="Name" name="name_on_account" id="" />
-                                <input type="text" placeholder="Account Type" value="ach" name="payment_type" readonly id="" />
-                                <input type="text" placeholder="Bank" name="bank_name" id="" />
-                            </div>
-                            <div>
-                                <input type="text" placeholder="Routing Number" name="routing_number" id="" />
-                                <input type="text" placeholder="Account Number" name="account_number" id="" />
+                            <div class="flex-wrap">
+                                <div class="selection-input">
+                                    <button class="filter-btn" id="payment-type" type="button">
+                                        <span id="selected-payment-type">ACH</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                            <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="payment-type-dropdown">
+                                        <div class="radio-btn">
+                                            <input onchange="selectPaymentType(event);" id="payment-type-1" data-id="ach" type="radio" value="ach" name="payment_type" checked />
+                                            <label for="payment-type-1" class="radio-label">ACH</label>
+                                        </div>
+                                        <div class="radio-btn">
+                                            <input onchange="selectPaymentType(event);" id="payment-type-2" data-id="check" type="radio" value="check" name="payment_type" />
+                                            <label for="payment-type-2" class="radio-label">Cheque</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="text" placeholder="Name" data-name="for_ach" name="name_on_account" id="" />
+                                <input type="text" placeholder="Bank" data-name="for_ach" name="bank_name" id="" />
+                                <input class="hide" type="text" placeholder="Address 1" data-name="for_cheque" name="payment_street1" id="" />
+                                <input type="text" placeholder="Routing Number" data-name="for_ach" name="routing_number" id="" />
+                                <input type="text" placeholder="Account Number" data-name="for_ach" name="account_number" id="" />
+                                <input class="hide" type="text" placeholder="Address 2" data-name="for_cheque" name="payment_street2" id="" />
+                                <input class="hide" type="text" placeholder="City" data-name="for_cheque" name="payment_city" id="" />
+                                <input class="hide" type="text" placeholder="State" data-name="for_cheque" name="payment_state" id="" />
+                                <input class="hide" type="number" placeholder="ZIP" data-name="for_cheque" name="payment_zip_code" id="" />
+                                <input class="hide" type="text" placeholder="Country" data-name="for_cheque" name="payment_country" id="" />
                             </div>
                         </div>
                     </div>

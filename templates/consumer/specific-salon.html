@@ -49,17 +49,17 @@
                         <div class="vr"></div>
                         <div class="salon-overview-data registered-customers">
                             <span>Registered Customers</span>
-                            <span>{{salon.customers_count}}</span>
+                            <span class="w-100 table-text-overflow">{{salon.customers_count|default_if_none:"0"}}</span>
                         </div>
                         <div class="vr"></div>
                         <div class="salon-overview-data commission">
                             <span class="align-self-center">Commission Earned Latest Week</span>
-                            <span class="align-self-center">$45.00</span>
+                            <span class="align-self-center w-100 text-center table-text-overflow">${{salon.commission_earned|default_if_none:"0"}}</span>
                         </div>
                         <div class="vr"></div>
                         <div class="salon-overview-data weekly-sales">
                             <span>Weekly Average Sales</span>
-                            <span>$125.00</span>
+                            <span class="w-100 table-text-overflow">${{salon.average_sale|default_if_none:"0"}}</span>
                         </div>
                     </div>
                     <div class="specific-salon-latest-commission">
@@ -67,78 +67,31 @@
                             <span>Latest Commissions</span>
                         </div>
                         <div class="latest-commission-data">
-                            <table>
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="commissions-table-loader">
+                                <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                            <table class="hide" id="commissions-table">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th width="20.91%">
                                             <div><span>Month</span></div>
                                         </th>
-                                        <th>
+                                        <th width="19.94%">
                                             <div><span>Total Sales</span></div>
                                         </th>
-                                        <th>
+                                        <th width="16.2%">
                                             <div><span>Gross Sales</span></div>
                                         </th>
-                                        <th>
+                                        <th width="20.49%">
                                             <div><span>Commission</span></div>
                                         </th>
-                                        <th>
+                                        <th width="22.43%">
                                             <div><span>Status</span></div>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div><span>June, 2023</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>6</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$135</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$45</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Pending</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div><span>May, 2023</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>6</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$135</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$45</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Paid</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div><span>April, 2023</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>6</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$135</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$45</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Paid</span></div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -148,130 +101,34 @@
                             <span>Latest Orders</span>
                         </div>
                         <div class="latest-commission-data">
-                            <table>
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="order-table-loader">
+                                <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                            <table class="hide" id="order-table">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th width="17.17%">
                                             <div><span>Order #</span></div>
                                         </th>
-                                        <th>
+                                        <th width="17.17%">
                                             <div><span>Customer</span></div>
                                         </th>
-                                        <th>
+                                        <th width="17.31%">
                                             <div class="items-col"><span>Items</span></div>
                                         </th>
-                                        <th>
+                                        <th width="15.65%">
                                             <div class="total-col"><span>Total</span></div>
                                         </th>
-                                        <th>
+                                        <th width="18.55%">
                                             <div><span>Fulfillment Method</span></div>
                                         </th>
-                                        <th>
+                                        <th width="14.12%">
                                             <div><span>Status</span></div>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>#173</span></div>
-                                        </td>
-                                        <td>
-                                            <div class="highlighted-data"><span>Herry Smith</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>2</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$45</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Pick-Up</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Pending</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>#145</span></div>
-                                        </td>
-                                        <td>
-                                            <div class="highlighted-data"><span>Tom Rutland</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>1</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$25</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Shipping</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Paid</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>#156</span></div>
-                                        </td>
-                                        <td>
-                                            <div class="highlighted-data"><span>Robert Fox</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>2</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$45</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Pick-Up</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Completed</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>#110</span></div>
-                                        </td>
-                                        <td>
-                                            <div class="highlighted-data"><span>Albert Flores</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>1</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$25</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Shipping</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Paid</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>#123</span></div>
-                                        </td>
-                                        <td>
-                                            <div class="highlighted-data"><span>Floyd Miles</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>1</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$25</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Shipping</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Pending</span></div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -281,94 +138,28 @@
                             <span>New Customers</span>
                         </div>
                         <div class="latest-commission-data">
-                            <table>
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="customers-table-loader">
+                                <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                            <table class="hide" id="customers-table">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th width="24.09%">
                                             <div><span>Name</span></div>
                                         </th>
-                                        <th>
+                                        <th width="29.36%">
                                             <div><span>Location</span></div>
                                         </th>
-                                        <th>
+                                        <th width="24.51%">
                                             <div><span>Date Registered</span></div>
                                         </th>
-                                        <th>
+                                        <th width="22.02%">
                                             <div><span>Net Sales</span></div>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>Tom Rutland</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>New York, NY 10017</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>2-Jun-2023 @ 04:30 PM</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$45</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>Tim Holly</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Portland, OR 18642</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>2-Jun-2023 @ 04:30 PM</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$25</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>Robert Fox</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Chicago, IL 10546</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>2-Jun-2023 @ 04:30 PM</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$45</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>Albert Flores</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>Orlando, FL 10017</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>2-Jun-2023 @ 04:30 PM</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$25</span></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="highlighted-data"><span>Floyd Miles</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>New York, NY 10017</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>2-Jun-2023 @ 04:30 PM</span></div>
-                                        </td>
-                                        <td>
-                                            <div><span>$25</span></div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -447,7 +238,7 @@
                                 <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <span>No notes recorded.</span>
+                        <span>{% if salon.partnership_application.admin_comment == "" %}No notes recorded.{% else %}{{salon.partnership_application.admin_comment}}{% endif %}</span>
                     </div>
                     <div class="order-product-other-details-wrapper">
                         <div class="salon-status">
@@ -501,11 +292,13 @@
                                 <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <div class="hair-stylist-list">
-                            <span>Guy Hawkins</span>
-                            <span>Kristin Watson</span>
-                            <span>Cody Fisher</span>
-                            <span>Ronald Richards</span>
+                        <div>
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="hair-stylist-loader">
+                                <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                            <div class="hair-stylist-list hide" id="hair-stylist-wrapper">
+                            </div>
                         </div>
                     </div>
                     <div class="specific-salon-inventory-wrapper">
@@ -516,28 +309,32 @@
                             </div>
                             <div>
                                 <span>Status as of</span>
-                                <span>2-Jun-2023</span>
+                                <span id="status-date"></span>
                             </div>
                         </div>
-                        <div class="inventory-details">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="inventory-stat-loader">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
+                        </div>
+                        <div class="inventory-details hide" id="inventory-details">
                             <div class="inventory-data">
                                 <div>
                                     <span>SKUs to fulfill</span>
-                                    <span>Face Serum, Face Wash...</span>
+                                    <span id="sku-to-fulfill">No SKU</span>
                                 </div>
                                 <div>
                                     <span>Retail Value to Fulfill</span>
-                                    <span>$475</span>
+                                    <span id="retail-value-to-fulfill">$0</span>
                                 </div>
                             </div>
                             <div class="inventory-data">
                                 <div>
                                     <span>Products low on stock</span>
-                                    <span>19 Prodcuts</span>
+                                    <span id="products-stock">0 Products</span>
                                 </div>
                                 <div>
                                     <span>Latest Movement (wk/mo)</span>
-                                    <span>8/32</span>
+                                    <span id="latest-movement">0/0</span>
                                 </div>
                             </div>
                         </div>
@@ -553,22 +350,15 @@
 
     {% include '../modals/manage-hairstylists-modal.html' %}
 
+    {{salon.id|json_script:"specific_salon_id"}}
+
     {% endblock %}
 </body>
 {% block scripts %}
 <script>
-    let commentsWrapper = document.getElementById('comments-wrapper');
-    let showCommentsCheckbox = document.getElementById('comment-checkbox');
-
-    showCommentsCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            commentsWrapper.classList.remove('hide');
-        }
-        else {
-            commentsWrapper.classList.add('hide');
-        }
-    })
+    const specific_salon_id = JSON.parse(document.getElementById('specific_salon_id').textContent);
 </script>
+<script src="{% static 'Assets/consumer/js/specificSalon.js' %}"></script>
 <script src="{% static 'Assets/modals/js/addHairstylistModal.js' %}"></script>
 {% endblock %}
 </html>
