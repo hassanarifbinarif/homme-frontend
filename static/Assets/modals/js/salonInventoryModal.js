@@ -2,6 +2,12 @@ async function openFullInventory(id) {
     let modal = document.getElementById('salonInventory');
     let modalLoader = modal.querySelector('.modal-loader');
     let modalContent = modal.querySelector('.modal-content');
+
+    modal.addEventListener('hidden.bs.modal', event => {
+        modalLoader.classList.remove('hide');
+        modalContent.classList.add('hide');
+    })
+
     document.querySelector('.salonInventory').click();
 
     try {

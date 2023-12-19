@@ -1,6 +1,7 @@
 #manageHairstylist .modal-dialog {
     max-width: unset;
     width: 616px;
+    justify-content: center;
 }
 
 #manageHairstylist .modal-header {
