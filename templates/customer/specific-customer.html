@@ -288,7 +288,7 @@
                             <span>Favourite Products</span>
                             <div>
                                 {% for obj in customer.salon_customer.favourite_products %}
-                                <img src="http://dev.crymzee.com:8001/{{obj.product.images.0.image}}" title="{{obj.product.title}}" alt="{{obj.product.title}}" />
+                                <img src="http://dev.crymzee.com:8001/{{obj.product.images.0.image}}" onerror="this.onerror=null;this.src=`{% static 'Assets/customer/images/product_fallback_img.png' %}`;" title="{{obj.product.title}}" alt="{{obj.product.title}}" />
                                 {% empty %}
                                 <span class="no-data-text">No favourite products</span>
                                 {% endfor %}
