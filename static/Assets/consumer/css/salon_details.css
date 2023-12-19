@@ -179,11 +179,16 @@
     opacity: .6;
 }
 
+.details-wrapper-col-1 .specific-salon-latest-commission #customers-table thead th:not(:first-of-type) div {
+    padding: 0px 5px;
+}
+
 .details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tbody tr td {
     border-top: 1px solid #CECECE;
     border-right: 1px solid #CECECE;
     border-left: 1px solid #CECECE;
     border-bottom: unset;
+    padding: 0px;
 }
 
 .details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tbody tr td:first-of-type {
@@ -208,6 +213,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: 10px;
+}
+
+.details-wrapper-col-1 .specific-salon-latest-commission #customers-table tbody tr td:not(:first-of-type) div {
+    padding: 0px 5px;
 }
 
 .details-wrapper-col-1 .specific-salon-latest-commission .latest-commission-data > table tbody tr .highlighted-data {

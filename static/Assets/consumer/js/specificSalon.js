@@ -48,8 +48,8 @@ function populateCommissions(response) {
                 commissionsTableBody.innerHTML += `<tr>
                                                         <td><div><span>${formatCustomDate(item.month, { month: 'long', year: 'numeric' })}</span></div></td>
                                                         <td><div><span>${item.total_products}</span></div></td>
-                                                        <td><div><span>${item.total_customer_purchase}</span></div></td>
-                                                        <td><div><span>${item.total_commission}</span></div></td>
+                                                        <td><div><span>$${item.total_customer_purchase}</span></div></td>
+                                                        <td><div><span>$${item.total_commission}</span></div></td>
                                                         <td><div><span>${captalizeFirstLetter(item.status)}</span></div></td>
                                                     </tr>`;
             })
@@ -111,7 +111,7 @@ function populateCustomers(response) {
                 customersTableBody.innerHTML += `<tr>
                                                     <td onclick="location.pathname = '/specific-customer/${item.user_profile_id}'"><div class="highlighted-data"><span title="${item.fullname}" class="table-text-overflow">${item.fullname}</span></div></td>
                                                     <td><div><span class="table-text-overflow" title="${addressString}">${addressString}</span></div></td>
-                                                    <td><div><span class="table-text-overflow">${formatCustomDate(item.created_at, { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })}</span></div></td>
+                                                    <td><div><span class="table-text-overflow">${convertDateTime(item.created_at)}</span></div></td>
                                                     <td><div><span class="table-text-overflow">$${item.net_sales || 0}</span></div></td>
                                                 </tr>`;
             })
@@ -159,4 +159,25 @@ function populateInventoryStats(response) {
 function formatCustomDate(dateString, options) {
     const formattedDate = new Date(dateString).toLocaleString('en-US', options);
     return formattedDate;
+}
+
+
+function convertDateTime(dateString) {
+    const inputDate = new Date(dateString);
+
+    // Format date components
+    const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+    const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+    const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+
+    const formattedTime = new Intl.DateTimeFormat('en-US', {
+        hour: '2-digit',
+        minute: 'numeric',
+        hour12: true,
+    }).format(inputDate);
+
+    // Create the desired format
+    const result = `${day}-${month}-${year} @ ${formattedTime}`;
+
+    return result;
 }
