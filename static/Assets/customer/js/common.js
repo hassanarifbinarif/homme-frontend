@@ -389,8 +389,15 @@ function roundDecimalPlaces(number) {
 }
 
 
-function captalizeFirstLetter(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
+function captalizeFirstLetter(string) {
+    // return word.charAt(0).toUpperCase() + word.slice(1);
+    
+    // Split the string into an array of words using spaces or underscores as separators
+    const words = string.split(/[_\s]+/);
+    const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    const resultString = capitalizedWords.join(' ');
+
+    return resultString;
 }
 
 
