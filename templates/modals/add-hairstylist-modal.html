@@ -2,8 +2,7 @@
     aria-labelledby="addHairstylistLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <form>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Add New Hairstylist</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -13,10 +12,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-div">
-                        <div class="group-inputs">
+                        <!-- <div class="group-inputs">
                             <input type="text" name="first_name" placeholder="First Name" />
                             <input type="text" name="last_name" placeholder="Last Name" />
-                        </div>
+                        </div> -->
+                        <input type="text" name="fullname" placeholder="Full Name" />
                         <input type="email" name="email" placeholder="Email Address" />
                         <div class="group-inputs">
                             <input type="number" name="phone" placeholder="Phone Number" />
@@ -52,13 +52,13 @@
                             <input type="text" name="country" placeholder="Country" />
                         </div>
                     </div>
-                    <div class="error-div">
-                        <small class="create-error-msg input-error-msg"></small>
-                    </div>
+                </div>
+                <div class="error-div">
+                    <small class="create-error-msg input-error-msg"></small>
                 </div>
                 <div class="modal-footer border-top-0">
                     <button type="button" data-bs-dismiss="modal">DISCARD</button>
-                    <button type="button" data-bs-dismiss="modal">
+                    <button type="submit">
                         <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
                         <span class="btn-text">ADD</span>
                     </button>

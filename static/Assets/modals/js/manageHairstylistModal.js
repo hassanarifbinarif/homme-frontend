@@ -20,7 +20,7 @@ async function openManageHairstylistModal(id) {
         };
         let response = await requestAPI(`${apiURL}/admin/salons/stylists?page=1&perPage=1000&salon=${specific_salon_id}`, null, headers, 'GET');
         response.json().then(function(res) {
-            console.log(res);
+            // console.log(res);
             hairstylistTableBody.innerHTML = '';
 
             if (response.status == 200 && res.data.length > 0) {

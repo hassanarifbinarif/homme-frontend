@@ -130,10 +130,10 @@ function populateStylists(response) {
 
     response.json().then(function(res) {
         if (response.status == 200 && res.data.length > 0) {
-            res.data.forEach((item) => hairStylistWrapper.innerHTML += `<span>${item.fullname}</span>`)
+            res.data.forEach((item) => hairStylistWrapper.innerHTML += `<span>${item.fullname}</span>`);
         }
         else {
-            hairStylistWrapper.innerHTML = '<span>No Hairstylists</span>';
+            hairStylistWrapper.innerHTML = '<span class="no-stylist">No Hairstylists</span>';
         }
         document.getElementById('hair-stylist-loader').classList.add('hide');
         hairStylistWrapper.classList.remove('hide');
