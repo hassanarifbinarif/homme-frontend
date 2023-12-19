@@ -42,6 +42,7 @@ async function openSalonDetailModal(salonName, id) {
         document.querySelector('.salonDetail').click();
         let response = await requestAPI(`${apiURL}/admin/partnerships/${id}`, null, headers, 'GET');
         response.json().then(function(res) {
+            console.log(res);
             if (response.status == 200) {
                 modal.querySelector('#header-salon-name').innerText = salonName;
                 modal.querySelector('#salon-current-status').innerText = '(' + captalizeFirstLetter(res.data.status) + ')';
@@ -69,11 +70,27 @@ async function openSalonDetailModal(salonName, id) {
                 modal.querySelector('#salon-addr-zipcode').innerText = res.data.salon_address.zip_code;
                 modal.querySelector('#salon-addr-country').innerText = res.data.salon_address.country;
 
-                modal.querySelector('#payment-info-name').innerText = res.data.name_on_account;
-                modal.querySelector('#payment-info-account-type').innerText = res.data.payment_type;
-                modal.querySelector('#payment-info-bank').innerText = res.data.bank_name;
-                modal.querySelector('#payment-info-routing-number').innerText = res.data.routing_number;
-                modal.querySelector('#payment-info-account-number').innerText = res.data.account_number;
+                modal.querySelector('#payment-info-account-type').innerText = captalizeFirstLetter(res.data.payment_type);
+                if (res.data.payment_type == 'check') {
+                    modal.querySelector('#payment-addr-1').innerText = res.data.payment_address.street1;
+                    modal.querySelector('#payment-addr-2').innerText = res.data.payment_address.street2;
+                    modal.querySelector('#payment-addr-city').innerText = res.data.payment_address.city;
+                    modal.querySelector('#payment-addr-state').innerText = res.data.payment_address.state;
+                    modal.querySelector('#payment-addr-zipcode').innerText = res.data.payment_address.zip_code;
+                    modal.querySelector('#payment-addr-country').innerText = res.data.payment_address.country;
+
+                    modal.querySelectorAll('div[data-type="for_cheque"]').forEach((div) => div.classList.remove('hide'));
+                    modal.querySelectorAll('div[data-type="for_ach"]').forEach((div) => div.classList.add('hide'));
+                }
+                else {
+                    modal.querySelector('#payment-info-name').innerText = res.data.name_on_account;
+                    modal.querySelector('#payment-info-bank').innerText = res.data.bank_name;
+                    modal.querySelector('#payment-info-routing-number').innerText = res.data.routing_number;
+                    modal.querySelector('#payment-info-account-number').innerText = res.data.account_number;
+                    modal.querySelectorAll('div[data-type="for_cheque"]').forEach((div) => div.classList.add('hide'));
+                    modal.querySelectorAll('div[data-type="for_ach"]').forEach((div) => div.classList.remove('hide'));
+                }
+                modal.querySelectorAll('.table-text-overflow').forEach((span) => span.title = span.innerText);
 
                 modal.querySelector('#selected-status-type').innerText = captalizeFirstLetter(res.data.status);
                 modal.querySelector(`input[value="${res.data.status}"]`).checked = true;

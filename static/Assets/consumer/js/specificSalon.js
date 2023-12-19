@@ -109,7 +109,7 @@ function populateCustomers(response) {
             res.data.forEach((item) => {
                 let addressString = item.address ? `${item.address.city || ''}, ${item.address.state || ''} ${item.address.zip_code || ''}` : 'No Address';
                 customersTableBody.innerHTML += `<tr>
-                                                    <td><div class="highlighted-data"><span title="${item.fullname}" class="table-text-overflow">${item.fullname}</span></div></td>
+                                                    <td onclick="location.pathname = '/specific-customer/${item.user_profile_id}'"><div class="highlighted-data"><span title="${item.fullname}" class="table-text-overflow">${item.fullname}</span></div></td>
                                                     <td><div><span class="table-text-overflow" title="${addressString}">${addressString}</span></div></td>
                                                     <td><div><span class="table-text-overflow">${formatCustomDate(item.created_at, { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })}</span></div></td>
                                                     <td><div><span class="table-text-overflow">$${item.net_sales || 0}</span></div></td>
