@@ -1,6 +1,7 @@
 #salonInventory .modal-dialog {
     max-width: unset;
     width: 1091px;
+    justify-content: center;
 }
 
 #salonInventory .modal-header {

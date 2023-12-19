@@ -6,7 +6,7 @@ let statusTypeOptions = document.querySelectorAll('input[name="status"]');
 async function openSalonDetailModal(salonName, id) {
     let modal = document.getElementById('salonDetail');
     let form = modal.querySelector('form');
-    let modalLoader = modal.querySelector('.loader');
+    let modalLoader = modal.querySelector('.modal-loader');
     let modalContent = modal.querySelector('.modal-content');
     let partnershipNullContent = modal.querySelector('#partnership-none');
 

@@ -561,7 +561,7 @@ function convertDateTime() {
 async function openProductPurchaseModal(modalID, id) {
     let modal = document.getElementById(`${modalID}`);
     modal.querySelector('.modal-content').classList.add('hide');
-    modal.querySelector('.loader').classList.remove('hide');
+    modal.querySelector('.modal-loader').classList.remove('hide');
     document.querySelector(`.${modalID}`).click();
     try {
         let token = getCookie('admin_access');
@@ -587,7 +587,7 @@ async function openProductPurchaseModal(modalID, id) {
                     modal.querySelector('#purchase-location').innerText = res.data.shipping_address.address;
                 else
                     modal.querySelector('#purchase-location').innerText = 'No location';
-                modal.querySelector('.loader').classList.add('hide');
+                modal.querySelector('.modal-loader').classList.add('hide');
                 modal.querySelector('.modal-content').classList.remove('hide');
             }
         })

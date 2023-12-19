@@ -1,7 +1,7 @@
 <div class="modal fade" id="salonInventory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="salonInventoryLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center">
+        <div class="modal-content text-center hide">
             <form action="">
                 <!-- {% csrf_token %} -->
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
@@ -12,7 +12,7 @@
                     </svg>
                 </div>
                 <div class="modal-body">
-                    <table>
+                    <table id="salon-inventory-table">
                         <thead>
                             <tr>
                                 <th width="210px">
@@ -33,62 +33,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><div><span>Face Serum</span></div></td>
-                                <td><div><span>07834</span></div></td>
-                                <td><div><span>3</span></div></td>
-                                <td><div><span>4/31</span></div></td>
-                                <td><div><span>5</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div><span>Body Wash</span></div></td>
-                                <td><div><span>07533</span></div></td>
-                                <td><div><span>5</span></div></td>
-                                <td><div><span>3/20</span></div></td>
-                                <td><div><span>0</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div><span>Concealer</span></div></td>
-                                <td><div><span>07533</span></div></td>
-                                <td><div><span>7</span></div></td>
-                                <td><div><span>3/20</span></div></td>
-                                <td><div><span>2</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div><span>Face Mask</span></div></td>
-                                <td><div><span>07834</span></div></td>
-                                <td><div><span>3</span></div></td>
-                                <td><div><span>4/31</span></div></td>
-                                <td><div><span>5</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div><span>Body Wash</span></div></td>
-                                <td><div><span>07533</span></div></td>
-                                <td><div><span>5</span></div></td>
-                                <td><div><span>3/20</span></div></td>
-                                <td><div><span>0</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div><span>Concealer</span></div></td>
-                                <td><div><span>07533</span></div></td>
-                                <td><div><span>7</span></div></td>
-                                <td><div><span>3/20</span></div></td>
-                                <td><div><span>2</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div><span>Face Mask</span></div></td>
-                                <td><div><span>07834</span></div></td>
-                                <td><div><span>3</span></div></td>
-                                <td><div><span>4/31</span></div></td>
-                                <td><div><span>5</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div><span>Body Wash</span></div></td>
-                                <td><div><span>07533</span></div></td>
-                                <td><div><span>5</span></div></td>
-                                <td><div><span>3/20</span></div></td>
-                                <td><div><span>0</span></div></td>
-                            </tr>
                         </tbody>
                     </table>
                     <div class="general-info-wrapper">
@@ -101,7 +45,7 @@
                                     <span class="opacity-point-6">Salon Name</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>Redge NYC</span>
+                                    <span class="table-text-overflow" id="salonInventory-name"></span>
                                 </div>
                             </div>
                             <div class="phone-div">
@@ -109,7 +53,7 @@
                                     <span class="opacity-point-6">Phone Number</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>(316) 555-0116</span>
+                                    <span id="salonInventory-phone"></span>
                                 </div>
                             </div>
                             <div class="address-div">
@@ -117,7 +61,7 @@
                                     <span class="opacity-point-6">Address</span>
                                 </div>
                                 <div class="border-right">
-                                    <span>775 Rolling Green Rd., New York, NY 10012</span>
+                                    <span class="table-text-overflow" id="salonInventory-address"></span>
                                 </div>
                             </div>
                             <div class="notes-div">
@@ -125,7 +69,7 @@
                                     <span class="opacity-point-6">Notes</span>
                                 </div>
                                 <div>
-                                    <span>Lorem Ipsum is simply dummy text of the print industry.</span>
+                                    <span class="table-text-overflow" id="salonInventory-notes"></span>
                                 </div>
                             </div>
                         </div>
@@ -137,6 +81,10 @@
                     </button>
                 </div>
             </form>
+        </div>
+        <div class="w-100 d-flex justify-content-center align-items-center pt-2 pb-2 modal-loader">
+            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status"
+                aria-hidden="true"></span>
         </div>
     </div>
 </div>

@@ -305,7 +305,7 @@
                         <div class="inventory-header">
                             <div>
                                 <span>Inventory</span>
-                                <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#salonInventory">View Full Inventory</span>
+                                <span class="cursor-pointer" onclick="openFullInventory('{{salon.id}}');">View Full Inventory</span>
                             </div>
                             <div>
                                 <span>Status as of</span>
@@ -360,5 +360,6 @@
 </script>
 <script src="{% static 'Assets/consumer/js/specificSalon.js' %}"></script>
 <script src="{% static 'Assets/modals/js/addHairstylistModal.js' %}"></script>
+<script src="{% static 'Assets/modals/js/salonInventoryModal.js' %}"></script>
 {% endblock %}
 </html>
