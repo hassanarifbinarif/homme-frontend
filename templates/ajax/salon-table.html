@@ -122,9 +122,9 @@
             <td class="cursor-pointer" onclick="event.stopPropagation(); openSalonDetailModal(`{{obj.salon_name}}`, `{% if obj.partnership_application %}{{obj.partnership_application.id}}{% else %}None{% endif %}`);">
                 <div><span>{{obj.status|title}}</span></div>
             </td>
-            <td class="cursor-pointer" {% if obj.status == 'approved' %}onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#salonAddStock"{% else %}onclick="event.stopPropagation();"{% endif %}>
-                <div class="{% if obj.status == 'approved' %}highlighted-data{% endif %}">
-                    <span>{% if obj.status == 'approved' %}Add Initial Stock{% else %}---{% endif %}</span>
+            <td class="cursor-pointer" {% if obj.status == 'approved' and obj.has_initial_stock == False %}onclick="event.stopPropagation(); openInitialStockModal({{obj.id}}, '{{obj.salon_name}}');"{% else %}onclick="event.stopPropagation();"{% endif %}>
+                <div class="{% if obj.status == 'approved' and obj.has_initial_stock == False %}highlighted-data{% endif %}">
+                    <span>{% if obj.status == 'approved' and obj.has_initial_stock == False %}Add Initial Stock{% else %}---{% endif %}</span>
                 </div>
             </td>
             <td>

@@ -1,4 +1,4 @@
-let requiredDataURL = `/admin/inventory?page=1&perPage=1000&search=`;
+let requiredDataURL = `/admin/inventory?page=1&perPage=1000&ordering=-id&search=`;
 
 window.onload = () => {
     getData();

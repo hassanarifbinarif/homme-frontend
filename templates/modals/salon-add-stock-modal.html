@@ -1,33 +1,24 @@
 <div class="modal fade" id="salonAddStock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="salonAddStockLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+        <div class="modal-content text-center hide">
+            <form>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
-                    <span>Add initial stock to redge NYC</span>
+                    <span class="initial-stock-modal-header">Add initial stock</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
                         <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="products-table">
                     <table>
                         <thead>
                             <tr>
-                                <th>
-                                    <div><span>Product Name</span></div>
-                                </th>
-                                <th>
-                                    <div><span>SKU#</span></div>
-                                </th>
-                                <th>
-                                    <div><span>Short Description</span></div>
-                                </th>
-                                <th>
-                                    <div><span>Retail Price</span></div>
-                                </th>
-                                <th>
+                                <th width="17.27%"><div><span>Product Name</span></div></th>
+                                <th width="17.61%"><div><span>SKU#</span></div></th>
+                                <th width="29.87%"><div><span>Short Description</span></div></th>
+                                <th width="17.61%"><div><span>Retail Price</span></div></th>
+                                <th width="17.61%">
                                     <div>
                                         <span>Quantity</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -40,119 +31,32 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <div><span>Face Wash</span></div>
-                                </td>
-                                <td>
-                                    <div><span>HOMME0652B</span></div>
-                                </td>
-                                <td>
-                                    <div><span>Lorem ipsum dolor sit amet, conse.....</span></div>
-                                </td>
-                                <td>
-                                    <div><span>$25.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="quantity-input"><input type="number" placeholder="Enter numerical value" name="quantity" id="" /></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div><span>Concealer</span></div>
-                                </td>
-                                <td>
-                                    <div><span>HOMME0652B</span></div>
-                                </td>
-                                <td>
-                                    <div><span>Lorem ipsum dolor sit amet, conse.....</span></div>
-                                </td>
-                                <td>
-                                    <div><span>$34.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="quantity-input"><input type="number" placeholder="Enter numerical value" name="quantity" id="" /></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div><span>Body Wash</span></div>
-                                </td>
-                                <td>
-                                    <div><span>HOMME0652B</span></div>
-                                </td>
-                                <td>
-                                    <div><span>Lorem ipsum dolor sit amet, conse.....</span></div>
-                                </td>
-                                <td>
-                                    <div><span>$18.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="quantity-input"><input type="number" placeholder="Enter numerical value" name="quantity" id="" /></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div><span>Hair Texture Cream</span></div>
-                                </td>
-                                <td>
-                                    <div><span>HOMME0652B</span></div>
-                                </td>
-                                <td>
-                                    <div><span>Lorem ipsum dolor sit amet, conse.....</span></div>
-                                </td>
-                                <td>
-                                    <div><span>$50.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="quantity-input"><input type="number" placeholder="Enter numerical value" name="quantity" id="" /></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div><span>Face Serum</span></div>
-                                </td>
-                                <td>
-                                    <div><span>HOMME0652B</span></div>
-                                </td>
-                                <td>
-                                    <div><span>Lorem ipsum dolor sit amet, conse.....</span></div>
-                                </td>
-                                <td>
-                                    <div><span>$30.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="quantity-input"><input type="number" placeholder="Enter numerical value" name="quantity" id="" /></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div><span>Hair Serum</span></div>
-                                </td>
-                                <td>
-                                    <div><span>HOMME0652B</span></div>
-                                </td>
-                                <td>
-                                    <div><span>Lorem ipsum dolor sit amet, conse.....</span></div>
-                                </td>
-                                <td>
-                                    <div><span>$25.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="quantity-input"><input type="number" placeholder="Enter numerical value" name="quantity" id="" /></div>
-                                </td>
+                                <td><div><span>Face Wash</span></div></td>
+                                <td><div><span>HOMME0652B</span></div></td>
+                                <td><div><span>Lorem ipsum dolor sit amet, conse.....</span></div></td>
+                                <td><div><span>$25.00</span></div></td>
+                                <td><div class="quantity-input"><input type="number" placeholder="Enter numerical value" name="quantity" id="" /></div></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <div class="error-div" style="text-align: left;">
+                    <small style="text-align: left;" class="create-error-msg input-error-msg"></small>
+                </div>
                 <div class="modal-footer">
-                    <button class="submit-btn" type="button" data-bs-dismiss="modal">
+                    <button type="button" data-bs-dismiss="modal">
                         COMPLETE LATER
                     </button>
-                    <button class="submit-btn" type="button" data-bs-dismiss="modal">
-                        Save
+                    <button class="submit-btn" type="button" onclick="addInitialStockToSalon(event);">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">SAVE</span>
                     </button>
                 </div>
             </form>
+        </div>
+        <div class="w-100 d-flex justify-content-center align-items-center pt-2 pb-2 modal-loader">
+            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status"
+                aria-hidden="true"></span>
         </div>
     </div>
 </div>

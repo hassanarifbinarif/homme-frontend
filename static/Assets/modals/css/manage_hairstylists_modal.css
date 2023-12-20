@@ -58,6 +58,7 @@
     border-right: 1px solid #CECECE;
     border-bottom: unset;
     background: #EEE;
+    padding: 0px;
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -80,9 +81,9 @@
     height: 23px;
 }
 
-.hairstylist-table thead th:first-of-type > div {
+/* .hairstylist-table thead th:first-of-type > div {
     padding: 9px 5px 9px 20px;
-}
+} */
 
 .hairstylist-table tbody tr .table-checkbox {
     display: flex;
@@ -96,6 +97,7 @@
     border-right: 1px solid #CECECE;
     /* border-left: 1px solid #CECECE; */
     border-bottom: unset;
+    padding: 0px;
 
     color: #000;
     leading-trim: both;
@@ -124,8 +126,15 @@
     height: 23px;
 }
 
-.hairstylist-table tbody tr td:first-of-type > div {
-    padding: 9px 5px 9px 20px;
+/* .hairstylist-table tbody tr td:first-of-type > div {
+    padding: 0px;
+} */
+
+.hairstylist-table tbody tr td:first-of-type > div > input {
+    width: 100%;
+    border: none;
+    outline: unset;
+    padding: 0px;
 }
 
 .hairstylist-table tbody tr td > .status-options-div {

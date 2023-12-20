@@ -42,7 +42,7 @@ async function openSalonDetailModal(salonName, id) {
         document.querySelector('.salonDetail').click();
         let response = await requestAPI(`${apiURL}/admin/partnerships/${id}`, null, headers, 'GET');
         response.json().then(function(res) {
-            console.log(res);
+
             if (response.status == 200) {
                 modal.querySelector('#header-salon-name').innerText = salonName;
                 modal.querySelector('#salon-current-status').innerText = '(' + captalizeFirstLetter(res.data.status) + ')';

@@ -1,6 +1,7 @@
 #salonAddStock .modal-dialog {
     max-width: unset;
     width: 1023px;
+    justify-content: center;
 }
 
 #salonAddStock .modal-header {
@@ -17,6 +18,7 @@
 
 #salonAddStock .modal-content {
     border-radius: 8px!important;
+    border: unset;
 }
 
 #salonAddStock .modal-header > span {
@@ -40,6 +42,7 @@
 
 #salonAddStock .modal-body table {
     width: 100%;
+    table-layout: fixed;
 }
 
 #salonAddStock .modal-body table thead {
@@ -89,6 +92,10 @@
     line-height: 20px;
 }
 
+#salonAddStock .modal-body table tbody tr:last-of-type td {
+    border-bottom: 1px solid #CECECE;
+}
+
 #salonAddStock .modal-body table tbody tr td > div {
     display: flex;
     align-items: center;
@@ -118,12 +125,16 @@
     line-height: 10px;
 }
 
+#salonAddStock .error-div {
+    padding: 0px 15px;
+}
+
 #salonAddStock .modal-footer {
     padding: 17px 15px!important;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid #CECECE;
+    border-top: unset!important;
 }
 
 #salonAddStock .modal-footer > button {
