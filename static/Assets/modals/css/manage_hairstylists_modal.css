@@ -130,7 +130,7 @@
     padding: 0px;
 } */
 
-.hairstylist-table tbody tr td:first-of-type > div > input {
+.hairstylist-table tbody tr td > div > input {
     width: 100%;
     border: none;
     outline: unset;
@@ -283,9 +283,9 @@
 }
 
 
-#manageHairstylist .modal-body .error-div {
+#manageHairstylist .error-div {
     text-align: left;
-    margin-top: 5px;
+    padding: 0px 15px;
 }
 
 
@@ -306,6 +306,7 @@
     background: var(--Brand-color, #000093);
     width: 127px;
     height: 36px;
+    margin: 0px;
 
     color: var(--white, #FFF);
     leading-trim: both;

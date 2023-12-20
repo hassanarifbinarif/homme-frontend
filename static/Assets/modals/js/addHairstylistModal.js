@@ -1,6 +1,6 @@
 let statusTypeDropdown = document.getElementById('status-type-dropdown');
 let statusTypeDropdownBtn = document.getElementById('status-type');
-let statusTypeOptions = document.querySelectorAll('input[name="status_type_radio"]');
+let statusTypeOptions = document.querySelectorAll('input[name="status"]');
 
 function toggleDropdown(event) {
     let elementBtn = event.target;
@@ -60,9 +60,44 @@ async function createHairstylistForm(event) {
     let errorMsg = form.querySelector('.create-error-msg');
     let hairStylistWrapper = document.getElementById('hair-stylist-wrapper');
 
-    if (data.fullname.trim().length == 0) {
+    if (data.first_name.trim().length == 0 || data.last_name.trim().length == 0) {
         errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid full name';
+        errorMsg.innerHTML = 'Enter valid first and last names';
+        return false;
+    }
+    else if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(data.email) == false) {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Enter valid email';
+        return false;
+    }
+    else if (/^\+?\d{12,}$/.test(data.phone) == false) {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Enter valid phone';
+        return false;
+    }
+    else if (data.address.trim().length == 0) {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Enter valid address';
+        return false;
+    }
+    else if (data.city.trim().length == 0) {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Enter valid city name';
+        return false;
+    }
+    else if (data.state.trim().length == 0) {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Enter valid state';
+        return false;
+    }
+    else if (data.zip_code.trim().length != 5) {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Enter valid zipcode';
+        return false;
+    }
+    else if (data.country.trim().length == 0) {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Enter valid country';
         return false;
     }
     else {
@@ -84,14 +119,14 @@ async function createHairstylistForm(event) {
                     form.removeAttribute('onsubmit');
                     afterLoad(button, 'ADDED');
                     
-                    hairStylistWrapper.innerHTML += `<span>${data.fullname}</span>`;
+                    hairStylistWrapper.innerHTML += `<span data-role="stylist" data-id="${res.data.id}">${data.first_name} ${data.last_name}</span>`;
                     if (hairStylistWrapper.querySelector('.no-stylist')) {
                         hairStylistWrapper.querySelector('.no-stylist').classList.add('hide');
                     }
 
                     setTimeout(() => {
                         document.querySelector('.addHairstylist').click();
-                    }, 1000)
+                    }, 1500)
                 }
                 else {
                     afterLoad(button, 'ERROR');

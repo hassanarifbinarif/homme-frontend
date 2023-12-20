@@ -70,7 +70,7 @@ def activity(request, api_response):
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'activity'
     context['sidebar'] = 'consumer'
-    return render(request, 'consumer/consumer-activity.html', context)
+    return render(request, 'customer/activity.html', context)
 
 
 @admin_signin_required
