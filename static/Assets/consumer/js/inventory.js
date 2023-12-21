@@ -57,7 +57,7 @@ function insertTableBodyRows(data, tableBody) {
         tr.innerHTML = `<td><div><span>${item.product.title}</span></div></td>
                         <td><div><span>${item.product.sku_num}</span></div></td>
                         <td><div><span>${item.current_stock}</span></div></td>
-                        <td><div><span>4/31</span></div></td>
+                        <td><div><span>${item.movement_week}/${item.movement_month}</span></div></td>
                         <td><div><span>${item.quantity}</span></div></td>`;
         tableBody.appendChild(tr);
     })
@@ -84,9 +84,12 @@ function showInventoryDetails(clickedRow, productList, salonName, salonContactNu
 
         insertTableBodyRows(productList, inventoryDetailBody);
         
+        inventoryDetailBody.id = `inventory-body-${id}`;
         inventoryDetailTable.appendChild(inventoryDetailThead);
         inventoryDetailTable.appendChild(inventoryDetailBody);
         inventoryDetailTable.classList.add('inventory-details-table');
+
+        let status = clickedRow.getAttribute('data-status');
         
         newRow.innerHTML = `<td colspan="7">
                                 <div class="stock-details-container">
@@ -94,11 +97,11 @@ function showInventoryDetails(clickedRow, productList, salonName, salonContactNu
                                         <span>Stock Details</span>
                                         <div>
                                             <span class="cursor-pointer" onclick="getPurchaseOrder(event, ${id});">PRINT PURCHASE ORDER</span>
-                                            <div>
-                                                <span>Shipped</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                                                    <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
-                                                </svg>
+                                            <div id="inventory-status-wrapper-${id}">
+                                                ${status == 'shipped' ? '<span>Shipped</span>' : `<select name="status" onchange="changeInventoryStatus(event, ${id})" id="inventory-status-${id}">
+                                                                                                    <option value="" selected disabled hidden>Pending</option>
+                                                                                                    <option value="shipped">Shipped</option>
+                                                                                                </select>`}
                                             </div>
                                         </div>
                                     </div>
@@ -128,6 +131,36 @@ function showInventoryDetails(clickedRow, productList, salonName, salonContactNu
 }
 
 
+async function changeInventoryStatus(event, id) {
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+        let response = await requestAPI(`${apiURL}/admin/inventory/${id}`, JSON.stringify({status: 'shipped'}), headers, 'PATCH');
+        response.json().then(function(res) {
+
+            if (response.status == 200) {
+                document.getElementById(`row-status-field-${id}`).innerText = 'Shipped';
+                let updatedRow = document.getElementById(`row-status-field-${id}`).closest('tr');
+                updatedRow.setAttribute('data-status', 'shipped');
+                
+                let dropdownWrapper = document.getElementById(`inventory-status-wrapper-${id}`);
+                dropdownWrapper.innerHTML = `<span>Shipped</span>`;
+
+                let tableBody = document.getElementById(`inventory-body-${id}`);
+                tableBody.innerHTML = '';
+                insertTableBodyRows(res.data.products, tableBody);
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
 async function getPurchaseOrder(event, id) {
     event.stopPropagation();
 
@@ -140,7 +173,6 @@ async function getPurchaseOrder(event, id) {
             html2canvas: { scale: 4, useCORS: true, scrollY: 0, scrollX: 0 },
         };
 
-        // Use html2pdf to generate the PDF
         // html2pdf().from(res.packing_data).set(options).save();
 
         html2pdf().from(res.purchase_data).set(options).toPdf().get('pdf').then(function (pdf) {
@@ -149,4 +181,88 @@ async function getPurchaseOrder(event, id) {
         });
         // afterLoad(button, buttonText);
     })
+}
+
+
+const sortOrders = {};
+
+function sortByAlphabets(event, columnIndex) {
+    const arrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("inventory-table");
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    document.querySelectorAll('tr[data-status="true"]').forEach((row) => row.remove());
+    const rows = Array.from(table.rows).slice(1);
+
+    rows.sort((rowA, rowB) => {
+        const valueA = rowA.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
+        const valueB = rowB.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
+
+        return currentOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    });
+
+    const tbody = table.querySelector('tbody');
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    for (let i = 0; i < rows.length; i++) {
+        tbody.appendChild(rows[i]);
+    }
+
+    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+    
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
+}
+
+
+function extractNumber(value) {
+    const match = value.match(/\d+/);
+    return match ? parseFloat(match[0]) : 0;
+}
+
+function sortByDigits(event, columnIndex) {
+    const columnArrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("inventory-table");
+    const tbody = table.querySelector('tbody');
+    document.querySelectorAll('tr[data-status="true"]').forEach((row) => row.remove());
+    const rows = Array.from(tbody.rows);
+
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = extractNumber(rowA.getElementsByTagName("td")[columnIndex].textContent);
+        const y = extractNumber(rowB.getElementsByTagName("td")[columnIndex].textContent);
+
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
+
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    columnArrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    columnArrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
+}
+
+
+function reverseTableRows() {
+    const table = document.getElementById('inventory-table');
+    const tableBody = table.querySelector('tbody');
+    document.querySelectorAll('tr[data-status="true"]').forEach((row) => row.remove());
+    const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+    rows.reverse();
+    tableBody.innerHTML = '';
+
+    for (const row of rows) {
+        tableBody.appendChild(row);
+    }
 }

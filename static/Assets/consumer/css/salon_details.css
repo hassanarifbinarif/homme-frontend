@@ -552,9 +552,20 @@ ul.comment-section > li .post-area > button {
 .details-wrapper-col-2 .order-product-other-details-wrapper .salon-status > div > svg,
 .order-product-other-details-wrapper .order-contact-info > div:first-of-type > svg,
 .order-product-other-details-wrapper .order-shipping-address > div > svg,
-.details-wrapper-col-2 .hair-stylist-wrapper > div:first-of-type > svg {
+.details-wrapper-col-2 .hair-stylist-wrapper > div:first-of-type > div > svg {
     width: 15px;
     height: 15px;
+}
+
+.details-wrapper-col-2 .hair-stylist-wrapper > div:first-of-type > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.details-wrapper-col-2 .hair-stylist-wrapper > div:first-of-type > div > svg:last-of-type {
+    width: 17px;
+    height: 17px;
 }
 
 .details-wrapper-col-2 .order-product-notes-wrapper > span,
@@ -654,7 +665,7 @@ ul.comment-section > li .post-area > button {
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
 }
 
 .details-wrapper-col-2 .hair-stylist-wrapper {

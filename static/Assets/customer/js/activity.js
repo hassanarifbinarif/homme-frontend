@@ -570,7 +570,7 @@ async function openProductPurchaseModal(modalID, id) {
         };
         let response = await requestAPI(`${apiURL}/admin/orders/${id}`, null, headers, 'GET');
         response.json().then(function(res) {
-            console.log(res);
+
             if (response.status == 200) {
                 modal.querySelector('#purchase-total').innerText = res.data.total;
                 modal.querySelector('#purchase-rewards').innerText = res.data.rewards_earned;

@@ -40,7 +40,7 @@
                                 </defs>
                             </svg>
                         </button>
-                        <button class="date-btn">
+                        <button class="date-btn hide">
                             <span>FILTER BY DATE</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
@@ -84,19 +84,19 @@
                         </button>
                     </div>
                     <div>
-                        <button>
+                        <button onclick="openSearchInput();">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                     <path d="M18.1865 17.9219L13.1865 12.9219M14.8532 8.75521C14.8532 9.52125 14.7023 10.2798 14.4092 10.9875C14.116 11.6953 13.6863 12.3383 13.1446 12.88C12.603 13.4217 11.9599 13.8514 11.2522 14.1445C10.5444 14.4377 9.7859 14.5885 9.01986 14.5885C8.25381 14.5885 7.49527 14.4377 6.78754 14.1445C6.0798 13.8514 5.43674 13.4217 4.89507 12.88C4.35339 12.3383 3.92371 11.6953 3.63056 10.9875C3.33741 10.2798 3.18652 9.52125 3.18652 8.75521C3.18652 7.20811 3.8011 5.72438 4.89507 4.63042C5.98903 3.53646 7.47276 2.92187 9.01986 2.92188C10.567 2.92187 12.0507 3.53646 13.1446 4.63042C14.2386 5.72438 14.8532 7.20811 14.8532 8.75521Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <input id="search-order" class="hide" type="text" name="search" />
+                                <input id="search-order" onkeypress="searchData(event);" class="hide" type="text" name="search" />
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                 <path d="M4.01985 5.42188H17.3532M5.01985 10.4219H16.3532" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M7.77002 15.4219H13.6034" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <button>
+                        <button onclick="reverseTableRows();">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                 <path d="M15.1198 17.0872L11.7865 13.7539M6.78646 13.7539V3.75391V13.7539ZM6.78646 3.75391L3.45312 7.08724L6.78646 3.75391ZM6.78646 3.75391L10.1198 7.08724L6.78646 3.75391ZM15.1198 7.08724V17.0872V7.08724ZM15.1198 17.0872L18.4531 13.7539L15.1198 17.0872Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -104,6 +104,10 @@
                     </div>
                 </div>
                 <div class="order-details-table-wrapper">
+                    <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
+                        <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                        </span>
+                    </div>
                     {% include '../ajax/product-sales-table.html' %}
                 </div>
             </div>
@@ -112,4 +116,7 @@
 
     {% endblock %}
 </body>
+{% block scripts %}
+<script src="{% static 'Assets/consumer/js/productSales.js' %}"></script>
+{% endblock %}
 </html>

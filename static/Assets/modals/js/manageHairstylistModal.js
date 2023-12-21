@@ -31,16 +31,16 @@ async function openManageHairstylistModal(id) {
 
             if (response.status == 200 && res.data.length > 0) {
                 res.data.forEach((item) => {
-                    stylistData.push({id: item.id, fullname: item.fullname, first_name: item.first_name, last_name: item.last_name, email: item.email, phone: item.phone, address: item.address, city: item.city, state: item.state, zip_code: item.zip_code, country: item.country,  action: ""});
+                    stylistData.push({id: item.id, fullname: item.fullname, first_name: item.first_name, last_name: item.last_name, email: item.email, phone: item.phone, address: item.address, city: item.city, state: item.state, zip_code: item.zip_code, country: item.country, status: item.status,  action: ""});
                     hairstylistTableBody.innerHTML += `<tr data-id="stylist-row-${item.id}">
                                                             <td><div><input type="text" name="fullname" value="${item.fullname}" readonly placeholder="Stylist Name" /></div></td>
                                                             <td><div><input type="number" name="phone" value="${item.phone}" readonly placeholder="Phone" /></div></td>
                                                             <td>
                                                                 <div class="status-options-div">
                                                                     <select name="status" id="" disabled>
-                                                                        <option value="active" selected>Active</option>
-                                                                        <option value="inactive">Inactive</option>
-                                                                        <option value="leave">On Leave</option>
+                                                                        <option value="active" ${item.status == 'active'? 'selected': ''}>Active</option>
+                                                                        <option value="inactive" ${item.status == 'inactive'? 'selected': ''}>Inactive</option>
+                                                                        <option value="leave" ${item.status == 'leave'? 'selected': ''}>On Leave</option>
                                                                     </select>
                                                                 </div>
                                                             </td>
@@ -52,7 +52,7 @@ async function openManageHairstylistModal(id) {
                                                                     <svg onclick="openEditHairStylistModal(${item.id})" class="cursor-pointer" data-id="edit-btn" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                                                                         <path d="M6.41536 2.91538H3.4987C3.18928 2.91538 2.89253 3.03829 2.67374 3.25709C2.45495 3.47588 2.33203 3.77263 2.33203 4.08204V10.4987C2.33203 10.8081 2.45495 11.1049 2.67374 11.3237C2.89253 11.5425 3.18928 11.6654 3.4987 11.6654H9.91536C10.2248 11.6654 10.5215 11.5425 10.7403 11.3237C10.9591 11.1049 11.082 10.8081 11.082 10.4987V7.58204M10.2572 2.09054C10.3648 1.97912 10.4936 1.89024 10.6359 1.82909C10.7782 1.76795 10.9313 1.73577 11.0862 1.73442C11.2411 1.73307 11.3948 1.76259 11.5381 1.82125C11.6815 1.87991 11.8118 1.96654 11.9213 2.07608C12.0309 2.18563 12.1175 2.31589 12.1762 2.45926C12.2348 2.60264 12.2643 2.75627 12.263 2.91118C12.2616 3.06609 12.2295 3.21918 12.1683 3.36152C12.1072 3.50385 12.0183 3.63259 11.9069 3.74021L6.89836 8.74871H5.2487V7.09904L10.2572 2.09054Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
                                                                     </svg>
-                                                                    <svg onclick="delHairstylist(${item.id})" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                                    <svg onclick="openDelModal(${item.id})" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                                                                         <path d="M5.83203 6.41667V9.91667M8.16536 6.41667V9.91667M2.33203 4.08333H11.6654M11.082 4.08333L10.5763 11.1662C10.5553 11.4605 10.4236 11.736 10.2077 11.9371C9.99174 12.1382 9.70762 12.25 9.41253 12.25H4.58486C4.28978 12.25 4.00565 12.1382 3.78971 11.9371C3.57377 11.736 3.44207 11.4605 3.42111 11.1662L2.91536 4.08333H11.082ZM8.7487 4.08333V2.33333C8.7487 2.17862 8.68724 2.03025 8.57784 1.92085C8.46845 1.81146 8.32007 1.75 8.16536 1.75H5.83203C5.67732 1.75 5.52895 1.81146 5.41955 1.92085C5.31016 2.03025 5.2487 2.17862 5.2487 2.33333V4.08333H8.7487Z" stroke="#CF0000" stroke-linecap="round" stroke-linejoin="round"/>
                                                                     </svg>
                                                                 </div>
@@ -98,6 +98,67 @@ let rowStates = {};
 // }
 
 
+function openDelModal(id) {
+    let modal = document.querySelector(`#delModal`);
+    let form = modal.querySelector('form');
+    form.setAttribute("onsubmit", `delStylistForm(event, ${id})`);
+    modal.querySelector('#modal-header-text').innerText = 'Delete Hairstylist';
+    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this hairstylist?';
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        modal.querySelector('#modal-header-text').innerText = '';
+        modal.querySelector('#warning-statement').innerText = '';
+        modal.querySelector('.btn-text').innerText = 'DELETE';
+    })
+    document.querySelector(`.delModal`).click();
+}
+
+
+async function delStylistForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+    let hairStylistWrapper = document.getElementById('hair-stylist-wrapper');
+    let hairStylistList = hairStylistWrapper.querySelectorAll('span[data-role="stylist"]');
+    let row = document.querySelector(`tr[data-id='stylist-row-${id}']`);
+
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/salons/stylists/${id}`, null, headers, 'DELETE');
+        // console.log(response);
+        if (response.status == 204) {
+            form.reset();
+            form.removeAttribute("onsubmit");
+            row.remove();
+            hairStylistList.forEach((stylist) => {
+                if (id == parseInt(stylist.getAttribute('data-id'))) {
+                    stylist.remove();
+                }
+            })
+            afterLoad(button, 'DELETED');
+            setTimeout(() => {
+                document.querySelector('.delModal').click();
+            }, 1000)
+        }
+        else {
+            afterLoad(button, 'Error');
+        }
+    }
+    catch (err) {
+        afterLoad(button, 'Error');
+        console.log(res);
+    }
+}
+
+
+// For bulk delete
+
 function delHairstylist(id) {
     let row = document.querySelector(`tr[data-id='stylist-row-${id}']`);
     let currentState = rowStates[id] || 'enabled';
@@ -121,6 +182,8 @@ function delHairstylist(id) {
     rowStates[id] = currentState;
 }
 
+
+// For bulk delete
 
 async function submitStylists(event) {
     event.preventDefault();
@@ -148,7 +211,6 @@ async function submitStylists(event) {
             };
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/salons/stylists`, JSON.stringify({ ids: stylistsToDelete }), headers, 'DELETE');
-            // console.log(response);
             if (response.status == 204 || response.status == 200) {
                 afterLoad(button, 'SAVED');
                 hairStylistList.forEach((stylist) => {
@@ -162,7 +224,6 @@ async function submitStylists(event) {
             }
             else {
                 response.json().then(function(res) {
-                    // console.log(res);
                     afterLoad(button, 'ERROR');
                     errorMsg.classList.add('active');
                     let keys = Object.keys(res.messages);
@@ -190,6 +251,8 @@ function openEditHairStylistModal(id, openState=null) {
         form.querySelector('.btn-text').innerText = 'ADD';
         modal.querySelector('.add-stylist-modal-header-text').innerText = 'Add New Hairstylist';
         modal.querySelectorAll('input').forEach((input) => input.readOnly = false);
+        modal.querySelector('#selected-status-type').innerText = 'Status';
+        modal.querySelector('#selected-status-type').style.color = '#A9A9A9';
     })
 
     let specificStylist = stylistData.filter((stylist) => stylist.id == id)[0];
@@ -197,6 +260,9 @@ function openEditHairStylistModal(id, openState=null) {
     modal.querySelector('input[name=last_name]').value = specificStylist.last_name;
     modal.querySelector('input[name=email]').value = specificStylist.email;
     modal.querySelector('input[name=phone]').value = specificStylist.phone;
+    modal.querySelector('#selected-status-type').innerText = captalizeFirstLetter(specificStylist.status == 'leave' ? 'on leave' : specificStylist.status);
+    modal.querySelector('#selected-status-type').style.color = '#000';
+    modal.querySelector(`input[value="${specificStylist.status}"]`).checked = true;
     modal.querySelector('input[name=address]').value = specificStylist.address;
     modal.querySelector('input[name=city]').value = specificStylist.city;
     modal.querySelector('input[name=state]').value = specificStylist.state;
@@ -208,6 +274,7 @@ function openEditHairStylistModal(id, openState=null) {
         form.querySelector('.submit-btn').classList.add('hide');
         modal.querySelector('.add-stylist-modal-header-text').innerText = 'Hairstylist';
         modal.querySelectorAll('input').forEach((input) => input.readOnly = true);
+        modal.querySelector('#selected-status-type').style.color = '#000';
     }
 
     document.querySelector('.addHairstylist').click();
@@ -224,6 +291,7 @@ async function updateHairstylistForm(event, id) {
     let hairStylistWrapper = document.getElementById('hair-stylist-wrapper');
     let hairStylistList = hairStylistWrapper.querySelectorAll('span[data-role="stylist"]');
 
+
     if (data.first_name.trim().length == 0 || data.last_name.trim().length == 0) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid first and last names';
@@ -237,6 +305,11 @@ async function updateHairstylistForm(event, id) {
     else if (/^\+?\d{12,}$/.test(data.phone) == false) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid phone';
+        return false;
+    }
+    else if (data.status != 'active' && data.status != 'inactive' && data.status != 'leave') {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Select a status';
         return false;
     }
     else if (data.address.trim().length == 0) {
@@ -285,6 +358,7 @@ async function updateHairstylistForm(event, id) {
                     let row = document.querySelector(`tr[data-id='stylist-row-${id}']`);
                     row.querySelector('input[name="fullname"]').value = `${res.data.first_name} ${res.data.last_name}`;
                     row.querySelector('input[name="phone"]').value = res.data.phone;
+                    row.querySelector(`option[value="${res.data.status}"]`).selected = true;
 
                     hairStylistList.forEach((stylist) => {
                         if (res.data.id == parseInt(stylist.getAttribute('data-id'))) {

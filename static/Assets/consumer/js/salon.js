@@ -1,8 +1,13 @@
 let requiredDataURL = `/admin/salon-profiles?page=1&perPage=1000&search=&ordering=-id&user__is_blocked=false`;
 
 window.onload = () => {
-    getData();
+    let url = new URL(location.href);
+    let search = url.searchParams.get('search');
+    if (search) {
+        requiredDataURL = setParams(requiredDataURL, 'search', search);
+    }
     getNotifications();
+    getData();
 }
 
 function searchForm(event) {

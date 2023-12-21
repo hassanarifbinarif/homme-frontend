@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_inventory_modal.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/add_hairstylist_modal.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/manage_hairstylists_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/delete_modal.css' %}" />
     
     {% endblock %}
 
@@ -287,10 +288,17 @@
                     </div>
                     <div class="hair-stylist-wrapper">
                         <div>
-                            <span class="cursor-pointer" onclick="openCreateHairstylistModal('{{salon.id}}');">Hairstylists</span>
-                            <svg class="cursor-pointer" onclick="openManageHairstylistModal('{{salon.id}}');" xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-                                <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <span>Hairstylists</span>
+                            <div>
+                                <svg class="cursor-pointer" onclick="openManageHairstylistModal('{{salon.id}}');" xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                    <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <svg class="cursor-pointer" onclick="openCreateHairstylistModal('{{salon.id}}');" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" fill="#FFFFFF"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="16" stroke="#000093"></line>
+                                    <line x1="8" y1="12" x2="16" y2="12" stroke="#000093"></line>
+                                </svg>
+                            </div>
                         </div>
                         <div>
                             <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="hair-stylist-loader">
@@ -349,6 +357,8 @@
     {% include '../modals/manage-hairstylists-modal.html' %}
 
     {% include '../modals/add-hairstylist-modal.html' %}
+
+    {% include '../modals/delete-modal.html' %}
 
     {{salon.id|json_script:"specific_salon_id"}}
 

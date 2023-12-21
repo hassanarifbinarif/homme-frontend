@@ -93,14 +93,38 @@ def product_sales(request, api_response):
     return render(request, 'consumer/product-sales.html', context)
 
 
-@admin_signin_required
-def specific_sale(request, api_response):
+@csrf_exempt
+def get_sales_list(request):
     context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access')
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
+        text_template = loader.get_template('ajax/product-sales-table.html')
+        html = text_template.render({'sales':response})
+        context['sales_data'] = html
+        context['msg'] = 'Sales retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
+@admin_signin_required
+def specific_sale(request, api_response, pk):
+    context = {}
+    admin_access_token = request.COOKIES.get('admin_access')
+    headers = {"Authorization": f'Bearer {admin_access_token}'}
+    status, response = requestAPI('GET', f'{settings.API_URL}/admin/orders/{pk}', headers, {})
+    context['order'] = response['data']
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'product_sales'
     context['sidebar'] = 'consumer'
-    return render(request, 'consumer/specific-sale.html', context)
+    return render(request, 'customer/specific-order.html', context)
 
 
 @admin_signin_required

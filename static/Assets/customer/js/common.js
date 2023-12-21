@@ -421,10 +421,10 @@ function switchSide(event) {
     let currentSide = document.getElementById('current-panel-side');
     if (currentSide.innerText != element.innerText) {
         if (element.innerText == 'CUSTOMER APP') {
-            location.pathname = '/';
+            location.href = location.origin;
         }
         else {
-            location.pathname = '/consumer/';
+            location.href = location.origin + '/consumer/';
         }
     }
 }

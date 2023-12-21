@@ -70,6 +70,11 @@ async function createHairstylistForm(event) {
         errorMsg.innerHTML = 'Enter valid email';
         return false;
     }
+    else if (data.status != 'active' && data.status != 'inactive' && data.status != 'leave') {
+        errorMsg.classList.add('active');
+        errorMsg.innerHTML = 'Select a status';
+        return false;
+    }
     else if (/^\+?\d{12,}$/.test(data.phone) == false) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid phone';

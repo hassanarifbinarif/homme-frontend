@@ -381,9 +381,13 @@ def get_source_list(request):
 @admin_signin_required
 def profile(request, api_response):
     context = {}
+    sidebarType = 'customer'
+    previous_url = request.META.get('HTTP_REFERER')
+    if previous_url and 'consumer' in previous_url:
+        sidebarType = 'consumer'
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
-    context['sidebar'] = 'customer'
+    context['sidebar'] = sidebarType
     return render(request, 'customer/profile.html', context)
 
 
