@@ -157,10 +157,10 @@ async function createSpecialOfferForm(event) {
             let token = getCookie('admin_access');
             let headers = {
                 "Authorization": `Bearer ${token}`,
-                "Content-Type": 'application/json'
+                // "Content-Type": 'application/json'
             };
             beforeLoad(button);
-            let response = await requestAPI(`${apiURL}/admin/content/special-offers`, JSON.stringify(data), headers, 'POST');
+            let response = await requestAPI(`${apiURL}/admin/content/special-offers`, formData, headers, 'POST');
             response.json().then(function(res) {
                 if (response.status == 201) {
                     afterLoad(button, 'SAVED');

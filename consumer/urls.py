@@ -11,6 +11,7 @@ urlpatterns = [
     path('get-purchase-order/<int:pk>/', views.get_purchase_order, name='get_purchase_order'),
     path('activity/', views.activity, name='consumer_activity'),
     path('commissions/', views.commissions, name='commissions'),
+    path('get-commissions-list/', views.get_commissions_list, name='get_commissions_list'),
     path('product-sales/', views.product_sales, name='product_sales'),
     path('get-sales-list/', views.get_sales_list, name='get_sales_list'),
     path('specific-sale/<int:pk>/', views.specific_sale, name='specific_sale'),

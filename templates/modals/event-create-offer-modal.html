@@ -17,7 +17,7 @@
                     <div class="general-inputs">
                         <input type="text" name="title" placeholder="Title" />
                         <input type="text" name="sub_title" placeholder="Sub-Title" />
-                        <input type="text" name="offer_summary" placeholder="Offer Summary..." />
+                        <input type="text" name="summary" placeholder="Offer Summary..." />
                         <div class="select-products-div">
                             <button type="button" id="product-select-btn">
                                 <span id="selected-product-name">Specify Product</span>
@@ -43,7 +43,7 @@
                         <textarea name="description" placeholder="Offer Description..." id="" cols="30" rows="10"></textarea>
                         <input type="text" name="venue_name" placeholder="Venue Name (Optional)" />
                         <input type="text" name="venue_address" placeholder="Venue Address (Optional)" />
-                        <input type="url" name="hyperlink" placeholder="Hyperlink (Optional)" />
+                        <input type="url" name="venue_link" placeholder="Hyperlink (Optional)" />
                     </div>
                     <div class="image-wrapper">
                         <label for="special-offer-img" id="special-image-label">
@@ -53,7 +53,7 @@
                             <input type="file" accept="image/jpeg, image/jpg, image/png" name="image" id="special-offer-img" oninput="verifyOfferImage(this);" />
                             <span>Upload an Image</span>
                             <span>(supported dimension: 330x330px)</span>
-                            <img src="" class="event-img hide" name="event_image" alt="event image" />
+                            <img src="" class="event-img hide" name="image" alt="event image" />
                         </label>
                     </div>
                     <div class="special-error-div hide">

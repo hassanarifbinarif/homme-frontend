@@ -1,84 +1,87 @@
-<table class="order-details-table" id="commission-table">
+{% load custom_tags %}
+
+<table class="order-details-table hide" id="commission-table">
     <thead>
         <th width="26px">
             <div class="table-checkbox">
                 <input type="checkbox" />
             </div>
         </th>
-        <th width="14.32%">
+        <th width="14.32%" onclick="sortByAlphabets(event, 1);">
             <div>
                 <span class="table-text-overflow" title="Salon Name">Salon Name</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="9.78%">
+        <th width="9.78%" onclick="sortByDigits(event, 2);">
             <div>
                 <span class="table-text-overflow" title="No. Of Sales">No. Of Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="13.79%">
+        <th width="13.79%" onclick="sortByDigits(event, 3);">
             <div>
                 <span class="table-text-overflow" title="No. Of Sold Products">No. Of Sold Products</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="10.56%">
+        <th width="10.56%" onclick="sortByAlphabets(event, 4);">
             <div>
                 <span class="table-text-overflow" title="Month/Year">Month/Year</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="13.10%">
+        <th width="13.10%" onclick="sortByDigits(event, 5);">
             <div>
                 <span class="table-text-overflow" title="Total Retail Value">Total Retail Value</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="15.10%">
+        <th width="15.10%" onclick="sortByDigits(event, 6);">
             <div>
                 <span class="table-text-overflow" title="Pending Commissions">Pending Commissions</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="13.36%">
+        <th width="13.36%" onclick="sortByDigits(event, 7);">
             <div>
                 <span class="table-text-overflow" title="Final Commissions">Final Commissions</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="7.68%">
+        <th width="7.68%" onclick="sortByAlphabets(event, 8);">
             <div>
                 <span class="table-text-overflow" title="Status">Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
     </thead>
     <tbody>
+        {% for obj in commissions.data %}
         <tr onclick="showCommissionDetails(this);">
             <td>
                 <div class="table-checkbox">
@@ -87,813 +90,53 @@
             </td>
             <td>
                 <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
+                    <span class="table-text-overflow" title="{{obj.salon_name}}">{{obj.salon_name}}</span>
+                    <span class="opacity-point-6 table-text-overflow" title="{{obj.salon_address}}">{{obj.salon_address}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">10</span>
+                    <span class="opacity-point-6">{{obj.orders_count}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">19</span>
+                    <span class="opacity-point-6">{{obj.total_products}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">May, 2023</span>
+                    <span class="opacity-point-6 month">{{obj.month}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">$475</span>
+                    <span class="opacity-point-6">${{obj.total_customer_purchase}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">$45</span>
+                    <span class="opacity-point-6">${{obj.pending_commission}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">$235</span>
+                    <span class="opacity-point-6">${{obj.total_commission}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span>Unpaid</span>
+                    <span>{{obj.status|title}}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
                         <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
                     </svg>
                 </div>
             </td>
         </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
+        {% empty %}
+        <tr>
+            <td colspan="9" class="no-record-row">No record available</td>
         </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Unpaid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Unpaid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Unpaid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Unpaid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Unpaid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Unpaid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Unpaid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="showCommissionDetails(this);">
-            <td>
-                <div class="table-checkbox">
-                    <input type="checkbox" />
-                </div>
-            </td>
-            <td>
-                <div class="salon-cell">
-                    <span>Redge NYC</span>
-                    <span class="opacity-point-6">775 Rolling Green Rd</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">10</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">19</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">May, 2023</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$475</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$45</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="opacity-point-6">$235</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                        <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
-                </div>
-            </td>
-        </tr>
+        {% endfor %}
     </tbody>
 </table>
