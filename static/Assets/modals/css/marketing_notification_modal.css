@@ -104,6 +104,13 @@
     line-height: normal;
 }
 
+#marketingNotification .modal-body .selected-salons-wrapper > .selected-salons .salon-card > span {
+    width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 #marketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper {
     position: absolute;
     top: 42px;

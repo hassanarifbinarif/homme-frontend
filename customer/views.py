@@ -186,6 +186,7 @@ def specific_customer(request, api_response, pk):
         context['customer'] = response['data']
     except Exception as e:
         print(e)
+    # context['api_url'] = settings.API_URL
     context['admin_name'] = api_response['fullname']
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'customers'

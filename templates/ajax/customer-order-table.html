@@ -122,14 +122,14 @@
                 </div>
             </td>
             <td>
-                <div><span>Salon</span></div>
+                <div><span class="table-text-overflow" title="{{obj.sales_channel|title}}">{{obj.sales_channel|title}}</span></div>
             </td>
             <td>
-                <div><span>Source</span></div>
+                <div><span class="table-text-overflow">{% if obj.source == None or obj.source == "" %}No Source{% else %}{{obj.source}}{% endif %}</span></div>
             </td>
             <td>
                 <div>
-                    <span>${{obj.total}}</span>
+                    <span class="table-text-overflow">${{obj.total}}</span>
                 </div>
             </td>
             <td>

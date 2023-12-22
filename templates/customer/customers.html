@@ -27,7 +27,7 @@
                     <span>CUSTOMERS</span>
                     <div>
                         <button type="button" onclick="openCreateSourceModal('createSource');">CREATE SOURCE</button>
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#createCustomer">ADD CUSTOMER</button>
+                        <button type="button" onclick="openCreateCustomerModal();">ADD CUSTOMER</button>
                     </div>
                 </div>
                 <div class="customer-stats-overview hide">
@@ -77,5 +77,6 @@
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/customer/js/customer.js' %}"></script>
+<script src="{% static 'Assets/modals/js/createCustomerModal.js' %}"></script>
 {% endblock %}
 </html>

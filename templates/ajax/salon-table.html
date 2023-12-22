@@ -114,7 +114,7 @@
                 <div><span>{{obj.orders_count}}</span></div>
             </td>
             <td>
-                <div><span>${% if obj.net_sales %}{{obj.net_sales}}{% else %}0{% endif %}</span></div>
+                <div><span class="table-text-overflow" title="${% if obj.net_sales %}{{obj.net_sales}}{% else %}0{% endif %}">${% if obj.net_sales %}{{obj.net_sales}}{% else %}0{% endif %}</span></div>
             </td>
             <td>
                 <div><span>{{obj.customers_count}}</span></div>

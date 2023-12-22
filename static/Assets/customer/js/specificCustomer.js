@@ -152,3 +152,118 @@ async function customerNotesForm(event, id) {
         console.log(err);
     }
 }
+
+
+function openUpdateCustomerModal(id, first_name, last_name, phone, email) {
+    let modal = document.querySelector(`#createCustomer`);
+    let form = modal.querySelector('form');
+    
+    form.setAttribute("onsubmit", `updateCustomerForm(event, ${id})`);
+    modal.querySelector('.btn-text').innerText = 'UPDATE';
+    modal.querySelector('#customer-modal-header-text').innerText = 'Update Customer';
+    form.querySelector('input[name="first_name"]').value = first_name;
+    form.querySelector('input[name="last_name"]').value = last_name;
+    form.querySelector('input[name="phone"]').value = phone;
+    form.querySelector('input[name="email"]').value = email;
+
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        modal.querySelector('.btn-text').innerText = 'ADD';
+        modal.querySelector('#customer-modal-header-text').innerText = 'Add New Customer';
+        document.querySelector('.create-error-msg').classList.remove('active');
+        document.querySelector('.create-error-msg').innerText = "";
+    })
+
+    document.querySelector(`.createCustomer`).click();
+}
+
+
+async function updateCustomerForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+    let errorMsg = form.querySelector('.create-error-msg');
+
+    if (data.first_name.trim().length == 0) {
+        errorMsg.innerText = 'Enter valid first name';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.last_name.trim().length == 0) {
+        errorMsg.innerText = 'Enter valid last name';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (/^\+?\d{12,}$/.test(data.phone) == false) {
+        errorMsg.innerText = 'Enter valid phone number';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(data.email) == false) {
+        errorMsg.innerText = 'Enter valid email';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else {
+        try {
+            let customerData = {
+                first_name: data.first_name,
+                last_name: data.last_name,
+                user: {
+                    phone: data.phone,
+                    email: data.email
+                }
+            };
+            errorMsg.innerText = '';
+            errorMsg.classList.remove('active');
+            let token = getCookie('admin_access');
+            let headers = {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": 'application/json'
+            };
+            beforeLoad(button);
+            let response = await requestAPI(`${apiURL}/admin/user-profiles/${id}`, JSON.stringify(customerData), headers, 'PATCH');
+            // console.log(response);
+            response.json().then(function(res) {
+                
+                if (response.status == 200) {
+                    form.reset();
+                    form.removeAttribute('onsubmit');
+
+                    document.getElementById('customer-first-last-name-field').innerText = `${res.data.first_name} ${res.data.last_name}`;
+                    document.getElementById('customer-email-field').innerText = res.data.user.email;
+                    document.getElementById('customer-phone-field').innerText = res.data.user.phone;
+                    
+                    afterLoad(button, 'UPDATED');
+                    setTimeout(() => {
+                        document.querySelector('.createCustomer').click();
+                    }, 1000)
+                }
+                else {
+                    afterLoad(button, 'ERROR');
+                    let keys = Object.keys(res.messages);
+                    keys.forEach((key) => {
+                        if (typeof res.messages[key] === 'object') {
+                            const nestedKeys = Object.keys(res.messages[key]);
+                            nestedKeys.forEach((nestedKey) => {
+                                errorMsg.innerHTML += `${nestedKey}: ${res.messages[key][nestedKey][0]} <br />`;
+                            });
+                        }
+                    })
+                    // keys.forEach((key) => {
+                    //     errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                    // })
+                    errorMsg.classList.add('active');
+                }
+            })
+        }
+        catch (err) {
+            afterLoad(button, 'ERROR');
+            console.log(err);
+        }
+    }
+}

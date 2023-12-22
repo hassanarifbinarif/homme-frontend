@@ -184,6 +184,232 @@ async function getPurchaseOrder(event, id) {
 }
 
 
+let dateSelectorBtn = document.getElementById('date-selector-btn');
+let dateSelectorInputWrapper = document.getElementById('date-selector');
+
+let statusBtn = document.getElementById('status-btn');
+let statusWrapper = document.getElementById('status-selector');
+
+
+function closeDropdowns(event) {
+    if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
+        dateSelectorInputWrapper.style.display = 'none';
+    }
+    else if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
+        statusWrapper.style.display = 'none';
+    }
+    // else if ((!rewardsBtn.contains(event.target)) && rewardsInputWrapper.style.display == 'flex') {
+    //     rewardsInputWrapper.style.display = 'none';
+    // }
+}
+
+document.body.addEventListener('click', closeDropdowns);
+
+
+function toggleDateSelectorDropdown(event) {
+    if ((dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'none') {
+        dateSelectorInputWrapper.style.display = 'flex';
+    }
+    else if ((dateSelectorBtn.querySelector('span').contains(event.target) || dateSelectorBtn.querySelector('svg').contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
+        dateSelectorInputWrapper.style.display = 'none';
+    }
+    else if ((dateSelectorBtn.querySelector('.date-selector').contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
+    }
+    else {
+        dateSelectorInputWrapper.style.display = 'none';
+    }
+}
+
+function toggleDateInputs(event) {
+    if (event.target.nextElementSibling.classList.contains('hide')) {
+        event.target.nextElementSibling.classList.remove('hide');
+        event.target.style.background = '#FFF';
+        event.target.style.color = '#000093';
+    }
+    else {
+        event.target.nextElementSibling.classList.add('hide');
+        event.target.style.color = '#FFF';
+        event.target.style.background = '#000093';
+    }
+}
+
+function filterDataRangeOption(event) {
+    let element = event.target;
+    let startDate, endDate;
+    let dateTimeString = '';
+
+    if (element.innerText == 'CURRENT WEEK') {
+        startDate = getStartOfWeek();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startDate);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
+        document.getElementById('start-date').value = startDate;
+        document.getElementById('end-date').value = '';
+
+        dateTimeString = convertDateTime(startDate) + ', '
+        document.getElementById('selected-date-range').innerText = dateTimeString;
+        document.getElementById('selected-date-range').title = dateTimeString;
+    }
+    else if (element.innerText == 'LAST WEEK') {
+        const { startOfPreviousWeek, endOfPreviousWeek } = getStartAndEndOfPreviousWeek();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfPreviousWeek);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfPreviousWeek);
+        document.getElementById('start-date').value = startOfPreviousWeek;
+        document.getElementById('end-date').value = endOfPreviousWeek;
+        
+        dateTimeString = convertDateTime(startOfPreviousWeek) + ', ' + convertDateTime(endOfPreviousWeek)
+        document.getElementById('selected-date-range').innerText = dateTimeString;
+        document.getElementById('selected-date-range').title = dateTimeString;
+    }
+    else if (element.innerText == 'LAST MONTH') {
+        const { startOfLastMonth, endOfLastMonth } = getStartAndEndOfLastMonth();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfLastMonth);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfLastMonth);
+        document.getElementById('start-date').value = startOfLastMonth;
+        document.getElementById('end-date').value = endOfLastMonth;
+
+        dateTimeString = convertDateTime(startOfLastMonth) + ', ' + convertDateTime(endOfLastMonth);
+        document.getElementById('selected-date-range').innerText = dateTimeString;
+        document.getElementById('selected-date-range').title = dateTimeString;
+    }
+    getData();
+    setTimeout(() => {
+        dateSelectorBtn.click();
+    }, 100)
+}
+
+function dateRangeForm(event) {
+    event.preventDefault();
+    let form = event.target.closest('form');
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    if (data.start_date == '' || data.end_date == '') {
+        return false;
+    }
+    else if (isNaN(new Date(data.start_date)) || isNaN(new Date(data.end_date))) {
+        return false;
+    }
+    else if (new Date(data.end_date) - new Date(data.start_date) <= 0) {
+        return false;
+    }
+    else {
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', data.start_date);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', data.end_date);
+        getData(requiredDataURL);
+
+        let dateTimeString = convertDateTime(data.start_date) + ', ' + convertDateTime(data.end_date);
+        document.getElementById('selected-date-range').innerText = dateTimeString;
+        document.getElementById('selected-date-range').title = dateTimeString;
+    }
+}
+
+
+function toggleStatusDropdown(event) {
+    if ((statusBtn.contains(event.target)) && statusWrapper.style.display == 'none') {
+        statusWrapper.style.display = 'flex';
+    }
+    else if ((statusBtn.querySelector('span').contains(event.target) || statusBtn.querySelector('svg').contains(event.target)) && statusWrapper.style.display == 'flex') {
+        statusWrapper.style.display = 'none';
+    }
+    else if ((statusBtn.querySelector('.status-selector').contains(event.target)) && statusWrapper.style.display == 'flex') {
+    }
+    else {
+        statusWrapper.style.display = 'none';
+    }
+}
+
+function filterStatusOption(event) {
+    let element = event.target;
+    requiredDataURL = setParams(requiredDataURL, 'status', element.getAttribute('data-value'));
+    getData();
+    document.getElementById('selected-status-text').innerText = element.innerText;
+    setTimeout(() => {
+        statusBtn.click();
+    }, 100)
+}
+
+
+// For current week
+
+function getStartOfWeek() {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const daysUntilMonday = (dayOfWeek + 6) % 7;
+    const startOfWeek = new Date(now);
+
+    startOfWeek.setDate(now.getDate() - daysUntilMonday + 1);
+
+    startOfWeek.setHours(0, 0, 0, 0);
+    const formattedDate = startOfWeek.toISOString().split('T')[0];
+
+    return formattedDate;
+}
+
+
+// For last week
+
+function getStartAndEndOfWeek(date) {
+    const startOfWeek = new Date(date);
+    const endOfWeek = new Date(date);
+
+    const dayOfWeek = date.getDay();
+
+    startOfWeek.setDate(date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    endOfWeek.setDate(date.getDate() + (7 - dayOfWeek + (dayOfWeek === 0 ? -6 : 0)));
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    return {
+        startOfWeek,
+        endOfWeek,
+    };
+}
+
+function getStartAndEndOfPreviousWeek() {
+    const today = new Date();
+    const lastWeek = new Date(today);
+    lastWeek.setDate(today.getDate() - 7);
+
+    const { startOfWeek, endOfWeek } = getStartAndEndOfWeek(lastWeek);
+
+    const timezoneOffset = today.getTimezoneOffset() * 60000;
+    return {
+        startOfPreviousWeek: new Date(startOfWeek.getTime() - timezoneOffset).toISOString().split('T')[0],
+        endOfPreviousWeek: new Date(endOfWeek.getTime() - timezoneOffset).toISOString().split('T')[0],
+    };
+}
+
+
+// For last month
+
+function getStartAndEndOfLastMonth() {
+    const today = new Date();
+    const lastMonth = new Date(today);
+  
+    lastMonth.setDate(1);
+  
+    lastMonth.setDate(0);
+  
+    let startOfLastMonth = new Date(lastMonth);
+    startOfLastMonth.setDate(1);
+    startOfLastMonth.setHours(0, 0, 0, 0);
+  
+    let endOfLastMonth = new Date(lastMonth);
+    endOfLastMonth.setHours(23, 59, 59, 999);
+
+    // Adjust for time zone offset
+    const timezoneOffset = today.getTimezoneOffset() * 60000;
+    
+    startOfLastMonth = new Date(startOfLastMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
+    endOfLastMonth = new Date(endOfLastMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
+  
+    return {
+        startOfLastMonth,
+        endOfLastMonth,
+    };
+}
+
+
 const sortOrders = {};
 
 function sortByAlphabets(event, columnIndex) {
@@ -265,4 +491,17 @@ function reverseTableRows() {
     for (const row of rows) {
         tableBody.appendChild(row);
     }
+}
+
+
+function convertDateTime(dateString) {
+    const inputDate = new Date(dateString);
+
+    const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+    const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+    const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+
+    const result = `${day}-${month}-${year}`;
+
+    return result;
 }
