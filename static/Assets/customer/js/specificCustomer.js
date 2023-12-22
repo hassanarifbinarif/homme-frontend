@@ -48,6 +48,7 @@ function getRelativeTime(dateTime) {
 window.onload = () => {
     getNotifications();
     getRelativeTime(document.getElementById('customer-joining-time').getAttribute('data-value'));
+    populateSalonDropdown();
 }
 
 
@@ -154,7 +155,74 @@ async function customerNotesForm(event, id) {
 }
 
 
-function openUpdateCustomerModal(id, first_name, last_name, phone, email) {
+let salonDropdown = document.getElementById('salon-dropdown');
+let salonField = document.getElementById('salon-field');
+let salonData = {};
+let selectedSalon = null;
+
+
+async function populateSalonDropdown() {
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`
+    }
+    let responseSalonList = await requestAPI(`${apiURL}/admin/salon-profiles?ordering=-created_at&user__is_blocked=false&page=1&perPage=1000`, null, headers, 'GET');
+    responseSalonList.json().then(function(res) {
+        salonData = [...res.data];
+        res.data.forEach((salon) => {
+            salonDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn salon-item-list" data-id="${salon.id}">
+                                                                <input onchange="selectSalon(event);" id="cust-${salon.id}" type="radio" value="${salon.id}" name="salon" />
+                                                                <label for="cust-${salon.id}" class="radio-label">${salon.salon_name}</label>
+                                                            </div>`);
+        })
+    })
+}
+
+
+function selectSalon(event) {
+    let inputElement = event.target;
+    if(inputElement.checked) {
+        salonField.value = inputElement.nextElementSibling.innerText;
+        selectedSalon = inputElement.value;
+    }
+}
+
+
+salonField.addEventListener('focus', function() {
+    salonDropdown.style.display = 'flex';
+})
+
+salonField.addEventListener('blur', function(event) {
+    setTimeout(() => {
+        salonDropdown.style.display = 'none';
+    }, 200);
+})
+
+salonField.addEventListener('input', function() {
+    let filteredSalon = [];
+    filteredSalon = salonData.filter(salon => salon.salon_name.toLowerCase().includes(this.value.toLowerCase())).map((salon => salon.id));
+    if (filteredSalon.length == 0) {
+        document.getElementById('no-salon-text').classList.remove('hide');
+        document.querySelectorAll('.salon-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-salon-text').classList.add('hide');
+        document.querySelectorAll('.salon-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredSalon.includes(parseInt(itemID, 10))) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+})
+
+
+function openUpdateCustomerModal(event, id, first_name, last_name, phone, email) {
+    let salonId = event.target.closest('div').getAttribute('data-salon');
+    console.log(salonId);
     let modal = document.querySelector(`#createCustomer`);
     let form = modal.querySelector('form');
     
@@ -165,14 +233,29 @@ function openUpdateCustomerModal(id, first_name, last_name, phone, email) {
     form.querySelector('input[name="last_name"]').value = last_name;
     form.querySelector('input[name="phone"]').value = phone;
     form.querySelector('input[name="email"]').value = email;
+    form.querySelector('input[name="password"]').classList.add('hide');
+    form.querySelector('input[name="confirm_password"]').classList.add('hide');
+    
+    if (salonId != 'null') {
+        form.querySelectorAll('input[name="salon"]').forEach((input) => {
+            if (input.value == salonId) {
+                input.checked = true;
+                salonField.value = input.nextElementSibling.innerText;
+            }
+        })
+    }
 
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
+        form.querySelector('input[name="password"]').classList.remove('hide');
+        form.querySelector('input[name="confirm_password"]').classList.remove('hide');
         modal.querySelector('.btn-text').innerText = 'ADD';
         modal.querySelector('#customer-modal-header-text').innerText = 'Add New Customer';
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
+        selectedSalon = null;
+        salonField.value = '';
     })
 
     document.querySelector(`.createCustomer`).click();
@@ -215,9 +298,11 @@ async function updateCustomerForm(event, id) {
                 last_name: data.last_name,
                 user: {
                     phone: data.phone,
-                    email: data.email
+                    email: data.email,
                 }
             };
+            if (selectedSalon != null)
+                customerData.salon = parseInt(selectedSalon);
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
             let token = getCookie('admin_access');
@@ -237,6 +322,12 @@ async function updateCustomerForm(event, id) {
                     document.getElementById('customer-first-last-name-field').innerText = `${res.data.first_name} ${res.data.last_name}`;
                     document.getElementById('customer-email-field').innerText = res.data.user.email;
                     document.getElementById('customer-phone-field').innerText = res.data.user.phone;
+
+                    document.querySelector('div[data-salon]').setAttribute('onclick', `openUpdateCustomerModal(event, '${res.data.id}', '${res.data.first_name}', '${res.data.last_name}', '${res.data.user.phone}', '${res.data.user.email}')`);
+
+                    if (res.data.salon) {
+                        document.querySelector('div[data-salon]').setAttribute('data-salon', res.data.salon.id);
+                    }
                     
                     afterLoad(button, 'UPDATED');
                     setTimeout(() => {
@@ -246,17 +337,25 @@ async function updateCustomerForm(event, id) {
                 else {
                     afterLoad(button, 'ERROR');
                     let keys = Object.keys(res.messages);
+                    
                     keys.forEach((key) => {
-                        if (typeof res.messages[key] === 'object') {
+                        if (Array.isArray(res.messages[key])) {
+                            keys.forEach((key) => {
+                                errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                            })
+                        }
+                        else if (typeof res.messages[key] === 'object') {
                             const nestedKeys = Object.keys(res.messages[key]);
                             nestedKeys.forEach((nestedKey) => {
-                                errorMsg.innerHTML += `${nestedKey}: ${res.messages[key][nestedKey][0]} <br />`;
+                                for( let i = 0; i < nestedKey.length; i++) {
+                                    if (res.messages[key][nestedKey][i] == undefined)
+                                        continue;
+                                    else
+                                        errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
+                                }
                             });
                         }
                     })
-                    // keys.forEach((key) => {
-                    //     errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
-                    // })
                     errorMsg.classList.add('active');
                 }
             })

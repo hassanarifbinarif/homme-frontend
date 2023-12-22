@@ -96,6 +96,10 @@ function showInventoryDetails(clickedRow, productList, salonName, salonContactNu
                                     <div class="container-header">
                                         <span>Stock Details</span>
                                         <div>
+                                            <div class="d-flex justify-content-center align-items-center hide inrow-loader">
+                                                <span class="spinner-border spinner-border-sm" style="color: #000093;" role="status" aria-hidden="true">
+                                                </span>
+                                            </div>
                                             <span class="cursor-pointer" onclick="getPurchaseOrder(event, ${id});">PRINT PURCHASE ORDER</span>
                                             <div id="inventory-status-wrapper-${id}">
                                                 ${status == 'shipped' ? '<span>Shipped</span>' : `<select name="status" onchange="changeInventoryStatus(event, ${id})" id="inventory-status-${id}">
@@ -164,8 +168,10 @@ async function changeInventoryStatus(event, id) {
 async function getPurchaseOrder(event, id) {
     event.stopPropagation();
 
-    // let loader = event.target.closest('td').querySelector('.inrow-loader');
-    // loader.classList.remove('hide');
+    let loader = event.target.closest('td').querySelector('.inrow-loader');
+    if (loader)
+        loader.classList.remove('hide');
+    
     let response = await requestAPI(`/consumer/get-purchase-order/${id}/`, null, {}, 'GET');
     response.json().then(function(res) {
         var options = {
@@ -176,7 +182,8 @@ async function getPurchaseOrder(event, id) {
         // html2pdf().from(res.packing_data).set(options).save();
 
         html2pdf().from(res.purchase_data).set(options).toPdf().get('pdf').then(function (pdf) {
-            // loader.classList.add('hide');
+            if (loader)
+                loader.classList.add('hide');
             let some = window.open(pdf.output('bloburl'), '_blank');
         });
         // afterLoad(button, buttonText);
@@ -198,9 +205,6 @@ function closeDropdowns(event) {
     else if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
         statusWrapper.style.display = 'none';
     }
-    // else if ((!rewardsBtn.contains(event.target)) && rewardsInputWrapper.style.display == 'flex') {
-    //     rewardsInputWrapper.style.display = 'none';
-    // }
 }
 
 document.body.addEventListener('click', closeDropdowns);

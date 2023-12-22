@@ -8,6 +8,7 @@ window.onload = () => {
     }
     getNotifications();
     getData();
+    populateSalonDropdown();
 }
 
 function searchForm(event) {

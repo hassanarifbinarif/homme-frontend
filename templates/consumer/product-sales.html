@@ -26,7 +26,7 @@
                 </div>
                 <div class="order-details-filters">
                     <div>
-                        <button id="order-completion-type-btn" style="position: relative;">
+                        <button class="order-completion-btn" id="order-completion-type-btn" style="position: relative;">
                             <span id="selected-order-completion-type">Pending orders</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
@@ -40,19 +40,35 @@
                                 </defs>
                             </svg>
                         </button>
-                        <button class="date-btn hide">
-                            <span>FILTER BY DATE</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
-                                <g clip-path="url(#clip0_771_3739)">
-                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706" />
-                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706" />
+                        <button onclick="toggleDateSelectorDropdown(event);" type="button" id="date-selector-btn" style="position: relative;" class="date-range-btn">
+                            <span id="selected-date-range">FILTER BY DATE</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                <g clip-path="url(#clip0_776_5475)">
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
                                 </g>
                                 <defs>
-                                    <clipPath id="clip0_771_3739">
-                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                    <clipPath id="clip0_776_5475">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
                                     </clipPath>
                                 </defs>
                             </svg>
+                            <div class="filter-dropdown date-selector" style="display: none;" id="date-selector">
+                                <div role="button" onclick="toggleDateInputs(event);">SET RANGE</div>
+                                <form class="date-range-div hide">
+                                    <div>
+                                        <label for="start-date">From</label>
+                                        <input type="date" oninput="dateRangeForm(event);" name="start_date"  id="start-date" />
+                                    </div>
+                                    <div>
+                                        <label for="end-date">To</label>
+                                        <input type="date" oninput="dateRangeForm(event);" name="end_date"  id="end-date" />
+                                    </div>
+                                </form>
+                                <span onclick="filterDataRangeOption(event);" data-value="current_week">CURRENT WEEK</span>
+                                <span onclick="filterDataRangeOption(event);" data-value="last_week">LAST WEEK</span>
+                                <span onclick="filterDataRangeOption(event);" data-value="last_month">LAST MONTH</span>
+                            </div>
                         </button>
                         <button class="channel-btn" id="purchase-type-btn" style="position: relative;">
                             <span id="selected-purchase-type" style="text-transform: uppercase;">CHANNEL</span>
@@ -68,19 +84,24 @@
                                 </defs>
                             </svg>
                         </button>
-                        <button class="sales-btn" style="position: relative;">
-                            <span id="selected-purchase-type" style="text-transform: uppercase;">STATUS</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
-                                <g clip-path="url(#clip0_771_3739)">
-                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
-                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                        <button type="button" onclick="toggleStatusDropdown(event);" id="status-btn" style="position: relative;" class="status-btn">
+                            <span id="selected-status-text">STATUS</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                <g clip-path="url(#clip0_776_5475)">
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
                                 </g>
                                 <defs>
-                                    <clipPath id="clip0_771_3739">
-                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                    <clipPath id="clip0_776_5475">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
                                     </clipPath>
                                 </defs>
                             </svg>
+                            <div class="filter-dropdown status-selector" id="status-selector" style="display: none;">
+                                <span onclick="filterStatusOption(event);" data-value="placed">PLACED</span>
+                                <span onclick="filterStatusOption(event);" data-value="pickup">PICKUP</span>
+                                <span onclick="filterStatusOption(event);" data-value="picked_up">PICKED UP</span>
+                            </div>
                         </button>
                     </div>
                     <div>

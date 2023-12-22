@@ -308,10 +308,11 @@
     font-weight: 500;
     line-height: normal;
     letter-spacing: 1.2px;
+    padding: 0px 10px;
 
     height: 30px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
 }
 
