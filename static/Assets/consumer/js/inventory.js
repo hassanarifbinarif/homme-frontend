@@ -1,7 +1,8 @@
 let requiredDataURL = `/admin/inventory?page=1&perPage=1000&ordering=-id&search=`;
 
 window.onload = () => {
-    getData();
+    document.querySelector('span[data-value="current_week"]').click();
+    // getData();
     getNotifications();
 }
 
@@ -243,13 +244,13 @@ function filterDataRangeOption(event) {
     let dateTimeString = '';
 
     if (element.innerText == 'CURRENT WEEK') {
-        startDate = getStartOfWeek();
-        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startDate);
-        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', '');
-        document.getElementById('start-date').value = startDate;
-        document.getElementById('end-date').value = '';
+        const { startOfWeek, endOfWeek } = getStartAndEndOfCurrentWeek();
+        requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfWeek);
+        requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfWeek);
+        document.getElementById('start-date').value = startOfWeek;
+        document.getElementById('end-date').value = endOfWeek;
 
-        dateTimeString = convertDateTime(startDate) + ', '
+        dateTimeString = convertDateTime(startOfWeek) + ', ' + convertDateTime(endOfWeek);
         document.getElementById('selected-date-range').innerText = dateTimeString;
         document.getElementById('selected-date-range').title = dateTimeString;
     }
@@ -334,18 +335,28 @@ function filterStatusOption(event) {
 
 // For current week
 
-function getStartOfWeek() {
+function getStartAndEndOfCurrentWeek() {
     const now = new Date();
     const dayOfWeek = now.getDay();
     const daysUntilMonday = (dayOfWeek + 6) % 7;
-    const startOfWeek = new Date(now);
+    let startOfWeek = new Date(now);
+    let endOfWeek = new Date(now);
 
-    startOfWeek.setDate(now.getDate() - daysUntilMonday + 1);
-
+    startOfWeek.setDate(now.getDate() - daysUntilMonday);
     startOfWeek.setHours(0, 0, 0, 0);
-    const formattedDate = startOfWeek.toISOString().split('T')[0];
 
-    return formattedDate;
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const timezoneOffset = now.getTimezoneOffset() * 60000;
+
+    startOfWeek = new Date(startOfWeek.getTime() - timezoneOffset).toISOString();
+    endOfWeek = new Date(endOfWeek.getTime() - timezoneOffset).toISOString();
+
+    return {
+        startOfWeek,
+        endOfWeek,
+    };
 }
 
 

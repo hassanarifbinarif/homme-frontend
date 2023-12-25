@@ -82,7 +82,7 @@
     </thead>
     <tbody>
         {% for obj in commissions.data %}
-        <tr onclick="showCommissionDetails(this);">
+        <tr onclick="showCommissionDetails(this, {{obj.commissions}}, '{{obj.id}}');">
             <td>
                 <div class="table-checkbox">
                     <input type="checkbox" />
