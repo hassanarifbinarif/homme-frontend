@@ -46,9 +46,29 @@
                                 <input type="text" placeholder="City" name="legal_city" id="" />
                             </div>
                             <div>
-                                <input type="text" placeholder="State" name="legal_state" id="" />
+                                <div class="selection-input">
+                                    <button class="filter-btn" id="legal-states-field" type="button">
+                                        <span id="selected-legal-state-text">State</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                            <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="legal-states-dropdown">        
+                                    </div>
+                                </div>
+                                <!-- <input type="text" placeholder="State" name="legal_state" id="" /> -->
                                 <input type="number" placeholder="ZIP" name="legal_zip_code" id="" />
-                                <input type="text" placeholder="Country" name="legal_country" id="" />
+                                <div class="selection-input">
+                                    <button class="filter-btn" id="legal-country-field" type="button">
+                                        <span id="selected-legal-country-text">Country</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                            <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="legal-country-dropdown">
+                                    </div>
+                                </div>
+                                <!-- <input type="text" placeholder="Country" name="legal_country" id="" /> -->
                             </div>
                         </div>
                     </div>
@@ -58,7 +78,7 @@
                         </div>
                         <div class="salon-info-input">
                             <div class="salon-image-input">
-                                <label for="salon-image" class="cursor-pointer">
+                                <label for="salon-image" class="cursor-pointer image-label">
                                     <svg class="opacity-point-6" xmlns="http://www.w3.org/2000/svg" width="51" height="35" viewBox="0 0 51 35" fill="none">
                                         <path d="M42.86 15.28C41.7675 6.675 34.4 0 25.5 0C18.61 0 12.625 4.0275 9.8925 10.375C4.5225 11.98 0.5 17.05 0.5 22.5C0.5 29.3925 6.1075 35 13 35H40.5C46.015 35 50.5 30.515 50.5 25C50.4962 22.759 49.7416 20.5839 48.3567 18.8221C46.9719 17.0602 45.0366 15.8131 42.86 15.28ZM28 22.5V30H23V22.5H15.5L25.5 10L35.5 22.5H28Z" fill="black"/>
                                     </svg>
@@ -90,9 +110,29 @@
                                 <input type="text" placeholder="City" name="salon_city" id="" />
                             </div>
                             <div>
-                                <input type="text" placeholder="State" name="salon_state" id="" />
+                                <div class="selection-input">
+                                    <button class="filter-btn" id="salon-states-field" type="button">
+                                        <span id="selected-salon-state-text">State</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                            <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="salon-states-dropdown">        
+                                    </div>
+                                </div>
+                                <!-- <input type="text" placeholder="State" name="salon_state" id="" /> -->
                                 <input type="number" placeholder="ZIP" name="salon_zip_code" id="" />
-                                <input type="text" placeholder="Country" name="salon_country" id="" />
+                                <div class="selection-input">
+                                    <button class="filter-btn" id="salon-country-field" type="button">
+                                        <span id="selected-salon-country-text">Country</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                            <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="salon-country-dropdown">
+                                    </div>
+                                </div>
+                                <!-- <input type="text" placeholder="Country" name="salon_country" id="" /> -->
                             </div>
                         </div>
                     </div>
@@ -127,9 +167,32 @@
                                 <input type="text" placeholder="Account Number" data-name="for_ach" name="account_number" id="" />
                                 <input class="hide" type="text" placeholder="Address 2" data-name="for_cheque" name="payment_street2" id="" />
                                 <input class="hide" type="text" placeholder="City" data-name="for_cheque" name="payment_city" id="" />
-                                <input class="hide" type="text" placeholder="State" data-name="for_cheque" name="payment_state" id="" />
+                                
+                                <div class="selection-input hide" data-name="for_cheque">
+                                    <button class="filter-btn" id="payment-states-field" type="button">
+                                        <span id="selected-payment-state-text">State</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                            <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="payment-states-dropdown">        
+                                    </div>
+                                </div>
+                                <!-- <input class="hide" type="text" placeholder="State" data-name="for_cheque" name="payment_state" id="" /> -->
+                                
                                 <input class="hide" type="number" placeholder="ZIP" data-name="for_cheque" name="payment_zip_code" id="" />
-                                <input class="hide" type="text" placeholder="Country" data-name="for_cheque" name="payment_country" id="" />
+                                
+                                <div class="selection-input hide" data-name="for_cheque">
+                                    <button class="filter-btn" id="payment-country-field" type="button">
+                                        <span id="selected-payment-country-text">Country</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                            <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="payment-country-dropdown">
+                                    </div>
+                                </div>
+                                <!-- <input class="hide" type="text" placeholder="Country" data-name="for_cheque" name="payment_country" id="" /> -->
                             </div>
                         </div>
                     </div>

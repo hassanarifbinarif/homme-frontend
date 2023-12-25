@@ -38,7 +38,7 @@ salonField.addEventListener('focus', function() {
 salonField.addEventListener('blur', function(event) {
     setTimeout(() => {
         salonDropdown.style.display = 'none';
-    }, 200);
+    }, 300);
 })
 
 salonField.addEventListener('input', function() {

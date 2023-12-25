@@ -10,6 +10,10 @@ let statesDropdown = document.getElementById('states-dropdown');
 let statesField = document.getElementById('states-field');
 let selectedState = null;
 
+let countryDropdown = document.getElementById('country-dropdown');
+let countryField = document.getElementById('country-field');
+let selectedCountry = null;
+
 let subTotal = document.getElementById('selected-products-subtotal');
 let grandTotal = document.getElementById('selected-products-grand-total');
 let percentDiscount = document.getElementById('selected-products-discount');
@@ -81,7 +85,13 @@ async function populateDropdowns() {
     statesList.forEach((state, index) => {
         statesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
                                                             <input onchange="selectState(this);" id="state-${index}" type="radio" value="${state.abbreviation}" name="state_radio" />
-                                                            <label for="state-${index}" class="radio-label">${state.name}</label>
+                                                            <label for="state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
+                                                        </div>`)
+    })
+    countryList.forEach((country, index) => {
+        countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
+                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Country']}" name="country_radio" />
+                                                            <label for="country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                         </div>`)
     })
 }
@@ -216,18 +226,38 @@ function selectCustomer(event) {
             orderData.billing_address = orderData.shipping_address;
             document.querySelector('#orderCreate input[name="address"]').value = customerDetails[0].address;
             document.querySelector('#orderCreate input[name="city"]').value = customerDetails[0].city;
-            document.querySelector('#orderCreate input[name="state"]').value = customerDetails[0].state;
+            // document.querySelector('#orderCreate input[name="state"]').value = customerDetails[0].state;
             document.querySelector('#orderCreate input[name="zip_code"]').value = customerDetails[0].zip_code;
-            document.querySelector('#orderCreate input[name="country"]').value = customerDetails[0].country;
+            // document.querySelector('#orderCreate input[name="country"]').value = customerDetails[0].country;
+            
+            let isState = document.querySelector(`label[data-name="${customerDetails[0].state}"]`);
+            if (isState) {
+                isState.previousElementSibling.click();
+            }
+
+            let isCountry = document.querySelector(`label[data-name="${customerDetails[0].country}"]`);
+            if (isCountry) {
+                isCountry.previousElementSibling.click();
+            }
         }
         else {
-            orderData.shipping_address = null;
+            orderData.shipping_address = {};
             orderData.billing_address = orderData.shipping_address;
             document.querySelector('#orderCreate input[name="address"]').value = null;
             document.querySelector('#orderCreate input[name="city"]').value = null;
-            document.querySelector('#orderCreate input[name="state"]').value = null;
+            // document.querySelector('#orderCreate input[name="state"]').value = null;
             document.querySelector('#orderCreate input[name="zip_code"]').value = null;
-            document.querySelector('#orderCreate input[name="country"]').value = null;
+            // document.querySelector('#orderCreate input[name="country"]').value = null;
+            
+            selectedState = null;
+            document.querySelectorAll('input[name="state_radio"]').forEach((input) => input.checked = false);
+            document.getElementById('selected-state-text').innerText = 'State';
+            document.getElementById('selected-state-text').style.color = '#A9A9A9';
+
+            selectedCountry = null;
+            document.querySelectorAll('input[name="country_radio"]').forEach((input) => input.checked = false);
+            document.getElementById('selected-country-text').innerText = 'Country';
+            document.getElementById('selected-country-text').style.color = '#A9A9A9';
         }
         orderCreate();
     }
@@ -267,9 +297,11 @@ customerField.addEventListener('input', function() {
 
 function selectState(inputField) {
     if (inputField.checked) {
-        statesField.value = inputField.nextElementSibling.innerText;
-        orderData.shipping_address.state = inputField.nextElementSibling.innerText; 
+        document.getElementById('selected-state-text').innerText = inputField.nextElementSibling.innerText;
+        document.getElementById('selected-state-text').style.color = '#030706';
+        orderData.shipping_address.state = inputField.nextElementSibling.innerText;
         selectedState = inputField.value;
+        // statesField.value = inputField.nextElementSibling.innerText;
     }
     orderCreate();
 }
@@ -303,6 +335,28 @@ statesField.addEventListener('input', function() {
             }
         })
     }
+})
+
+
+function selectCountry(inputField) {
+    if (inputField.checked) {
+        document.getElementById('selected-country-text').innerText = inputField.nextElementSibling.innerText;
+        document.getElementById('selected-country-text').style.color = '#030706';
+        orderData.shipping_address.country = inputField.nextElementSibling.innerText;
+        selectedCountry = inputField.value;
+        // statesField.value = inputField.nextElementSibling.innerText;
+    }
+    orderCreate();
+}
+
+countryField.addEventListener('focus', function() {
+    countryDropdown.style.display = 'flex';
+})
+
+countryField.addEventListener('blur', function(event) {
+    setTimeout(() => {
+        countryDropdown.style.display = 'none';
+    }, 200);
 })
 
 
@@ -464,10 +518,20 @@ function getShippingDetails() {
         phone: selectedCustomer.user.phone,
         address: document.querySelector('#orderCreate input[name="address"]').value,
         city: document.querySelector('#orderCreate input[name="city"]').value,
-        state: document.querySelector('#orderCreate input[name="state"]').value,
+        // state: document.querySelector('#orderCreate input[name="state"]').value,
         zip_code: document.querySelector('#orderCreate input[name="zip_code"]').value,
-        country: document.querySelector('#orderCreate input[name="country"]').value
+        // country: document.querySelector('#orderCreate input[name="country"]').value
     };
+    if (selectedState) {
+        let selectedStateInput = document.querySelector(`input[value="${selectedState}"]`);
+        if (selectedStateInput)
+            orderData.shipping_address.state = selectedStateInput.nextElementSibling.innerText;
+    }
+    if (selectedCountry) {
+        let selectedCountryInput = document.querySelector(`input[value="${selectedCountry}"]`);
+        if (selectedCountryInput)
+            orderData.shipping_address.country = selectedCountryInput.nextElementSibling.innerText;
+    }
     orderData.billing_address = orderData.shipping_address;
     orderCreate();
 }
@@ -537,6 +601,7 @@ async function orderCreate(event) {
             }
         }
         else {
+            // console.log(res);
             if (data.is_preview == false) {
                 let keys = Object.keys(res.messages);
                 keys.forEach((key) => {
@@ -544,7 +609,7 @@ async function orderCreate(event) {
                     errorMsg.classList.add('active');
                     errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
                 })
-                afterLoad(button, 'Error');
+                afterLoad(button, 'ERROR');
             }
         }
     })

@@ -2,7 +2,28 @@ let paymentTypeDropdown = document.getElementById('payment-type-dropdown');
 let paymentTypeDropdownBtn = document.getElementById('payment-type');
 let paymentTypeOptions = document.querySelectorAll('input[name="payment_type"]');
 
+let legalStatesDropdown = document.getElementById('legal-states-dropdown');
+let legalStatesField = document.getElementById('legal-states-field');
+let legalCountryDropdown = document.getElementById('legal-country-dropdown');
+let legalCountryField = document.getElementById('legal-country-field');
+
+let salonStatesDropdown = document.getElementById('salon-states-dropdown');
+let salonStatesField = document.getElementById('salon-states-field');
+let salonCountryDropdown = document.getElementById('salon-country-dropdown');
+let salonCountryField = document.getElementById('salon-country-field');
+
+let paymentStatesDropdown = document.getElementById('payment-states-dropdown');
+let paymentStatesField = document.getElementById('payment-states-field');
+let paymentCountryDropdown = document.getElementById('payment-country-dropdown');
+let paymentCountryField = document.getElementById('payment-country-field');
+
 paymentTypeDropdownBtn.addEventListener('click', toggleDropdown);
+legalStatesField.addEventListener('click', toggleDropdown);
+legalCountryField.addEventListener('click', toggleDropdown);
+salonStatesField.addEventListener('click', toggleDropdown);
+salonCountryField.addEventListener('click', toggleDropdown);
+paymentStatesField.addEventListener('click', toggleDropdown);
+paymentCountryField.addEventListener('click', toggleDropdown);
 
 
 function toggleDropdown(event) {
@@ -24,9 +45,75 @@ function closeDropdowns(event) {
     if((!paymentTypeDropdownBtn.contains(event.target)) && paymentTypeDropdown.style.display == 'flex') {
         paymentTypeDropdown.style.display = 'none';
     }
+    else if ((!legalStatesField.contains(event.target)) && legalStatesDropdown.style.display == 'flex') {
+        legalStatesDropdown.style.display = 'none';
+    }
+    else if ((!legalCountryField.contains(event.target)) && legalCountryDropdown.style.display == 'flex') {
+        legalCountryDropdown.style.display = 'none';
+    }
+    else if ((!salonStatesField.contains(event.target)) && salonStatesDropdown.style.display == 'flex') {
+        salonStatesDropdown.style.display = 'none';
+    }
+    else if ((!salonCountryField.contains(event.target)) && salonCountryDropdown.style.display == 'flex') {
+        salonCountryDropdown.style.display = 'none';
+    }
+    else if ((!paymentStatesField.contains(event.target)) && paymentStatesDropdown.style.display == 'flex') {
+        paymentStatesDropdown.style.display = 'none';
+    }
+    else if ((!paymentCountryField.contains(event.target)) && paymentCountryDropdown.style.display == 'flex') {
+        paymentCountryDropdown.style.display = 'none';
+    }
 }
 
 document.body.addEventListener('click', closeDropdowns);
+
+
+function populateStateCountryDropdowns() {
+    statesList.forEach((state, index) => {
+        legalStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
+                                                                <input onchange="selectState(this, 'legal');" id="legal-state-${index}" type="radio" value="${state.abbreviation}" name="legal_state" />
+                                                                <label for="legal-state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
+                                                            </div>`)
+        salonStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
+                                                                <input onchange="selectState(this, 'salon');" id="salon-state-${index}" type="radio" value="${state.abbreviation}" name="salon_state" />
+                                                                <label for="salon-state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
+                                                            </div>`)
+        paymentStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
+                                                                    <input onchange="selectState(this, 'payment');" id="payment-state-${index}" type="radio" value="${state.abbreviation}" name="payment_state" />
+                                                                    <label for="payment-state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
+                                                                </div>`)
+    })
+
+    countryList.forEach((country, index) => {
+        legalCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
+                                                                <input onchange="selectCountry(this, 'legal');" id="legal-country-${index}" type="radio" value="${country['Country']}" name="legal_country" />
+                                                                <label for="legal-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
+                                                            </div>`)
+        salonCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
+                                                                <input onchange="selectCountry(this, 'salon');" id="salon-country-${index}" type="radio" value="${country['Country']}" name="salon_country" />
+                                                                <label for="salon-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
+                                                            </div>`)
+        paymentCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
+                                                                    <input onchange="selectCountry(this, 'payment');" id="payment-country-${index}" type="radio" value="${country['Country']}" name="payment_country" />
+                                                                    <label for="payment-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
+                                                                </div>`)
+    })
+}
+
+
+function selectState(inputField, type) {
+    if (inputField.checked) {
+        document.getElementById(`selected-${type}-state-text`).innerText = inputField.nextElementSibling.innerText;
+        document.getElementById(`selected-${type}-state-text`).style.color = '#000';
+    }
+}
+
+function selectCountry(inputField, type) {
+    if (inputField.checked) {
+        document.getElementById(`selected-${type}-country-text`).innerText = inputField.nextElementSibling.innerText;
+        document.getElementById(`selected-${type}-country-text`).style.color = '#000';
+    }
+}
 
 
 function selectPaymentType(event) {
@@ -43,9 +130,15 @@ function selectPaymentType(event) {
             modal.querySelectorAll('input[data-name="for_cheque"]').forEach((input) => {
                 input.classList.add('hide');
             })
+            modal.querySelectorAll('div[data-name="for_cheque"]').forEach((input) => {
+                input.classList.add('hide');
+            })
         }
         else if (inputElement.value == 'check') {
             modal.querySelectorAll('input[data-name="for_cheque"]').forEach((input) => {
+                input.classList.remove('hide');
+            })
+            modal.querySelectorAll('div[data-name="for_cheque"]').forEach((input) => {
                 input.classList.remove('hide');
             })
             modal.querySelectorAll('input[data-name="for_ach"]').forEach((input) => {
@@ -71,7 +164,7 @@ function openCreateSalonModal() {
     let modal = document.getElementById('salonCreate');
     let form = modal.querySelector('form');
     form.setAttribute('onsubmit', 'createSalonForm(event)');
-    let imageLabel = modal.querySelector('label');
+    let imageLabel = modal.querySelector('.image-label');
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         imageLabel.querySelector('.salon-image').src = '';
@@ -81,6 +174,18 @@ function openCreateSalonModal() {
         form.querySelector('.create-error-msg').innerHTML = '';
         form.querySelector('.btn-text').innerText = 'SAVE';
         form.querySelector('.create-error-msg').classList.remove('active');
+        document.getElementById(`selected-legal-state-text`).innerText = 'State';
+        document.getElementById(`selected-legal-state-text`).style.color = '#A9A9A9';
+        document.getElementById(`selected-salon-state-text`).innerText = 'State';
+        document.getElementById(`selected-salon-state-text`).style.color = '#A9A9A9';
+        document.getElementById(`selected-payment-state-text`).innerText = 'State';
+        document.getElementById(`selected-payment-state-text`).style.color = '#A9A9A9';
+        document.getElementById(`selected-legal-country-text`).innerText = 'Country';
+        document.getElementById(`selected-legal-country-text`).style.color = '#A9A9A9';
+        document.getElementById(`selected-salon-country-text`).innerText = 'Country';
+        document.getElementById(`selected-salon-country-text`).style.color = '#A9A9A9';
+        document.getElementById(`selected-payment-country-text`).innerText = 'Country';
+        document.getElementById(`selected-payment-country-text`).style.color = '#A9A9A9';
     })
     document.querySelector('.salonCreate').click();
 }
@@ -227,9 +332,10 @@ async function createSalonForm(event) {
                             afterLoad(button, 'ERROR');
                             errorMsg.classList.add('active');
                             let keys = Object.keys(updateRes.messages);
+                            
                             keys.forEach((key) => {
                                 errorMsg.innerHTML += `${key}: ${updateRes.messages[key]} <br />`;
-                            })        
+                            })
                         }
                     })
                 }
@@ -237,15 +343,22 @@ async function createSalonForm(event) {
                     afterLoad(button, 'ERROR');
                     errorMsg.classList.add('active');
                     let keys = Object.keys(res.messages);
-                    // keys.forEach((key) => {
-                    //     console.log(typeof res.messages[key]['phone'], res.messages[key]['phone']);
-                    //     errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
-                    // })
+                    
                     keys.forEach((key) => {
-                        if (typeof res.messages[key] === 'object') {
+                        if (Array.isArray(res.messages[key])) {
+                            keys.forEach((key) => {
+                                errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                            })
+                        }
+                        else if (typeof res.messages[key] === 'object') {
                             const nestedKeys = Object.keys(res.messages[key]);
                             nestedKeys.forEach((nestedKey) => {
-                                errorMsg.innerHTML += `${nestedKey}: ${res.messages[key][nestedKey][0]} <br />`;
+                                for( let i = 0; i < nestedKey.length; i++) {
+                                    if (res.messages[key][nestedKey][i] == undefined)
+                                        continue;
+                                    else
+                                        errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
+                                }
                             });
                         }
                     })

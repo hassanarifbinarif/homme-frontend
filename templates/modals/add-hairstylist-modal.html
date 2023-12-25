@@ -46,11 +46,31 @@
                         <input type="text" name="address" placeholder="Address" />
                         <div class="group-inputs">
                             <input type="text" name="city" placeholder="City" />
-                            <input type="text" name="state" placeholder="State" />
+                            <div class="selection-input">
+                                <button class="filter-btn" id="states-field" type="button">
+                                    <span id="selected-state-text">State</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                        <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                    </svg>
+                                </button>
+                                <div class="filter-dropdown" id="states-dropdown">        
+                                </div>
+                            </div>
+                            <!-- <input type="text" name="state" placeholder="State" /> -->
                         </div>
                         <div class="group-inputs">
                             <input type="number" name="zip_code" placeholder="ZIP" />
-                            <input type="text" name="country" placeholder="Country" />
+                            <div class="selection-input">
+                                <button class="filter-btn" id="country-field" type="button">
+                                    <span id="selected-country-text">Country</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                        <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                    </svg>
+                                </button>
+                                <div class="filter-dropdown" id="country-dropdown">
+                                </div>
+                            </div>
+                            <!-- <input type="text" name="country" placeholder="Country" /> -->
                         </div>
                     </div>
                 </div>

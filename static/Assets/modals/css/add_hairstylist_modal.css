@@ -124,6 +124,8 @@
     border-radius: 8px;
     border: 1px solid #E0E0DD;
     z-index: 1;
+    max-height: 130px;
+    overflow-y: auto;
 }
 
 #addHairstylist .radio-btn > label {

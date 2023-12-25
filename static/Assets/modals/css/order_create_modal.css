@@ -542,7 +542,8 @@
 
 #orderCreate #customer-dropdown,
 #orderCreate #product-dropdown,
-#orderCreate #states-dropdown {
+#orderCreate #states-dropdown,
+#orderCreate #country-dropdown {
     max-height: 216px;
     overflow-y: auto;
 }

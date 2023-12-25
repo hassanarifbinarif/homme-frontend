@@ -227,7 +227,7 @@
 }
 
 #salonCreate .modal-body .filter-btn > span {
-    /* color: #A9A9A9; */
+    color: #A9A9A9;
     font-size: .875rem;
 }
 
@@ -241,6 +241,8 @@
     border-radius: 8px;
     border: 1px solid #E0E0DD;
     z-index: 1;
+    max-height: 172px;
+    overflow-y: auto;
 }
 
 #salonCreate .modal-body .radio-btn > label {

@@ -1,6 +1,7 @@
 window.onload = () => {
     getData();
     getNotifications();
+    populateStateCountryDropdowns();
 }
 
 

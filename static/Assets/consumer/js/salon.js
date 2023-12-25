@@ -8,6 +8,7 @@ window.onload = () => {
     }
     getNotifications();
     getData();
+    populateStateCountryDropdowns();
 }
 
 function searchForm(event) {

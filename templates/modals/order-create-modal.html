@@ -4,8 +4,7 @@
     aria-labelledby="orderCreateLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <form>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Create an Order</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -15,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="selection-div">
-                        <input type="text" placeholder="Search Customer" name="customer" id="customer-field" />
+                        <input type="text" placeholder="Search Customer" name="customer" id="customer-field" autocomplete="off" />
                         <div class="filter-dropdown" id="customer-dropdown">
                             <span class="hide" id="no-customer-text">No Customer</span>
                         </div>
@@ -25,7 +24,7 @@
                         <input type="text" placeholder="Last Name" name="last_name" id="" />
                     </div>
                     <div class="selection-div">
-                        <input type="text" placeholder="Search Product" name="product" id="product-field" />
+                        <input type="text" placeholder="Search Product" name="product" id="product-field" autocomplete="off" />
                         <div class="filter-dropdown" id="product-dropdown">
                             <span class="hide" id="no-product-text">No Product</span>
                         </div>
@@ -81,17 +80,36 @@
                         <input type="text" oninput="getShippingDetails();" placeholder="Street Address" name="address" id="" />
                         <div class="group-inputs">
                             <input type="text" oninput="getShippingDetails();" placeholder="City" name="city" id="" />
-                            <div class="selection-div">
+                            <div class="selection-input">
+                                <button class="filter-btn" id="states-field" type="button">
+                                    <span id="selected-state-text">State</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                        <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                    </svg>
+                                </button>
+                                <div class="filter-dropdown" id="states-dropdown">        
+                                </div>
+                            </div>
+                            <!-- <div class="selection-div">
                                 <input type="text" placeholder="State" name="state" id="states-field" />
                                 <div class="filter-dropdown" id="states-dropdown">
                                     <span class="hide" id="no-state-text">No State</span>
                                 </div>
-                            </div>
-                            <!-- <input type="text" oninput="getShippingDetails();" placeholder="State" name="state" id="" /> -->
+                            </div> -->
                         </div>
                         <div class="group-inputs">
                             <input type="number" oninput="getShippingDetails();" placeholder="ZIP" name="zip_code" id="" />
-                            <input type="text" oninput="getShippingDetails();" placeholder="Country" name="country" id="" />
+                            <div class="selection-input">
+                                <button class="filter-btn" id="country-field" type="button">
+                                    <span id="selected-country-text">Country</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                        <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                    </svg>
+                                </button>
+                                <div class="filter-dropdown" id="country-dropdown">
+                                </div>
+                            </div>
+                            <!-- <input type="text" oninput="getShippingDetails();" placeholder="Country" name="country" id="" /> -->
                         </div>
                         <textarea name="notes" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
                     </div>
