@@ -1,3 +1,6 @@
+let deliveryTypeBtn = document.getElementById('delivery-type-btn');
+let deliveryTypeDropdown = document.getElementById('delivery-type-dropdown');
+
 let salesChannelBtn = document.getElementById('select-sales-channel-btn');
 let salesChannelDropdown = document.getElementById('sales-channel-dropdown');
 
@@ -77,6 +80,9 @@ async function getData(url=null) {
 function closeDropdowns(event) {
     if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
         dateSelectorInputWrapper.style.display = 'none';
+    }
+    else if ((!deliveryTypeBtn.contains(event.target)) && deliveryTypeDropdown.style.display == 'flex') {
+        deliveryTypeDropdown.style.display = 'none';
     }
     else if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
         statusWrapper.style.display = 'none';
@@ -207,6 +213,31 @@ function filterStatusOption(event) {
     document.getElementById('selected-status-text').innerText = element.innerText;
     setTimeout(() => {
         statusBtn.click();
+    }, 100)
+}
+
+
+function toggleDeliveryTypeDropdown(event) {
+    if ((deliveryTypeBtn.contains(event.target)) && deliveryTypeDropdown.style.display == 'none') {
+        deliveryTypeDropdown.style.display = 'flex';
+    }
+    else if ((deliveryTypeBtn.querySelector('span').contains(event.target) || deliveryTypeBtn.querySelector('svg').contains(event.target)) && deliveryTypeDropdown.style.display == 'flex') {
+        deliveryTypeDropdown.style.display = 'none';
+    }
+    else if ((deliveryTypeBtn.querySelector('.date-selector').contains(event.target)) && deliveryTypeDropdown.style.display == 'flex') {
+    }
+    else {
+        deliveryTypeDropdown.style.display = 'none';
+    }
+}
+
+
+function filterDeliveryOption(option) {
+    requiredDataURL = setParams(requiredDataURL, 'pickup_type', option.getAttribute('data-value'));
+    getData(requiredDataURL);
+    document.getElementById('selected-delivery-type').innerText = option.innerText;
+    setTimeout(() => {
+        deliveryTypeBtn.click();
     }, 100)
 }
 

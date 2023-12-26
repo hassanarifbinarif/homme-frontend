@@ -26,8 +26,8 @@
                 </div>
                 <div class="order-details-filters">
                     <div>
-                        <button class="order-completion-btn" id="order-completion-type-btn" style="position: relative;">
-                            <span id="selected-order-completion-type">Pending orders</span>
+                        <button onclick="toggleDeliveryTypeDropdown(event);" class="order-completion-btn" id="delivery-type-btn" style="position: relative;">
+                            <span id="selected-delivery-type">DELIVERY TYPE</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
                                     <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
@@ -39,6 +39,10 @@
                                     </clipPath>
                                 </defs>
                             </svg>
+                            <div class="filter-dropdown date-selector" style="display: none;" id="delivery-type-dropdown">
+                                <span onclick="filterDeliveryOption(this);" data-value="ship">SHIP</span>
+                                <span onclick="filterDeliveryOption(this);" data-value="self">SELF</span>
+                            </div>
                         </button>
                         <button onclick="toggleDateSelectorDropdown(event);" type="button" id="date-selector-btn" style="position: relative;" class="date-range-btn">
                             <span id="selected-date-range">FILTER BY DATE</span>

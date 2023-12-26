@@ -228,6 +228,10 @@
     align-items: center;
 }
 
+.order-details-wrapper .order-details-filters .date-selector > span {
+    padding: 0px 10px;
+}
+
 .order-details-wrapper .order-details-filters .date-selector > span:not(:first-of-type),
 .order-details-wrapper .order-details-filters .status-btn > .status-selector > span:not(:first-of-type) {
     border-top: 1px solid #CECECE;
