@@ -278,11 +278,15 @@ editInventoryBtn.addEventListener('click', toggleInventoryInputs);
 function toggleInventoryInputs() {
     if (updateInventoryBtnWrapper.classList.contains('hide')) {
         updateInventoryBtnWrapper.classList.remove('hide');
-        document.getElementById('specific-product-inventory-details').querySelectorAll('input').forEach((input) => input.readOnly = false);
+        // document.getElementById('specific-product-inventory-details').querySelectorAll('input').forEach((input) => input.readOnly = false);
+        document.getElementById('specific-product-inventory-details').querySelector('input[name="sku_num"]').readOnly = false;
+        document.getElementById('specific-product-inventory-wrapper').setAttribute('onsubmit', `updateProductInventory(event, ${specific_prod_id})`);
     }
     else {
         updateInventoryBtnWrapper.classList.add('hide');
-        document.getElementById('specific-product-inventory-details').querySelectorAll('input').forEach((input) => input.readOnly = true);
+        // document.getElementById('specific-product-inventory-details').querySelectorAll('input').forEach((input) => input.readOnly = true);
+        document.getElementById('specific-product-inventory-details').querySelector('input[name="sku_num"]').readOnly = true;
+        document.getElementById('specific-product-inventory-wrapper').removeAttribute('onsubmit');
     }
 }
 
@@ -540,18 +544,50 @@ async function updateProductDescriptions(event, id=null) {
 }
 
 
+async function updateProductInventory(event, id) {
+    event.preventDefault();
+    if(id != null) {
+        let form = event.currentTarget;
+        let button = form.querySelector('button[type="submit"]');
+        let formData = new FormData(form);
+        let data = formDataToObject(formData);
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        }
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}`, JSON.stringify(data), headers, 'PATCH');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                afterLoad(button, 'SAVED');
+                setTimeout(() => {
+                    afterLoad(button, 'SAVE');
+                }, 1000);
+                toggleInventoryInputs();
+            }
+            else {
+                afterLoad(button, 'Error');
+            }
+        })
+    }
+}
+
+
 async function updateShippingSizes(event, id) {
     event.preventDefault();
     if(id != null) {
         let form = event.currentTarget;
         let button = form.querySelector('button[type="submit"]');
         let formData = new FormData(form);
+        let data = formDataToObject(formData);
         let token = getCookie('admin_access');
         let headers = {
-            "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
         }
         beforeLoad(button);
-        let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}`, formData, headers, 'PATCH');
+        let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}`, JSON.stringify(data), headers, 'PATCH');
         response.json().then(function(res) {
             if (response.status == 200) {
                 afterLoad(button, 'SAVED');

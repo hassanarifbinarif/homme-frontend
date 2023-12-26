@@ -100,7 +100,7 @@
                             {% include '../ajax/product-image-gallery.html' %}
                         </div>
                     </div>
-                    <div class="specific-product-inventory-wrapper">
+                    <form class="specific-product-inventory-wrapper" onsubmit="updateProductInventory(event);" id="specific-product-inventory-wrapper">
                         <div>
                             <span>Inventory</span>
                             <svg class="cursor-pointer" id="edit-product-inventory" xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -110,7 +110,7 @@
                         <div class="specific-product-inventory-details" id="specific-product-inventory-details">
                             <div>
                                 <span>SKU#</span>
-                                <input type="text" value="{{product.sku_num}}" readonly name="sku_num" placeholder="HOMME07834FH1" id="" />
+                                <input type="text" value="{{product.sku_num}}" required readonly name="sku_num" placeholder="HOMME07834FH1" id="" />
                             </div>
                             <div>
                                 <span>Current Stock</span>
@@ -127,9 +127,12 @@
                         </div>
                         <div class="save-cancel-btn hide" id="update-product-inventory-wrapper">
                             <button type="button" onclick="toggleInventoryInputs();">CANCEL</button>
-                            <button type="button" onclick="toggleInventoryInputs();">SAVE</button>
+                            <button type="submit">
+                                <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                                <span class="btn-text">SAVE</span>
+                            </button>
                         </div>
-                    </div>
+                    </form>
                     <form onsubmit="updateShippingSizes(event);" class="specific-product-shipping-wrapper" id="specific-product-shipping-form">
                         <div>
                             <span>Shipping</span>

@@ -19,7 +19,10 @@ let requiredDataURL = `/admin/activities?page=1&perPage=1000&ordering=-created_a
 window.onload = () => {
     getNotifications();
     getData();
+    populateDropdowns();
 }
+
+let currentOrderModal = 'activityCreate';
 
 
 function searchForm(event) {

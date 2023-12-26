@@ -224,10 +224,10 @@ function selectCustomer(event) {
                 state: customerDetails[0].state
             };
             orderData.billing_address = orderData.shipping_address;
-            document.querySelector('#orderCreate input[name="address"]').value = customerDetails[0].address;
-            document.querySelector('#orderCreate input[name="city"]').value = customerDetails[0].city;
+            document.querySelector('input[name="address"]').value = customerDetails[0].address;
+            document.querySelector('input[name="city"]').value = customerDetails[0].city;
             // document.querySelector('#orderCreate input[name="state"]').value = customerDetails[0].state;
-            document.querySelector('#orderCreate input[name="zip_code"]').value = customerDetails[0].zip_code;
+            document.querySelector('input[name="zip_code"]').value = customerDetails[0].zip_code;
             // document.querySelector('#orderCreate input[name="country"]').value = customerDetails[0].country;
             
             let isState = document.querySelector(`label[data-name="${customerDetails[0].state}"]`);
@@ -243,10 +243,10 @@ function selectCustomer(event) {
         else {
             orderData.shipping_address = {};
             orderData.billing_address = orderData.shipping_address;
-            document.querySelector('#orderCreate input[name="address"]').value = null;
-            document.querySelector('#orderCreate input[name="city"]').value = null;
+            document.querySelector('input[name="address"]').value = null;
+            document.querySelector('input[name="city"]').value = null;
             // document.querySelector('#orderCreate input[name="state"]').value = null;
-            document.querySelector('#orderCreate input[name="zip_code"]').value = null;
+            document.querySelector('input[name="zip_code"]').value = null;
             // document.querySelector('#orderCreate input[name="country"]').value = null;
             
             selectedState = null;
@@ -516,10 +516,10 @@ function getShippingDetails() {
         first_name: selectedCustomer.first_name,
         last_name: selectedCustomer.last_name,
         phone: selectedCustomer.user.phone,
-        address: document.querySelector('#orderCreate input[name="address"]').value,
-        city: document.querySelector('#orderCreate input[name="city"]').value,
+        address: document.querySelector('input[name="address"]').value,
+        city: document.querySelector('input[name="city"]').value,
         // state: document.querySelector('#orderCreate input[name="state"]').value,
-        zip_code: document.querySelector('#orderCreate input[name="zip_code"]').value,
+        zip_code: document.querySelector('input[name="zip_code"]').value,
         // country: document.querySelector('#orderCreate input[name="country"]').value
     };
     if (selectedState) {
@@ -589,7 +589,7 @@ async function orderCreate(event) {
                 afterLoad(button, 'CREATED');
                 setTimeout(()=> {
                     afterLoad(button, 'CREATE');
-                    document.querySelector(`.orderCreate`).click();
+                    document.querySelector(`.${currentOrderModal}`).click();
                 }, 1500)
             }
             else {

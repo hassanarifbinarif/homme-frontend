@@ -252,7 +252,7 @@ def specific_product(request, api_response, pk):
     context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'products'
     context['sidebar'] = 'consumer'
-    return render(request, 'consumer/consumer-specific-product.html', context)
+    return render(request, 'customer/specific-product.html', context)
 
 
 @admin_signin_required

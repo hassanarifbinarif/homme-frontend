@@ -12,6 +12,8 @@ window.onload = () => {
     populateDropdowns();
 }
 
+let currentOrderModal = 'orderCreate';
+
 
 function closeDropdowns(event) {
     if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
