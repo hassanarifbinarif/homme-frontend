@@ -1,8 +1,48 @@
+let salesChannelBtn = document.getElementById('select-sales-channel-btn');
+let salesChannelDropdown = document.getElementById('sales-channel-dropdown');
+
+let dateSelectorBtn = document.getElementById('date-selector-btn');
+let dateSelectorInputWrapper = document.getElementById('date-selector');
+
+let statusBtn = document.getElementById('status-btn');
+let statusWrapper = document.getElementById('status-selector');
+
 let requiredDataURL = `/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
+
 
 window.onload = () => {
     getNotifications();
     getData();
+}
+
+
+salesChannelBtn.addEventListener('click', function() {
+    if (salesChannelDropdown.classList.contains('hide')) {
+        salesChannelDropdown.classList.remove('hide');
+    }
+    else {
+        salesChannelDropdown.classList.add('hide');
+    }
+})
+
+let selectedSalesChannel = [];
+let salesChannelFilterString = '';
+
+function selectSalesChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSalesChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSalesChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSalesChannel.splice(index, 1);
+        }
+    }
+    salesChannelFilterString = selectedSalesChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'sales_channel', salesChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.classList.add('hide');
+    salesChannelBtn.click();
 }
 
 
@@ -34,19 +74,15 @@ async function getData(url=null) {
 }
 
 
-let dateSelectorBtn = document.getElementById('date-selector-btn');
-let dateSelectorInputWrapper = document.getElementById('date-selector');
-
-let statusBtn = document.getElementById('status-btn');
-let statusWrapper = document.getElementById('status-selector');
-
-
 function closeDropdowns(event) {
     if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
         dateSelectorInputWrapper.style.display = 'none';
     }
     else if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
         statusWrapper.style.display = 'none';
+    }
+    else if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+        salesChannelDropdown.classList.add('hide');
     }
 }
 

@@ -1,5 +1,5 @@
+let salesChannelBtn = document.getElementById('select-sales-channel-btn');
 let salesChannelDropdown = document.getElementById('sales-channel-dropdown');
-let salesChannelBtn = document.getElementById('sales-channel-btn');
 
 let typeDropdown = document.getElementById('type-dropdown');
 let typeBtn = document.getElementById('type-btn');
@@ -23,6 +23,36 @@ window.onload = () => {
 }
 
 let currentOrderModal = 'activityCreate';
+
+
+salesChannelBtn.addEventListener('click', function() {
+    if (salesChannelDropdown.classList.contains('hide')) {
+        salesChannelDropdown.classList.remove('hide');
+    }
+    else {
+        salesChannelDropdown.classList.add('hide');
+    }
+})
+
+let selectedSalesChannel = [];
+let salesChannelFilterString = '';
+
+function selectSalesChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSalesChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSalesChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSalesChannel.splice(index, 1);
+        }
+    }
+    salesChannelFilterString = selectedSalesChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'sales_channel', salesChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.classList.add('hide');
+    salesChannelBtn.click();
+}
 
 
 function searchForm(event) {
@@ -61,22 +91,6 @@ async function getData(url=null) {
         console.log(err);
     }
 }
-
-
-function toggleSalesChannelDropdown(event) {
-    if (salesChannelDropdown.style.display == 'flex' && (!salesChannelBtn.querySelector('.search-div').contains(event.target))) {
-        salesChannelDropdown.style.display = 'none';
-    }
-    else {
-        salesChannelDropdown.style.display = 'flex';
-    }
-}
-
-function filterSalesChannelOption(event) {
-    let element = event.target;
-    // document.getElementById('selected-sales-channel').innerText = element.innerText;
-}
-
 
 
 function filterTypeOption(event) {
@@ -316,8 +330,8 @@ function rewardForm(event) {
 
 
 function closeDropdowns(event) {
-    if ((!salesChannelBtn.contains(event.target)) && salesChannelDropdown.style.display == 'flex') {
-        salesChannelDropdown.style.display = "none";
+    if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+        salesChannelDropdown.classList.add('hide');
     }
     else if((!typeBtn.contains(event.target)) && typeDropdown.style.display == 'flex') {
         typeDropdown.style.display = 'none';

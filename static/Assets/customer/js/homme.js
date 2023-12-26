@@ -1,6 +1,5 @@
-let orderChannelBtn = document.getElementById('select-order-channel-btn');
-let selectedOrderChannel = document.getElementById('selected-order-channel-opt');
-let orderChannelDropdown = document.getElementById('order-channel-dropdown');
+let salesChannelBtn = document.getElementById('select-order-channel-btn');
+let salesChannelDropdown = document.getElementById('order-channel-dropdown');
 
 let chartTypeBtn = document.getElementById('chart-type-btn');
 let chartTypeDropdown = document.getElementById('chart-type-dropdown');
@@ -13,20 +12,33 @@ window.onload = () => {
     getData(requiredDataURL);
 }
 
-orderChannelBtn.addEventListener('click', function() {
-    if (orderChannelDropdown.classList.contains('hide')) {
-        orderChannelDropdown.classList.remove('hide');
+salesChannelBtn.addEventListener('click', function() {
+    if (salesChannelDropdown.classList.contains('hide')) {
+        salesChannelDropdown.classList.remove('hide');
     }
     else {
-        orderChannelDropdown.classList.add('hide');
+        salesChannelDropdown.classList.add('hide');
     }
 })
 
-function selectOrderChannel(event) {
-    let element = event.target;
-    // selectedOrderChannel.innerText = element.innerText;
-    orderChannelDropdown.classList.add('hide');
-    orderChannelBtn.click();
+let selectedSalesChannel = [];
+let salesChannelFilterString = '';
+
+function selectSalesChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSalesChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSalesChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSalesChannel.splice(index, 1);
+        }
+    }
+    salesChannelFilterString = selectedSalesChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'sales_channel', salesChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.classList.add('hide');
+    salesChannelBtn.click();
 }
 
 
@@ -60,8 +72,8 @@ function closeDropdowns(event) {
     if (!(orderStatTimeBtn.contains(event.target)) && !(orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
-    else if (!(orderChannelBtn.contains(event.target)) && !(orderChannelDropdown.contains(event.target))) {
-        orderChannelDropdown.classList.add('hide');
+    else if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+        salesChannelDropdown.classList.add('hide');
     }
 }
 

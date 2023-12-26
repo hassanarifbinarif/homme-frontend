@@ -41,17 +41,17 @@
                                     </svg>
                                 </div>
                                 <div class="order-channel-dropdown hide" id="order-channel-dropdown">
-                                    <label for="channel-1">
+                                    <label for="homme-channel">
                                         <span>HOMME</span>
-                                        <input type="checkbox" id="channel-1" value="HOMME" name="sales_channel" />
+                                        <input type="checkbox" onchange="selectSalesChannel(this);" id="homme-channel" value="homme" name="sales_channel" />
                                     </label>
-                                    <label for="channel-2">
+                                    <label for="salon-channel">
                                         <span>SALONS</span>
-                                        <input type="checkbox" id="channel-2" value="SALONS" name="sales_channel" />
+                                        <input type="checkbox" onchange="selectSalesChannel(this);" id="salon-channel" value="salon" name="sales_channel" />
                                     </label>
-                                    <label for="channel-3">
+                                    <label for="referrer-channel">
                                         <span>REFERRERS</span>
-                                        <input type="checkbox" id="channel-3" value="REFERRERS" name="sales_channel" />
+                                        <input type="checkbox" onchange="selectSalesChannel(this);" id="referrer-channel" value="referral" name="sales_channel" />
                                     </label>
                                 </div>
                             </button>
