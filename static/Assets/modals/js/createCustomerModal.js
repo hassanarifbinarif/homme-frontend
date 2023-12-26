@@ -3,6 +3,14 @@ let salonField = document.getElementById('salon-field');
 let salonData = {};
 let selectedSalon = null;
 
+let stylistDropdown = document.getElementById('stylist-dropdown');
+let stylistField = document.getElementById('stylist-field');
+
+let referralBtn = document.getElementById('referral-btn');
+let referrer = null;
+let source_referrer = null;
+let stylist = null;
+
 
 async function populateSalonDropdown() {
     let token = getCookie('admin_access');
@@ -14,7 +22,7 @@ async function populateSalonDropdown() {
         salonData = [...res.data];
         res.data.forEach((salon) => {
             salonDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn salon-item-list" data-id="${salon.id}">
-                                                                <input onchange="selectSalon(event);" id="cust-${salon.id}" type="radio" value="${salon.id}" name="salon" />
+                                                                <input onchange="selectSalon(this);" id="cust-${salon.id}" type="radio" value="${salon.id}" name="salon" />
                                                                 <label for="cust-${salon.id}" class="radio-label">${salon.salon_name}</label>
                                                             </div>`);
         })
@@ -22,28 +30,63 @@ async function populateSalonDropdown() {
 }
 
 
-function selectSalon(event) {
-    let inputElement = event.target;
+async function selectSalon(inputElement) {
     if(inputElement.checked) {
         salonField.value = inputElement.nextElementSibling.innerText;
         selectedSalon = inputElement.value;
+
+        let stylistDiv = document.querySelector('.stylist-div');
+        stylistDiv.classList.add('hide');
+
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+        };
+
+        let stylistResponse = await requestAPI(`${apiURL}/admin/salons/stylists?salon=${inputElement.value}`, null, headers, 'GET');
+        populateStylists(stylistResponse);
     }
 }
 
 
-salonField.addEventListener('focus', function() {
-    salonDropdown.style.display = 'flex';
-})
+function populateStylists(stylistResponse) {
+    let stylistDiv = document.querySelector('.stylist-div');
+    stylistDiv.classList.add('hide');
 
-salonField.addEventListener('blur', function(event) {
+    stylistResponse.json().then(function(stylistRes) {
+
+        if (stylistResponse.status == 200 && stylistRes.data.length > 0) {
+            stylistDropdown.innerHTML = '';
+            stylistRes.data.forEach((stylist) => {
+                stylistDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn salon-item-list" data-id="${stylist.id}">
+                                                                    <input onchange="selectStylist(this);" id="stylist-${stylist.id}" type="radio" value="${stylist.id}" name="stylist" />
+                                                                    <label for="stylist-${stylist.id}" class="radio-label">${stylist.first_name} ${stylist.last_name}</label>
+                                                                </div>`);
+            })
+            stylistDiv.classList.remove('hide');
+        }
+        else {
+            stylist = null;
+            stylistDiv.classList.add('hide');
+        }
+        document.getElementById('stylist-loader').classList.add('hide');
+    })
+}
+
+
+function showSalons() {
+    salonDropdown.style.display = 'flex';
+}
+
+function hideSalons() {
     setTimeout(() => {
         salonDropdown.style.display = 'none';
     }, 300);
-})
+}
 
-salonField.addEventListener('input', function() {
+function searchSalons() {
     let filteredSalon = [];
-    filteredSalon = salonData.filter(salon => salon.salon_name.toLowerCase().includes(this.value.toLowerCase())).map((salon => salon.id));
+    filteredSalon = salonData.filter(salon => salon.salon_name.toLowerCase().includes(salonField.value.toLowerCase())).map((salon => salon.id));
     if (filteredSalon.length == 0) {
         document.getElementById('no-salon-text').classList.remove('hide');
         document.querySelectorAll('.salon-item-list').forEach((item) => item.classList.add('hide'));
@@ -60,7 +103,60 @@ salonField.addEventListener('input', function() {
             }
         })
     }
-})
+}
+
+salonField.addEventListener('focus', showSalons);
+salonField.addEventListener('blur', hideSalons);
+salonField.addEventListener('input', searchSalons);
+
+
+function addSalonEventListners() {
+    salonField.addEventListener('focus', showSalons);
+    salonField.addEventListener('blur', hideSalons);
+    salonField.addEventListener('input', searchSalons);
+    salonField.readOnly = false;
+}
+
+function removeSalonEventListeners() {
+    salonField.removeEventListener('focus', showSalons);
+    salonField.removeEventListener('blur', hideSalons);
+    salonField.removeEventListener('input', searchSalons);
+    salonField.readOnly = true;
+}
+
+
+function toggleDropdown(event) {
+    let elementBtn = event.target;
+    if(!elementBtn.classList.contains('filter-btn')) {
+        elementBtn = elementBtn.closest('.filter-btn');
+    }
+    let elementDropdown = elementBtn.nextElementSibling;
+    if(elementDropdown.style.display == 'flex') {
+        elementDropdown.style.display = 'none';
+    }
+    else {
+        elementDropdown.style.display = 'flex';
+    }
+}
+
+
+function closeDropdowns(event) {
+    if((!stylistField.contains(event.target)) && stylistDropdown.style.display == 'flex') {
+        stylistDropdown.style.display = 'none';
+    }
+}
+
+document.body.addEventListener('click', closeDropdowns);
+stylistField.addEventListener('click', toggleDropdown);
+
+
+function selectStylist(inputElement) {
+    if(inputElement.checked) {
+        stylist = inputElement.value;
+        document.getElementById('selected-stylist-text').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-stylist-text').style.color = '#000';
+    }
+}
 
 
 function openCreateCustomerModal() {
@@ -73,10 +169,101 @@ function openCreateCustomerModal() {
         modal.querySelector('.btn-text').innerText = 'ADD';
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
+        referrer = null;
+        source_referrer = null;
+        stylist = null;
         selectedSalon = null;
         salonField.value = '';
     })
     document.querySelector(`.createCustomer`).click();
+}
+
+
+async function getReferralData(event) {
+    event.preventDefault()
+    let referralInput = document.querySelector('input[name="referral_code"]');
+    let stylistDiv = document.querySelector('.stylist-div');
+    let errorMsg = document.querySelector('#customer-create-msg');
+
+    if (referralInput.value.trim().length == 0) {
+        errorMsg.innerText = 'Enter referral code';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    
+    try {
+
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
+        
+        referralBtn.querySelector('svg').classList.add('hide');
+        referralBtn.querySelector('.spinner-border').classList.remove('hide');
+
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+        };
+        
+        let response = await requestAPI(`${apiURL}/users/referral?referral_code=${referralInput.value}`, null, {}, 'GET');
+        response.json().then(async function(res) {
+            
+            if (response.status != 200) {
+                referralBtn.querySelector('svg').classList.remove('hide');
+                referralBtn.querySelector('.spinner-border').classList.add('hide');
+                let keys = Object.keys(res.messages);
+                
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                })
+                errorMsg.classList.add('active');
+            }
+            else {
+                if (res.type == 'salon') {
+                    referrer = res.id;
+                    selectedSalon = res.salon_id;
+
+                    let isSalon = document.querySelector(`input[name="salon"][value="${res.salon_id}"]`);
+                    if (isSalon) {
+                        salonField.value = isSalon.nextElementSibling.innerText;
+                    }
+                    
+                    document.getElementById('stylist-loader').classList.remove('hide');
+                    stylistDiv.classList.add('hide');
+
+                    let stylistResponse = await requestAPI(`${apiURL}/admin/salons/stylists?salon=${res.salon_id}`, null, headers, 'GET');
+                    populateStylists(stylistResponse);
+                    removeSalonEventListeners();
+                }
+                else if (res.type == 'user') {
+                    referrer = res.id;
+                    source_referrer = null;
+                    if (selectedSalon == null) {
+                        stylistDiv.classList.add('hide');
+                        stylist = null;
+                    }
+                    addSalonEventListners();
+                }
+                else if (res.type == 'source') {
+                    referrer = null;
+                    source_referrer = res.id;
+                    if (selectedSalon == null) {
+                        stylistDiv.classList.add('hide');
+                        stylist = null;
+                    }
+                    // salonField.value = '';
+                    // selectedSalon = null;
+                    addSalonEventListners();
+                }
+                referralBtn.querySelector('svg').classList.remove('hide');
+                referralBtn.querySelector('.spinner-border').classList.add('hide');
+            }
+        })
+    }
+    catch (err) {
+        referralBtn.querySelector('svg').classList.remove('hide');
+        referralBtn.querySelector('.spinner-border').classList.add('hide');
+        console.log(err);
+    }
 }
 
 
@@ -129,7 +316,6 @@ async function createCustomerForm(event) {
             let customerData = {
                 first_name: data.first_name,
                 last_name: data.last_name,
-                // salon: parseInt(selectedSalon),
                 user: {
                     phone: data.phone,
                     email: data.email,
@@ -137,8 +323,20 @@ async function createCustomerForm(event) {
                     confirm_password: data.confirm_password
                 }
             };
+            
             if (selectedSalon != null)
                 customerData.salon = parseInt(selectedSalon);
+            if (stylist)
+                customerData.stylist = parseInt(stylist);
+            if (source_referrer) {
+                customerData.user.source_referrer = parseInt(source_referrer);
+            }
+            else {
+                if (referrer) {
+                    customerData.user.referrer = parseInt(referrer);
+                }
+            }
+            // console.log(customerData);
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
             let token = getCookie('admin_access');

@@ -80,6 +80,71 @@
     line-height: 10px;
 }
 
+#createCustomer .referral-input-div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#createCustomer .referral-input-div > button {
+    width: 62px;
+    height: 40px;
+    background-color: #000093;
+    border-radius: 10px;
+    border: 1px solid #000093;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#createCustomer .additional-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#createCustomer .selection-input {
+    width: 100%;
+}
+
+#createCustomer .referrer-show-div,
+#createCustomer .stylist-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+#createCustomer .referrer-show-div > span,
+#createCustomer .stylist-div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+#createCustomer .referrer-show-div > div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 0px 15px;
+    border-radius: 8px;
+    border: 0.8px solid #515254;
+    background: var(--white, #FFF);
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
 #createCustomer .error-div {
     text-align: left;
     padding: 0px 20px;

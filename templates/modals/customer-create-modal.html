@@ -19,19 +19,48 @@
                         </div>
                         <input type="text" name="phone" placeholder="Phone Number" />
                         <input type="email" name="email" placeholder="Email Address" />
+                        <input type="password" name="password" placeholder="Password" />
+                        <input type="password" name="confirm_password" placeholder="Confirm Password" />
+                        <div class="referral-input-div">
+                            <input type="text" name="referral_code" placeholder="Referral Code" />
+                            <button class="referral-btn" type="button" id="referral-btn" onclick="getReferralData(event);">
+                                <span class="spinner-border spinner-border-sm hide" style="color: #FFFFFF;" role="status" aria-hidden="true"></span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M14 5L21 12M21 12L14 19M21 12H3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
                         <div class="selection-div">
                             <input type="text" placeholder="Salon" name="customer" id="salon-field" autocomplete="off" />
                             <div class="filter-dropdown" id="salon-dropdown">
                                 <span class="hide" id="no-salon-text">No Salon</span>
                             </div>
                         </div>
-                        <input type="password" name="password" placeholder="Password" />
-                        <input type="password" name="confirm_password" placeholder="Confirm Password" />
-                        <!-- <input type="text" name="referral_code" placeholder="Referral Code" /> -->
+                        <div class="additional-inputs">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2 hide" id="stylist-loader">
+                                <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                            <div class="stylist-div hide">
+                                <span>Stylist</span>
+                                <div class="selection-div">
+                                    <button class="filter-btn" id="stylist-field" type="button">
+                                        <span id="selected-stylist-text">Stylist</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                            <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="stylist-dropdown">        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="error-div">
-                    <small class="create-error-msg input-error-msg"></small>
+                    <small class="create-error-msg input-error-msg" id="customer-create-msg"></small>
                 </div>
                 <div class="modal-footer border-top-0">
                     <button type="button" data-bs-dismiss="modal">CANCEL</button>

@@ -222,13 +222,13 @@ salonField.addEventListener('input', function() {
 
 function openUpdateCustomerModal(event, id, first_name, last_name, phone, email) {
     let salonId = event.target.closest('div').getAttribute('data-salon');
-    console.log(salonId);
     let modal = document.querySelector(`#createCustomer`);
     let form = modal.querySelector('form');
     
     form.setAttribute("onsubmit", `updateCustomerForm(event, ${id})`);
     modal.querySelector('.btn-text').innerText = 'UPDATE';
     modal.querySelector('#customer-modal-header-text').innerText = 'Update Customer';
+    modal.querySelector('.referral-input-div').classList.add('hide');
     form.querySelector('input[name="first_name"]').value = first_name;
     form.querySelector('input[name="last_name"]').value = last_name;
     form.querySelector('input[name="phone"]').value = phone;
@@ -252,6 +252,7 @@ function openUpdateCustomerModal(event, id, first_name, last_name, phone, email)
         form.querySelector('input[name="confirm_password"]').classList.remove('hide');
         modal.querySelector('.btn-text').innerText = 'ADD';
         modal.querySelector('#customer-modal-header-text').innerText = 'Add New Customer';
+        modal.querySelector('.referral-input-div').classList.remove('hide');
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
         selectedSalon = null;
