@@ -38,8 +38,10 @@ async function getData(url=null) {
             }
             else {
                 tableBody.querySelector('tbody').innerHTML = `<tr>
-                                                                <td colspan="7" class="no-record-row">No record available</td>
+                                                                <td colspan="8" class="no-record-row">No record available</td>
                                                             </tr>`;
+                document.getElementById('table-loader').classList.add('hide');
+                tableBody.classList.remove('hide');
             }
         })
     }

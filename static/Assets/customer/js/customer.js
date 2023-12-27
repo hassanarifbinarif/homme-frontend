@@ -45,6 +45,13 @@ async function getData(url=null) {
                 }
                 tableBody.classList.remove('hide');
             }
+            else {
+                tableBody.querySelector('tbody').innerHTML = `<tr>
+                                                                <td colspan="10" class="no-record-row">No record available</td>
+                                                            </tr>`;
+                document.getElementById('table-loader').classList.add('hide');
+                tableBody.classList.remove('hide');
+            }
         })
     }
     catch (err) {
