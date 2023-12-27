@@ -2,8 +2,7 @@
     aria-labelledby="createSourceLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <form>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Create New Source</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -15,6 +14,20 @@
                     <div class="input-div">
                         <input type="text" name="name" placeholder="Source Name" required />
                         <input type="text" name="embedded_string" placeholder="Embedded String" required />
+                        <div class="selection-input">
+                            <button class="filter-btn" id="entity-field" type="button">
+                                <span id="selected-entity-text">Select Entity</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                    <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                </svg>
+                            </button>
+                            <div class="filter-dropdown" id="entity-dropdown">
+                                <div class="radio-btn entity-item-list">
+                                    <input onchange="selectEntity(this);" id="entity-homme" type="radio" value="homme" name="entity" />
+                                    <label for="entity-homme" class="radio-label">Homme</label>
+                                </div>     
+                            </div>
+                        </div>
                         <textarea name="description" cols="30" rows="10" placeholder="Description" maxlength="500" required></textarea>
                     </div>
                     <div class="error-div">

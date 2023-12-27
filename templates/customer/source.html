@@ -25,7 +25,7 @@
             <div class="order-wrapper">
                 <div class="order-wrapper-header">
                     <span>SOURCE</span>
-                    <button type="button" onclick="openCreateSourceModal('createSource');">CREATE SOURCE</button>
+                    <button type="button" onclick="openCreateSourceModal();">CREATE SOURCE</button>
                 </div>
             </div>
             <div class="order-details-wrapper">
@@ -63,6 +63,7 @@
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/customer/js/source.js' %}"></script>
+<script src="{% static 'Assets/modals/js/createSource.js' %}"></script>
 <script src="{% static 'Assets/modals/js/qrCodeModal.js' %}"></script>
 {% endblock %}
 </html>
