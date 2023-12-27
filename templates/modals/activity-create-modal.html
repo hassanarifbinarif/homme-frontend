@@ -26,7 +26,7 @@
                                 <label for="product-purchase" class="radio-label">Product Purchase</label>
                             </div>
                             <div class="radio-btn">
-                                <input id="reward-activity" checked onchange="selectActivityType(event);" type="radio" value="reward_activity" name="activity_type_radio" />
+                                <input id="reward-activity" onchange="selectActivityType(event);" type="radio" value="reward_activity" name="activity_type_radio" />
                                 <label for="reward-activity" class="radio-label">Reward Activity</label>
                             </div>
                         </div>
@@ -126,19 +126,16 @@
                         </div>
                     </div>
                     <div class="reward-section" id="reward-section">
-                        <div class="search-product">
-                            <input type="text" readonly placeholder="Search Customer" name="customer_search" id="" />
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                                <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
-                            </svg>
+                        <div class="selection-div">
+                            <input type="text" placeholder="Select Customer" name="reward_customer" id="reward-customer-field" autocomplete="off" />
+                            <div class="filter-dropdown" id="reward-customer-dropdown">
+                                <span class="hide" id="no-reward-customer-text">No Customer</span>
+                            </div>
                         </div>
                         <div class="search-product" id="credits-input-wrapper">
-                            <input type="text" readonly placeholder="Credits" name="credits" id="" />
-                            <svg class="hide" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
-                                <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
-                            </svg>
+                            <input type="number" min="1" oninput="getRewardDetails();" placeholder="Credits" name="points" id="" />
                         </div>
-                        <textarea name="reward_notes" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
+                        <textarea name="reward_notes" oninput="getRewardDetails();" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="error-div" style="text-align: left;">

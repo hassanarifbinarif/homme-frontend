@@ -1,5 +1,6 @@
 let customerDropdown = document.getElementById('customer-dropdown');
 let customerField = document.getElementById('customer-field');
+let rewardCustomerDropdown = document.getElementById('reward-customer-dropdown');
 
 let productDropdown = document.getElementById('product-dropdown');
 let productField = document.getElementById('product-field');
@@ -72,6 +73,14 @@ async function populateDropdowns() {
                                                                 <label for="cust-${customer.user.id}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
                                                             </div>`);
         })
+        if (rewardCustomerDropdown) {
+            res.data.forEach((customer) => {
+                rewardCustomerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn reward-customer-item-list" data-id="${customer.user.id}">
+                                                                            <input onchange="selectRewardCustomer(this);" id="reward-cust-${customer.user.id}" type="radio" value="${customer.user.id}" name="reward_customer_radio" />
+                                                                            <label for="reward-cust-${customer.user.id}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
+                                                                        </div>`);
+            })  
+        }
     })
     response.json().then(function(res) {
         productData = [...res.data];
