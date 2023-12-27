@@ -1,6 +1,7 @@
 #activityReward .modal-dialog {
     max-width: unset;
     width: 1023px;
+    justify-content: center;
 }
 
 #activityReward .modal-header {

@@ -560,18 +560,28 @@ function getStartAndEndOfLastMonth() {
 }
 
 
-function convertDateTime() {
-    let activityTimes = document.querySelectorAll('.date-value');
-    activityTimes.forEach((dateTime) => {
-        const inputDate = new Date(dateTime.textContent);
-
+function convertDateTime(dateString=null) {
+    if (dateString) {
+        const inputDate = new Date(dateString);
         const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
         const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
         const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
         const result = `${day}-${month}-${year}`;
+        return result;
+    }
+    else {
+        let activityTimes = document.querySelectorAll('.date-value');
+        activityTimes.forEach((dateTime) => {
+            const inputDate = new Date(dateTime.textContent);
 
-        dateTime.textContent = result;
-    })
+            const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+            const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+            const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+            const result = `${day}-${month}-${year}`;
+
+            dateTime.textContent = result;
+        })
+    }
 }
 
 
@@ -604,6 +614,34 @@ async function openProductPurchaseModal(modalID, id) {
                     modal.querySelector('#purchase-location').innerText = res.data.shipping_address.address;
                 else
                     modal.querySelector('#purchase-location').innerText = 'No location';
+                modal.querySelector('.modal-loader').classList.add('hide');
+                modal.querySelector('.modal-content').classList.remove('hide');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+async function openRewardActivityModal(id) {
+    let modal = document.getElementById('activityReward');
+    modal.querySelector('.modal-content').classList.add('hide');
+    modal.querySelector('.modal-loader').classList.remove('hide');
+    document.querySelector('.activityReward').click();
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}/admin/rewards/${id}`, null, headers, 'GET');
+        response.json().then(function(res) {
+
+            if (response.status == 200) {
+                modal.querySelector('#activity-credits').innerText = res.data.points;
+                modal.querySelector('#activity-reward-date').innerText = convertDateTime(res.data.created_at);
+                modal.querySelector('#activity-reward-notes').innerText = res.data.notes;
                 modal.querySelector('.modal-loader').classList.add('hide');
                 modal.querySelector('.modal-content').classList.remove('hide');
             }

@@ -238,7 +238,6 @@
     font-family: Gotham Medium;
     font-size: .75rem;
     font-style: normal;
-    font-weight: 500;
     line-height: 20px;
 }
 
@@ -246,13 +245,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table thead th {
     border-top: 1px solid #CECECE;
     border-right: 1px solid #CECECE;
     border-bottom: unset;
+    font-weight: 500;
+    padding: 0px;
     background: #EEE;
 }
 
@@ -265,14 +266,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table tbody tr .table-checkbox {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table tbody tr .referrer-referree-name {
@@ -295,6 +296,7 @@
     border-top: 1px solid #CECECE;
     border-right: 1px solid #CECECE;
     border-bottom: unset;
+    padding: 0px;
 
     color: #000;
     leading-trim: both;
@@ -319,7 +321,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 23px;
+    height: 25px;
 }
 
 

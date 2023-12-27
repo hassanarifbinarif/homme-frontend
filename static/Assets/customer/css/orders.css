@@ -403,7 +403,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 26px;
+    height: 25px;
 }
 
 .order-details-table thead th {
@@ -434,7 +434,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 26px;
+    height: 25px;
 
     color: #000;
     leading-trim: both;
@@ -450,7 +450,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 26px;
+    height: 25px;
 }
 
 .order-details-table tbody tr td {
@@ -483,7 +483,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 26px;
+    height: 25px;
 }
 
 

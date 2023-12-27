@@ -73,7 +73,7 @@
     </thead>
     <tbody>
         {% for obj in activities.data %}
-        <tr {% if obj.type  == 'order' %}onclick="openProductPurchaseModal('activityProduct', '{{obj.activity_id}}');"{% endif %}>
+        <tr {% if obj.type  == 'order' %}onclick="openProductPurchaseModal('activityProduct', '{{obj.activity_id}}');"{% elif obj.type == 'reward' %}onclick="openRewardActivityModal('{{obj.activity_id}}');"{% endif %}>
             <td>
                 <div class="table-checkbox">
                     <input type="checkbox" />

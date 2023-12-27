@@ -197,7 +197,6 @@
     font-family: Gotham Medium;
     font-size: .75rem;
     font-style: normal;
-    font-weight: 500;
     line-height: 20px;
 }
 
@@ -218,6 +217,8 @@
     border-right: 1px solid #CECECE;
     border-bottom: unset;
     background: #EEE;
+    font-weight: 500;
+    padding: 0px;
 }
 
 .order-details-table thead th:first-of-type {
@@ -233,7 +234,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 35px;
+    height: 37px;
 }
 
 .order-details-table tbody tr .product-image {
@@ -254,6 +255,7 @@
     border-top: 1px solid #CECECE;
     border-right: 1px solid #CECECE;
     border-bottom: unset;
+    padding: 0px;
 
     color: #000;
     leading-trim: both;
@@ -278,7 +280,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 35px;
+    height: 37px;
 }
 
 .order-details-table tbody tr td > .actions-div {

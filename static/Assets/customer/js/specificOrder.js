@@ -40,8 +40,15 @@ function openShippingLabel(base64Image) {
 
     imgElement.src = "data:image/png;base64," + base64Image;
     imgElement.style.transform = 'rotate(90deg)';
-    imgElement.style.position = 'absolute';
-    imgElement.style.top = '650px';
+    imgElement.style.position = 'relative';
+    // imgElement.style.top = '150px';
+    imgElement.style.width = '1000px';
+
+    newTabDocument.body.style.display = 'flex';
+    newTabDocument.body.style.justifyContent = 'center';
+    newTabDocument.body.style.alignItems = 'center';
+    newTabDocument.body.style.margin = '0px';
+    newTabDocument.body.style.padding = '0px';
 
     newTabDocument.body.appendChild(imgElement);
     // console.log(newTabDocument.documentElement.outerHTML);
