@@ -141,6 +141,7 @@
     align-items: center;
     gap: 21px;
     padding: 13px 20px;
+    min-width: 1142px;
 }
 
 .order-details-wrapper .order-details-filters > form {
@@ -412,6 +413,7 @@
 
 .order-details-table {
     width: 100%;
+    min-width: 1142px;
     border-bottom: 1px solid #CECECE;
     background-color: #FFF;
     margin-bottom: 18px;
@@ -435,7 +437,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table thead th {
@@ -456,14 +458,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 10px;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table tbody tr .table-checkbox {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table tbody tr td {
@@ -534,7 +536,7 @@
     align-items: center;
     gap: 5px;
     padding: 9px 10px;
-    height: 43px;
+    height: 45px;
 }
 
 .order-details-table tbody tr td > .stock-details-container {
@@ -760,7 +762,7 @@
 
 
 @media (max-width: 1439px) {
-    .content {
+    .order-details-wrapper {
         overflow-x: auto;
     }
 }

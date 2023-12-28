@@ -169,6 +169,9 @@ function openCreateCustomerModal() {
         modal.querySelector('.btn-text').innerText = 'ADD';
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
+        document.querySelector('.stylist-div').classList.add('hide');
+        document.getElementById('selected-stylist-text').innerText = 'Stylist';
+        document.getElementById('selected-stylist-text').style.color = '#A9A9A9';
         referrer = null;
         source_referrer = null;
         stylist = null;

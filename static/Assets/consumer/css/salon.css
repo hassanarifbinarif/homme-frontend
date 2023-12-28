@@ -132,7 +132,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 26px;
+    height: 25px;
 }
 
 .order-details-table thead th {
@@ -142,6 +142,7 @@
     border-bottom: unset;
     background: #EEE;
     font-weight: 500;
+    padding: 0px;
 }
 
 .order-details-table thead th > div {
@@ -149,14 +150,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 26px;
+    height: 25px;
 }
 
 .order-details-table tbody tr .table-checkbox {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 26px;
+    height: 25px;
 }
 
 .order-details-table tbody tr td {
@@ -164,6 +165,7 @@
     border-right: 1px solid #CECECE;
     border-left: 1px solid #CECECE;
     border-bottom: unset;
+    padding: 0px;
 
     color: #000;
     leading-trim: both;
@@ -185,7 +187,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 26px;
+    height: 25px;
 }
 
 

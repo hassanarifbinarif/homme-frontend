@@ -43,13 +43,13 @@
                         </svg>
                     </button>
                 </div>
-            </div>
-            <div class="order-details-table-wrapper">
-                <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
-                    <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
-                    </span>
+                <div class="order-details-table-wrapper">
+                    <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
+                        <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                        </span>
+                    </div>
+                    {% include '../ajax/events-table.html' %}
                 </div>
-                {% include '../ajax/events-table.html' %}
             </div>
         </div>
     </div>

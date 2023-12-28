@@ -64,6 +64,7 @@
     align-items: center;
     gap: 21px;
     padding: 13px 20px;
+    min-width: 1142px;
 }
 
 .order-details-wrapper .order-details-filters > form {
@@ -454,6 +455,7 @@
 
 .order-details-table {
     width: 100%;
+    min-width: 1112px;
     border-bottom: 1px solid #CECECE;
     background-color: #FFF;
     table-layout: fixed;
@@ -468,7 +470,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table thead th {
@@ -476,7 +478,6 @@
     border-right: 1px solid #CECECE!important;
     border-bottom: unset!important;
     background: #EEE;
-    padding-right: 0px!important;
     padding: 0px!important;
 }
 
@@ -499,7 +500,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 23px;
+    height: 25px;
 
     color: #000;
     leading-trim: both;
@@ -515,14 +516,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 23px;
+    height: 25px;
 }
 
 .order-details-table tbody tr td {
     border-top: 1px solid #CECECE!important;
     border-right: 1px solid #CECECE!important;
     border-bottom: unset!important;
-    padding-right: 0px!important;
     padding: 0px!important;
 
     color: #000;
@@ -548,12 +548,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 23px;
+    height: 25px;
 }
 
 
 @media (max-width: 1439px) {
-    .content {
+    .order-info {
         overflow-x: auto;
     }
 }
