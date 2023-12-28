@@ -34,7 +34,7 @@ async function openManageHairstylistModal(id) {
                     stylistData.push({id: item.id, fullname: item.fullname, first_name: item.first_name, last_name: item.last_name, email: item.email, phone: item.phone, address: item.address, city: item.city, state: item.state, zip_code: item.zip_code, country: item.country, status: item.status,  action: ""});
                     hairstylistTableBody.innerHTML += `<tr data-id="stylist-row-${item.id}">
                                                             <td><div><input type="text" name="fullname" value="${item.fullname}" readonly placeholder="Stylist Name" /></div></td>
-                                                            <td><div><input type="number" name="phone" value="${item.phone}" readonly placeholder="Phone" /></div></td>
+                                                            <td><div><input type="tel" name="phone" value="${item.phone}" readonly placeholder="Phone" /></div></td>
                                                             <td>
                                                                 <div class="status-options-div">
                                                                     <select name="status" id="" disabled>

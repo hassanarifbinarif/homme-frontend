@@ -128,7 +128,7 @@ async function createHairstylistForm(event) {
         errorMsg.innerHTML = 'Select a status';
         return false;
     }
-    else if (/^\+?\d{12,}$/.test(data.phone) == false) {
+    else if (phoneRegex.test(data.phone) == false) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid phone';
         return false;
@@ -143,7 +143,7 @@ async function createHairstylistForm(event) {
         errorMsg.innerHTML = 'Enter valid city name';
         return false;
     }
-    else if (data.state.trim().length == 0) {
+    else if ((!data.state)) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Select a state';
         return false;
@@ -153,7 +153,7 @@ async function createHairstylistForm(event) {
         errorMsg.innerHTML = 'Enter valid zipcode';
         return false;
     }
-    else if (data.country.trim().length == 0) {
+    else if ((!data.country)) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Select a country';
         return false;
@@ -285,7 +285,7 @@ async function updateHairstylistForm(event, id) {
         errorMsg.innerHTML = 'Enter valid email';
         return false;
     }
-    else if (/^\+?\d{12,}$/.test(data.phone) == false) {
+    else if (phoneRegex.test(data.phone) == false) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid phone';
         return false;
@@ -305,7 +305,7 @@ async function updateHairstylistForm(event, id) {
         errorMsg.innerHTML = 'Enter valid city name';
         return false;
     }
-    else if (data.state.trim().length == 0) {
+    else if ((!data.state)) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid state';
         return false;
@@ -315,7 +315,7 @@ async function updateHairstylistForm(event, id) {
         errorMsg.innerHTML = 'Enter valid zipcode';
         return false;
     }
-    else if (data.country.trim().length == 0) {
+    else if ((!data.country)) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid country';
         return false;

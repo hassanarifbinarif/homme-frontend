@@ -313,7 +313,7 @@
                         <div class="inventory-header">
                             <div>
                                 <span>Inventory</span>
-                                <span class="cursor-pointer" onclick="openFullInventory('{{salon.id}}');">View Full Inventory</span>
+                                <span class="cursor-pointer" onclick="openFullInventory('{{salon.id}}', '{{salon.salon_name}}', '{{salon.user.phone}}', '{% if salon.address %}{{salon.address.street1}}, {{salon.address.city}}, {{salon.address.state}} {{salon.address.zip_code}} {{salon.address.country}}{% else %}No Address{% endif %}', `{% if salon.partnership_application.admin_comment == '' %}No notes recorded.{% else %}{{salon.partnership_application.admin_comment}}{% endif %}`);">View Full Inventory</span>
                             </div>
                             <div>
                                 <span>Status as of</span>

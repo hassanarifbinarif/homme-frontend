@@ -203,7 +203,7 @@ async function createSalonForm(event) {
 
     let checkValidations = true;
     errorMsg.innerHTML = '';
-    if (data.person_name.trim().length == 0 || /^\+?\d{12,}$/.test(data.person_phone) == false || /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(data.person_email) == false || data.salon_name.trim().length == 0) {
+    if (data.person_name.trim().length == 0 || phoneRegex.test(data.person_phone) == false || /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(data.person_email) == false || data.salon_name.trim().length == 0) {
         errorMsg.innerHTML += "General Information: Enter valid data in all fields <br />";
         checkValidations = false;
     }
@@ -211,15 +211,15 @@ async function createSalonForm(event) {
         errorMsg.innerHTML += "Entity Information: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (data.legal_street1.trim().length == 0 || data.legal_street2.trim().length == 0 || data.legal_city.trim().length == 0 || data.legal_state.trim().length == 0 || data.legal_zip_code.trim().length != 5 || data.legal_country.trim().length == 0) {
+    if (data.legal_street1.trim().length == 0 || data.legal_street2.trim().length == 0 || data.legal_city.trim().length == 0 || (!data.legal_state) || data.legal_zip_code.trim().length != 5 || (!data.legal_country)) {
         errorMsg.innerHTML += "Legal Address: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (imageInput.files.length == 0 || data.salon_website.trim().length == 0 || data.salon_map.trim().length == 0 || /^\+?\d{12,}$/.test(data.salon_phone) == false || data.salon_description.trim().length == 0) {
+    if (imageInput.files.length == 0 || data.salon_website.trim().length == 0 || data.salon_map.trim().length == 0 || phoneRegex.test(data.salon_phone) == false || data.salon_description.trim().length == 0) {
         errorMsg.innerHTML += "Salon Information: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (data.salon_street1.trim().length == 0 || data.salon_street2.trim().length == 0 || data.salon_city.trim().length == 0 || data.salon_state.trim().length == 0 || data.salon_zip_code.trim().length != 5 || data.salon_country.trim().length == 0) {
+    if (data.salon_street1.trim().length == 0 || data.salon_street2.trim().length == 0 || data.salon_city.trim().length == 0 || (!data.salon_state) || data.salon_zip_code.trim().length != 5 || (!data.salon_country)) {
         errorMsg.innerHTML += "Salon Address: Enter valid data in all fields <br />";
         checkValidations = false;
     }
@@ -230,7 +230,7 @@ async function createSalonForm(event) {
         }
     }
     else {
-        if (data.payment_street1.trim().length == 0 || data.payment_street2.trim().length == 0 || data.payment_city.trim().length == 0 || data.payment_state.trim().length == 0 || data.payment_zip_code.trim().length != 5 || data.payment_country.trim().length == 0) {
+        if (data.payment_street1.trim().length == 0 || data.payment_street2.trim().length == 0 || data.payment_city.trim().length == 0 || (!data.payment_state) || data.payment_zip_code.trim().length != 5 || (!data.payment_country)) {
             errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
             checkValidations = false;
         }

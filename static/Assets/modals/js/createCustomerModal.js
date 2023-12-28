@@ -6,6 +6,7 @@ let selectedSalon = null;
 let stylistDropdown = document.getElementById('stylist-dropdown');
 let stylistField = document.getElementById('stylist-field');
 
+let referralInput = document.querySelector('input[name="referral_code"]');
 let referralBtn = document.getElementById('referral-btn');
 let referrer = null;
 let source_referrer = null;
@@ -182,6 +183,12 @@ function openCreateCustomerModal() {
 }
 
 
+referralInput.addEventListener('keydown', (event) => {
+    if (event.keyCode == 13)
+        getReferralData(event);
+})
+
+
 async function getReferralData(event) {
     event.preventDefault()
     let referralInput = document.querySelector('input[name="referral_code"]');
@@ -191,6 +198,12 @@ async function getReferralData(event) {
     if (referralInput.value.trim().length == 0) {
         errorMsg.innerText = 'Enter referral code';
         errorMsg.classList.add('active');
+        referrer = null;
+        selectedSalon = null;
+        source_referrer = null;
+        salonField.value = '';
+        stylistDiv.classList.add('hide');
+        addSalonEventListners();
         return false;
     }
     
@@ -211,6 +224,13 @@ async function getReferralData(event) {
         response.json().then(async function(res) {
             
             if (response.status != 200) {
+                referrer = null;
+                selectedSalon = null;
+                source_referrer = null;
+                salonField.value = '';
+                stylistDiv.classList.add('hide');
+                addSalonEventListners();
+
                 referralBtn.querySelector('svg').classList.remove('hide');
                 referralBtn.querySelector('.spinner-border').classList.add('hide');
                 let keys = Object.keys(res.messages);
@@ -289,7 +309,7 @@ async function createCustomerForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
-    else if (/^\+?\d{12,}$/.test(data.phone) == false) {
+    else if (phoneRegex.test(data.phone) == false) {
         errorMsg.innerText = 'Enter valid phone number';
         errorMsg.classList.add('active');
         return false;

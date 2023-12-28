@@ -70,6 +70,7 @@
     border-right: 1px solid #CECECE;
     /* border-left: 1px solid #CECECE; */
     border-bottom: unset;
+    padding: 0px;
 }
 
 #salonInventory .modal-body table thead th:last-of-type {
@@ -89,6 +90,7 @@
     border-right: 1px solid #CECECE;
     /* border-left: 1px solid #CECECE; */
     border-bottom: unset;
+    padding: 0px;
 
     color: #000;
     leading-trim: both;
@@ -178,6 +180,13 @@
     width: 389px;
 }
 
+#salonInventory .inventory-none > span {
+    color: #000;
+    font-size: 1rem;
+    font-family: Gotham Medium;
+    font-weight: 500;
+    line-height: 12px;
+}
 
 #salonInventory .modal-footer {
     padding: 17px 15px!important;

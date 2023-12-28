@@ -15,7 +15,7 @@
             <tr>
                 <td>#{{obj.id}}</td>
                 <td class="order-time">{{obj.created_at}}</td>
-                <td>{{obj.user_profile.first_name}} {{obj.user_profile.last_name}}</td>
+                <td class="table-text-overflow" title="{{obj.user_profile.first_name}} {{obj.user_profile.last_name}}">{{obj.user_profile.first_name}} {{obj.user_profile.last_name}}</td>
                 <td>${{obj.total}}</td>
                 <td>{{obj.status|title}}</td>
             </tr>

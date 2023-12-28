@@ -788,6 +788,7 @@ ul.comment-section > li .post-area > button {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .details-wrapper-col-2 .order-product-notes-wrapper .specific-customer-favourite-products > div > img {

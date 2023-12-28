@@ -212,7 +212,7 @@ function setParams(params, key, value) {
 
 
 const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i
-const phoneRegex = /^(\+593|593|09)([2-9]\d{7})$/;
+const phoneRegex = /^\+[0-9]{12,}$/;
 const locationRegex = /POINT \((-?\d+\.\d+) (-?\d+\.\d+)\)/;
 
 let timeOut;

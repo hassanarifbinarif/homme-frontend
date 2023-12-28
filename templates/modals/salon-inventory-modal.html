@@ -2,8 +2,7 @@
     aria-labelledby="salonInventoryLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center hide">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <form>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Inventory</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -11,7 +10,10 @@
                         <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="modal-body">
+                <div class="inventory-none hide" id="inventory-none">
+                    <span>No Inventory Data</span>
+                </div>
+                <div class="modal-body hide">
                     <table id="salon-inventory-table">
                         <thead>
                             <tr>
@@ -76,8 +78,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="submit-btn" type="button" data-bs-dismiss="modal">
-                        RESET STOCK
+                    <button class="submit-btn" type="button" onclick="resetStock(this);">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">RESET STOCK</span>
                     </button>
                 </div>
             </form>

@@ -1,11 +1,28 @@
-async function openFullInventory(id) {
+function populateInventoryTableBody(list, tableBody) {
+    list.forEach((prod) => {
+        tableBody.innerHTML += `<tr>
+                                    <td><div><span title="${prod.product.title}" class="table-text-overflow">${prod.product.title}</span></div></td>
+                                    <td><div><span title="${prod.product.sku_num}" class="table-text-overflow">${prod.product.sku_num}</span></div></td>
+                                    <td><div><span>${prod.quantity}</span></div></td>
+                                    <td><div><span>${prod.movement_week}/${prod.movement_month}</span></div></td>
+                                    <td><div><span>${prod.required_stock}</span></div></td>
+                                </tr>`;
+    })
+}
+
+async function openFullInventory(id, salonName, salonPhone, salonAddress, salonNotes) {
     let modal = document.getElementById('salonInventory');
     let modalLoader = modal.querySelector('.modal-loader');
     let modalContent = modal.querySelector('.modal-content');
+    let modalBody = modal.querySelector('.modal-body');
 
     modal.addEventListener('hidden.bs.modal', event => {
         modalLoader.classList.remove('hide');
         modalContent.classList.add('hide');
+        modal.querySelector('.modal-footer').classList.remove('hide');
+        modal.querySelector('.inventory-none').classList.add('hide');
+        modal.querySelector('.btn-text').innerText = 'RESET STOCK';
+        modal.querySelector('.submit-btn').style.pointerEvents = 'auto';
     })
 
     document.querySelector('.salonInventory').click();
@@ -18,34 +35,29 @@ async function openFullInventory(id) {
         let headers = {
             "Authorization": `Bearer ${token}`
         };
-        let response = await requestAPI(`${apiURL}/admin/inventory?page=1&perPage=1&salon=${specific_salon_id}&ordering=-id`, null, headers, 'GET');
+        let response = await requestAPI(`${apiURL}/admin/inventory/salons/${specific_salon_id}/current`, null, headers, 'GET');
         response.json().then(function(res) {
-            // console.log(res);
             salonInventoryTableBody.innerHTML = '';
 
-            if (response.status == 200) {
-                if (res.data.length > 0 && res.data[0].products.length > 0) {
-                    res.data[0].products.forEach((prod) => {
-                        salonInventoryTableBody.innerHTML += `<tr>
-                                                                <td><div><span>${prod.product.title}</span></div></td>
-                                                                <td><div><span>${prod.product.sku_num}</span></div></td>
-                                                                <td><div><span>${prod.current_stock}</span></div></td>
-                                                                <td><div><span>${prod.movement_week}/${prod.movement_month}</span></div></td>
-                                                                <td><div><span>${prod.quantity}</span></div></td>
-                                                            </tr>`;
-                    })
-                    modal.querySelector('#salonInventory-name').innerText = res.data[0].salon.salon_name;
-                    modal.querySelector('#salonInventory-name').title = res.data[0].salon.salon_name;
-                    modal.querySelector('#salonInventory-phone').innerText = res.data[0].salon.contact_phone;
-                    modal.querySelector('#salonInventory-address').innerText = `${res.data[0].salon.address.street1}, ${res.data[0].salon.address.city}, ${res.data[0].salon.address.state} ${res.data[0].salon.address.zip_code}`;
-                    modal.querySelector('#salonInventory-address').title = `${res.data[0].salon.address.street1}, ${res.data[0].salon.address.city}, ${res.data[0].salon.address.state} ${res.data[0].salon.address.zip_code}`;
-                    modal.querySelector('#salonInventory-notes').innerText = res.data[0].notes;
-                    modal.querySelector('#salonInventory-notes').title = res.data[0].notes;
-                }
-                else {
-                    salonInventoryTableBody.innerHTML = '<tr><td colspan="5" class="no-record-row">No record available</td></tr>';
-                }
+            if (response.status == 200 && res.length === 0) {
+                modal.querySelector('.modal-footer').classList.add('hide');
+                modal.querySelector('.inventory-none').classList.remove('hide');
+                modalBody.classList.add('hide');
+            }
+            else if (response.status == 200 && res.length > 0) {
+                modal.querySelector('.modal-footer').classList.remove('hide');
+                modal.querySelector('.inventory-none').classList.add('hide');
+                modalBody.classList.remove('hide');
 
+                populateInventoryTableBody(res, salonInventoryTableBody);
+                
+                modal.querySelector('#salonInventory-name').innerText = salonName;
+                modal.querySelector('#salonInventory-name').title = salonName;
+                modal.querySelector('#salonInventory-phone').innerText = salonPhone;
+                modal.querySelector('#salonInventory-address').innerText = salonAddress;
+                modal.querySelector('#salonInventory-address').title = salonAddress;
+                modal.querySelector('#salonInventory-notes').innerText = salonNotes;
+                modal.querySelector('#salonInventory-notes').title = salonNotes;
             }
             else {
                 salonInventoryTableBody.innerHTML = '<tr><td colspan="5" class="no-record-row">No record available</td></tr>';
@@ -57,4 +69,35 @@ async function openFullInventory(id) {
     catch (err) {
         console.log(err);
     }
+}
+
+
+async function resetStock(button) {
+    let salonInventoryTable = document.querySelector('#salon-inventory-table');
+    let salonInventoryTableBody = salonInventoryTable.querySelector('tbody');
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`
+    };
+
+    beforeLoad(button);
+    button.style.pointerEvents = 'none';
+    let response = await requestAPI(`${apiURL}/admin/inventory/salons/${specific_salon_id}/reset`, null, headers, 'POST');
+    response.json().then(function(res) {
+
+        salonInventoryTableBody.innerHTML = '';
+        if (response.status == 200 && res.length > 0) {
+            populateInventoryTableBody(res, salonInventoryTableBody);
+            afterLoad(button, 'STOCK RESET');
+            setTimeout(() => {
+                afterLoad(button, 'RESET STOCK');
+                document.querySelector('.salonInventory').click();
+                button.style.pointerEvents = 'auto';
+            }, 1200)
+        }
+        else {
+            afterLoad(button, 'ERROR');
+            salonInventoryTableBody.innerHTML = '<tr><td colspan="5" class="no-record-row">No record available</td></tr>';
+        }
+    })
 }
