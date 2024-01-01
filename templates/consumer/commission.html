@@ -38,7 +38,7 @@
                             </defs>
                         </svg>
                     </button>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#addCommission">ADD COMMISSION</button>
+                    <button type="button" onclick="openAddCommissionModal();">ADD COMMISSION</button>
                 </div>
             </div>
             <div class="order-details-wrapper">
@@ -120,5 +120,6 @@
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/consumer/js/commission.js' %}"></script>
+<script src="{% static 'Assets/modals/js/addCommissionModal.js' %}"></script>
 {% endblock %}
 </html>

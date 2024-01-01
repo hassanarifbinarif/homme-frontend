@@ -3,6 +3,7 @@ let requiredDataURL = `/admin/salons/commissions/monthly?page=1&perPage=1000&sea
 window.onload = () => {
     getNotifications();
     getData();
+    populateSalonDropdown();
 }
 
 let statusBtn = document.getElementById('status-btn');

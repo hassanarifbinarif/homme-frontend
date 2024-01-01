@@ -4,8 +4,7 @@
     aria-labelledby="addCommissionLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <form>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Add Commission Credit/Debit</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -14,8 +13,14 @@
                     </svg>
                 </div>
                 <div class="modal-body">
-                    <input type="text" required placeholder="Select Salon" name="salon" id="" />
-                    <input type="text" required placeholder="Contact Name" name="name" id="" />
+                    <div class="selection-div">
+                        <input type="text" placeholder="Select Salon" name="salon" id="salon-field" autocomplete="off" />
+                        <div class="filter-dropdown" id="salon-dropdown">
+                            <span class="hide" id="no-salon-text">No Salon</span>
+                        </div>
+                    </div>
+                    <!-- <input type="text" required placeholder="Select Salon" name="salon" id="" /> -->
+                    <input type="text" placeholder="Contact Name" name="name" id="" />
                     <div class="selection-input">
                         <button class="filter-btn" id="target-type" type="button">
                             <span id="selected-target-type">Type (Debit or Credit)</span>
@@ -24,15 +29,23 @@
                             </svg>
                         </button>
                         <div class="filter-dropdown" id="target-type-dropdown">
+                            <div class="radio-btn target-type-list">
+                                <input onchange="selectType(this);" id="for-type-debit" type="radio" value="debit" name="type" />
+                                <label for="for-type-debit" class="radio-label">Debit</label>
+                            </div>
+                            <div class="radio-btn target-type-list">
+                                <input onchange="selectType(this);" id="for-type-credit" type="radio" value="credit" name="type" />
+                                <label for="for-type-credit" class="radio-label">Credit</label>
+                            </div>
                         </div>
                     </div>
-                    <input type="number" required placeholder="$50.00" name="commission" id="" />
+                    <input type="number" required min="1" placeholder="$50.00" name="amount" id="" />
                     <div class="notification-notes">
-                        <textarea name="text" required id="" cols="30" rows="10" placeholder="Add description here ....." maxlength="160"></textarea>
+                        <textarea name="description" required id="" cols="30" rows="10" placeholder="Add description here ....." maxlength="160"></textarea>
                     </div>
-                    <!-- <div class="error-div">
-                        <small class="create-error-msg input-error-msg"></small>
-                    </div> -->
+                </div>
+                <div class="error-div">
+                    <small class="create-error-msg input-error-msg"></small>
                 </div>
                 <div class="modal-footer border-top-0">
                     <button type="submit">
