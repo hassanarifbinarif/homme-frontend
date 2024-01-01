@@ -137,7 +137,7 @@
             </td>
             <td>
                 <div>
-                    <span>{{obj.pickup_type|title}}</span>
+                    <span>{% if obj.pickup_type == 'self' %}Picked-Up{% elif obj.pickup_type == 'ship' %}Shipped{% endif %}</span>
                 </div>
             </td>
         </tr>

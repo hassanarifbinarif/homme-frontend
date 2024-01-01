@@ -41,8 +41,8 @@
                                     </defs>
                                 </svg>
                                 <div class="filter-dropdown date-selector" style="display: none;" id="delivery-type-dropdown">
-                                    <span onclick="filterDeliveryOption(this);" data-value="ship">SHIP</span>
-                                    <span onclick="filterDeliveryOption(this);" data-value="self">SELF</span>
+                                    <span onclick="filterDeliveryOption(this);" data-value="ship">SHIPPED</span>
+                                    <span onclick="filterDeliveryOption(this);" data-value="self">PICKED-UP</span>
                                 </div>
                             </button>
                             <button onclick="toggleDateSelectorDropdown(event);" type="button" id="date-selector-btn" style="position: relative;" class="date-range-btn">
@@ -122,6 +122,7 @@
                                     <span onclick="filterStatusOption(event);" data-value="placed">PLACED</span>
                                     <span onclick="filterStatusOption(event);" data-value="pickup">PICKUP</span>
                                     <span onclick="filterStatusOption(event);" data-value="picked_up">PICKED UP</span>
+                                    <span onclick="filterStatusOption(event);" data-value="shipped">SHIPPED</span>
                                 </div>
                             </button>
                         </div>

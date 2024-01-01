@@ -1025,7 +1025,13 @@ ul.comment-section > li .post-area > button {
     gap: 20px;
 }
 
-.order-product-other-details-wrapper .order-shipping-address > span:first-of-type {
+.order-product-other-details-wrapper .order-shipping-address > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-other-details-wrapper .order-shipping-address > div > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -1033,10 +1039,10 @@ ul.comment-section > li .post-area > button {
     font-size: 1rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 11px;
+    line-height: 12px;
 }
 
-.order-product-other-details-wrapper .order-shipping-address > span:last-of-type {
+.order-product-other-details-wrapper .order-shipping-address > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -1044,7 +1050,7 @@ ul.comment-section > li .post-area > button {
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
 }
 
 
