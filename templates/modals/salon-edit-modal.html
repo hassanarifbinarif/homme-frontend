@@ -1,0 +1,95 @@
+<div class="modal fade" id="salonEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="salonEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <form>
+                <div class="modal-header border-bottom-0 w-100 justify-content-between">
+                    <span>Update Salon</span>
+                    <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
+                        <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="modal-body">
+                    <div class="input-div">
+                        <div class="hide" id="salon-notes-div">
+                            <input type="text" name="admin_comment" placeholder="Notes" id="" />
+                        </div>
+
+                        <div class="hide" id="salon-status-div">
+                            <div class="status-dropdown-wrapper">
+                                <button class="filter-btn" id="salon-status-type" type="button">
+                                    <span id="selected-salon-status-type"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                        <path d="M14 0L7.39941 8.00071L0.798828 0H14Z" fill="#030706"/>
+                                    </svg>
+                                </button>
+                                <div class="filter-dropdown" id="salon-status-type-dropdown">
+                                    <div class="radio-btn">
+                                        <input onchange="selectSalonStatusType(event);" id="salon-status-type-approved" data-id="1" type="radio" value="approved" name="salon_status" />
+                                        <label for="salon-status-type-approved" class="radio-label">Approved</label>
+                                    </div>
+                                    <div class="radio-btn">
+                                        <input onchange="selectSalonStatusType(event);" id="salon-status-type-pending" data-id="2" type="radio" value="pending" name="salon_status" />
+                                        <label for="salon-status-type-pending" class="radio-label">Pending</label>
+                                    </div>
+                                    <div class="radio-btn">
+                                        <input onchange="selectSalonStatusType(event);" id="salon-status-type-rejected" data-id="3" type="radio" value="rejected" name="salon_status" />
+                                        <label for="salon-status-type-rejected" class="radio-label">Rejected</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="hide" id="salon-contact-div">
+                            <input type="text" name="contact_name" placeholder="Contact Name" />
+                            <input type="email" name="email" placeholder="Email Address" />
+                            <input type="tel" name="phone" placeholder="Phone Number" />
+                        </div>
+
+                        <div class="hide" id="salon-address-div">
+                            <input type="text" name="address" placeholder="Address" />
+                            <div class="group-inputs">
+                                <input type="text" name="city" placeholder="City" />
+                                <div class="selection-input">
+                                    <button class="filter-btn" id="salon-states-field" type="button">
+                                        <span id="selected-salon-state-text">State</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                            <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="salon-states-dropdown">        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group-inputs">
+                                <input type="number" name="zip_code" placeholder="ZIP" />
+                                <div class="selection-input">
+                                    <button class="filter-btn" id="salon-country-field" type="button">
+                                        <span id="selected-salon-country-text">Country</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                            <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                        </svg>
+                                    </button>
+                                    <div class="filter-dropdown" id="salon-country-dropdown">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-div">
+                    <small class="create-error-msg input-error-msg"></small>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" data-bs-dismiss="modal">CANCEL</button>
+                    <button class="submit-btn" type="submit">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">UPDATE</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input type="hidden" class="salonEditModal" data-bs-toggle="modal" data-bs-target="#salonEditModal" />

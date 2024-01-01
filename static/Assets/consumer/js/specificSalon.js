@@ -2,6 +2,7 @@ window.onload = () => {
     getData();
     getNotifications();
     populateStateCountryDropdowns();
+    populateSalonStateCountryDropdowns();
 }
 
 
