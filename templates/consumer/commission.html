@@ -24,7 +24,7 @@
             <div class="order-wrapper">
                 <span>COMMISSIONS</span>
                 <div>
-                    <button id="sales-channel-btn" style="position: relative;" class="salon-btn">
+                    <button id="sales-channel-btn" style="position: relative;" class="salon-btn hide">
                         <span id="selected-sales-channel">MONTH</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
                             <g clip-path="url(#clip0_776_5475)">
@@ -50,12 +50,12 @@
                         </svg>
                     </form>
                     <div>
-                        <button id="salon-btn" style="position: relative;" class="salon-btn">
+                        <button onclick="sortBySalonBtn(event);" id="salon-btn" style="position: relative;" class="salon-btn">
                             <span id="selected-sales-channel">SALON</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
                                 <g clip-path="url(#clip0_776_5475)">
-                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
-                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706" opacity=".2"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706" opacity=".2"/>
                                 </g>
                                 <defs>
                                     <clipPath id="clip0_776_5475">
@@ -64,7 +64,7 @@
                                 </defs>
                             </svg>
                         </button>
-                        <button type="button" id="hairstylist-btn" style="position: relative;" class="hairstylist-btn">
+                        <button type="button" id="hairstylist-btn" style="position: relative;" class="hairstylist-btn hide">
                             <span>HAIRSTYLIST</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
                                 <g clip-path="url(#clip0_776_5475)">
@@ -78,8 +78,8 @@
                                 </defs>
                             </svg>
                         </button>
-                        <button type="button" id="paid-btn" style="position: relative;" class="payment-btn">
-                            <span>UNPAID</span>
+                        <button type="button" onclick="toggleStatusDropdown(event);" id="status-btn" style="position: relative;" class="payment-btn">
+                            <span id="selected-status-text">STATUS</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
                                 <g clip-path="url(#clip0_776_5475)">
                                     <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
@@ -91,6 +91,10 @@
                                     </clipPath>
                                 </defs>
                             </svg>
+                            <div class="filter-dropdown status-selector" id="status-selector" style="display: none;">
+                                <span onclick="filterStatusOption(event);" data-value="paid">PAID</span>
+                                <span onclick="filterStatusOption(event);" data-value="unpaid">UNPAID</span>
+                            </div>
                         </button>
                         <button class="sort-btn" onclick="reverseTableRows();">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">

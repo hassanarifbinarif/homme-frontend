@@ -1,9 +1,46 @@
-let requiredDataURL = `/admin/salons/commissions?page=1&perPage=1000&search=&ordering=-id`;
+let requiredDataURL = `/admin/salons/commissions/monthly?page=1&perPage=1000&search=&ordering=-date`;
 
 window.onload = () => {
     getNotifications();
     getData();
 }
+
+let statusBtn = document.getElementById('status-btn');
+let statusWrapper = document.getElementById('status-selector');
+
+
+function toggleStatusDropdown(event) {
+    if ((statusBtn.contains(event.target)) && statusWrapper.style.display == 'none') {
+        statusWrapper.style.display = 'flex';
+    }
+    else if ((statusBtn.querySelector('span').contains(event.target) || statusBtn.querySelector('svg').contains(event.target)) && statusWrapper.style.display == 'flex') {
+        statusWrapper.style.display = 'none';
+    }
+    else if ((statusBtn.querySelector('.status-selector').contains(event.target)) && statusWrapper.style.display == 'flex') {
+    }
+    else {
+        statusWrapper.style.display = 'none';
+    }
+}
+
+function filterStatusOption(event) {
+    let element = event.target;
+    requiredDataURL = setParams(requiredDataURL, 'status', element.getAttribute('data-value'));
+    getData();
+    document.getElementById('selected-status-text').innerText = element.innerText;
+    setTimeout(() => {
+        statusBtn.click();
+    }, 100)
+}
+
+
+function closeDropdowns(event) {
+    if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
+        statusWrapper.style.display = 'none';
+    }
+}
+
+document.body.addEventListener('click', closeDropdowns);
 
 
 function searchForm(event) {
@@ -12,6 +49,35 @@ function searchForm(event) {
     let formData = new FormData(form);
     let data = formDataToObject(formData);
     requiredDataURL = setParams(requiredDataURL, 'search', `${data.search}`);
+    getData(requiredDataURL);
+}
+
+
+function sortBySalonBtn(event) {
+    let arrows = event.target.closest('button').querySelectorAll('path');
+    let newOrderingValue = '';
+    let paramsArray = requiredDataURL.split('&');
+    let currentOrderingValue;
+
+    for (let i = 0; i < paramsArray.length; i++) {
+        if (paramsArray[i].startsWith('ordering=')) {
+            currentOrderingValue = paramsArray[i].substring('ordering='.length);
+            if (currentOrderingValue == '-salon') {
+                newOrderingValue = 'salon';
+                arrows[0].setAttribute('opacity', '.2');
+                arrows[1].setAttribute('opacity', '1');
+            }
+            else {
+                newOrderingValue = '-salon';
+                arrows[0].setAttribute('opacity', '1');
+                arrows[1].setAttribute('opacity', '.2');
+            }
+            paramsArray[i] = 'ordering=' + newOrderingValue;
+            break;
+        }
+    }
+
+    requiredDataURL = paramsArray.join('&');
     getData(requiredDataURL);
 }
 
@@ -47,20 +113,20 @@ async function getData(url=null) {
 function insertTableBodyRows(data, tableBody) {
     data.forEach((item) => {
         var tr = document.createElement('tr');
-        tr.innerHTML = `<td><div><span>${item.order.customer_name}</span></div></td>
-                        <td><div><span class="order-number">${item.order.id}</span></div></td>
-                        <td><div><span>No Stylist</span></div></td>
-                        <td><div><span>$0</span></div></td>
-                        <td><div><span>$${item.order.total}</span></div></td>
+        tr.innerHTML = `<td><div><span>${item.order ? item.order.customer_name : 'None'}</span></div></td>
+                        <td><div><span class="order-number">${item.order ? item.order.id : '---'}</span></div></td>
+                        <td><div><span>${item.order ? item.order.hairstylist : 'None'}</span></div></td>
+                        <td><div><span>$${item.order ? item.order.retail_value : '---'}</span></div></td>
+                        <td><div><span>$${item.order ? item.order.net_sales: '---'}</span></div></td>
                         <td><div><span>$${item.amount}</span></div></td>
                         <td><div><span>${captalizeFirstLetter(item.status)}</span></div></td>
-                        <td><div><span>N/A</span></div></td>`;
+                        <td><div><span>${item.order ? (item.pickup_type == 'self' ? 'Picked-Up' : 'Shipped') : 'None'}</span></div></td>`;
         tableBody.appendChild(tr);
     })
 }
 
 
-function showCommissionDetails(clickedRow, commissionList, id) {
+async function showCommissionDetails(clickedRow, salonId, month) {
     let table = document.getElementById('commission-table');
     let nextRow = clickedRow.nextElementSibling;
 
@@ -88,29 +154,44 @@ function showCommissionDetails(clickedRow, commissionList, id) {
         
 
         commissionDetailThead.appendChild(commissionDetailTheadRow);
-
-        insertTableBodyRows(commissionList, commissionDetailBody);
         
-        commissionDetailBody.id = `commission-body-${id}`;
-        commissionDetailTable.appendChild(commissionDetailThead);
-        commissionDetailTable.appendChild(commissionDetailBody);
-        commissionDetailTable.classList.add('inventory-details-table');
+        try {
+            let token = getCookie('admin_access');
+            let headers = {
+                "Authorization": `Bearer ${token}`
+            };
 
-        newRow.innerHTML = `<td colspan="9" data-id="commission-details-${id}">
-                                <div class="stock-details-container">
-                                    <div class="container-header">
-                                        <span>Commission Details</span>
-                                        <svg onclick="closeCommissionDetail(event);" class="cursor-pointer" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                            <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
-                                            <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </div>
-                                    ${commissionDetailTable.outerHTML}
-                                    <div class="details-footer">
-                                        <button onclick="closeCommissionDetail(event);" type="button">OK</button>
-                                    </div>
-                                </div>
-                            </td>`;
+            let response = await requestAPI(`${apiURL}/admin/salons/commissions?salon=${salonId}&date_month=${month}`, null, headers, 'GET');
+            response.json().then(function(res) {
+                if (response.status == 200) {
+                    insertTableBodyRows(res.data, commissionDetailBody);
+
+                    commissionDetailBody.id = `commission-body-${res.data.id}}`;
+                    commissionDetailTable.appendChild(commissionDetailThead);
+                    commissionDetailTable.appendChild(commissionDetailBody);
+                    commissionDetailTable.classList.add('inventory-details-table');
+
+                    newRow.innerHTML = `<td colspan="9" data-id="commission-details-${res.data.id}">
+                                            <div class="stock-details-container">
+                                                <div class="container-header">
+                                                    <span>Commission Details</span>
+                                                    <svg onclick="closeCommissionDetail(event);" class="cursor-pointer" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
+                                                        <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </div>
+                                                ${commissionDetailTable.outerHTML}
+                                                <div class="details-footer">
+                                                    <button onclick="closeCommissionDetail(event);" type="button">OK</button>
+                                                </div>
+                                            </div>
+                                        </td>`;
+                }
+            })
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 }
 
@@ -121,6 +202,33 @@ function closeCommissionDetail(event) {
         let previousRowIndex = tableElement.rowIndex - 1;
         document.getElementById('commission-table').rows[previousRowIndex].style.background = '#FFFFFF';
         tableElement.remove();
+    }
+}
+
+
+async function changeCommissionStatus(event, salonId, month) {
+    event.preventDefault();
+    let selectElement = event.target.closest('select');
+    let selectedValue = selectElement.options[selectElement.selectedIndex].value;
+    
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+
+        let data = { "status": selectedValue, "month": month };
+
+        let response = await requestAPI(`${apiURL}/admin/salons/commissions/salons/${salonId}`, JSON.stringify(data), headers, 'PATCH');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                // console.log(res);
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
     }
 }
 

@@ -82,7 +82,7 @@
     </thead>
     <tbody>
         {% for obj in commissions.data %}
-        <tr onclick="showCommissionDetails(this, {{obj.commissions}}, '{{obj.id}}');">
+        <tr onclick="showCommissionDetails(this, '{{obj.salon.id}}', '{{obj.month_created}}');">
             <td>
                 <div class="table-checkbox">
                     <input type="checkbox" />
@@ -90,8 +90,8 @@
             </td>
             <td>
                 <div class="salon-cell">
-                    <span class="table-text-overflow" title="{{obj.salon_name}}">{{obj.salon_name}}</span>
-                    <span class="opacity-point-6 table-text-overflow" title="{{obj.salon_address}}">{{obj.salon_address}}</span>
+                    <span class="table-text-overflow" title="{{obj.salon.salon_name}}">{{obj.salon.salon_name}}</span>
+                    <span class="opacity-point-6 table-text-overflow {% if obj.salon.salon_address != None %}{% else %}hide{% endif %}" title="{% if obj.salon.salon_address %}{{obj.salon.salon_address.street1}}{% endif %}">{% if obj.salon.salon_address %}{{obj.salon.salon_address.street1}}{% endif %}</span>
                 </div>
             </td>
             <td>
@@ -101,22 +101,22 @@
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">{{obj.total_products}}</span>
+                    <span class="opacity-point-6">{{obj.total_products_count}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6 month">{{obj.month}}</span>
+                    <span class="opacity-point-6 month">{{obj.month_created}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">${{obj.total_customer_purchase}}</span>
+                    <span class="opacity-point-6">${{obj.total_purchase}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">${{obj.pending_commission}}</span>
+                    <span class="opacity-point-6">${{obj.month_commission}}</span>
                 </div>
             </td>
             <td>
@@ -124,12 +124,16 @@
                     <span class="opacity-point-6">${{obj.total_commission}}</span>
                 </div>
             </td>
-            <td>
+            <td onclick="event.stopPropagation();">
                 <div>
-                    <span>{{obj.status|title}}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                    <select name="status" id="commission-status-{{forloop.counter0}}" class="status-options" onchange="changeCommissionStatus(event, '{{obj.salon.id}}', '{{obj.month_created}}')">
+                        <option {% if obj.month_status == 'unpaid' %}selected{% endif %} value="unpaid">Unpaid</option>
+                        <option {% if obj.month_status == 'paid' %}selected{% endif %} value="paid">Paid</option>
+                    </select>
+                    <!-- <span>{{obj.month_status|title}}</span> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
                         <path d="M13.998 0L7.39746 8.00071L0.796875 0H13.998Z" fill="#030706"/>
-                    </svg>
+                    </svg> -->
                 </div>
             </td>
         </tr>
