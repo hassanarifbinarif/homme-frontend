@@ -118,7 +118,7 @@ async function createHairstylistForm(event) {
         errorMsg.innerHTML = 'Enter valid first and last names';
         return false;
     }
-    else if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(data.email) == false) {
+    else if (data.email != '' && emailRegex.test(data.email) == false) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid email';
         return false;
@@ -128,36 +128,36 @@ async function createHairstylistForm(event) {
         errorMsg.innerHTML = 'Select a status';
         return false;
     }
-    else if (phoneRegex.test(data.phone) == false) {
+    else if (data.phone != '' && phoneRegex.test(data.phone) == false) {
         errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid phone';
+        errorMsg.innerHTML = 'Please enter a valid number with country code';
         return false;
     }
-    else if (data.address.trim().length == 0) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid address';
-        return false;
-    }
-    else if (data.city.trim().length == 0) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid city name';
-        return false;
-    }
-    else if ((!data.state)) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Select a state';
-        return false;
-    }
-    else if (data.zip_code.trim().length != 5) {
+    // else if (data.address.trim().length == 0) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Enter valid address';
+    //     return false;
+    // }
+    // else if (data.city.trim().length == 0) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Enter valid city name';
+    //     return false;
+    // }
+    // else if ((!data.state)) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Select a state';
+    //     return false;
+    // }
+    else if (data.zip_code != '' && data.zip_code.trim().length != 5) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid zipcode';
         return false;
     }
-    else if ((!data.country)) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Select a country';
-        return false;
-    }
+    // else if ((!data.country)) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Select a country';
+    //     return false;
+    // }
     else {
         errorMsg.classList.remove('active');
         errorMsg.innerHTML = '';
@@ -280,14 +280,14 @@ async function updateHairstylistForm(event, id) {
         errorMsg.innerHTML = 'Enter valid first and last names';
         return false;
     }
-    else if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(data.email) == false) {
+    else if (data.email != '' && emailRegex.test(data.email) == false) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid email';
         return false;
     }
-    else if (phoneRegex.test(data.phone) == false) {
+    else if (data.phone != '' && phoneRegex.test(data.phone) == false) {
         errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid phone';
+        errorMsg.innerHTML = 'Please enter a valid number with country code';
         return false;
     }
     else if (data.status != 'active' && data.status != 'inactive' && data.status != 'leave') {
@@ -295,31 +295,31 @@ async function updateHairstylistForm(event, id) {
         errorMsg.innerHTML = 'Select a status';
         return false;
     }
-    else if (data.address.trim().length == 0) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid address';
-        return false;
-    }
-    else if (data.city.trim().length == 0) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid city name';
-        return false;
-    }
-    else if ((!data.state)) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid state';
-        return false;
-    }
-    else if (data.zip_code.trim().length != 5) {
+    // else if (data.address.trim().length == 0) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Enter valid address';
+    //     return false;
+    // }
+    // else if (data.city.trim().length == 0) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Enter valid city name';
+    //     return false;
+    // }
+    // else if ((!data.state)) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Enter valid state';
+    //     return false;
+    // }
+    else if (data.zip_code != '' && data.zip_code.trim().length != 5) {
         errorMsg.classList.add('active');
         errorMsg.innerHTML = 'Enter valid zipcode';
         return false;
     }
-    else if ((!data.country)) {
-        errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid country';
-        return false;
-    }
+    // else if ((!data.country)) {
+    //     errorMsg.classList.add('active');
+    //     errorMsg.innerHTML = 'Enter valid country';
+    //     return false;
+    // }
     else {
         errorMsg.classList.remove('active');
         errorMsg.innerHTML = '';

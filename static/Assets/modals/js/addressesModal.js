@@ -202,7 +202,7 @@ async function updateAddressesForm(event, id, type) {
         return false;
     }
     else if (phoneRegex.test(data.shipping_phone) == false) {
-        errorMsg.innerHTML = 'Enter valid shipping phone';
+        errorMsg.innerHTML = 'Please enter a valid shipping number with country code';
         errorMsg.classList.add('active');
         return false;
     }
@@ -261,7 +261,7 @@ async function updateAddressesForm(event, id, type) {
             return false;
         }
         else if (phoneRegex.test(data.billing_phone) == false) {
-            errorMsg.innerHTML = 'Enter valid billing phone';
+            errorMsg.innerHTML = 'Please enter a valid billing number with country code';
             errorMsg.classList.add('active');
             return false;
         }

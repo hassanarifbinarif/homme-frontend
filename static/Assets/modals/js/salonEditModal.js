@@ -259,7 +259,7 @@ async function updateSalonContact(event, id) {
     }
     else if (phoneRegex.test(data.phone) == false) {
         errorMsg.classList.add('active');
-        errorMsg.innerHTML = 'Enter valid phone number';
+        errorMsg.innerHTML = 'Please enter a valid number with country code';
         return false;
     }
 

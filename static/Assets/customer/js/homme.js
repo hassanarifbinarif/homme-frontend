@@ -397,7 +397,7 @@ function getStartAndEndOfQuarter() {
 function getStartAndEndOfLastQuarter() {
     const today = new Date();
     const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
+    let currentYear = today.getFullYear();
   
     let startMonth, endMonth;
   

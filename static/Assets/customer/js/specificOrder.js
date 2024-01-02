@@ -12,7 +12,7 @@ async function printPackingSlip(button, id) {
         // Create options for pdf generation
         var options = {
             filename: 'generated-pdf.pdf',
-            html2canvas: { scale: 4, useCORS: true },
+            html2canvas: { scale: 1, useCORS: true },
         };
 
         // Use html2pdf to generate the PDF
@@ -422,7 +422,7 @@ async function updateCustomerForm(event, id) {
     let errorMsg = form.querySelector('.create-error-msg');
 
     if (phoneRegex.test(data.phone) == false) {
-        errorMsg.innerText = 'Enter valid phone number';
+        errorMsg.innerText = 'Please enter a valid number with country code';
         errorMsg.classList.add('active');
         return false;
     }

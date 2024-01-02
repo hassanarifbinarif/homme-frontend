@@ -284,7 +284,7 @@ async function updateCustomerForm(event, id) {
         return false;
     }
     else if (phoneRegex.test(data.phone) == false) {
-        errorMsg.innerText = 'Enter valid phone number';
+        errorMsg.innerText = 'Please enter a valid number with country code';
         errorMsg.classList.add('active');
         return false;
     }
