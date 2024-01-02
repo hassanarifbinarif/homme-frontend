@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'Assets/customer/css/orders.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/customer/css/order_details.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/order_shipping_label_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/addresses_modal.css' %}" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     
@@ -236,15 +237,24 @@
                             </div>
                         </div>
                         <div class="order-shipping-address">
-                            <span>Shipping address</span>
-                            <span>{% if order.shipping_address != null %}{{order.shipping_address.address}}{% else %}No Address{% endif %}</span>
+                            <div>
+                                <span>Shipping address</span>
+                                <svg class="cursor-pointer" onclick="openAddressesModal('{{order.id}}', 'order');" xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                    <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span id="current-shipping-address">{% if order.shipping_address == None %}No Address{% else %}{{order.shipping_address.address}}, {{order.shipping_address.city}}, {{order.shipping_address.state}} {{order.shipping_address.zip_code}} {{order.shipping_address.country}}{% endif %}</span>
                         </div>
                         <div class="order-shipping-address">
-                            <span>Billing address</span>
-                            <span>{% if order.billing_address != null %}{% if order.billing_address.address == order.shipping_address.address %}Same as shipping address{% else %}{{order.billing_address.address}}{% endif %}{% else %}No Address{% endif %}</span>
+                            <div>
+                                <span>Billing address</span>
+                            </div>
+                            <span id="current-billing-address">{% if order.billing_address == None %}No Address{% else %}{{order.billing_address.address}}, {{order.billing_address.city}}, {{order.billing_address.state}} {{order.billing_address.zip_code}} {{order.billing_address.country}}{% endif %}</span>
                         </div>
                         <div class="order-shipping-address">
-                            <span>Associated Salon</span>
+                            <div>
+                                <span>Associated Salon</span>
+                            </div>
                             <span>{% if order.salon != null %}{{order.salon.salon_name}}{% else %}No Salon{% endif %}</span>
                         </div>
                     </div>
@@ -259,12 +269,23 @@
 
     {% include '../modals/order-shipping-label-modal.html' %}
 
+    {{order.shipping_address|json_script:"customer_shipping_address"}}
+    {{order.billing_address|json_script:"customer_billing_address"}}
+
+    {% include '../modals/addresses-modal.html' %}
+
     {% endblock %}
 </body>
 {% block scripts %}
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script>
+    let customerShippingAddress = JSON.parse(document.getElementById('customer_shipping_address').textContent);
+    let customerBillingAddress = JSON.parse(document.getElementById('customer_billing_address').textContent);
+</script>
 <script src="{% static 'Assets/customer/js/states.js' %}"></script>
+<script src="{% static 'Assets/customer/js/countries.js' %}"></script>
 <script src="{% static 'Assets/customer/js/specificOrder.js' %}"></script>
+<script src="{% static 'Assets/modals/js/addressesModal.js' %}"></script>
 </script>
 {% endblock %}
 </html>

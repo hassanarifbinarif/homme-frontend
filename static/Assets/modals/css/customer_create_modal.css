@@ -105,6 +105,7 @@
 
 #createCustomer .selection-input {
     width: 100%;
+    position: relative;
 }
 
 #createCustomer .referrer-show-div,
@@ -144,6 +145,64 @@
     font-weight: 500;
     line-height: 10px;
 }
+
+#createCustomer .address-inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#createCustomer .address-inputs-wrapper .address-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#createCustomer .address-inputs-wrapper .address-inputs > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+}
+
+#createCustomer .address-checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 7px!important;
+}
+
+#createCustomer .address-checkbox-container > input {
+    margin-top: 0px;
+    width: 20px!important;
+    height: 20px!important;
+    border-radius: 6px!important;
+    padding: 0px!important;
+    box-shadow: none;
+}
+
+#createCustomer .address-checkbox-container > input:checked[type=checkbox] {
+    background-color: #000093;
+    box-shadow: none;
+    border-color: transparent;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23FFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+#createCustomer .address-checkbox-label {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
 
 #createCustomer .error-div {
     text-align: left;

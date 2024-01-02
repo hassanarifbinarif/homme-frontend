@@ -240,6 +240,7 @@ function openUpdateCustomerModal(event, id, first_name, last_name, phone, email)
         form.querySelectorAll('input[name="salon"]').forEach((input) => {
             if (input.value == salonId) {
                 input.checked = true;
+                selectedSalon = input.value;
                 salonField.value = input.nextElementSibling.innerText;
             }
         })
@@ -250,7 +251,7 @@ function openUpdateCustomerModal(event, id, first_name, last_name, phone, email)
         form.removeAttribute("onsubmit");
         form.querySelector('input[name="password"]').classList.remove('hide');
         form.querySelector('input[name="confirm_password"]').classList.remove('hide');
-        modal.querySelector('.btn-text').innerText = 'ADD';
+        modal.querySelector('.btn-text').innerText = 'UPDATE';
         modal.querySelector('#customer-modal-header-text').innerText = 'Add New Customer';
         modal.querySelector('.referral-input-div').classList.remove('hide');
         document.querySelector('.create-error-msg').classList.remove('active');
@@ -302,8 +303,10 @@ async function updateCustomerForm(event, id) {
                     email: data.email,
                 }
             };
+
             if (selectedSalon != null)
                 customerData.salon = parseInt(selectedSalon);
+
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
             let token = getCookie('admin_access');
@@ -313,7 +316,6 @@ async function updateCustomerForm(event, id) {
             };
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/user-profiles/${id}`, JSON.stringify(customerData), headers, 'PATCH');
-            // console.log(response);
             response.json().then(function(res) {
                 
                 if (response.status == 200) {

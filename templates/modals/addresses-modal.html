@@ -1,0 +1,109 @@
+<div class="modal fade" id="addressesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addressesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <form>
+                <div class="modal-header border-bottom-0 w-100 justify-content-between">
+                    <span class="update-addresses-modal-header-text">Update Addresses</span>
+                    <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
+                        <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="modal-body">
+                    <div class="input-div">
+                        <div class="address-inputs-wrapper" id="address-inputs-wrapper">
+                            <div class="address-inputs" id="shipping-address-wrapper">
+                                <span>Shipping Address</span>
+                                <div class="group-inputs">
+                                    <input type="text" name="shipping_first_name" placeholder="First Name" />
+                                    <input type="text" name="shipping_last_name" placeholder="Last Name" />
+                                </div>
+                                <input type="tel" name="shipping_phone" placeholder="Phone" />
+                                <input type="text" name="shipping_address1" placeholder="Address 1" />
+                                <input type="text" name="shipping_address2" placeholder="Address 2" />
+                                <div class="group-inputs">
+                                    <input type="text" name="shipping_city" placeholder="City" />
+                                    <div class="selection-input">
+                                        <button class="filter-btn" id="shipping-states-field" type="button">
+                                            <span id="selected-shipping-state-text">State</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                                <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                            </svg>
+                                        </button>
+                                        <div class="filter-dropdown" id="shipping-states-dropdown">        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-inputs">
+                                    <input type="number" name="shipping_zip_code" placeholder="ZIP" />
+                                    <div class="selection-input">
+                                        <button class="filter-btn" id="shipping-country-field" type="button">
+                                            <span id="selected-shipping-country-text">Country</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                                <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                            </svg>
+                                        </button>
+                                        <div class="filter-dropdown" id="shipping-country-dropdown">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-check cursor-pointer address-checkbox-container">
+                                <input type="checkbox" name="address_checkbox" id="address-checkbox" class="form-check-input cursor-pointer" />
+                                <label for="address-checkbox" class="address-checkbox-label cursor-pointer">Shipping address same as billing address</label>
+                            </div>
+                            <div class="address-inputs" id="billing-address-wrapper">
+                                <span>Billing Address</span>
+                                <div class="group-inputs">
+                                    <input type="text" name="billing_first_name" placeholder="First Name" />
+                                    <input type="text" name="billing_last_name" placeholder="Last Name" />
+                                </div>
+                                <input type="tel" name="billing_phone" placeholder="Phone" />
+                                <input type="text" name="billing_address1" placeholder="Address 1" />
+                                <input type="text" name="billing_address2" placeholder="Address 2" />
+                                <div class="group-inputs">
+                                    <input type="text" name="billing_city" placeholder="City" />
+                                    <div class="selection-input">
+                                        <button class="filter-btn" id="billing-states-field" type="button">
+                                            <span id="selected-billing-state-text">State</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                                <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                            </svg>
+                                        </button>
+                                        <div class="filter-dropdown" id="billing-states-dropdown">        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-inputs">
+                                    <input type="number" name="billing_zip_code" placeholder="ZIP" />
+                                    <div class="selection-input">
+                                        <button class="filter-btn" id="billing-country-field" type="button">
+                                            <span id="selected-billing-country-text">Country</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                                <path d="M13.2012 0L6.60059 8.00071L0 0H13.2012Z" fill="#030706"/>
+                                            </svg>
+                                        </button>
+                                        <div class="filter-dropdown" id="billing-country-dropdown">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-div">
+                    <small class="create-error-msg input-error-msg"></small>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" data-bs-dismiss="modal">CANCEL</button>
+                    <button class="submit-btn" type="submit">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">UPDATE</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input type="hidden" class="addressesModal" data-bs-toggle="modal" data-bs-target="#addressesModal" />

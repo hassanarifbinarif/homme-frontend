@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'Assets/customer/css/customers.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/customer/css/customer_details.css' %}">
     <link rel="stylesheet" href="{% static 'Assets/modals/css/customer_create_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/addresses_modal.css' %}" />
     
     {% endblock %}
 
@@ -369,20 +370,17 @@
                         <div class="order-shipping-address">
                             <div>
                                 <span>Shipping Address</span>
-                                <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                <svg class="cursor-pointer" onclick="openAddressesModal('{{customer.id}}');" xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
                                     <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <span>{% if customer.shipping_address == None %}No Address{% else %}{{customer.shipping_address.address}}{% endif %}</span>
+                            <span id="current-shipping-address">{% if customer.shipping_address == None %}No Address{% else %}{{customer.shipping_address.address}}, {{customer.shipping_address.city}}, {{customer.shipping_address.state}} {{customer.shipping_address.zip_code}} {{customer.shipping_address.country}}{% endif %}</span>
                         </div>
                         <div class="order-shipping-address">
                             <div>
                                 <span>Billing Address</span>
-                                <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-                                    <path d="M11.1933 2.86027L14.14 5.80694M12.4433 1.61027C12.8341 1.21952 13.3641 1 13.9167 1C14.4693 1 14.9992 1.21952 15.39 1.61027C15.7808 2.00103 16.0003 2.531 16.0003 3.08361C16.0003 3.63621 15.7808 4.16619 15.39 4.55694L3.91667 16.0303H1V13.0536L12.4433 1.61027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
                             </div>
-                            <span>{% if customer.billing_address == None %}No Address{% else %}{{customer.billing_address.address}}{% endif %}</span>
+                            <span id="current-billing-address">{% if customer.billing_address == None %}No Address{% else %}{{customer.billing_address.address}}, {{customer.billing_address.city}}, {{customer.billing_address.state}} {{customer.billing_address.zip_code}} {{customer.billing_address.country}}{% endif %}</span>
                         </div>
                     </div>
                 </div>
@@ -390,11 +388,23 @@
         </div>
     </div>
 
+    {{customer.shipping_address|json_script:"customer_shipping_address"}}
+    {{customer.billing_address|json_script:"customer_billing_address"}}
+
     {% include '../modals/customer-create-modal.html' %}
+
+    {% include '../modals/addresses-modal.html' %}
 
     {% endblock %}
 </body>
 {% block scripts %}
+<script>
+    let customerShippingAddress = JSON.parse(document.getElementById('customer_shipping_address').textContent);
+    let customerBillingAddress = JSON.parse(document.getElementById('customer_billing_address').textContent);
+</script>
+<script src="{% static 'Assets/customer/js/states.js' %}"></script>
+<script src="{% static 'Assets/customer/js/countries.js' %}"></script>
 <script src="{% static 'Assets/customer/js/specificCustomer.js' %}"></script>
+<script src="{% static 'Assets/modals/js/addressesModal.js' %}"></script>
 {% endblock %}
 </html>
