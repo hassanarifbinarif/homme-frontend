@@ -376,6 +376,128 @@ async function resendEmail(button, id) {
 }
 
 
+function openUpdateCustomerModal(id, userEmail, userPhone) {
+    let modal = document.querySelector(`#createCustomer`);
+    let form = modal.querySelector('form');
+    
+    form.setAttribute("onsubmit", `updateCustomerForm(event, ${id})`);
+    modal.querySelector('.btn-text').innerText = 'UPDATE';
+    modal.querySelector('#customer-modal-header-text').innerText = 'Update Customer';
+    modal.querySelector('.referral-input-div').classList.add('hide');
+    form.querySelector('input[name="first_name"]').classList.add('hide');
+    form.querySelector('input[name="last_name"]').classList.add('hide');
+    form.querySelector('input[name="phone"]').value = userPhone;
+    form.querySelector('input[name="email"]').value = userEmail;
+    form.querySelector('input[name="password"]').classList.add('hide');
+    form.querySelector('input[name="confirm_password"]').classList.add('hide');
+    form.querySelector('.selection-div').classList.add('hide');
+    form.querySelector('.additional-inputs').classList.add('hide');
+
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        form.querySelector('input[name="password"]').classList.remove('hide');
+        form.querySelector('input[name="confirm_password"]').classList.remove('hide');
+        form.querySelector('input[name="first_name"]').classList.remove('hide');
+        form.querySelector('input[name="last_name"]').classList.remove('hide');
+        form.querySelector('.selection-div').classList.remove('hide');
+        form.querySelector('.additional-inputs').classList.remove('hide');
+        modal.querySelector('.btn-text').innerText = 'UPDATE';
+        modal.querySelector('#customer-modal-header-text').innerText = 'Add New Customer';
+        modal.querySelector('.referral-input-div').classList.remove('hide');
+        document.querySelector('.create-error-msg').classList.remove('active');
+        document.querySelector('.create-error-msg').innerText = "";
+    })
+
+    document.querySelector(`.createCustomer`).click();
+}
+
+
+async function updateCustomerForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    let button = form.querySelector('button[type="submit"]');
+    let errorMsg = form.querySelector('.create-error-msg');
+
+    if (phoneRegex.test(data.phone) == false) {
+        errorMsg.innerText = 'Enter valid phone number';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (emailRegex.test(data.email) == false) {
+        errorMsg.innerText = 'Enter valid email';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else {
+        try {
+            let customerData = {
+                user: {
+                    phone: data.phone,
+                    email: data.email,
+                }
+            };
+
+            errorMsg.innerText = '';
+            errorMsg.classList.remove('active');
+            let token = getCookie('admin_access');
+            let headers = {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": 'application/json'
+            };
+            beforeLoad(button);
+            let response = await requestAPI(`${apiURL}/admin/user-profiles/${id}`, JSON.stringify(customerData), headers, 'PATCH');
+            response.json().then(function(res) {
+                
+                if (response.status == 200) {
+                    form.reset();
+                    form.removeAttribute('onsubmit');
+
+                    document.getElementById('current-user-email').innerText = res.data.user.email;
+                    document.getElementById('current-user-phone').innerText = res.data.user.phone;
+                    document.querySelector('#contact-edit-btn').setAttribute('onclick', `openUpdateCustomerModal(${res.data.id}, '${res.data.user.email}', '${res.data.user.phone}')`);
+                    
+                    afterLoad(button, 'UPDATED');
+                    setTimeout(() => {
+                        document.querySelector('.createCustomer').click();
+                    }, 1000)
+                }
+                else {
+                    afterLoad(button, 'ERROR');
+                    let keys = Object.keys(res.messages);
+                    
+                    keys.forEach((key) => {
+                        if (Array.isArray(res.messages[key])) {
+                            keys.forEach((key) => {
+                                errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                            })
+                        }
+                        else if (typeof res.messages[key] === 'object') {
+                            const nestedKeys = Object.keys(res.messages[key]);
+                            nestedKeys.forEach((nestedKey) => {
+                                for( let i = 0; i < nestedKey.length; i++) {
+                                    if (res.messages[key][nestedKey][i] == undefined)
+                                        continue;
+                                    else
+                                        errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
+                                }
+                            });
+                        }
+                    })
+                    errorMsg.classList.add('active');
+                }
+            })
+        }
+        catch (err) {
+            afterLoad(button, 'ERROR');
+            console.log(err);
+        }
+    }
+}
+
+
 function convertDateTime() {
     let times = document.querySelectorAll('.time-value');
     times.forEach((dateTime) => {

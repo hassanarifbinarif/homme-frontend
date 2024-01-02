@@ -588,7 +588,13 @@
     border-bottom: 1px solid #CECECE;
 }
 
-.order-product-other-details-wrapper .order-contact-info > span {
+.order-product-other-details-wrapper .order-contact-info > div:first-of-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-other-details-wrapper .order-contact-info > div:first-of-type > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -596,7 +602,7 @@
     font-size: 1rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
 }
 
 .order-product-other-details-wrapper .order-contact-info .order-contact-info-details {

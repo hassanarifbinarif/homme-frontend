@@ -803,7 +803,7 @@ async function generateShippingLabelForm(event) {
         response.json().then(function(res) {
             if (response.status == 200) {
                 orderData.order_shipping = res.data.id;
-                orderData.status = "delivered";
+                orderData.status = "shipped";
                 document.getElementById('modal-tracker-field').innerText = res.data.tracking_number;
                 document.getElementById('modal-shipping-price-field').innerText = '$' + res.data.total;
                 document.getElementById('shipping-cost').value = roundDecimalPlaces(res.data.total);

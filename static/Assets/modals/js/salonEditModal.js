@@ -129,11 +129,12 @@ async function updateSalonNotes(event, id) {
     event.preventDefault();
     let form = event.currentTarget;
     let formData = new FormData(form);
+    let formObject = formDataToObject(formData);
     let button = form.querySelector('button[type="submit"]');
     let buttonText = button.innerText;
     let errorMsg = form.querySelector('.create-error-msg');
 
-    let data = { "partnership_application": { "status": data.salon_status } };
+    let data = { "partnership_application": { "admin_comment": formObject.admin_comment } };
 
     try {
         let token = getCookie('admin_access');
