@@ -165,7 +165,7 @@
                         </div>
                         <div class="order-shipping-status">
                             <div>
-                                <span>Order confirmation email was sent to {{order.user_profile.first_name|title}} {{order.user_profile.last_name|title}} at <span class="time-value">{{order.created_at|custom_date:"f A"}}</span> on <span class="date-value">{{order.created_at|custom_date:"F j, Y"}}</span></span>
+                                <span>Order confirmation email was sent to {{order.user_profile.first_name|title}} {{order.user_profile.last_name|title}} at <span class="time-value">{{order.created_at}}</span> on <span class="date-value">{{order.created_at}}</span></span>
                                 <span>{{order.user_profile.user.email}}</span>
                             </div>
                             <button type="button" class="opacity-point-6">RESEND EMAIL</button>

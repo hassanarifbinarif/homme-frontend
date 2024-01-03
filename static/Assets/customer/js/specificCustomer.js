@@ -11,6 +11,14 @@ showCommentsCheckbox.addEventListener('change', function() {
 })
 
 
+window.onload = () => {
+    getNotifications();
+    getRelativeTime(document.getElementById('customer-joining-time').getAttribute('data-value'));
+    populateSalonDropdown();
+    populateStatesAndCountriesDropdown();
+}
+
+
 function getRelativeTime(dateTime) {
     const today = new Date();
     const timezoneOffset = today.getTimezoneOffset() * 60000;
@@ -43,12 +51,6 @@ function getRelativeTime(dateTime) {
     }
     // console.log(output);
     document.getElementById('customer-joining-time').innerText = output;
-}
-
-window.onload = () => {
-    getNotifications();
-    getRelativeTime(document.getElementById('customer-joining-time').getAttribute('data-value'));
-    populateSalonDropdown();
 }
 
 

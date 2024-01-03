@@ -61,11 +61,6 @@ function closeDropdowns(event) {
 document.body.addEventListener('click', closeDropdowns);
 
 
-window.onload = () => {
-    populateStatesAndCountriesDropdown();
-}
-
-
 function populateStatesAndCountriesDropdown() {
     statesList.forEach((state, index) => {
         shippingStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
