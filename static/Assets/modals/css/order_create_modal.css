@@ -157,7 +157,8 @@
     top: -6px;
     right: -6px;
     
-    padding: 0px 1px;
+    padding-left: 2px;
+    padding-right: 1px;
     min-width: 12px;
     width: fit-content;
     height: 14px;
@@ -183,6 +184,8 @@
     width: 100%;
     height: 100%;
     border-radius: 6px;
+    object-fit: cover;
+    object-position: center;
 }
 
 #orderCreate .modal-body .added-products .product-card .product-details > div:last-of-type {

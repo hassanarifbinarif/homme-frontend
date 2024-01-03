@@ -266,7 +266,10 @@
     position: absolute;
     top: -7px;
     right: -7px;
-    width: 14px;
+    padding-left: 2px;
+    padding-right: 1px;
+    min-width: 12px;
+    width: fit-content;
     height: 14px;
     border-radius: 2px;
     background: #000093;
