@@ -27,13 +27,13 @@ function toggleDropdown(event) {
 activityTypeDropdownBtn.addEventListener('click', toggleDropdown);
 
 
-function closeDropdowns(event) {
+function closeActivityModalDropdowns(event) {
     if((!activityTypeDropdownBtn.contains(event.target)) && activityTypeDropdown.style.display == 'flex') {
         activityTypeDropdown.style.display = 'none';
     }
 }
 
-document.body.addEventListener('click', closeDropdowns);
+document.body.addEventListener('click', closeActivityModalDropdowns);
 
 
 function selectActivityType(event) {
@@ -101,7 +101,7 @@ rewardCustomerField.addEventListener('input', function() {
 
 
 function getRewardDetails() {
-    rewardData.points = parseInt(document.querySelector('input[name="points"]').value);
+    rewardData.points = parseFloat(document.querySelector('input[name="points"]').value);
     rewardData.notes = document.querySelector('textarea[name="reward_notes"]').value;
 }
 
@@ -185,7 +185,7 @@ async function rewardCreate(event) {
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/rewards`, JSON.stringify(data), headers, 'POST');
             response.json().then(function(res) {
-                console.log(res);
+                // console.log(res);
                 if (response.status == 201) {
                     getData();
                     afterLoad(button, 'CREATED');

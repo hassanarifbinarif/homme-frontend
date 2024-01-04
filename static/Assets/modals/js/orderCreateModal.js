@@ -30,26 +30,8 @@ let base64Image = null;
 
 let orderData = {
     products: [],
-    shipping_address: {
-        first_name: "",
-        last_name: "",
-        address: "",
-        phone: "",
-        city: "",
-        country: "",
-        zip_code: "",
-        state: ""
-    },
-    billing_address: {
-        first_name: "",
-        last_name: "",
-        address: "",
-        phone: "",
-        city: "",
-        country: "",
-        zip_code: "",
-        state: ""
-    },
+    shipping_address: { first_name: "", last_name: "", address: "", phone: "", city: "", country: "", zip_code: "", state: "" },
+    billing_address: { first_name: "", last_name: "", address: "", phone: "", city: "", country: "", zip_code: "", state: "" },
     pickup_type: "ship",
     is_preview: true,
     user: null
@@ -134,7 +116,7 @@ function selectProduct(event) {
                                                 </div>
                                                 <div>
                                                     <span>Price</span>
-                                                    <input type="number" oninput="updatePrices(event);" class="particular-product-price" min="0" original-price="${selectedProduct.price}" value="${selectedProduct.price}" placeholder="$25.00" name="price" id="" />
+                                                    <input type="number" oninput="updatePrices(event);" class="particular-product-price" min="0" step="0.01" original-price="${selectedProduct.price}" value="${selectedProduct.price}" placeholder="$25.00" name="price" id="" />
                                                 </div>
                                             </div>
                                             <div class="delete-btn cursor-pointer">
@@ -250,7 +232,7 @@ function selectCustomer(event) {
             }
         }
         else {
-            orderData.shipping_address = {};
+            orderData.shipping_address = { first_name: "", last_name: "", address: "", phone: "", city: "", country: "", zip_code: "", state: "" };
             orderData.billing_address = orderData.shipping_address;
             document.querySelector('input[name="address"]').value = null;
             document.querySelector('input[name="city"]').value = null;
@@ -444,13 +426,13 @@ function toggleDropdown(event) {
 
 // productDropdownBtn.addEventListener('click', toggleDropdown);
 
-function closeDropdowns(event) {
-    // if((!productDropdownBtn.contains(event.target)) && productDropdown.style.display == 'flex') {
-    //     productDropdown.style.display = 'none';
-    // }
-}
+// function closeDropdowns(event) {
+//     // if((!productDropdownBtn.contains(event.target)) && productDropdown.style.display == 'flex') {
+//     //     productDropdown.style.display = 'none';
+//     // }
+// }
 
-document.body.addEventListener('click', closeDropdowns);
+// document.body.addEventListener('click', closeDropdowns);
 
 
 
@@ -479,26 +461,8 @@ async function openCreateOrderModal(modalId) {
         grandTotal.innerText = '$0';
         orderData = {
             products: [],
-            shipping_address: {
-                first_name: "",
-                last_name: "",
-                address: "",
-                phone: "",
-                city: "",
-                country: "",
-                zip_code: "",
-                state: ""
-            },
-            billing_address: {
-                first_name: "",
-                last_name: "",
-                address: "",
-                phone: "",
-                city: "",
-                country: "",
-                zip_code: "",
-                state: ""
-            },
+            shipping_address: { first_name: "", last_name: "", address: "", phone: "", city: "", country: "", zip_code: "", state: "" },
+            billing_address: { first_name: "", last_name: "", address: "", phone: "", city: "", country: "", zip_code: "", state: "" },
             pickup_type: "ship",
             is_preview: true,
             user: null,
@@ -610,15 +574,10 @@ async function orderCreate(event) {
             }
         }
         else {
-            // console.log(res);
             if (data.is_preview == false) {
-                let keys = Object.keys(res.messages);
-                keys.forEach((key) => {
-                    // console.log(key);
-                    errorMsg.classList.add('active');
-                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
-                })
+                errorMsg.classList.add('active');
                 afterLoad(button, 'ERROR');
+                displayMessages(res.messages, errorMsg);
             }
         }
     })

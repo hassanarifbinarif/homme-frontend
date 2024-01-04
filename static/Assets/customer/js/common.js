@@ -389,6 +389,32 @@ function roundDecimalPlaces(number) {
 }
 
 
+function displayMessages(obj, errorElement) {
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            if (Array.isArray(obj[key])) {
+                // If it's an array, iterate through its elements
+                obj[key].forEach(element => {
+                    if (typeof element === 'object') {
+                    // If an element is an object, recursively call the function
+                    displayMessages(element, errorElement);
+                    } else {
+                    // If it's not an object, append the key and message in the same line
+                    errorElement.innerHTML += `${key}: ${element} <br />`;
+                    }
+                });
+            } else if (typeof obj[key] === 'object') {
+                // If it's an object, recursively call the function
+                displayMessages(obj[key], errorElement);
+            } else {
+                // If it's neither an array nor an object, append the key and value in the same line
+                errorElement.innerHTML += `${key}: ${element} <br />`;
+            }
+        }
+    }
+}
+
+
 function captalizeFirstLetter(string) {
     // return word.charAt(0).toUpperCase() + word.slice(1);
     

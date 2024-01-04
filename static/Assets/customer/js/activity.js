@@ -333,16 +333,16 @@ function closeDropdowns(event) {
     if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
         salesChannelDropdown.classList.add('hide');
     }
-    else if((!typeBtn.contains(event.target)) && typeDropdown.style.display == 'flex') {
+    if((!typeBtn.contains(event.target)) && typeDropdown.style.display == 'flex') {
         typeDropdown.style.display = 'none';
     }
-    else if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
+    if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
         dateSelectorInputWrapper.style.display = 'none';
     }
-    else if ((!netCashBtn.contains(event.target)) && netCashInputWrapper.style.display == 'flex') {
+    if ((!netCashBtn.contains(event.target)) && netCashInputWrapper.style.display == 'flex') {
         netCashInputWrapper.style.display = 'none';
     }
-    else if ((!rewardsBtn.contains(event.target)) && rewardsInputWrapper.style.display == 'flex') {
+    if ((!rewardsBtn.contains(event.target)) && rewardsInputWrapper.style.display == 'flex') {
         rewardsInputWrapper.style.display = 'none';
     }
 }
