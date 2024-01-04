@@ -12,16 +12,17 @@ async function printPackingSlip(button, id) {
         // Create options for pdf generation
         var options = {
             filename: 'generated-pdf.pdf',
-            html2canvas: { scale: 1, useCORS: true },
+            image: { type: 'jpeg', quality: '.98' },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, imageTimeout: 10000000, dpi:96 },
         };
 
         // Use html2pdf to generate the PDF
         // html2pdf().from(res.packing_data).set(options).save();
 
         html2pdf().from(res.packing_data).set(options).toPdf().get('pdf').then(function (pdf) {
+            afterLoad(button, buttonText);
             window.open(pdf.output('bloburl'), '_blank');
         });
-        afterLoad(button, buttonText);
 
         // html2pdf().from(res.packing_data).set({ html2canvas: { scale: 4, useCORS: true } }).save();
         

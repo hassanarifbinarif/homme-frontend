@@ -257,6 +257,11 @@ async function sendNotificationForm(event) {
         errorMsg.innerText = 'Enter valid title';
         return false;
     }
+    else if (!/^[\x00-\xFF]+$/.test(form.querySelector('input[name="title"]').value)) {
+        errorMsg.classList.add('active');
+        errorMsg.innerText = 'Enter only ASCII characters';
+        return false;
+    }
     else if (!data.target_type) {
         errorMsg.classList.add('active');
         errorMsg.innerText = 'Select a target type';
@@ -279,7 +284,7 @@ async function sendNotificationForm(event) {
         errorMsg.innerText = 'Enter notification text';
         return false;
     }
-    else if (!/^[ -~]*$/.test(form.querySelector('textarea[name="text"]').value)) {
+    else if (!/^[\x00-\xFF]+$/.test(form.querySelector('textarea[name="text"]').value)) {
         errorMsg.classList.add('active');
         errorMsg.innerText = 'Enter only ASCII characters';
         return false;

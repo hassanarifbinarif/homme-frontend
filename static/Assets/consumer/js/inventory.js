@@ -174,15 +174,17 @@ async function getPurchaseOrder(event, id) {
         loader.classList.remove('hide');
     
     let response = await requestAPI(`/consumer/get-purchase-order/${id}/`, null, {}, 'GET');
-    response.json().then(function(res) {
+    response.json().then(async function(res) {
+
         var options = {
             filename: 'generated-pdf.pdf',
-            html2canvas: { scale: 4, useCORS: true, scrollY: 0, scrollX: 0 },
+            image: { type: 'jpeg', quality: '.8' },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, imageTimeout: 10000000, dpi:96 },
         };
 
         // html2pdf().from(res.packing_data).set(options).save();
 
-        html2pdf().from(res.purchase_data).set(options).toPdf().get('pdf').then(function (pdf) {
+        html2pdf().from(res.purchase_data).set(options).outputPdf().get('pdf').then(function (pdf) {
             if (loader)
                 loader.classList.add('hide');
             let some = window.open(pdf.output('bloburl'), '_blank');
