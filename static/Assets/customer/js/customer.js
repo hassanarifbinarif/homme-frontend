@@ -1,4 +1,4 @@
-let requiredDataURL = `/admin/user-profiles?user__is_blocked=false&perPage=1000&search=`;
+let requiredDataURL = `/admin/user-profiles?user__is_blocked=false&perPage=1000&search=&ordering=-id`;
 
 window.onload = () => {
     let url = new URL(location.href);

@@ -6,6 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
 from homme.helpers import requestAPI
 from django.conf import settings
+import requests
+import base64
 
 
 
@@ -177,6 +179,16 @@ def get_inventory_list(request):
     return JsonResponse(context)
 
 
+def base64_image_from_url(url):
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        base64_image = base64.b64encode(response.content).decode('utf-8')
+        return base64_image
+    else:
+        return None
+
+
 def get_purchase_order(request, pk):
     context = {}
     context['success'] = False
@@ -185,6 +197,9 @@ def get_purchase_order(request, pk):
         admin_access_token = request.COOKIES.get('admin_access')
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}/admin/inventory/{pk}', headers, {})
+        for obj in response['data']['products']:
+            obj['product']['images'][0]['image'] = base64_image_from_url(obj['product']['images'][0]['image'])
+
         text_template = loader.get_template('email_templates/purchase-order-email.html')
         total_price = 0
         if response['data']['products']:

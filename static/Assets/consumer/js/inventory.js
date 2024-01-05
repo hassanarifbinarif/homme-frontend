@@ -179,7 +179,7 @@ async function getPurchaseOrder(event, id) {
         var options = {
             filename: 'generated-pdf.pdf',
             image: { type: 'jpeg', quality: '.8' },
-            html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, imageTimeout: 10000000, dpi:96 },
+            html2canvas: { scale: 2, useCORS: true, allowTaint:true, scrollY: 0, scrollX: 0, imageTimeout: 10000000, dpi:96 },
         };
 
         // html2pdf().from(res.packing_data).set(options).save();
