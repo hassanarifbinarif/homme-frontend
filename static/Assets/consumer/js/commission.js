@@ -117,11 +117,11 @@ function insertTableBodyRows(data, tableBody) {
         tr.innerHTML = `<td><div><span>${item.order ? item.order.customer_name : 'None'}</span></div></td>
                         <td><div><span class="order-number">${item.order ? item.order.id : '---'}</span></div></td>
                         <td><div><span>${item.order ? item.order.hairstylist : 'None'}</span></div></td>
-                        <td><div><span>$${item.order ? item.order.retail_value : '---'}</span></div></td>
-                        <td><div><span>$${item.order ? item.order.net_sales: '---'}</span></div></td>
+                        <td><div><span>${item.order ? '$' + item.order.retail_value : '---'}</span></div></td>
+                        <td><div><span>${item.order ? '$' + item.order.net_sales : '---'}</span></div></td>
                         <td><div><span>$${item.amount}</span></div></td>
-                        <td><div><span>${captalizeFirstLetter(item.status)}</span></div></td>
-                        <td><div><span>${item.order ? (item.pickup_type == 'self' ? 'Picked-Up' : 'Shipped') : 'None'}</span></div></td>`;
+                        <td><div><span>${item.order ? captalizeFirstLetter(item.order.status) : '---'}</span></div></td>
+                        <td><div><span>${item.order ? (item.order.pickup_type == 'self' ? 'Picked-Up' : 'Shipped') : 'None'}</span></div></td>`;
         tableBody.appendChild(tr);
     })
 }
