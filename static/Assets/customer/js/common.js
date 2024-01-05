@@ -216,7 +216,7 @@ function setParams(params, key, value) {
 
 
 const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i
-const phoneRegex = /^\+[0-9]{11,}$/;
+const phoneRegex = /^\+[0-9]{10,}$/;
 const locationRegex = /POINT \((-?\d+\.\d+) (-?\d+\.\d+)\)/;
 
 let timeOut;

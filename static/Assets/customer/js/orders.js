@@ -52,7 +52,7 @@ async function getData(url=null) {
                 document.getElementById('total-ordered-items').innerHTML = res.order_items || 0;
                 document.getElementById('total-orders-completed').innerHTML = res.completed_orders;
                 document.getElementById('total-open-orders').innerHTML = res.open_orders;
-                document.getElementById('total-order-completion-time').innerHTML = (parseFloat(res.completion_time) / 24) + ' Days';
+                document.getElementById('total-order-completion-time').innerHTML = roundDecimalPlaces(parseFloat(res.completion_time) / 24) + ' Days';
                 convertDateTime();
             }
         })

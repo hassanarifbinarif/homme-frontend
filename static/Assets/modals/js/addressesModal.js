@@ -217,7 +217,7 @@ async function updateAddressesForm(event, id, type) {
         return false;
     }
     else if (data.shipping_zip_code.trim().length != 5) {
-        errorMsg.innerHTML = 'Enter shipping zipcode';
+        errorMsg.innerHTML = 'Please enter a valid shipping zip code';
         errorMsg.classList.add('active');
         return false;
     }
@@ -276,7 +276,7 @@ async function updateAddressesForm(event, id, type) {
             return false;
         }
         else if (data.billing_zip_code.trim().length != 5) {
-            errorMsg.innerHTML = 'Enter billing zipcode';
+            errorMsg.innerHTML = 'Please enter a valid billing zip code';
             errorMsg.classList.add('active');
             return false;
         }
