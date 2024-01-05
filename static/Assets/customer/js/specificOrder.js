@@ -321,7 +321,7 @@ async function generateShippingLabelForm(event) {
                 button.style.pointerEvents = 'none';
                 document.getElementById('refresh-costs-btn').removeAttribute('onclick');
                 form.removeAttribute('onsubmit');
-                let patchOrderResponse = await requestAPI(`${apiURL}/admin/orders/${orderId}`, JSON.stringify({"order_shipping": res.data.id, "status": "delivered"}), headers, 'PATCH');
+                let patchOrderResponse = await requestAPI(`${apiURL}/admin/orders/${orderId}`, JSON.stringify({"order_shipping": res.data.id, "status": "shipped"}), headers, 'PATCH');
                 patchOrderResponse.json().then(function(res) {
                     document.getElementById('resend-email-btn').setAttribute('onclick', `resendEmail(this, '${orderId}')`);
                     if (patchOrderResponse.status == 200) {
