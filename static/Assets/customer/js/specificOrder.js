@@ -1,6 +1,7 @@
 window.onload = () => {
     getNotifications();
     convertDateTime();
+    populateStatesAndCountriesDropdown();
 }
 
 async function printPackingSlip(button, id) {
@@ -64,15 +65,15 @@ function openShippingLabel(base64Image) {
 let generateLabelBtn = document.getElementById('generate-label-btn');
 let userName = null;
 let userPhone = null;
-let userEmail = null;
+// let userEmail = null;
 let generateLabelData = {};
 let orderId = null;
 
-async function openGenerateShippingLabelModal(orderID, firstName, lastName, phone, email, address, city, state, zipcode, simple_rate_size) {
+async function openGenerateShippingLabelModal(orderID, simple_rate_size) {
     orderId = orderID;
-    userName = `${firstName} ${lastName}`;
-    userPhone = phone;
-    userEmail = email;
+    userName = `${customerShippingAddress.first_name} ${customerShippingAddress.last_name}`;
+    userPhone = customerShippingAddress.phone;
+    // userEmail = customerEmail;
     let modal = document.getElementById('orderShippingLabel');
     let errorDiv = document.querySelector('.error-div');
     let errorMsg = document.querySelector('.generate-error-msg');
@@ -89,10 +90,10 @@ async function openGenerateShippingLabelModal(orderID, firstName, lastName, phon
             "Content-Type": 'application/json'
         };
         generateLabelData = {
-            address: address,
-            city: city,
-            state: getStateCode(state),
-            zipcode: zipcode,
+            address: customerShippingAddress.address,
+            city: customerShippingAddress.city,
+            state: getStateCode(customerShippingAddress.state),
+            zipcode: customerShippingAddress.zip_code,
             simple_rate_size: simple_rate_size
         };
         generateLabelLoader.classList.remove('hide');
@@ -114,7 +115,7 @@ async function openGenerateShippingLabelModal(orderID, firstName, lastName, phon
                 document.getElementById('modal-shipping-price-field').innerText = '$' + res.data[0].total_charges.monetary_value;
                 initializeShippingSpeeds();
                 document.getElementById('generate-btn').style.pointerEvents = 'auto';
-                document.getElementById('refresh-costs-btn').setAttribute('onclick', `refreshShippingCosts(this, '${address}', '${city}', '${state}', '${zipcode}');`);
+                document.getElementById('refresh-costs-btn').setAttribute('onclick', `refreshShippingCosts(this, '${customerShippingAddress.address}', '${customerShippingAddress.city}', '${customerShippingAddress.state}', '${customerShippingAddress.zip_code}');`);
                 document.querySelector('.label-error-div').classList.add('hide');
                 document.querySelector('.label-error-msg').classList.remove('active');
                 document.querySelector('.label-error-msg').innerHTML = '';
@@ -131,7 +132,7 @@ async function openGenerateShippingLabelModal(orderID, firstName, lastName, phon
                     document.getElementById('modal-shipping-price-field').innerText = '$0';
                     userName = null;
                     userPhone = null;
-                    userEmail = null;
+                    // userEmail = null;
                     generateLabelData = {};
                     orderID = null;
                 })
@@ -268,7 +269,7 @@ async function generateShippingLabelForm(event) {
     data.zipcode = generateLabelData.zipcode;
     data.to_name = userName;
     data.to_phone = userPhone;
-    data.to_email = userEmail;
+    data.to_email = customerEmail;
 
     if (data.simple_rate_size.toLowerCase() == 'custom') {
         if (data.package_length.trim().length == 0) {
@@ -456,6 +457,7 @@ async function updateCustomerForm(event, id) {
                     form.reset();
                     form.removeAttribute('onsubmit');
 
+                    customerEmail = res.data.user.email;
                     document.getElementById('current-user-email').innerText = res.data.user.email;
                     document.getElementById('current-user-phone').innerText = res.data.user.phone;
                     document.querySelector('#contact-edit-btn').setAttribute('onclick', `openUpdateCustomerModal(${res.data.id}, '${res.data.user.email}', '${res.data.user.phone}')`);

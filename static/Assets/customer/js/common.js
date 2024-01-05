@@ -110,6 +110,10 @@ function getCookieExpirationTime(name) {
     return ca
 }
 
+function setStorage(key, value) {
+    localStorage.setItem(key, value);
+}
+
 const apiURL = window.API_BASE_URL;
 
 async function onRefreshToken() {
@@ -212,7 +216,7 @@ function setParams(params, key, value) {
 
 
 const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i
-const phoneRegex = /^\+[0-9]{12,}$/;
+const phoneRegex = /^\+[0-9]{11,}$/;
 const locationRegex = /POINT \((-?\d+\.\d+) (-?\d+\.\d+)\)/;
 
 let timeOut;

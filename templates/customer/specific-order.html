@@ -157,7 +157,7 @@
                                     <span class="spinner-border spinner-border-sm" style="color: #000093;" role="status" aria-hidden="true">
                                     </span>
                                 </div>
-                                <span class="cursor-pointer label-text" id="generate-label-btn" onclick="openGenerateShippingLabelModal('{{order.id}}', '{{order.shipping_address.first_name}}', '{{order.shipping_address.last_name}}', '{{order.shipping_address.phone}}', '{{order.user_profile.user.email}}', '{{order.shipping_address.address}}', '{{order.shipping_address.city}}', '{{order.shipping_address.state}}', '{{order.shipping_address.zip_code}}', 'S')">GENERATE SHIPPING LABEL</span>
+                                <span class="cursor-pointer label-text" id="generate-label-btn" onclick="openGenerateShippingLabelModal('{{order.id}}', 'S')">GENERATE SHIPPING LABEL</span>
                             </div>
                         </div>
                         <div class="error-div hide" style="position: relative; top: -15px;">
@@ -281,6 +281,7 @@
 
     {{order.shipping_address|json_script:"customer_shipping_address"}}
     {{order.billing_address|json_script:"customer_billing_address"}}
+    {{order.user_profile.user.email|json_script:"customer_email"}}
 
     {% endblock %}
 </body>
@@ -289,6 +290,7 @@
 <script>
     let customerShippingAddress = JSON.parse(document.getElementById('customer_shipping_address').textContent);
     let customerBillingAddress = JSON.parse(document.getElementById('customer_billing_address').textContent);
+    let customerEmail = JSON.parse(document.getElementById('customer_email').textContent);
 </script>
 <script src="{% static 'Assets/customer/js/states.js' %}"></script>
 <script src="{% static 'Assets/customer/js/countries.js' %}"></script>
