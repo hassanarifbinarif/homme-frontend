@@ -25,7 +25,7 @@
                     <div class="order-header">
                         <span>ORDERS</span>
                         <div class="order-filters">
-                            <button id="select-order-channel-btn" style="width: 200px;">
+                            <button data-type="select-order-channel-btn" id="select-order-channel-btn" style="width: 200px;">
                                 <span id="selected-order-channel-opt">ALL SALES CHANNEL</span>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
@@ -55,7 +55,7 @@
                                     </label>
                                 </div>
                             </button>
-                            <button id="select-order-stat-time-btn">
+                            <button data-type="select-order-stat-time-btn" id="select-order-stat-time-btn">
                                 <span id="selected-order-stat-opt">ALL TIME</span>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
@@ -105,7 +105,7 @@
                         </svg>
                         <span>51 Orders to fullfill</span>
                     </div>
-                    <button type="button">FULLFILL ORDERS</button>
+                    <button type="button" onclick="location.pathname = '/orders/'" class="cursor-pointer">FULLFILL ORDERS</button>
                 </div>
                 <div class="chart-wrapper">
                     <div class="chart-btn">
@@ -262,8 +262,8 @@
             <div class="content-col-2">
                 <div class="all-sales-view">
                     <div class="order-filters">
-                        <button>
-                            <span style="padding-left: 10px;">SALES CHANNEL</span>
+                        <button data-type="select-order-channel-btn" id="select-sales-overview-btn" style="width: 184px;">
+                            <span id="selected-sales-channel-opt">SALES CHANNEL</span>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                     <g clip-path="url(#clip0_771_3739)">
@@ -277,141 +277,102 @@
                                     </defs>
                                 </svg>
                             </div>
+                            <div class="order-channel-dropdown hide" id="sales-channel-overview-dropdown">
+                                <label for="overview-homme-channel">
+                                    <span>HOMME</span>
+                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-homme-channel" value="homme" name="sales_channel" />
+                                </label>
+                                <label for="overview-salon-channel">
+                                    <span>SALONS</span>
+                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-salon-channel" value="salon" name="sales_channel" />
+                                </label>
+                                <label for="overview-referrer-channel">
+                                    <span>REFERRERS</span>
+                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-referrer-channel" value="referral" name="sales_channel" />
+                                </label>
+                            </div>
                         </button>
-                        <button>
-                            <span>TODAY</span>
+                        <button data-type="select-order-stat-time-btn" id="select-sales-stat-time-btn" style="width: 184px;">
+                            <span id="selected-sales-stat-opt">ALL TIME</span>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                     <g clip-path="url(#clip0_771_3739)">
-                                      <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
-                                      <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                        <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                        <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
                                     </g>
                                     <defs>
-                                      <clipPath id="clip0_771_3739">
+                                        <clipPath id="clip0_771_3739">
                                         <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
-                                      </clipPath>
+                                        </clipPath>
                                     </defs>
                                 </svg>
                             </div>
+                            <div class="order-stats-dropdown hide" id="sales-overview-dropdown">
+                                <span onclick="selectSalesOverviewTime(event);">TODAY</span>
+                                <span onclick="selectSalesOverviewTime(event);">CURRENT WEEK</span>
+                                <span onclick="selectSalesOverviewTime(event);">LAST WEEK</span>
+                                <span onclick="selectSalesOverviewTime(event);">CURRENT MONTH</span>
+                                <span onclick="selectSalesOverviewTime(event);">LAST MONTH</span>
+                                <span onclick="selectSalesOverviewTime(event);">CURRENT QUARTER</span>
+                                <span onclick="selectSalesOverviewTime(event);">LAST QUARTER</span>
+                                <span onclick="selectSalesOverviewTime(event);">CURRENT YEAR</span>
+                                <span onclick="selectSalesOverviewTime(event);">LAST YEAR</span>
+                                <span onclick="selectSalesOverviewTime(event);">ALL TIME</span>
+                            </div>
                         </button>
                     </div>
-                    <div class="sales-heading">
-                        <h2>TOTAL SALES OVERVIEW</h2>
-                    </div>
-                    <div class="pickup-sales-wrapper">
-                        <div class="pickup-sales-header">
-                            <span>Total Pick-Up Sales</span>
-                            <span>$81,500</span>
+                    
+                    <div class="sales-overview-wrapper">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2 hide" id="sales-overview-loader">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
                         </div>
-                        <div class="pickup-sales">
-                            <div>
-                                <span>Dianne Russell</span>
-                                <span>$27,500</span>
+                        <div class="" id="sales-overview-div">
+                            <div class="sales-heading">
+                                <h2>TOTAL SALES OVERVIEW</h2>
                             </div>
-                            <div>
-                                <span>Jane Cooper</span>
-                                <span>$27,500</span>
+                            <div class="pickup-sales-wrapper">
+                                <div class="pickup-sales-header">
+                                    <span>Total Pick-Up Sales</span>
+                                    <span id="total-pick-up-sales-number">$</span>
+                                </div>
+                                <div class="pickup-sales" id="pickup-sales-list">
+                                </div>
                             </div>
-                            <div>
-                                <span>Cody Fisher</span>
-                                <span>$27,500</span>
+                            <div class="pickup-sales-wrapper">
+                                <div class="pickup-sales-header">
+                                    <span>Total Shipped Sales</span>
+                                </div>
+                                <div class="pickup-sales" id="shipped-sales-list">
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="pickup-sales-wrapper">
-                        <div class="pickup-sales-header">
-                            <span>Total Shipped Sales</span>
-                        </div>
-                        <div class="pickup-sales">
-                            <div>
-                                <span>Dianne Russell</span>
-                                <span>$27,500</span>
+                            <div class="top-products-wrapper">
+                                <div class="top-products-header">
+                                    <span>Top Products</span>
+                                </div>
+                                <div class="top-products">
+                                    <table>
+                                        <tbody id="top-products-table-body">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div>
-                                <span>Jane Cooper</span>
-                                <span>$27,500</span>
+                            <div class="top-referrals-wrapper">
+                                <div class="top-referrals-header">
+                                    <span>Top Referrers</span>
+                                </div>
+                                <div class="top-referrals">
+                                    <table>
+                                        <thead>
+                                            <th>Name</th>
+                                            <th>Referrals(Complete)</th>
+                                            <th> </th>
+                                        </thead>
+                                        <tbody id="top-referrers-table-body">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div>
-                                <span>Cody Fisher</span>
-                                <span>$27,500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="top-products-wrapper">
-                        <div class="top-products-header">
-                            <span>Top Products</span>
-                        </div>
-                        <div class="top-products">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Face Serum</td>
-                                        <td>58 units</td>
-                                        <td>$1,160</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Face Wash</td>
-                                        <td>37 units</td>
-                                        <td>$750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shave Cream</td>
-                                        <td>25 units</td>
-                                        <td>$500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Face Serum</td>
-                                        <td>58 units</td>
-                                        <td>$1,160</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Face Wash</td>
-                                        <td>37 units</td>
-                                        <td>$750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shave Cream</td>
-                                        <td>25 units</td>
-                                        <td>$500</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="top-referrals-wrapper">
-                        <div class="top-referrals-header">
-                            <span>Top Referrers</span>
-                        </div>
-                        <div class="top-referrals">
-                            <table>
-                                <thead>
-                                    <th>Name</th>
-                                    <th>Referrals(Complete)</th>
-                                    <th></th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Jane Cooper</td>
-                                        <td>8(3)</td>
-                                        <td>$70</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cody Fisher</td>
-                                        <td>8(3)</td>
-                                        <td>$70</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wade Warren</td>
-                                        <td>8(3)</td>
-                                        <td>$70</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Leslie Alexander</td>
-                                        <td>8(3)</td>
-                                        <td>$70</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>

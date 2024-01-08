@@ -60,7 +60,7 @@
     border-radius: 6px;
 }
 
-.order-filters > #select-order-stat-time-btn {
+.order-filters > button[data-type="select-order-stat-time-btn"] {
     display: inline-flex;
     position: relative;
     width: 225px;
@@ -74,7 +74,7 @@
     background-color: #FFF;
 }
 
-.order-filters > #select-order-stat-time-btn > span {
+.order-filters > button[data-type="select-order-stat-time-btn"] > span {
     display: flex;
     align-items: center;
     height: 30px;
@@ -91,7 +91,7 @@
     text-transform: uppercase;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown {
+.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown {
     position: absolute;
     top: 33px;
     z-index: 2;
@@ -104,7 +104,7 @@
     height: fit-content;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span {
+.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
@@ -122,11 +122,11 @@
     align-items: center;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span:not(:last-of-type) {
+.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:not(:last-of-type) {
     border-bottom: 1px solid #CECECE;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span:hover {
+.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:hover {
     background: #DDDDDD;
 }
 
@@ -173,7 +173,7 @@
     width: 34px;
 }
 
-.order-filters > #select-order-channel-btn > .order-channel-dropdown {
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown {
     position: absolute;
     top: 33px;
     border: 1px solid #E0E0DD;
@@ -185,14 +185,14 @@
     height: fit-content;
 }
 
-.order-filters > #select-order-channel-btn > .order-channel-dropdown > label {
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0px 5px;
 }
 
-.order-filters > #select-order-channel-btn > .order-channel-dropdown > label > span {
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label > span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
@@ -210,11 +210,11 @@
     align-items: center;
 }
 
-.order-filters > #select-order-channel-btn > .order-channel-dropdown > label:not(:last-of-type) {
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label:not(:last-of-type) {
     border-bottom: 1px solid #CECECE;
 }
 
-/* .order-filters > #select-order-channel-btn > .order-channel-dropdown > label:hover {
+/* .order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label:hover {
     background: #DDDDDD;
 } */
 
@@ -437,7 +437,7 @@
 .content > .content-col-2 {
     min-width: 403px;
     width: 35.3%;
-    height: 832px;
+    min-height: 832px;
     flex-shrink: 0;
 }
 
@@ -451,6 +451,10 @@
 
 .all-sales-view .order-filters {
     margin-bottom: 30px;
+}
+
+.all-sales-view .sales-overview-wrapper {
+    height: 100%;
 }
 
 .all-sales-view .sales-heading {

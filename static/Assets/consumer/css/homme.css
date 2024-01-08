@@ -60,7 +60,7 @@
     border-radius: 6px;
 }
 
-.order-filters > #select-order-stat-time-btn {
+button[data-type="select-order-stat-time-btn"] {
     display: inline-flex;
     position: relative;
     width: 225px;
@@ -74,7 +74,7 @@
     background-color: #FFF;
 }
 
-.order-filters > #select-order-stat-time-btn > span {
+button[data-type="select-order-stat-time-btn"] > span {
     display: flex;
     align-items: center;
     height: 30px;
@@ -91,7 +91,7 @@
     text-transform: uppercase;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown {
     position: absolute;
     top: 33px;
     z-index: 2;
@@ -104,7 +104,7 @@
     height: fit-content;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
@@ -122,11 +122,11 @@
     align-items: center;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span:not(:last-of-type) {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:not(:last-of-type) {
     border-bottom: 1px solid #CECECE;
 }
 
-.order-filters > #select-order-stat-time-btn > .order-stats-dropdown > span:hover {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:hover {
     background: #DDDDDD;
 }
 
@@ -158,7 +158,8 @@
     padding-left: 3px;
 }
 
-.order-filters > button > div {
+.order-filters > button > div,
+.all-sales-view > button > div {
     position: absolute;
     right: 0px;
     width: 38px;
@@ -401,7 +402,7 @@
 .content > .content-col-2 {
     min-width: 403px;
     width: 35.3%;
-    height: 832px;
+    min-height: 832px;
     flex-shrink: 0;
 }
 
@@ -413,7 +414,7 @@
     padding: 20px;
 }
 
-.all-sales-view > button {
+/* .all-sales-view > button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -441,6 +442,16 @@
 .all-sales-view > button > svg {
     position: absolute;
     right: 12px;
+} */
+
+.all-sales-view > button {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 30px;
+}
+
+.all-sales-view .salon-stats-wrapper {
+    height: 100%;
 }
 
 .all-sales-view .sales-heading {

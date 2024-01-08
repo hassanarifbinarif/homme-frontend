@@ -55,7 +55,7 @@
                                     </label>
                                 </div>
                             </button>
-                            <button id="select-order-stat-time-btn">
+                            <button data-type="select-order-stat-time-btn" id="select-order-stat-time-btn">
                                 <span id="selected-order-stat-opt">ALL TIME</span>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
@@ -180,243 +180,56 @@
             </div>
             <div class="content-col-2">
                 <div class="all-sales-view">
-                    <button>
-                        <span>last 7 days</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
-                            <g clip-path="url(#clip0_1379_6602)">
-                                <path d="M14.5 9.31641L7.5 16.8164L0.5 9.31641H14.5Z" fill="#030706"/>
-                                <path d="M14.5 8.25L7.5 0.75L0.5 8.25H14.5Z" fill="#030706"/>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_1379_6602">
-                                    <rect width="14" height="16.5" fill="white" transform="translate(0.5 0.75)"/>
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </button>
-                    <div class="sales-heading">
-                        <h2>SALON OVERVIEW</h2>
-                    </div>
-                    <div class="total-salon">
-                        <span>Total Salons</span>
-                        <span>500</span>
-                    </div>
-                    <div class="stats-overview-wrapper">
-                        <span>New Salons</span>
-                        <div class="stats-overview">
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Redge NYC</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-contact">
-                                    <span>Main Contact:</span>
-                                    <span>Chris Sander</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-number">
-                                    <span>Phone Number:</span>
-                                    <span>+1 212-577-4747</span>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Shortcuts</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-contact">
-                                    <span>Main Contact:</span>
-                                    <span>Albert Flores</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-number">
-                                    <span>Phone Number:</span>
-                                    <span>+1 212-577-4747</span>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Just Curls</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-contact">
-                                    <span>Main Contact:</span>
-                                    <span>Hank Pym</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-number">
-                                    <span>Phone Number:</span>
-                                    <span>+1 212-577-4747</span>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Redge NYC</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-contact">
-                                    <span>Main Contact:</span>
-                                    <span>John Smith</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-number">
-                                    <span>Phone Number:</span>
-                                    <span>+1 212-577-4747</span>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Just Curls</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-contact">
-                                    <span>Main Contact:</span>
-                                    <span>Bruce Willis</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-number">
-                                    <span>Phone Number:</span>
-                                    <span>+1 212-577-4747</span>
-                                </div>
-                            </div>
+                    <button data-type="select-order-stat-time-btn" id="select-salon-stat-time-btn">
+                        <span id="selected-salon-stat-opt">ALL TIME</span>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                <g clip-path="url(#clip0_771_3739)">
+                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_771_3739">
+                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
                         </div>
-                    </div>
-                    <div class="stats-overview-wrapper">
-                        <span>Top Referrers</span>
-                        <div class="stats-overview">
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Redge NYC</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-new-customers">
-                                    <span>New Customers:</span>
-                                    <span>8(2)</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-products-sold">
-                                    <span>Products Sold</span>
-                                    <span>10(2)</span>
+                        <div class="order-stats-dropdown hide" id="salon-stats-dropdown">
+                            <span onclick="selectSalonStatTime(event);">TODAY</span>
+                            <span onclick="selectSalonStatTime(event);">CURRENT WEEK</span>
+                            <span onclick="selectSalonStatTime(event);">LAST WEEK</span>
+                            <span onclick="selectSalonStatTime(event);">CURRENT MONTH</span>
+                            <span onclick="selectSalonStatTime(event);">LAST MONTH</span>
+                            <span onclick="selectSalonStatTime(event);">CURRENT QUARTER</span>
+                            <span onclick="selectSalonStatTime(event);">LAST QUARTER</span>
+                            <span onclick="selectSalonStatTime(event);">CURRENT YEAR</span>
+                            <span onclick="selectSalonStatTime(event);">LAST YEAR</span>
+                            <span onclick="selectSalonStatTime(event);">ALL TIME</span>
+                        </div>
+                    </button>
+
+                    <div class="salon-stats-wrapper">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="salon-stat-loader">
+                            <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                            </span>
+                        </div>
+                        <div class="hide" id="salon-stats">
+                            <div class="sales-heading">
+                                <h2>SALON OVERVIEW</h2>
+                            </div>
+                            <div class="total-salon">
+                                <span>Total Salons</span>
+                                <span id="total-salon-number">500</span>
+                            </div>
+                            <div class="stats-overview-wrapper">
+                                <span>New Salons</span>
+                                <div class="stats-overview" id="salon-stat-list">
                                 </div>
                             </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Shortcuts</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-new-customers">
-                                    <span>New Customers:</span>
-                                    <span>7(5)</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-products-sold">
-                                    <span>Products Sold</span>
-                                    <span>8(3)</span>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Just Curls</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-new-customers">
-                                    <span>New Customers:</span>
-                                    <span>10(3)</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-products-sold">
-                                    <span>Products Sold</span>
-                                    <span>7(6)</span>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Redge NYC</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-new-customers">
-                                    <span>New Customers:</span>
-                                    <span>9(5)</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-products-sold">
-                                    <span>Products Sold</span>
-                                    <span>9(5)</span>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="salon-identity">
-                                    <div class="salon-image">
-                                        <img src="{% static 'Assets/consumer/images/salon_img.svg' %}" alt="salon image" />
-                                    </div>
-                                    <div>
-                                        <span>Salon name:</span>
-                                        <span>Just Curls</span>
-                                    </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-new-customers">
-                                    <span>New Customers:</span>
-                                    <span>8(2)</span>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="salon-products-sold">
-                                    <span>Products Sold</span>
-                                    <span>10(2)</span>
+                            <div class="stats-overview-wrapper">
+                                <span>Top Referrers</span>
+                                <div class="stats-overview" id="referrer-stat-list">
                                 </div>
                             </div>
                         </div>
@@ -429,6 +242,6 @@
     {% endblock %}
 </body>
 {% block scripts %}
-<script src="{% static 'Assets/customer/js/homme.js' %}"></script>
+<script src="{% static 'Assets/consumer/js/consumerHomme.js' %}"></script>
 {% endblock %}
 </html>

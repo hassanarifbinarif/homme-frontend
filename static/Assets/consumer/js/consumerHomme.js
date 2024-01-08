@@ -8,48 +8,24 @@ let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
 let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
 let orderStatsDropdown = document.getElementById('order-stats-dropdown');
 
-let salesChannelOverviewBtn = document.getElementById('select-sales-overview-btn');
-let salesChannelOverviewDropdown = document.getElementById('sales-channel-overview-dropdown');
+let salonStatTimeBtn = document.getElementById('select-salon-stat-time-btn');
+let selectedSalonStatTime = document.getElementById('selected-salon-stat-opt');
+let salonStatsDropdown = document.getElementById('salon-stats-dropdown');
 
-let salesOverviewTimeBtn = document.getElementById('select-sales-stat-time-btn');
-let selectedSalesOverviewTime = document.getElementById('selected-sales-stat-opt');
-let salesOverviewTimeDropdown = document.getElementById('sales-overview-dropdown');
+let salonStatList = document.getElementById('salon-stat-list');
+let referrerStatList = document.getElementById('referrer-stat-list');
+let totalSalonNumber = document.getElementById('total-salon-number');
 
-let pickupSalesList = document.getElementById('pickup-sales-list');
-let shippedSalesList = document.getElementById('shipped-sales-list');
-let topProductsTableBody = document.getElementById('top-products-table-body');
-let topReferrersTableBody = document.getElementById('top-referrers-table-body');
-let totalPickUpSalesNumber = document.getElementById('total-pick-up-sales-number');
 
 let requiredDataURL = `/admin/orders?perPage=8&page=1&ordering=-created_at&created_at__gte=&created_at__lte=&search=`;
-let salesOverviewDataURL = `/admin/dashboard/customer/sales-overview?search=&sales_channel=&created_at__gte=&created_at__lte=`;
+let salonStatsDataURL = `/admin/dashboard/salon/overview?search=&user__created_at__gte=&user__created_at__lte=`;
 
 
 window.onload = () => {
     getNotifications();
     getData(requiredDataURL);
-    getSalesOverviewData();
+    getSalonStatsData();
 }
-
-
-salesChannelBtn.addEventListener('click', function() {
-    if (salesChannelDropdown.classList.contains('hide')) {
-        salesChannelDropdown.classList.remove('hide');
-    }
-    else {
-        salesChannelDropdown.classList.add('hide');
-    }
-})
-
-
-salesChannelOverviewBtn.addEventListener('click', function() {
-    if (salesChannelOverviewDropdown.classList.contains('hide')) {
-        salesChannelOverviewDropdown.classList.remove('hide');
-    }
-    else {
-        salesChannelOverviewDropdown.classList.add('hide');
-    }
-})
 
 
 orderStatTimeBtn.addEventListener('click', function() {
@@ -62,15 +38,24 @@ orderStatTimeBtn.addEventListener('click', function() {
 })
 
 
-salesOverviewTimeBtn.addEventListener('click', function() {
-    if (salesOverviewTimeDropdown.classList.contains('hide')) {
-        salesOverviewTimeDropdown.classList.remove('hide');
+salonStatTimeBtn.addEventListener('click', function() {
+    if (salonStatsDropdown.classList.contains('hide')) {
+        salonStatsDropdown.classList.remove('hide');
     }
     else {
-        salesOverviewTimeDropdown.classList.add('hide');
+        salonStatsDropdown.classList.add('hide');
     }
 })
 
+
+salesChannelBtn.addEventListener('click', function() {
+    if (salesChannelDropdown.classList.contains('hide')) {
+        salesChannelDropdown.classList.remove('hide');
+    }
+    else {
+        salesChannelDropdown.classList.add('hide');
+    }
+})
 
 let selectedSalesChannel = [];
 let salesChannelFilterString = '';
@@ -90,27 +75,6 @@ function selectSalesChannel(inputElement) {
     getData(requiredDataURL);
     salesChannelDropdown.classList.add('hide');
     salesChannelBtn.click();
-}
-
-
-let selectedSalesChannelOverview = [];
-let salesChannelOverviewFilterString = '';
-
-function selectSalesChannelOverview(inputElement) {
-    if (inputElement.checked) {
-        selectedSalesChannelOverview.push(inputElement.value);
-    }
-    else {
-        const index = selectedSalesChannelOverview.indexOf(inputElement.value);
-        if (index !== -1) {
-            selectedSalesChannelOverview.splice(index, 1);
-        }
-    }
-    salesChannelOverviewFilterString = selectedSalesChannelOverview.join(',');
-    salesOverviewDataURL = setParams(salesOverviewDataURL, 'sales_channel', salesChannelOverviewFilterString);
-    getSalesOverviewData();
-    salesChannelOverviewDropdown.classList.add('hide');
-    salesChannelOverviewBtn.click();
 }
 
 
@@ -144,14 +108,11 @@ function closeDropdowns(event) {
     if (!(orderStatTimeBtn.contains(event.target)) && !(orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
-    else if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+    else if (!(salonStatTimeBtn.contains(event.target)) && !(salonStatsDropdown.classList.contains('hide'))) {
+        salonStatsDropdown.classList.add('hide');
+    }
+    if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
         salesChannelDropdown.classList.add('hide');
-    }
-    else if (!(salesChannelOverviewBtn.contains(event.target)) && !(salesChannelOverviewDropdown.contains(event.target))) {
-        salesChannelOverviewDropdown.classList.add('hide');
-    }
-    if (!(salesOverviewTimeBtn.contains(event.target)) && !(salesOverviewTimeDropdown.classList.contains('hide'))) {
-        salesOverviewTimeDropdown.classList.add('hide');
     }
 }
 
@@ -196,116 +157,108 @@ async function getData(url=null) {
 }
 
 
-async function getSalesOverviewData() {
-    let salesOverviewBody = document.getElementById('sales-overview-div');
-    salesOverviewBody.classList.add('hide');
-    document.getElementById('sales-overview-loader').classList.remove('hide');
+async function getSalonStatsData() {
+    let salonStatsBody = document.getElementById('salon-stats');
+    salonStatsBody.classList.add('hide');
+    document.getElementById('salon-stat-loader').classList.remove('hide');
+    // data = url == null ? salonStatsDataURL : url;
     try {
         let token = getCookie('admin_access');
         let headers = {
             "Authorization": `Bearer ${token}`
         };
-        let response = await requestAPI(`${apiURL}${salesOverviewDataURL}`, null, headers, 'GET');
+        let response = await requestAPI(`${apiURL}${salonStatsDataURL}`, null, headers, 'GET');
         response.json().then(function(res) {
-            populatePickedUpSales(response.status, res);
-            populateShippedSales(response.status, res);
-            populateTopProducts(response.status, res);
-            populateTopReferrers(response.status, res);
+            populateSalonStats(response.status, res);
+            populateReferralsStats(response.status, res);
         })        
-        salesOverviewBody.classList.remove('hide');
-        document.getElementById('sales-overview-loader').classList.add('hide');
+        salonStatsBody.classList.remove('hide');
+        document.getElementById('salon-stat-loader').classList.add('hide');
     }
     catch (err) {
-        totalPickUpSalesNumber.innerText = '$' + 0;
-        pickupSalesList.innerHTML = `<div>
-                                        <span class="w-100 text-center">No Pick-Up Sales</span>
+        totalSalonNumber.innerText = 0;
+        salonStatList.innerHTML = `<div class="stat-card">
+                                        <span class="w-100 text-center">No Salons</span>
                                     </div>`;
-        shippedSalesList.innerHTML = `<div>
-                                        <span class="w-100 text-center">No Shipped Sales</span>
+        referrerStatList.innerHTML = `<div class="stat-card">
+                                        <span class="w-100 text-center">No Referrers</span>
                                     </div>`;
-        topProductsTableBody.innerHTML += `<tr colspan="3">
-                                                <td class="no-record-row">No Top Products</td>
-                                            </tr>`;
         
-        salesOverviewBody.classList.remove('hide');
-        document.getElementById('sales-overview-loader').classList.add('hide');
+        salonStatsBody.classList.remove('hide');
+        document.getElementById('salon-stat-loader').classList.add('hide');
         console.log(err);
     }
 }
 
 
-function populatePickedUpSales(status, data) {
-    if (status == 200 && data.pickup_sales.length > 0) {
-        totalPickUpSalesNumber.innerText = '$' + data.total_pickup_sales;
-        pickupSalesList.innerHTML = '';
-        data.pickup_sales.forEach((sale) => {
-            pickupSalesList.innerHTML += `<div>
-                                            <span>${sale.name}</span>
-                                            <span>$${sale.total_sales}</span>
+function populateSalonStats(status, data) {
+    salonStatList.innerHTML = '';
+    if (status == 200 && data.new_salons.length > 0) {
+        totalSalonNumber.innerText = data.salons_count || 0;
+        data.new_salons.forEach((salon) => {
+            salonStatList.innerHTML += `<div class="stat-card">
+                                            <div class="salon-identity">
+                                                <div class="salon-image">
+                                                    <img src="${salon.profile_picture}" alt="salon image" />
+                                                </div>
+                                                <div>
+                                                    <span>Salon name:</span>
+                                                    <span title="${salon.salon_name}">${salon.salon_name}</span>
+                                                </div>
+                                            </div>
+                                            <div class="vr"></div>
+                                            <div class="salon-contact">
+                                                <span>Main Contact:</span>
+                                                <span title="${salon.contact_name}">${salon.contact_name}</span>
+                                            </div>
+                                            <div class="vr"></div>
+                                            <div class="salon-number">
+                                                <span>Phone Number:</span>
+                                                <span>${salon.contact_phone}</span>
+                                            </div>
                                         </div>`;
         })
     }
     else {
-        totalPickUpSalesNumber.innerText = '$' + 0;
-        pickupSalesList.innerHTML = `<div>
-                                        <span class="w-100 text-center">No Pick-Up Sales</span>
+        totalSalonNumber.innerText = 0;
+        salonStatList.innerHTML = `<div class="stat-card">
+                                        <span class="w-100 text-center">No Salons</span>
                                     </div>`;
     }
 }
 
 
-function populateShippedSales(status, data) {
-    if (status == 200 && data.shipping_sales.length > 0) {
-        shippedSalesList.innerHTML = '';
-        data.shipping_sales.forEach((sale) => {
-            shippedSalesList.innerHTML += `<div>
-                                                <span>${sale.name}</span>
-                                                <span>$${sale.total_sales}</span>
+function populateReferralsStats(status, data) {
+    referrerStatList.innerHTML = '';
+    if (status == 200 && data.top_referrals.length > 0) {
+        data.top_referrals.forEach((referral) => {
+            referrerStatList.innerHTML += `<div class="stat-card">
+                                                <div class="salon-identity">
+                                                    <div class="salon-image">
+                                                        <img src="${referral.profile_picture}" alt="salon image" />
+                                                    </div>
+                                                    <div>
+                                                        <span>Salon name:</span>
+                                                        <span title="${referral.salon_name}">${referral.salon_name}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vr"></div>
+                                                <div class="salon-new-customers">
+                                                    <span>New Customers:</span>
+                                                    <span>${referral.customers_count}(${referral.completed_customers_count})</span>
+                                                </div>
+                                                <div class="vr"></div>
+                                                <div class="salon-products-sold">
+                                                    <span>Products Sold</span>
+                                                    <span>${referral.products_sold_count}(${referral.new_customer_products_count})</span>
+                                                </div>
                                             </div>`;
         })
     }
     else {
-        shippedSalesList.innerHTML = `<div>
-                                        <span class="w-100 text-center">No Shipped Sales</span>
+        referrerStatList.innerHTML = `<div class="stat-card">
+                                        <span class="w-100 text-center">No Referrers</span>
                                     </div>`;
-    }
-}
-
-
-function populateTopProducts(status, data) {
-    if (status == 200 && data.top_products.length > 0) {
-        topProductsTableBody.innerHTML = '';
-        data.top_products.forEach((product) => {
-            topProductsTableBody.innerHTML += `<tr>
-                                                    <td>${product.title}</td>
-                                                    <td>${product.quantity} units</td>
-                                                    <td>$${product.total_sales}</td>
-                                                </tr>`;
-        })
-    }
-    else {
-        topProductsTableBody.innerHTML = `<tr>
-                                            <td colspan="3" class="no-record-row">No Top Products</td>
-                                        </tr>`;
-    }
-}
-
-
-function populateTopReferrers(status, data) {
-    if (status == 200 && data.top_referrals.length > 0) {
-        topReferrersTableBody.innerHTML = '';
-        data.top_referrals.forEach((referral) => {
-            topReferrersTableBody.innerHTML += `<tr>
-                                                    <td>${referral.name}</td>
-                                                    <td>${referral.referral_count}(${referral.completed_referral_count})</td>
-                                                    <td>$${referral.total_sales}</td>
-                                                </tr>`;
-        })
-    }
-    else {
-        topReferrersTableBody.innerHTML = `<tr>
-                                                <td colspan="3" class="no-record-row">No Top Referrers</td>
-                                            </tr>`;
     }
 }
 
@@ -411,66 +364,66 @@ function selectOrderStatTime(event) {
 }
 
 
-function selectSalesOverviewTime(event) {
+function selectSalonStatTime(event) {
     let element = event.target;
     let startDate, endDate;
-    if (element.innerText == 'TODAY' && selectedSalesOverviewTime.innerText != element.innerText) {
+    if (element.innerText == 'TODAY' && selectedSalonStatTime.innerText != element.innerText) {
         let today = new Date();
         today.setHours(0, 0, 0, 0);
         const timezoneOffset = today.getTimezoneOffset() * 60000;
         let todayStartingTime = new Date(today.getTime() - timezoneOffset).toISOString();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', todayStartingTime);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', '');
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', todayStartingTime);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', '');
     }
-    else if (element.innerText == 'CURRENT WEEK' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'CURRENT WEEK' && selectedSalonStatTime.innerText != element.innerText) {
         const { startOfWeek, endOfWeek } = getStartOfWeek();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfWeek);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfWeek);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfWeek);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfWeek);
     }
-    else if (element.innerText == 'LAST WEEK' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'LAST WEEK' && selectedSalonStatTime.innerText != element.innerText) {
         const { startOfPreviousWeek, endOfPreviousWeek } = getStartAndEndOfPreviousWeek();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfPreviousWeek);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfPreviousWeek);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfPreviousWeek);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfPreviousWeek);
     }
-    else if (element.innerText == 'CURRENT MONTH' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'CURRENT MONTH' && selectedSalonStatTime.innerText != element.innerText) {
         let today = new Date();
         const { startOfMonth, endOfMonth } = getStartAndEndOfMonth(today);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfMonth);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfMonth);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfMonth);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfMonth);
     }
-    else if (element.innerText == 'LAST MONTH' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'LAST MONTH' && selectedSalonStatTime.innerText != element.innerText) {
         const { startOfLastMonth, endOfLastMonth } = getStartAndEndOfLastMonth();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfLastMonth);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfLastMonth);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfLastMonth);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfLastMonth);
     }
-    else if (element.innerText == 'CURRENT QUARTER' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'CURRENT QUARTER' && selectedSalonStatTime.innerText != element.innerText) {
         const { startOfQuarter, endOfQuarter } = getStartAndEndOfQuarter();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfQuarter);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfQuarter);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfQuarter);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfQuarter);
     }
-    else if (element.innerText == 'LAST QUARTER' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'LAST QUARTER' && selectedSalonStatTime.innerText != element.innerText) {
         const { startOfLastQuarter, endOfLastQuarter } = getStartAndEndOfLastQuarter();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfLastQuarter);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfLastQuarter);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfLastQuarter);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfLastQuarter);
     }
-    else if (element.innerText == 'CURRENT YEAR' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'CURRENT YEAR' && selectedSalonStatTime.innerText != element.innerText) {
         const { startOfYear, endOfYear } = getStartAndEndOfYear();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfYear);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfYear);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfYear);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfYear);
     }
-    else if (element.innerText == 'LAST YEAR' && selectedSalesOverviewTime.innerText != element.innerText) {
+    else if (element.innerText == 'LAST YEAR' && selectedSalonStatTime.innerText != element.innerText) {
         const { startOfLastYear, endOfLastYear } = getStartAndEndOfLastYear();
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', startOfLastYear);
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', endOfLastYear);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', startOfLastYear);
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', endOfLastYear);
     }
-    else if (element.innerText == 'ALL TIME' && selectedSalesOverviewTime.innerText != element.innerText) {
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__gte', '');
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'created_at__lte', '');
+    else if (element.innerText == 'ALL TIME' && selectedSalonStatTime.innerText != element.innerText) {
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__gte', '');
+        salonStatsDataURL = setParams(salonStatsDataURL, 'user__created_at__lte', '');
     }
-    getSalesOverviewData();
-    selectedSalesOverviewTime.innerText = element.innerText;
-    salesOverviewTimeDropdown.classList.add('hide');
-    salesOverviewTimeBtn.click();
+    getSalonStatsData();
+    selectedSalonStatTime.innerText = element.innerText;
+    salonStatsDropdown.classList.add('hide');
+    salonStatTimeBtn.click();
 }
 
 
