@@ -100,7 +100,7 @@
     </thead>
     <tbody>
         {% for obj in orders.data %}
-        <tr onclick="location.pathname = '/specific-order/{{obj.id}}'">
+        <tr onclick="location.href = location.origin + '/specific-order/{{obj.id}}'">
             <td onclick="event.stopPropagation();">
                 <div class="table-checkbox">
                     <input type="checkbox" />
@@ -116,7 +116,7 @@
                     <span class="order-date">{{obj.created_at}}</span>
                 </div>
             </td>
-            <td onclick="event.stopPropagation();location.pathname = '/specific-customer/{{obj.user_profile.id}}'">
+            <td onclick="event.stopPropagation();location.href = location.origin + '/specific-customer/{{obj.user_profile.id}}'">
                 <div>
                     <span title="{{obj.user_profile.first_name|title}} {{obj.user_profile.last_name|title}}" class="table-text-overflow">{% if obj.user_profile.first_name %}{{obj.user_profile.first_name|title}}{% endif %} {% if obj.user_profile.last_name %}{{obj.user_profile.last_name|title}}{% endif %}</span>
                 </div>

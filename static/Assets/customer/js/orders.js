@@ -5,9 +5,13 @@ window.onload = () => {
         requiredDataURL = setParams(requiredDataURL, 'user', userID);
         getData(requiredDataURL);
     }
-    else {
-        getData();
+    let url = new URL(location.href);
+    let search = url.searchParams.get('status');
+    if (search) {
+        requiredDataURL = setParams(requiredDataURL, 'status', search);
+        document.getElementById('selected-order-completion-type').innerText = search.toUpperCase();
     }
+    getData();
     getNotifications();
     populateDropdowns();
 }

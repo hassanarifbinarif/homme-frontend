@@ -582,6 +582,14 @@ function selectSalonStatTime(event) {
 }
 
 
+function openOrdersPage() {
+    let url = location.origin + '/orders/' + location.search;
+    const urlObj = new URL(url);
+    urlObj.searchParams.set('status', 'pickup');
+    location.href = urlObj.toString();
+}
+
+
 // For current week
 
 function getStartOfWeek() {
