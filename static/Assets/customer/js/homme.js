@@ -42,6 +42,7 @@ window.onload = () => {
     populateYearList(20);
     getChartData(salesChannelChartDataURL, 'sales_per_channel');
     getChartData(pickedupVsShippedChartDataURL, 'picked_up_vs_shipped');
+    getSummaryData();
 }
 
 
@@ -288,6 +289,25 @@ async function getChartData(url, type='sales_per_channel') {
         document.getElementById('no-chart-data').classList.remove('hide');
         chartContainer.classList.remove('hide');
         document.getElementById('chart-loader').classList.add('hide');
+        console.log(err);
+    }
+}
+
+
+async function getSummaryData() {
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}/admin/orders/summary`, null, headers, 'GET');
+        if (response.status == 200) {
+            response.json().then(function(res) {
+                document.getElementById('fulfill-quantity').innerText = res.total_pending_shipping;
+            })
+        }
+    }
+    catch (err) {
         console.log(err);
     }
 }

@@ -34,6 +34,7 @@ window.onload = () => {
     getSalonStatsData();
     getChartData();
     populateYearList(20);
+    getSummaryData();
 }
 
 
@@ -238,6 +239,25 @@ async function getChartData() {
         document.getElementById('no-chart-data').classList.remove('hide');
         netSalesChart.classList.remove('hide');
         document.getElementById('chart-loader').classList.add('hide');
+        console.log(err);
+    }
+}
+
+
+async function getSummaryData() {
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}/admin/orders/summary`, null, headers, 'GET');
+        if (response.status == 200) {
+            response.json().then(function(res) {
+                document.getElementById('pickup-quantity').innerText = res.total_pending_pickups;
+            })
+        }
+    }
+    catch (err) {
         console.log(err);
     }
 }
