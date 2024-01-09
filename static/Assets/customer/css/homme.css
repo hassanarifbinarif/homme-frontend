@@ -91,7 +91,7 @@
     text-transform: uppercase;
 }
 
-.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown {
     position: absolute;
     top: 33px;
     z-index: 2;
@@ -104,7 +104,7 @@
     height: fit-content;
 }
 
-.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
@@ -122,11 +122,11 @@
     align-items: center;
 }
 
-.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:not(:last-of-type) {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:not(:last-of-type) {
     border-bottom: 1px solid #CECECE;
 }
 
-.order-filters > button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:hover {
+button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:hover {
     background: #DDDDDD;
 }
 
@@ -440,6 +440,31 @@
 
 .chart-wrapper > .chart-btn > button:last-of-type {
     width: 100px;
+    padding: 0px;
+}
+
+.chart-wrapper > .chart-btn > button:last-of-type > span {
+    padding-left: 14px;
+}
+
+.chart-wrapper > .chart-btn > button:last-of-type > div:first-of-type {
+    width: 14px;
+    margin-right: 10px;
+}
+
+.chart-wrapper #select-year-dropdown {
+    top: 40px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.chart-wrapper #select-year-dropdown > span {
+    font-size: .75rem;
+    padding: 10px 0px;
+}
+
+.chart-wrapper .chart {
+    height: 271px;
 }
 
 .content > .content-col-2 {

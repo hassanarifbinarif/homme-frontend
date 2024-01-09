@@ -377,13 +377,14 @@ function salonNetSalesChart(res) {
             ]
         },
         options: {
+            devicePixelRatio: 2,
             responsive: true,
             maintainAspectRatio: false,
             ticks: {
                 font: {
                     size: 12,
                     family: 'Gotham Book',
-                    weight: '500'
+                    weight: 500
                 }
             },
             barThickness: 25,

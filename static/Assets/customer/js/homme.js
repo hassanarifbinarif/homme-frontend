@@ -1,8 +1,16 @@
 let salesChannelBtn = document.getElementById('select-order-channel-btn');
 let salesChannelDropdown = document.getElementById('order-channel-dropdown');
 
+let chartContainer = document.getElementById('chart-container');
+let salesPerChannelChart = document.getElementById('sales-per-channel-chart');
+let pickedupVsShippedSalesChart = document.getElementById('picked-vs-shipped-sales-chart');
+
 let chartTypeBtn = document.getElementById('chart-type-btn');
 let chartTypeDropdown = document.getElementById('chart-type-dropdown');
+
+let selectYearBtn = document.getElementById('select-year-btn');
+let selectedYearText = document.getElementById('selected-year');
+let selectYearDropdown = document.getElementById('select-year-dropdown');
 
 let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
 let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
@@ -23,12 +31,17 @@ let totalPickUpSalesNumber = document.getElementById('total-pick-up-sales-number
 
 let requiredDataURL = `/admin/orders?perPage=8&page=1&ordering=-created_at&created_at__gte=&created_at__lte=&search=`;
 let salesOverviewDataURL = `/admin/dashboard/customer/sales-overview?search=&sales_channel=&created_at__gte=&created_at__lte=`;
+let salesChannelChartDataURL = `/admin/dashboard/customer/net-sales-graph-by-sales-channel?search=&year=${getLastNYears()}`;
+let pickedupVsShippedChartDataURL = `/admin/dashboard/customer/net-sales-graph?search=&year=${getLastNYears()}`;
 
 
 window.onload = () => {
     getNotifications();
     getData(requiredDataURL);
     getSalesOverviewData();
+    populateYearList(20);
+    getChartData(salesChannelChartDataURL, 'sales_per_channel');
+    getChartData(pickedupVsShippedChartDataURL, 'picked_up_vs_shipped');
 }
 
 
@@ -68,6 +81,16 @@ salesOverviewTimeBtn.addEventListener('click', function() {
     }
     else {
         salesOverviewTimeDropdown.classList.add('hide');
+    }
+})
+
+
+selectYearBtn.addEventListener('click', function() {
+    if (selectYearDropdown.classList.contains('hide')) {
+        selectYearDropdown.classList.remove('hide');
+    }
+    else {
+        selectYearDropdown.classList.add('hide');
     }
 })
 
@@ -128,13 +151,13 @@ if (chartTypeBtn) {
 function selectChartType(event) {
     let element = event.target;
     if (element.getAttribute('data-value') == 'sales') {
-        document.getElementById('pick-ship-chart').classList.add('hide');
-        document.getElementById('channel-chart').classList.remove('hide');
+        pickedupVsShippedSalesChart.classList.add('hide');
+        salesPerChannelChart.classList.remove('hide');
         document.getElementById('selected-chart-type').innerText = 'Sales Per Channel';
     }
     else if (element.getAttribute('data-value') == 'pick_ship') {
-        document.getElementById('channel-chart').classList.add('hide');
-        document.getElementById('pick-ship-chart').classList.remove('hide');
+        salesPerChannelChart.classList.add('hide');
+        pickedupVsShippedSalesChart.classList.remove('hide');
         document.getElementById('selected-chart-type').innerText = 'Picked-up VS Shipped';
     }
 }
@@ -152,6 +175,12 @@ function closeDropdowns(event) {
     }
     if (!(salesOverviewTimeBtn.contains(event.target)) && !(salesOverviewTimeDropdown.classList.contains('hide'))) {
         salesOverviewTimeDropdown.classList.add('hide');
+    }
+    if (!(chartTypeBtn.contains(event.target)) && !(chartTypeDropdown.classList.contains('hide'))) {
+        chartTypeDropdown.classList.add('hide');
+    }
+    if (!(selectYearBtn.contains(event.target)) && !(selectYearDropdown.classList.contains('hide'))) {
+        selectYearDropdown.classList.add('hide');
     }
 }
 
@@ -229,6 +258,36 @@ async function getSalesOverviewData() {
         
         salesOverviewBody.classList.remove('hide');
         document.getElementById('sales-overview-loader').classList.add('hide');
+        console.log(err);
+    }
+}
+
+
+async function getChartData(url, type='sales_per_channel') {
+    chartContainer.classList.add('hide');
+    document.getElementById('chart-loader').classList.remove('hide');
+    document.getElementById('no-chart-data').classList.add('hide');
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}${url}`, null, headers, 'GET');
+        if (response.status == 200) {
+            response.json().then(function(res) {
+                type == 'sales_per_channel' ? drawSalesPerChannelChart(res) : drawPickedupVsShippedSalesChart(res);
+            })
+        }
+        else {
+            document.getElementById('no-chart-data').classList.remove('hide');
+        }
+        chartContainer.classList.remove('hide');
+        document.getElementById('chart-loader').classList.add('hide');
+    }
+    catch (err) {
+        document.getElementById('no-chart-data').classList.remove('hide');
+        chartContainer.classList.remove('hide');
+        document.getElementById('chart-loader').classList.add('hide');
         console.log(err);
     }
 }
@@ -343,6 +402,204 @@ function generatePages(currentPage, totalPages) {
             let page = span.innerText;
             let pageUrl = setParams(requiredDataURL, 'page', page);
             span.setAttribute("onclick", `getData('${pageUrl}')`);
+        }
+    })
+}
+
+
+function populateYearList(n=0) {
+    let yearList = getLastNYears(n);
+    yearList.forEach((year) => {
+        selectYearDropdown.innerHTML += `<span onclick="selectDataYear(event);">${year}</span>`;
+    })
+}
+
+
+function selectDataYear(event) {
+    let year = event.target.innerText;
+    salesChannelChartDataURL = setParams(salesChannelChartDataURL, 'year', year);
+    pickedupVsShippedChartDataURL = setParams(pickedupVsShippedChartDataURL, 'year', year);
+    selectedYearText.innerText = year;
+    if (typeof salesPerChannelStackedChart == 'object')
+        salesPerChannelStackedChart.destroy();
+    if (typeof pickedupVsShippedStackedChart == 'object')
+        pickedupVsShippedStackedChart.destroy();
+    
+    getChartData(salesChannelChartDataURL, 'sales_per_channel');
+    getChartData(pickedupVsShippedChartDataURL, 'picked_up_vs_shipped');
+}
+
+
+let salesPerChannelStackedChart;
+let pickedupVsShippedStackedChart;
+
+function drawSalesPerChannelChart(res) {
+    let stackedChartElement = document.getElementById('sales-per-channel-chart');
+    salesPerChannelStackedChart = new Chart(stackedChartElement, {
+        type: 'bar',
+        data: {
+            labels: res.labels,
+            datasets: [
+                {
+                    label: 'Salons',
+                    data: res.data_salon,
+                    backgroundColor: '#000093',
+                    borderWidth: 0
+                },
+                {
+                    label: 'HOMME',
+                    data: res.data_homme,
+                    backgroundColor: '#000000',
+                    borderWidth: 0
+                },
+                {
+                    label: 'Referrals',
+                    data: res.data_referral,
+                    backgroundColor: '#CF0000',
+                    borderWidth: 0
+                },
+            ]
+        },
+        options: {
+            devicePixelRatio: 2,
+            responsive: true,
+            maintainAspectRatio: false,
+            ticks: {
+                font: {
+                    size: 12,
+                    family: 'Gotham Book',
+                    weight: 500
+                }
+            },
+            barThickness: 25,
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    beginAtZero: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: true
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        pointStyleWidth: 11,
+                        boxHeight: 8,
+                        font: {
+                            size: 12,
+                            family: 'Gotham Book',
+                            weight: '500'
+                        },
+                        color: '#000000'
+                    },
+                }
+            }
+        }
+    })
+}
+
+
+function drawPickedupVsShippedSalesChart(res) {
+    let stackedChartElement = document.getElementById('picked-vs-shipped-sales-chart');
+    pickedupVsShippedStackedChart = new Chart(stackedChartElement, {
+        type: 'bar',
+        data: {
+            labels: res.labels,
+            datasets: [
+                {
+                    label: 'Shipped',
+                    data: res.data_ship,
+                    backgroundColor: '#000000',
+                    borderWidth: 0
+                },
+                {
+                    label: 'Pick-Ups',
+                    data: res.data_self,
+                    backgroundColor: '#000093',
+                    borderWidth: 0
+                }
+            ]
+        },
+        options: {
+            devicePixelRatio: 2,
+            responsive: true,
+            maintainAspectRatio: false,
+            ticks: {
+                font: {
+                    size: 12,
+                    family: 'Gotham Book',
+                    weight: 500
+                }
+            },
+            barThickness: 25,
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    beginAtZero: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: true
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        pointStyleWidth: 11,
+                        boxHeight: 8,
+                        font: {
+                            size: 12,
+                            family: 'Gotham Book',
+                            weight: '500'
+                        },
+                        color: '#000000'
+                    },
+                }
+            }
         }
     })
 }
@@ -741,4 +998,16 @@ function convertDateTime() {
 
         dateTime.textContent = result;
     })
+}
+
+
+function getLastNYears(n=0) {
+    const currentYear = new Date().getFullYear();
+    let lastNYears = [];
+
+    for (let i = currentYear; i >= currentYear - n; i--) {
+        lastNYears.push(i);
+    }
+
+    return lastNYears;
 }
