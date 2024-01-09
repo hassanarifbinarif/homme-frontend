@@ -144,10 +144,10 @@ function closeDropdowns(event) {
     if (!(orderStatTimeBtn.contains(event.target)) && !(orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
-    else if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+    if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
         salesChannelDropdown.classList.add('hide');
     }
-    else if (!(salesChannelOverviewBtn.contains(event.target)) && !(salesChannelOverviewDropdown.contains(event.target))) {
+    if (!(salesChannelOverviewBtn.contains(event.target)) && !(salesChannelOverviewDropdown.contains(event.target))) {
         salesChannelOverviewDropdown.classList.add('hide');
     }
     if (!(salesOverviewTimeBtn.contains(event.target)) && !(salesOverviewTimeDropdown.classList.contains('hide'))) {
@@ -469,6 +469,7 @@ function selectSalesOverviewTime(event) {
     }
     getSalesOverviewData();
     selectedSalesOverviewTime.innerText = element.innerText;
+    selectedSalesOverviewTime.title = element.innerText;
     salesOverviewTimeDropdown.classList.add('hide');
     salesOverviewTimeBtn.click();
 }

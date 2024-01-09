@@ -16,15 +16,24 @@ let salonStatList = document.getElementById('salon-stat-list');
 let referrerStatList = document.getElementById('referrer-stat-list');
 let totalSalonNumber = document.getElementById('total-salon-number');
 
+let netSalesChart = document.getElementById('net-sales-chart');
+
+let selectYearBtn = document.getElementById('select-year-btn');
+let selectedYearText = document.getElementById('selected-year');
+let selectYearDropdown = document.getElementById('select-year-dropdown');
+
 
 let requiredDataURL = `/admin/orders?perPage=8&page=1&ordering=-created_at&created_at__gte=&created_at__lte=&search=`;
 let salonStatsDataURL = `/admin/dashboard/salon/overview?search=&user__created_at__gte=&user__created_at__lte=`;
+let salonChartDataURL = `/admin/dashboard/salon/net-sales-graph?search=&year=${getLastNYears()}`;
 
 
 window.onload = () => {
     getNotifications();
     getData(requiredDataURL);
     getSalonStatsData();
+    getChartData();
+    populateYearList(20);
 }
 
 
@@ -56,6 +65,17 @@ salesChannelBtn.addEventListener('click', function() {
         salesChannelDropdown.classList.add('hide');
     }
 })
+
+
+selectYearBtn.addEventListener('click', function() {
+    if (selectYearDropdown.classList.contains('hide')) {
+        selectYearDropdown.classList.remove('hide');
+    }
+    else {
+        selectYearDropdown.classList.add('hide');
+    }
+})
+
 
 let selectedSalesChannel = [];
 let salesChannelFilterString = '';
@@ -108,11 +128,14 @@ function closeDropdowns(event) {
     if (!(orderStatTimeBtn.contains(event.target)) && !(orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
-    else if (!(salonStatTimeBtn.contains(event.target)) && !(salonStatsDropdown.classList.contains('hide'))) {
+    if (!(salonStatTimeBtn.contains(event.target)) && !(salonStatsDropdown.classList.contains('hide'))) {
         salonStatsDropdown.classList.add('hide');
     }
     if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
         salesChannelDropdown.classList.add('hide');
+    }
+    if (!(selectYearBtn.contains(event.target)) && !(selectYearDropdown.classList.contains('hide'))) {
+        selectYearDropdown.classList.add('hide');
     }
 }
 
@@ -161,7 +184,6 @@ async function getSalonStatsData() {
     let salonStatsBody = document.getElementById('salon-stats');
     salonStatsBody.classList.add('hide');
     document.getElementById('salon-stat-loader').classList.remove('hide');
-    // data = url == null ? salonStatsDataURL : url;
     try {
         let token = getCookie('admin_access');
         let headers = {
@@ -186,6 +208,36 @@ async function getSalonStatsData() {
         
         salonStatsBody.classList.remove('hide');
         document.getElementById('salon-stat-loader').classList.add('hide');
+        console.log(err);
+    }
+}
+
+
+async function getChartData() {
+    netSalesChart.classList.add('hide');
+    document.getElementById('chart-loader').classList.remove('hide');
+    document.getElementById('no-chart-data').classList.add('hide');
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}${salonChartDataURL}`, null, headers, 'GET');
+        if (response.status == 200) {
+            response.json().then(function(res) {
+                salonNetSalesChart(res);
+            })
+        }
+        else {
+            document.getElementById('no-chart-data').classList.remove('hide');
+        }
+        netSalesChart.classList.remove('hide');
+        document.getElementById('chart-loader').classList.add('hide');
+    }
+    catch (err) {
+        document.getElementById('no-chart-data').classList.remove('hide');
+        netSalesChart.classList.remove('hide');
+        document.getElementById('chart-loader').classList.add('hide');
         console.log(err);
     }
 }
@@ -298,6 +350,108 @@ function generatePages(currentPage, totalPages) {
             span.setAttribute("onclick", `getData('${pageUrl}')`);
         }
     })
+}
+
+
+let stackedChart;
+
+function salonNetSalesChart(res) {
+    let stackedChartElement = document.getElementById('net-sales-chart');
+    stackedChart = new Chart(stackedChartElement, {
+        type: 'bar',
+        data: {
+            labels: res.labels,
+            datasets: [
+                {
+                    label: 'Shipped',
+                    data: res.data_ship,
+                    backgroundColor: '#000000',
+                    borderWidth: 0
+                },
+                {
+                    label: 'Pick-Ups',
+                    data: res.data_self,
+                    backgroundColor: '#000093',
+                    borderWidth: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            ticks: {
+                font: {
+                    size: 12,
+                    family: 'Gotham Book',
+                    weight: '500'
+                }
+            },
+            barThickness: 25,
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    beginAtZero: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: true
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        pointStyleWidth: 11,
+                        boxHeight: 8,
+                        font: {
+                            size: 12,
+                            family: 'Gotham Book',
+                            weight: '500'
+                        },
+                        color: '#000000'
+                    },
+                }
+            }
+        }
+    })
+}
+
+
+function populateYearList(n=0) {
+    let yearList = getLastNYears(n);
+    yearList.forEach((year) => {
+        selectYearDropdown.innerHTML += `<span onclick="selectDataYear(event);">${year}</span>`;
+    })
+}
+
+
+function selectDataYear(event) {
+    let year = event.target.innerText;
+    salonChartDataURL = setParams(salonChartDataURL, 'year', year);
+    selectedYearText.innerText = year;
+    if (typeof stackedChart == 'object')
+        stackedChart.destroy();
+    getChartData();
 }
 
 
@@ -693,4 +847,16 @@ function convertDateTime() {
 
         dateTime.textContent = result;
     })
+}
+
+
+function getLastNYears(n=0) {
+    const currentYear = new Date().getFullYear();
+    let lastNYears = [];
+
+    for (let i = currentYear; i >= currentYear - n; i--) {
+        lastNYears.push(i);
+    }
+
+    return lastNYears;
 }

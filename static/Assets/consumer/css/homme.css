@@ -342,7 +342,7 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
 }
 
 .chart-wrapper {
-    padding: 20px 20px 13px 20px;
+    padding: 20px 20px 0px 20px;
     background-color: #FFF;
     border: 1px solid #E0E0DD;
     border-radius: 6px;
@@ -375,7 +375,7 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
-    padding: 14px 18px;
+    /* padding: 14px 18px; */
     border: .8px solid #515254;
     border-radius: 8px;
     background-color: #FFF;
@@ -389,10 +389,27 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     font-weight: 500;
     line-height: normal;
     height: 18px;
+    padding-left: 14px;
 }
 
 .chart-wrapper > .chart-btn > button:last-of-type {
     width: 100px;
+}
+
+.chart-wrapper > .chart-btn > button:last-of-type > div:first-of-type {
+    width: 14px;
+    margin-right: 10px;
+}
+
+.chart-wrapper #select-year-dropdown {
+    top: 40px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.chart-wrapper #select-year-dropdown > span {
+    font-size: .75rem;
+    padding: 10px 0px;
 }
 
 .chart-wrapper > .chart {
@@ -404,6 +421,7 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     width: 35.3%;
     min-height: 832px;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 .all-sales-view {

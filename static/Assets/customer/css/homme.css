@@ -158,6 +158,14 @@
     padding-left: 3px;
 }
 
+.order-filters > button:last-of-type > span {
+    padding-left: calc(6%);
+    padding-right: calc(14%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .order-filters > button > div {
     position: absolute;
     right: 0px;
@@ -439,6 +447,7 @@
     width: 35.3%;
     min-height: 832px;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 .all-sales-view {
@@ -451,6 +460,16 @@
 
 .all-sales-view .order-filters {
     margin-bottom: 30px;
+}
+
+.all-sales-view .order-filters > button {
+    width: calc(50% - 10px);
+}
+
+.all-sales-view .order-filters > button:first-of-type > span {
+    justify-content: center;
+    padding-right: 23px;
+    padding-left: 0px;
 }
 
 .all-sales-view .sales-overview-wrapper {
