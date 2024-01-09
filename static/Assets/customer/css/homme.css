@@ -577,6 +577,10 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     letter-spacing: 1.2px;
 }
 
+.pickup-sales > div span:first-of-type {
+    width: calc(100% - 65px);
+}
+
 .top-products-wrapper {
     display: flex;
     flex-direction: column;
@@ -603,6 +607,7 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
 
 .top-products > table {
     width: 100%;
+    table-layout: fixed;
 }
 
 .top-products > table tbody tr {
@@ -678,6 +683,7 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
 
 .top-referrals > table {
     width: 100%;
+    table-layout: fixed;
 }
 
 .top-referrals > table thead {
@@ -690,9 +696,12 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     font-family: Gotham Medium;
     font-size: .75rem;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
     letter-spacing: 1.2px;
+}
+
+.top-referrals > table thead th {
+    font-weight: 500;
 }
 
 .top-referrals > table tbody tr {

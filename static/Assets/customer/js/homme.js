@@ -299,7 +299,7 @@ function populatePickedUpSales(status, data) {
         pickupSalesList.innerHTML = '';
         data.pickup_sales.forEach((sale) => {
             pickupSalesList.innerHTML += `<div>
-                                            <span>${sale.name}</span>
+                                            <span class="table-text-overflow" title="${sale.name}">${sale.name}</span>
                                             <span>$${sale.total_sales}</span>
                                         </div>`;
         })
@@ -318,7 +318,7 @@ function populateShippedSales(status, data) {
         shippedSalesList.innerHTML = '';
         data.shipping_sales.forEach((sale) => {
             shippedSalesList.innerHTML += `<div>
-                                                <span>${sale.name}</span>
+                                                <span class="table-text-overflow" title="${sale.name}">${sale.name}</span>
                                                 <span>$${sale.total_sales}</span>
                                             </div>`;
         })
@@ -336,9 +336,9 @@ function populateTopProducts(status, data) {
         topProductsTableBody.innerHTML = '';
         data.top_products.forEach((product) => {
             topProductsTableBody.innerHTML += `<tr>
-                                                    <td>${product.title}</td>
-                                                    <td>${product.quantity} units</td>
-                                                    <td>$${product.total_sales}</td>
+                                                    <td width="44.5%" class="table-text-overflow" title="${product.title}">${product.title}</td>
+                                                    <td width="33.8%" class="table-text-overflow" title="${product.quantity} units">${product.quantity} units</td>
+                                                    <td width="21.6%" class="table-text-overflow" title="$${product.total_sales}">$${product.total_sales}</td>
                                                 </tr>`;
         })
     }
@@ -355,9 +355,9 @@ function populateTopReferrers(status, data) {
         topReferrersTableBody.innerHTML = '';
         data.top_referrals.forEach((referral) => {
             topReferrersTableBody.innerHTML += `<tr>
-                                                    <td>${referral.name}</td>
-                                                    <td>${referral.referral_count}(${referral.completed_referral_count})</td>
-                                                    <td>$${referral.total_sales}</td>
+                                                    <td class="table-text-overflow" title="${referral.name}">${referral.name}</td>
+                                                    <td class="table-text-overflow" title="${referral.referral_count}(${referral.completed_referral_count})">${referral.referral_count}(${referral.completed_referral_count})</td>
+                                                    <td class="table-text-overflow" title="$${referral.total_sales}">$${referral.total_sales}</td>
                                                 </tr>`;
         })
     }
