@@ -220,58 +220,28 @@
                         </div>
                         <div class="timeline-body">
                             <ul class="comment-section">
-                                <li >
-                                    <div class="comment-area">
-                                        <textarea name="staff_comment" placeholder="Leave a comment....." id="" cols="30" rows="10"></textarea>
-                                    </div>
+                                <li>
+                                    <form class="comment-area" id="comment-form" onsubmit="commentForm(event);">
+                                        <textarea name="comment" placeholder="Leave a comment....." id="comment-textarea" maxlength="160" cols="30" rows="10"></textarea>
+                                    </form>
+                                    <small style="text-align: left;" class="comment-error-msg input-error-msg"></small>
                                     <div class="post-area">
                                         <span>Only you and other staff can see comments</span>
-                                        <button type="button">POST</button>
+                                        <button type="submit" form="comment-form" id="comment-post-btn">
+                                            <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                                            <span class="btn-text">POST</span>
+                                        </button>
                                     </div>
                                 </li>
                             </ul>
-                            <div class="comments-wrapper" id="comments-wrapper">
-                                <ul class="timeline see">
-                                    <p>March 24</p>
-                                    <li>
-                                        <div>
-                                            <span>Shipment delivered email for order #1256 sent to this customer</span>
-                                            <span>(johnsmith123@gmail.com)</span>
-                                        </div>
-                                        <div class="comment-time">3:45 AM</div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <span>Shipment delivered email for order #1256 sent to this customer</span>
-                                            <span>(johnsmith123@gmail.com)</span>
-                                        </div>
-                                        <div class="comment-time">3:45 AM</div>
-                                    </li>
-                                </ul>
-                                <ul class="timeline see">
-                                    <p>March 24</p>
-                                    <li>
-                                        <div>
-                                            <span>Shipment delivered email for order #1256 sent to this customer</span>
-                                            <span>(johnsmith123@gmail.com)</span>
-                                        </div>
-                                        <div class="comment-time">3:45 AM</div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <span>Shipment delivered email for order #1256 sent to this customer</span>
-                                            <span>(johnsmith123@gmail.com)</span>
-                                        </div>
-                                        <div class="comment-time">3:45 AM</div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <span>Shipment delivered email for order #1256 sent to this customer</span>
-                                            <span>(johnsmith123@gmail.com)</span>
-                                        </div>
-                                        <div class="comment-time">3:45 AM</div>
-                                    </li>
-                                </ul>
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="comment-loader">
+                                <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                            <div id="no-comment-div" class="w-100 h-100 d-flex justify-content-center align-items-center hide">
+                                <span class="no-comment-text">No Comment</span>
+                            </div>
+                            <div class="comments-wrapper hide" id="comments-wrapper">
                             </div>
                         </div>
                     </div>
@@ -395,12 +365,15 @@
 
     {% include '../modals/addresses-modal.html' %}
 
+    {{customer.id|json_script:"specific_cust_id"}}
+
     {% endblock %}
 </body>
 {% block scripts %}
 <script>
     let customerShippingAddress = JSON.parse(document.getElementById('customer_shipping_address').textContent);
     let customerBillingAddress = JSON.parse(document.getElementById('customer_billing_address').textContent);
+    const specific_cust_id = JSON.parse(document.getElementById('specific_cust_id').textContent);
 </script>
 <script src="{% static 'Assets/customer/js/states.js' %}"></script>
 <script src="{% static 'Assets/customer/js/countries.js' %}"></script>

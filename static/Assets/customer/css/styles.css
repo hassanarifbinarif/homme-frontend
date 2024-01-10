@@ -102,6 +102,14 @@ button {
     font-family: Gotham Medium;
 }
 
+.no-comment-text {
+    text-align: center!important;
+    font-size: .875rem!important;
+    color: #000000!important;
+    font-weight: 500!important;
+    font-family: Gotham Medium;
+}
+
 .opacity-point-3-5 {
     opacity: .35;
 }

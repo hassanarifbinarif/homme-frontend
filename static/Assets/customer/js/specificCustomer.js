@@ -1,6 +1,14 @@
 let commentsWrapper = document.getElementById('comments-wrapper');
 let showCommentsCheckbox = document.getElementById('comment-checkbox');
 
+let commentWrapper = document.getElementById('comments-wrapper');
+let commentLoader = document.getElementById('comment-loader');
+let noCommentDiv = document.getElementById('no-comment-div');
+let allCommentData = [];
+
+let timelineDataURL = `/admin/users/activities?ordering=-created_at&user=${specific_cust_id}&perPage=1000`;
+
+
 showCommentsCheckbox.addEventListener('change', function() {
     if (this.checked) {
         commentsWrapper.classList.remove('hide');
@@ -16,6 +24,185 @@ window.onload = () => {
     getRelativeTime(document.getElementById('customer-joining-time').getAttribute('data-value'));
     populateSalonDropdown();
     populateStatesAndCountriesDropdown();
+    getTimelineData();
+}
+
+
+async function getTimelineData() {
+    commentLoader.classList.remove('hide');
+    commentWrapper.classList.add('hide');
+    noCommentDiv.classList.add('hide');
+
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}${timelineDataURL}`, null, headers, 'GET');
+        response.json().then(function(res) {
+            
+            if (response.status == 200 && res.data.length > 0) {
+                allCommentData = [...res.data];
+                populateTimeline(res.data);
+                commentLoader.classList.add('hide');
+                commentWrapper.classList.remove('hide');
+                noCommentDiv.classList.add('hide');
+            }
+            else {
+                commentLoader.classList.add('hide');
+                noCommentDiv.classList.remove('hide');
+            }
+        })
+    }
+    catch (err) {
+        commentLoader.classList.add('hide');
+        noCommentDiv.classList.remove('hide');
+        console.log(err);
+    }
+}
+
+
+
+
+
+let groupedComments = {}
+
+function populateTimeline(data) {
+    groupedComments = groupCommentsByDate(data);
+    commentWrapper.innerHTML = '';
+
+    for (const [date, comments] of Object.entries(groupedComments)) {
+        const ul = document.createElement("ul");
+        ul.classList.add('timeline', 'see');
+
+        let dateParagraph = document.createElement("p");
+        dateParagraph.textContent = getCommentMonthAndDate(date);
+        ul.appendChild(dateParagraph);
+
+        let commentDiv = document.createElement('div');
+        ul.appendChild(commentDiv);
+        commentWrapper.appendChild(ul);
+
+        comments.forEach(commentData => {
+            commentDiv.insertAdjacentHTML('beforeend', `<li>
+                                                            <div>
+                                                                <pre>${commentData.message}</pre>
+                                                            </div>
+                                                            <div class="comment-time">${getCommentTime(commentData.created_at)}</div>
+                                                        </li>`);
+        });
+    }
+}
+
+
+function groupCommentsByDate(comments) {
+    const grouped = {};
+    comments.forEach(comment => {
+        const date = new Date(comment.created_at);
+        const localeDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+        const dateString = localeDate.toISOString().split('T')[0];
+        if (!grouped[dateString]) {
+            grouped[dateString] = [];
+        }
+        grouped[dateString].push(comment);
+    });
+    return grouped;
+}
+
+
+function addNewComment(newComment) {
+    const date = new Date(newComment.created_at);
+    const abcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    const localDate = new Date(abcDate).toISOString().split('T')[0];
+
+    allCommentData.unshift(newComment);
+    populateTimeline(allCommentData);
+    noCommentDiv.classList.add('hide');
+    commentWrapper.classList.remove('hide');
+}
+
+
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+function getCommentMonthAndDate(dateString) {
+    let dateObject = new Date(dateString);
+    let localeDateObject = new Date(dateObject.toLocaleString());
+
+    const month = monthNames[localeDateObject.getMonth()];
+    const day = localeDateObject.getDate();
+
+    return `${month} ${day}`;
+}
+
+
+function getCommentTime(dateString) {
+    let dateObject = new Date(dateString);
+    let localeDateObject = new Date(dateObject.toLocaleString());
+
+    const hours = localeDateObject.getHours();
+    const minutes = localeDateObject.getMinutes();
+
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+    const result = `${formattedHours}:${formattedMinutes} ${ampm}`;
+
+    return result
+}
+
+
+async function commentForm(event) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let commenTextarea = document.getElementById('comment-textarea');
+    let errorMsg = document.querySelector('.comment-error-msg');
+    let button = document.getElementById('comment-post-btn');
+    let buttonText = button.innerText;
+
+    if (commenTextarea.value.trim().length == 0) {
+        errorMsg.innerHTML = 'Enter valid comment';
+        errorMsg.classList.add('active');
+        return false;
+    }
+
+    try {
+        let data = { "data": { "comment": commenTextarea.value }, user: specific_cust_id };
+        errorMsg.innerHTML = '';
+        errorMsg.classList.remove('active');
+
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        };
+
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/users/activities`, JSON.stringify(data), headers, 'POST');
+        response.json().then(function(res) {
+            if (response.status == 201) {
+                button.style.pointerEvents = 'none';
+                afterLoad(button, 'POSTED');
+                form.reset();
+                addNewComment(res.data);
+                setTimeout(() => {
+                    afterLoad(button, 'POST');
+                    button.style.pointerEvents = 'auto';
+                }, 1200)
+            }
+            else {
+                errorMsg.classList.add('active');
+                afterLoad(button, 'ERROR');
+                displayMessages(res.messages, errorMsg);
+            }
+        })
+    }
+    catch (err) {
+        errorMsg.classList.add('active');
+        afterLoad(button, 'ERROR');
+        displayMessages(res.messages, errorMsg);
+        console.log(err);
+    }
 }
 
 
