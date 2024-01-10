@@ -38,8 +38,8 @@ def homme(request):
     return render(request, 'customer/homme.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def homme_orders_list(request):
     context = {}
     context['success'] = False
@@ -68,8 +68,8 @@ def sliders(request):
     return render(request, 'customer/sliders.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_sliders_list(request):
     context = {}
     context['success'] = False
@@ -98,8 +98,8 @@ def orders(request, pk=None):
     return render(request, 'customer/orders.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_order_list(request):
     context = {}
     context['success'] = False
@@ -145,8 +145,8 @@ def customers(request):
     return render(request, 'customer/customers.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_customer_list(request):
     context = {}
     context['success'] = False
@@ -193,8 +193,8 @@ def products(request):
     return render(request, 'customer/products.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_product_list(request):
     context = {}
     context['success'] = False
@@ -226,8 +226,8 @@ def specific_product(request, pk):
     return render(request, 'customer/specific-product.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_product_images(request):
     context = {}
     context['success'] = False
@@ -252,8 +252,8 @@ def activity(request):
     return render(request, 'customer/activity.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_activities_list(request):
     context = {}
     context['success'] = False
@@ -281,8 +281,8 @@ def referrals(request):
     return render(request, 'customer/referrals.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_referrals_list(request):
     context = {}
     context['success'] = False
@@ -314,8 +314,8 @@ def marketing(request):
     return render(request, 'customer/marketing.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_marketing_list(request):
     context = {}
     context['success'] = False
@@ -343,8 +343,8 @@ def source(request):
     return render(request, 'customer/source.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_source_list(request):
     context = {}
     context['success'] = False

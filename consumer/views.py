@@ -27,8 +27,8 @@ def salon(request):
     return render(request, 'consumer/salon.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_salon_list(request):
     context = {}
     context['success'] = False
@@ -76,8 +76,8 @@ def commissions(request):
     return render(request, 'consumer/commission.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_commissions_list(request):
     context = {}
     context['success'] = False
@@ -105,8 +105,8 @@ def product_sales(request):
     return render(request, 'consumer/product-sales.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_sales_list(request):
     context = {}
     context['success'] = False
@@ -147,6 +147,7 @@ def inventory(request):
 
 
 @csrf_exempt
+@admin_signin_required
 def get_inventory_list(request):
     context = {}
     context['success'] = False
@@ -220,8 +221,8 @@ def consumer_products(request):
     return render(request, 'consumer/consumer-products.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_product_list(request):
     context = {}
     context['success'] = False
@@ -261,8 +262,8 @@ def events(request):
     return render(request, 'consumer/events.html', context)
 
 
-@admin_signin_required
 @csrf_exempt
+@admin_signin_required
 def get_events_list(request):
     context = {}
     context['success'] = False
