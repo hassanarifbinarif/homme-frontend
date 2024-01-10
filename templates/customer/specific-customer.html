@@ -365,7 +365,7 @@
 
     {% include '../modals/addresses-modal.html' %}
 
-    {{customer.id|json_script:"specific_cust_id"}}
+    {{customer.user.id|json_script:"specific_cust_id"}}
 
     {% endblock %}
 </body>

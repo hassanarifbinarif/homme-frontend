@@ -40,7 +40,7 @@ async function getTimelineData() {
         };
         let response = await requestAPI(`${apiURL}${timelineDataURL}`, null, headers, 'GET');
         response.json().then(function(res) {
-            
+
             if (response.status == 200 && res.data.length > 0) {
                 allCommentData = [...res.data];
                 populateTimeline(res.data);
@@ -60,9 +60,6 @@ async function getTimelineData() {
         console.log(err);
     }
 }
-
-
-
 
 
 let groupedComments = {}

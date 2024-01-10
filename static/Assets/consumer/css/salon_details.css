@@ -266,13 +266,13 @@
     flex-direction: column;
 }
 
-ul.timeline {
+.comments-wrapper ul.timeline {
     list-style-type: none;
     position: relative;
     margin-bottom: 0px;
 }
 
-ul.timeline > p {
+.comments-wrapper ul.timeline > p {
     margin-bottom: 18px;
     padding-left: 10px;
     color: #000;
@@ -286,7 +286,7 @@ ul.timeline > p {
     opacity: .6;
 }
 
-ul.timeline:before {
+.comments-wrapper ul.timeline:before {
     content: ' ';
     background: #d9d9d9;
     display: inline-block;
@@ -296,8 +296,8 @@ ul.timeline:before {
     height: 100%;
 }
 
-ul.timeline > li {
-    margin-bottom: 58px;
+.comments-wrapper ul.timeline li {
+    margin-bottom: 35px;
     padding-left: 10px;
     display: flex;
     align-items: center;
@@ -310,22 +310,42 @@ ul.timeline > li {
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 14px;
+    line-height: 12px;
 }
 
-ul.timeline > li > div {
+.comments-wrapper ul.timeline li > div {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
-ul.timeline > li .comment-time {
+.comments-wrapper ul.timeline li > div > span {
+    word-break: break-all;
+}
+
+.comments-wrapper ul.timeline li > div > pre {
+    word-break: break-all;
+    white-space: break-spaces;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.comments-wrapper ul.timeline li .comment-time {
     align-self: flex-start;
     opacity: .6;
-    width: 60px;
+    min-width: 60px;
+    text-align: right;
 }
 
-ul.timeline > li:before {
+.comments-wrapper ul.timeline li:before {
     content: ' ';
     background: #d9d9d9;
     display: inline-block;
@@ -336,11 +356,11 @@ ul.timeline > li:before {
     height: 15px;
 }
 
-ul.timeline:not(:first-of-type) > p {
+.comments-wrapper ul.timeline:not(:first-of-type) > p {
     margin-top: 56px;
 }
 
-ul.timeline:last-of-type > li:last-of-type {
+.comments-wrapper ul.timeline:last-of-type > li:last-of-type {
     margin-bottom: 0px;
 }
 
