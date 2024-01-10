@@ -497,6 +497,17 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     padding-left: 0px;
 }
 
+.all-sales-view .order-filters > button:last-of-type > span {
+    border: none;
+    height: unset;
+    display: inline-block!important;
+    padding-right: unset!important;
+}
+
+.all-sales-view .order-filters > button:last-of-type > div:first-of-type {
+    position: relative;
+}
+
 .all-sales-view .sales-overview-wrapper {
     height: 100%;
 }
