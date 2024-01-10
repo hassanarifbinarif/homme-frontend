@@ -35,7 +35,7 @@ def get_salon_list(request):
     context['msg'] = None
     try:
         request_data = json.loads(request.body.decode('utf-8'))
-        admin_access_token = request.COOKIES.get('admin_access')
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/salon-table.html')
@@ -51,7 +51,7 @@ def get_salon_list(request):
 @admin_signin_required
 def specific_salon(request, pk):
     context = {}
-    admin_access_token = request.COOKIES.get('admin_access')
+    admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
     headers = {"Authorization": f'Bearer {admin_access_token}'}
     status, response = requestAPI('GET', f'{settings.API_URL}/admin/salon-profiles/{pk}', headers, {})
     context['salon'] = response['data']
@@ -84,7 +84,7 @@ def get_commissions_list(request):
     context['msg'] = None
     try:
         request_data = json.loads(request.body.decode('utf-8'))
-        admin_access_token = request.COOKIES.get('admin_access')
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/commission-table.html')
@@ -113,7 +113,7 @@ def get_sales_list(request):
     context['msg'] = None
     try:
         request_data = json.loads(request.body.decode('utf-8'))
-        admin_access_token = request.COOKIES.get('admin_access')
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/product-sales-table.html')
@@ -129,7 +129,7 @@ def get_sales_list(request):
 @admin_signin_required
 def specific_sale(request, pk):
     context = {}
-    admin_access_token = request.COOKIES.get('admin_access')
+    admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
     headers = {"Authorization": f'Bearer {admin_access_token}'}
     status, response = requestAPI('GET', f'{settings.API_URL}/admin/orders/{pk}', headers, {})
     context['order'] = response['data']
@@ -154,7 +154,7 @@ def get_inventory_list(request):
     context['msg'] = None
     try:
         request_data = json.loads(request.body.decode('utf-8'))
-        admin_access_token = request.COOKIES.get('admin_access')
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/inventory-table.html')
@@ -183,7 +183,7 @@ def get_purchase_order(request, pk):
     context['success'] = False
     context['msg'] = None
     try:
-        admin_access_token = request.COOKIES.get('admin_access')
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}/admin/inventory/{pk}', headers, {})
         for obj in response['data']['products']:
@@ -229,7 +229,7 @@ def get_product_list(request):
     context['msg'] = None
     try:
         request_data = json.loads(request.body.decode('utf-8'))
-        admin_access_token = request.COOKIES.get('admin_access')
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/consumer-product-table.html')
@@ -245,7 +245,7 @@ def get_product_list(request):
 @admin_signin_required
 def specific_product(request, pk):
     context = {}
-    admin_access_token = request.COOKIES.get('admin_access')
+    admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
     headers = {"Authorization": f'Bearer {admin_access_token}'}
     status, response = requestAPI('GET', f'{settings.API_URL}/admin/products/{pk}', headers, {})
     context['product'] = response['data']
@@ -270,7 +270,7 @@ def get_events_list(request):
     context['msg'] = None
     try:
         request_data = json.loads(request.body.decode('utf-8'))
-        admin_access_token = request.COOKIES.get('admin_access')
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/events-table.html')

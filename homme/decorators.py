@@ -16,6 +16,7 @@ from homme.helpers import get_access_token_from_api, get_expiry_time_from_access
 
 def admin_signin_required(function):
     def wrap(request, *args, **kwargs):
+        request.temp_cookie = request.COOKIES.get('admin_access')
         if 'admin_access' not in request.COOKIES and 'admin_refresh' not in request.COOKIES:
             return redirect('/signin/')
         # Check if the access token is present in the cookies
@@ -27,6 +28,7 @@ def admin_signin_required(function):
             admin_name, admin_image = get_admin_detail(request, access_token)
             request.admin_name = admin_name
             request.admin_image = admin_image
+            request.temp_cookie = access_token
 
             # Set the access token in the response cookies
             response = function(request, *args, **kwargs)
