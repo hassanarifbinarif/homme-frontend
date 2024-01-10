@@ -34,8 +34,8 @@
         </div>
         <a href="{% url 'profile' %}">
             <div class="nav-profile-image">
-                <span id="nav-admin-name">{{admin_name}}</span>
-                <img src="{{admin_image}}" alt="Profile Image" id="nav-admin-image" />
+                <span id="nav-admin-name">{{request.admin_name}}</span>
+                <img src="{{request.admin_image}}" alt="Profile Image" id="nav-admin-image" />
                 <!-- <span>Homme Superadmin</span>
                 <img src="{% static 'Assets/customer/images/avatar.png' %}" alt="Profile Image" /> -->
             </div>

@@ -31,15 +31,14 @@ def reset_password(request):
 
 
 @admin_signin_required
-def homme(request, api_response):
+def homme(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'homme'
     context['sidebar'] = 'customer'
     return render(request, 'customer/homme.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def homme_orders_list(request):
     context = {}
@@ -62,15 +61,14 @@ def homme_orders_list(request):
 
 
 @admin_signin_required
-def sliders(request, api_response):
+def sliders(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'sliders'
     context['sidebar'] = 'customer'
     return render(request, 'customer/sliders.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_sliders_list(request):
     context = {}
@@ -92,16 +90,15 @@ def get_sliders_list(request):
 
 
 @admin_signin_required
-def orders(request, api_response, pk=None):
+def orders(request, pk=None):
     context = {}
     context['user'] = pk
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'orders'
     context['sidebar'] = 'customer'
     return render(request, 'customer/orders.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_order_list(request):
     context = {}
@@ -129,29 +126,26 @@ def get_order_list(request):
 
 
 @admin_signin_required
-def specific_order(request, api_response, pk):
+def specific_order(request, pk):
     context = {}
     admin_access_token = request.COOKIES.get('admin_access')
     headers = {"Authorization": f'Bearer {admin_access_token}'}
     status, response = requestAPI('GET', f'{settings.API_URL}/admin/orders/{pk}', headers, {})
     context['order'] = response['data']
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'orders'
     context['sidebar'] = 'customer'
     return render(request, 'customer/specific-order.html', context)
 
 
 @admin_signin_required
-def customers(request, api_response):
+def customers(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'customers'
     context['sidebar'] = 'customer'
     return render(request, 'customer/customers.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_customer_list(request):
     context = {}
@@ -174,7 +168,7 @@ def get_customer_list(request):
 
 
 @admin_signin_required
-def specific_customer(request, api_response, pk):
+def specific_customer(request, pk):
     context = {}
     try:
         admin_access_token = request.COOKIES.get('admin_access')
@@ -186,24 +180,20 @@ def specific_customer(request, api_response, pk):
         context['customer'] = response['data']
     except Exception as e:
         print(e)
-    # context['api_url'] = settings.API_URL
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'customers'
     context['sidebar'] = 'customer'
     return render(request, 'customer/specific-customer.html', context)
 
 
 @admin_signin_required
-def products(request, api_response):
+def products(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'products'
     context['sidebar'] = 'customer'
     return render(request, 'customer/products.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_product_list(request):
     context = {}
@@ -225,19 +215,18 @@ def get_product_list(request):
 
 
 @admin_signin_required
-def specific_product(request, api_response, pk):
+def specific_product(request, pk):
     context = {}
     admin_access_token = request.COOKIES.get('admin_access')
     headers = {"Authorization": f'Bearer {admin_access_token}'}
     status, response = requestAPI('GET', f'{settings.API_URL}/admin/products/{pk}?insight_days=30', headers, {})
     context['product'] = response['data']
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'products'
     context['sidebar'] = 'customer'
     return render(request, 'customer/specific-product.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_product_images(request):
     context = {}
@@ -256,15 +245,14 @@ def get_product_images(request):
 
 
 @admin_signin_required
-def activity(request, api_response):
+def activity(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'activity'
     context['sidebar'] = 'customer'
     return render(request, 'customer/activity.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_activities_list(request):
     context = {}
@@ -286,15 +274,14 @@ def get_activities_list(request):
 
 
 @admin_signin_required
-def referrals(request, api_response):
+def referrals(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'referrals'
     context['sidebar'] = 'customer'
     return render(request, 'customer/referrals.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_referrals_list(request):
     context = {}
@@ -320,15 +307,14 @@ def get_referrals_list(request):
 
 
 @admin_signin_required
-def marketing(request, api_response):
+def marketing(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'marketing'
     context['sidebar'] = 'customer'
     return render(request, 'customer/marketing.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_marketing_list(request):
     context = {}
@@ -350,15 +336,14 @@ def get_marketing_list(request):
 
 
 @admin_signin_required
-def source(request, api_response):
+def source(request):
     context = {}
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['active_page'] = 'source'
     context['sidebar'] = 'customer'
     return render(request, 'customer/source.html', context)
 
 
+@admin_signin_required
 @csrf_exempt
 def get_source_list(request):
     context = {}
@@ -380,18 +365,17 @@ def get_source_list(request):
 
 
 @admin_signin_required
-def profile(request, api_response):
+def profile(request):
     context = {}
     sidebarType = 'customer'
     previous_url = request.META.get('HTTP_REFERER')
     if previous_url and 'consumer' in previous_url:
         sidebarType = 'consumer'
-    context['admin_name'] = api_response['fullname']
-    context['admin_image'] = api_response['user']['profile_picture']
     context['sidebar'] = sidebarType
     return render(request, 'customer/profile.html', context)
 
 
+@admin_signin_required
 def get_packing_slip(request, pk):
     context = {}
     context['success'] = False
