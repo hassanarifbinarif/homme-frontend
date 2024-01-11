@@ -74,6 +74,10 @@
                     <span class="overflow-text">All D2C Users That Have Not Purchased</span>
                     {% elif obj.target_type == 'all_users_by_no_referral' %}
                     <span class="overflow-text">All D2C Users That Have No Referrals</span>
+                    {% elif obj.target_type == 'all_salons' %}
+                    <span class="overflow-text" title="{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}">{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}</span>
+                    {% elif obj.target_type == 'selected_salons' %}
+                    <span class="overflow-text" title="{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}">{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}</span>
                     {% endif %}
                 </div>
             </td>

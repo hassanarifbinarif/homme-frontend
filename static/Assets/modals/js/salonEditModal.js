@@ -29,7 +29,7 @@ salonCountryField.addEventListener('click', toggleDropdown);
 function populateSalonStateCountryDropdowns() {
     statesList.forEach((state, index) => {
         salonStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn salon-state-item-list" data-id="${index+1}">
-                                                                <input onchange="selectSalonState(this);" id="salon-state-${index}" type="radio" value="${state.abbreviation}" name="salon_state" />
+                                                                <input onchange="selectSalonState(this);" id="salon-state-${index}" type="radio" data-value="${state.abbreviation}" value="${state.name}" name="salon_state" />
                                                                 <label for="salon-state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
                                                             </div>`)
     })

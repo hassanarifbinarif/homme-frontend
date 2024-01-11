@@ -10,7 +10,7 @@
     {% block links %}
     
     <link rel="stylesheet" href="{% static 'Assets/consumer/css/marketing.css' %}" />
-    <link rel="stylesheet" href="{% static 'Assets/modals/css/marketing_notification_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/salon_marketing_notification_modal.css' %}" />
 
     {% endblock %}
 
@@ -23,7 +23,7 @@
         <div class="content">
             <div class="order-wrapper">
                 <span>MARKETING</span>
-                <button type="button" onclick="openCreateNotificationModal('marketingNotification');">NEW NOTIFICATION</button>
+                <button type="button" onclick="openCreateNotificationModal('salonMarketingNotification');">NEW NOTIFICATION</button>
             </div>
             <div class="order-details-wrapper">
                 <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="table-loader">
@@ -35,12 +35,13 @@
         </div>
     </div>
 
-    {% include '../modals/marketing-notification-modal.html' %}
+    {% include '../modals/salon-marketing-notification-modal.html' %}
 
     {% endblock %}
 </body>
 {% block scripts %}
+<script src="{% static 'Assets/customer/js/states.js' %}"></script>
 <script src="{% static 'Assets/customer/js/marketing.js' %}"></script>
-<script src="{% static 'Assets/modals/js/createNotificationModal.js' %}"></script>
+<script src="{% static 'Assets/modals/js/createSalonNotificationModal.js' %}"></script>
 {% endblock %}
 </html>

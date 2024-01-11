@@ -71,15 +71,15 @@ document.body.addEventListener('click', closeDropdowns);
 function populateStateCountryDropdowns() {
     statesList.forEach((state, index) => {
         legalStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
-                                                                <input onchange="selectState(this, 'legal');" id="legal-state-${index}" type="radio" value="${state.abbreviation}" name="legal_state" />
+                                                                <input onchange="selectState(this, 'legal');" id="legal-state-${index}" type="radio" data-value="${state.abbreviation}" value="${state.name}" name="legal_state" />
                                                                 <label for="legal-state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
                                                             </div>`)
         salonStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
-                                                                <input onchange="selectState(this, 'salon');" id="salon-state-${index}" type="radio" value="${state.abbreviation}" name="salon_state" />
+                                                                <input onchange="selectState(this, 'salon');" id="salon-state-${index}" type="radio" data-value="${state.abbreviation}" value="${state.name}" name="salon_state" />
                                                                 <label for="salon-state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
                                                             </div>`)
         paymentStatesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
-                                                                    <input onchange="selectState(this, 'payment');" id="payment-state-${index}" type="radio" value="${state.abbreviation}" name="payment_state" />
+                                                                    <input onchange="selectState(this, 'payment');" id="payment-state-${index}" type="radio" data-value="${state.abbreviation}" value="${state.name}" name="payment_state" />
                                                                     <label for="payment-state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
                                                                 </div>`)
     })

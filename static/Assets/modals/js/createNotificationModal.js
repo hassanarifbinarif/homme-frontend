@@ -51,7 +51,7 @@ async function populateDropdowns() {
     let headers = {
         "Authorization": `Bearer ${token}`
     }
-    let responseTargetTypes = await requestAPI(`${apiURL}/admin/marketings/target-types`, null , headers, 'GET');
+    let responseTargetTypes = await requestAPI(`${apiURL}/admin/marketings/target-types/user`, null , headers, 'GET');
     let responseSalonList = await requestAPI(`${apiURL}/admin/salon-profiles?perPage=100`, null, headers, 'GET');
     responseTargetTypes.json().then(function(res) {
         // console.log(res);
