@@ -486,7 +486,7 @@
 }
 
 .comments-wrapper ul.timeline li {
-    margin-bottom: 35px;
+    margin-bottom: 20px;
     padding-left: 10px;
     display: flex;
     align-items: center;
@@ -546,7 +546,7 @@
 }
 
 .comments-wrapper ul.timeline:not(:first-of-type) > p {
-    margin-top: 56px;
+    margin-top: 25px;
 }
 
 .comments-wrapper ul.timeline:last-of-type > li:last-of-type {
@@ -579,6 +579,17 @@ ul.comment-section > li {
     display: flex;
     flex-direction: column;
     gap: 14px;
+}
+
+ul.comment-section > li > img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 50%;
+    left: 4px;
+    width: 35px;
+    height: 35px;
 }
 
 ul.comment-section > li:before {
