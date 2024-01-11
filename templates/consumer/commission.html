@@ -24,8 +24,8 @@
             <div class="order-wrapper">
                 <span>COMMISSIONS</span>
                 <div>
-                    <button id="sales-channel-btn" style="position: relative;" class="salon-btn hide">
-                        <span id="selected-sales-channel">MONTH</span>
+                    <button onclick="toggleDateSelectorDropdown(event);" type="button" id="date-selector-btn" style="position: relative;" class="date-range-btn">
+                        <span><span id="selected-month-value">MONTH</span> / <span id="selected-year-value">YEAR</span></span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
                             <g clip-path="url(#clip0_776_5475)">
                                 <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
@@ -37,6 +37,40 @@
                                 </clipPath>
                             </defs>
                         </svg>
+                        <div class="filter-dropdown date-selector" style="display: none;" id="date-selector">
+                            <div class="selection-input">
+                                <div class="filter-btn" id="month-field" type="button">
+                                    <span id="selected-month-text">MONTH</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                        <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                                <div class="filter-dropdown" id="month-dropdown">
+                                    <span onclick="filterMonthOption(this);" data-value="1">JANUARY</span>
+                                    <span onclick="filterMonthOption(this);" data-value="2">FEBRUARY</span>
+                                    <span onclick="filterMonthOption(this);" data-value="3">MARCH</span>
+                                    <span onclick="filterMonthOption(this);" data-value="4">APRIL</span>
+                                    <span onclick="filterMonthOption(this);" data-value="5">MAY</span>
+                                    <span onclick="filterMonthOption(this);" data-value="6">JUNE</span>
+                                    <span onclick="filterMonthOption(this);" data-value="7">JULY</span>
+                                    <span onclick="filterMonthOption(this);" data-value="8">AUGUST</span>
+                                    <span onclick="filterMonthOption(this);" data-value="9">SEPTEMBER</span>
+                                    <span onclick="filterMonthOption(this);" data-value="10">OCTOBER</span>
+                                    <span onclick="filterMonthOption(this);" data-value="11">NOVEMBER</span>
+                                    <span onclick="filterMonthOption(this);" data-value="12">DECEMBER</span>      
+                                </div>
+                            </div>
+                            <div class="selection-input">
+                                <div class="filter-btn" id="year-field" type="button">
+                                    <span id="selected-year-text">YEAR</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                        <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                    </svg>
+                                </div>
+                                <div class="filter-dropdown" id="year-dropdown">
+                                </div>
+                            </div>
+                        </div>
                     </button>
                     <button type="button" onclick="openAddCommissionModal();">ADD COMMISSION</button>
                 </div>

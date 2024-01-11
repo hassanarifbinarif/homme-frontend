@@ -1,13 +1,30 @@
+let dateSelectorBtn = document.getElementById('date-selector-btn');
+let dateSelectorInputWrapper = document.getElementById('date-selector');
+
+let monthDropdown = document.getElementById('month-dropdown');
+let monthField = document.getElementById('month-field');
+
+let yearDropdown = document.getElementById('year-dropdown');
+let yearField = document.getElementById('year-field');
+
+let statusBtn = document.getElementById('status-btn');
+let statusWrapper = document.getElementById('status-selector');
+
 let requiredDataURL = `/admin/salons/commissions/monthly?page=1&perPage=1000&search=&ordering=-date`;
+
+let filterMonthValue = null;
+let filterYearValue = null;
+
+monthField.addEventListener('click', toggleDropdown);
+yearField.addEventListener('click', toggleDropdown);
+
 
 window.onload = () => {
     getNotifications();
     getData();
     populateSalonDropdown();
+    populateYearList(20);
 }
-
-let statusBtn = document.getElementById('status-btn');
-let statusWrapper = document.getElementById('status-selector');
 
 
 function toggleStatusDropdown(event) {
@@ -24,6 +41,37 @@ function toggleStatusDropdown(event) {
     }
 }
 
+
+function toggleDateSelectorDropdown(event) {
+    if ((dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'none') {
+        dateSelectorInputWrapper.style.display = 'flex';
+    }
+    else if ((dateSelectorBtn.querySelector('span').contains(event.target) || dateSelectorBtn.querySelector('svg').contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
+        dateSelectorInputWrapper.style.display = 'none';
+    }
+    else if ((dateSelectorBtn.querySelector('.date-selector').contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
+    }
+    else {
+        dateSelectorInputWrapper.style.display = 'none';
+    }
+}
+
+
+function toggleDropdown(event) {
+    let elementBtn = event.target;
+    if(!elementBtn.classList.contains('filter-btn')) {
+        elementBtn = elementBtn.closest('.filter-btn');
+    }
+    let elementDropdown = elementBtn.nextElementSibling;
+    if(elementDropdown.style.display == 'flex') {
+        elementDropdown.style.display = 'none';
+    }
+    else {
+        elementDropdown.style.display = 'flex';
+    }
+}
+
+
 function filterStatusOption(event) {
     let element = event.target;
     requiredDataURL = setParams(requiredDataURL, 'status', element.getAttribute('data-value'));
@@ -39,9 +87,36 @@ function closeDropdowns(event) {
     if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
         statusWrapper.style.display = 'none';
     }
+    if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
+        dateSelectorInputWrapper.style.display = 'none';
+    }
+    if ((!monthField.contains(event.target)) && monthDropdown.style.display == 'flex') {
+        monthDropdown.style.display = 'none';
+    }
+    if ((!yearField.contains(event.target)) && yearDropdown.style.display == 'flex') {
+        yearDropdown.style.display = 'none';
+    }
 }
 
 document.body.addEventListener('click', closeDropdowns);
+
+
+function filterMonthOption(inputElement) {
+    filterMonthValue = inputElement.getAttribute('data-value');
+    requiredDataURL = setParams(requiredDataURL, 'date__month', filterMonthValue);
+    getData();
+    document.getElementById('selected-month-text').innerText = inputElement.innerText;
+    document.getElementById('selected-month-value').innerText = inputElement.innerText;
+}
+
+
+function filterYearOption(inputElement) {
+    filterYearValue = inputElement.innerText;
+    requiredDataURL = setParams(requiredDataURL, 'date__year', filterYearValue);
+    getData();
+    document.getElementById('selected-year-text').innerText = inputElement.innerText;
+    document.getElementById('selected-year-value').innerText = inputElement.innerText;
+}
 
 
 function searchForm(event) {
@@ -329,4 +404,24 @@ function convertDateTime() {
         const result = `${month}, ${year}`;
         timeString.innerText = result;
     })
+}
+
+
+function populateYearList(n=0) {
+    let yearList = getLastNYears(n);
+    yearList.forEach((year) => {
+        yearDropdown.innerHTML += `<span onclick="filterYearOption(this);">${year}</span>`;
+    })
+}
+
+
+function getLastNYears(n=0) {
+    const currentYear = new Date().getFullYear();
+    let lastNYears = [];
+
+    for (let i = currentYear; i >= currentYear - n; i--) {
+        lastNYears.push(i);
+    }
+
+    return lastNYears;
 }
