@@ -11,7 +11,6 @@ let stateSelectBtn = document.getElementById('notification-state-select-btn');
 let stateSearchWrapper = document.getElementById('notification-state-search-wrapper');
 let stateListWrapper = document.getElementById('notification-state-list-items-wrapper');
 let selectedState = null;
-// let productList = [];
 
 
 function openCreateNotificationModal(modalID) {
@@ -25,24 +24,14 @@ function openCreateNotificationModal(modalID) {
     form.querySelector('.btn-text').innerText = 'SEND';
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
-        let allsalons = document.querySelectorAll('input[name="salons"]');
-        addSalonsBtn = document.getElementById('add-salons-btn');        
-        allsalons.forEach((checkbox) => {
-            if(checkbox.checked) {
-                checkbox.checked = false;
-            }
-        })
-        addSalonsBtn.style.background = '#9D9D9D';
-        addSalonsBtn.disabled = true;
-        selectedSalons.classList.add('hide');
         selectedSalons.innerHTML = '';
+        salonListWrapper.innerHTML = '';
+        selectedSalons.classList.add('hide');
         salonsWrapper.classList.add('hide');
         document.getElementById('selected-state-name').innerText = 'Select Target';
         document.getElementById('selected-state-name').style.color = '#A9A9A9';
-        document.getElementById('no-salon-text').classList.add('hide');
-        document.querySelectorAll('.salon-list-item').forEach((item) => {
-            item.classList.remove('hide');
-        })
+        document.querySelectorAll('.salon-list-item').forEach((item) =>item.classList.remove('hide'));
+        document.querySelectorAll('.state-list-item').forEach((state) => state.classList.remove('hide'));
     })
     document.querySelector(`.${modalID}`).click();
 }
@@ -112,6 +101,7 @@ function selectState(input) {
     document.getElementById('selected-state-name').innerText = 'All Salons in ' + input.value;
     document.getElementById('selected-state-name').style.color = '#000';
     getStateSalons(selectedState);
+    stateSelectBtn.click();
 }
 
 

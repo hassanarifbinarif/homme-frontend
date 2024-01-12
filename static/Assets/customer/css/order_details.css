@@ -254,6 +254,12 @@
     line-height: 10px;
 }
 
+.order-product-stats > .order-product-stat-3.stat > .tracking-id {
+    color: #000093;
+    font-family: Gotham Medium;
+    text-decoration: underline;
+}
+
 .details-wrapper-col-1 .order-paid-status-wrapper {
     background-color: #FFF;
     border: 1px solid #E0E0DD;

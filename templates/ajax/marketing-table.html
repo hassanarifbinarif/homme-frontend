@@ -67,7 +67,7 @@
                     {% if obj.target_type == 'all_users' %}
                     <span class="overflow-text">All D2C Users</span>
                     {% elif obj.target_type == 'all_users_by_salon' %}
-                    <span class="overflow-text" title="Associated Users of Salon {% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}">Associated Users of Salon {% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}</span>
+                    <span class="overflow-text" title="Associated Users of Salon {{obj.salons|comma_separated_string:'salon_name'}}">Associated Users of Salon {{obj.salons|comma_separated_string:"salon_name"}}</span>
                     {% elif obj.target_type == 'all_users_by_no_salon' %}
                     <span class="overflow-text">All D2C Users Without a Salon</span>
                     {% elif obj.target_type == 'all_users_by_no_purchase' %}
@@ -75,9 +75,9 @@
                     {% elif obj.target_type == 'all_users_by_no_referral' %}
                     <span class="overflow-text">All D2C Users That Have No Referrals</span>
                     {% elif obj.target_type == 'all_salons' %}
-                    <span class="overflow-text" title="{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}">{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}</span>
+                    <span class="overflow-text" title="{{obj.salons|comma_separated_string:'salon_name'}}">{{obj.salons|comma_separated_string:"salon_name"}}</span>
                     {% elif obj.target_type == 'selected_salons' %}
-                    <span class="overflow-text" title="{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}">{% for salon_identity in obj.salons %}{{salon_identity.salon_name}}, {% endfor %}</span>
+                    <span class="overflow-text" title="{{obj.salons|comma_separated_string:'salon_name'}}">{{obj.salons|comma_separated_string:"salon_name"}}</span>
                     {% endif %}
                 </div>
             </td>

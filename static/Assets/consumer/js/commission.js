@@ -10,6 +10,9 @@ let yearField = document.getElementById('year-field');
 let statusBtn = document.getElementById('status-btn');
 let statusWrapper = document.getElementById('status-selector');
 
+let hairstylistBtn = document.getElementById('hairstylist-btn');
+let hairstylistWrapper = document.getElementById('hairstylist-selector');
+
 let requiredDataURL = `/admin/salons/commissions/monthly?page=1&perPage=1000&search=&ordering=-date`;
 
 let filterMonthValue = null;
@@ -35,6 +38,16 @@ function toggleStatusDropdown(event) {
         statusWrapper.style.display = 'none';
     }
     else if ((statusBtn.querySelector('.status-selector').contains(event.target)) && statusWrapper.style.display == 'flex') {
+    }
+    else {
+        statusWrapper.style.display = 'none';
+    }
+}
+
+
+function toggleHairstylistDropdown(event) {
+    if ((hairstylistBtn.contains(event.target)) && hairstylistWrapper.style.display == 'none') {
+        hairstylistWrapper.style.display = 'flex';
     }
     else {
         statusWrapper.style.display = 'none';
@@ -83,9 +96,23 @@ function filterStatusOption(event) {
 }
 
 
+function searchHairstylist(event, inputElement) {
+    if (event.keyCode == 13) {
+        requiredDataURL = setParams(requiredDataURL, 'hairstylist__fullname', inputElement.value);
+        getData();
+        document.getElementById('selected-hairstylist-text').innerText = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
+        document.getElementById('selected-hairstylist-text').title = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
+        hairstylistWrapper.style.display = 'none';
+    }
+}
+
+
 function closeDropdowns(event) {
     if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
         statusWrapper.style.display = 'none';
+    }
+    if ((!hairstylistBtn.contains(event.target)) && hairstylistWrapper.style.display == 'flex') {
+        hairstylistWrapper.style.display = 'none';
     }
     if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
         dateSelectorInputWrapper.style.display = 'none';

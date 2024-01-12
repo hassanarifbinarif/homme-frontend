@@ -80,7 +80,7 @@
                                     </svg>
                                     <span>Delivery Location</span>
                                 </div>
-                                <span>{% if order.shipping_address != null %}{{order.shipping_address.address}}{% else %}No Address{% endif %}</span>
+                                <span title="{% if order.shipping_address != null %}{{order.shipping_address.address}}{% else %}No Address{% endif %}">{% if order.shipping_address != null %}{{order.shipping_address.address}}{% else %}No Address{% endif %}</span>
                             </div>
                             <div class="order-product-stat-2 stat">
                                 <div>
@@ -99,7 +99,11 @@
                                     </svg>
                                     <span>Tracking ID</span>
                                 </div>
-                                <span>{% if order.order_shipping %}{{order.order_shipping.tracking_number}}{% else %}N/A{% endif %}</span>
+                                {% if order.order_shipping %}
+                                <span class="tracking-id">{{order.order_shipping.tracking_number}}</span>
+                                {% else %}
+                                <span>N/A</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

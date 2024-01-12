@@ -29,8 +29,8 @@
                     {% csrf_token %}
                     <div class="profile-image-container">
                         <label for="image-input" class="profile-image-uploader w-100 h-100">
-                            {% if admin_image %}
-                            <img src="{{admin_image}}" class="profile-image" id="profile-image" alt="Profile Image" />
+                            {% if request.admin_image %}
+                            <img src="{{request.admin_image}}" class="profile-image" id="profile-image" alt="Profile Image" />
                             {% endif %}
                             <svg class="edit-btn" width="38" height="38" viewBox="0 0 38 38" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +55,7 @@
                         <div class="profile-input-wrapper">
                             <span>Name</span>
                             <div class="profile-input">
-                                <input type="text" name="fullname" value="{% if admin_name %}{{admin_name}}{% endif %}" placeholder="Daniel Russell" required />
+                                <input type="text" name="fullname" value="{% if request.admin_name %}{{request.admin_name}}{% endif %}" placeholder="Daniel Russell" required />
                             </div>
                         </div>
                         <div class="profile-input-wrapper password-input">

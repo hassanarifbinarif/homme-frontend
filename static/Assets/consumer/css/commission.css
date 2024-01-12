@@ -151,6 +151,36 @@
     gap: 12px;
 }
 
+.order-details-wrapper .order-details-filters .hairstylist-selector > .search-div {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+}
+
+.order-details-wrapper .order-details-filters .hairstylist-selector > .search-div svg {
+    position: absolute;
+    left: 15px;
+}
+
+.order-details-wrapper .order-details-filters .hairstylist-selector > .search-div input {
+    border: 1px solid #000;
+    border-radius: 7px;
+    height: 30px;
+    width: 100%;
+
+    color: #030706;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-left: 30px;
+    padding-right: 10px;
+}
+
 .filter-btn {
     width: 100%;
     height: 40px;
@@ -251,6 +281,9 @@
 
 .order-details-wrapper .order-details-filters button > span {
     padding-left: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .order-details-wrapper .order-details-filters button > svg {
@@ -264,6 +297,20 @@
 
 .order-details-wrapper .order-details-filters .hairstylist-btn {
     width: 180px;
+    justify-content: space-between;
+}
+
+.order-details-wrapper .order-details-filters .hairstylist-btn > span {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.order-details-wrapper .order-details-filters .hairstylist-btn > svg {
+    position: relative;
+    right: 10px;
+    width: 15px;
+    height: 17px;
+    flex-shrink: 0;
 }
 
 .order-details-wrapper .order-details-filters .payment-btn {

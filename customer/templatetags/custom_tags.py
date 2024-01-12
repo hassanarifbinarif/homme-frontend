@@ -100,6 +100,16 @@ def split_string(value, arg):
     except Exception as e:
         print(e)
         return e
+    
+
+def comma_separated_string(value, arg):
+    if not value:
+        return ''
+    try:
+        return ', '.join(obj[f'{arg}'] for obj in value)
+    except Exception as e:
+        print(e)
+        return ''
 
 
 register.filter("custom_date", convert_to_date)
@@ -110,3 +120,4 @@ register.filter("percentage", percentage)
 register.filter("calculate_items", calculate_items)
 register.filter("page_number", get_page_numbers)
 register.filter("split_string", split_string)
+register.filter("comma_separated_string", comma_separated_string)
