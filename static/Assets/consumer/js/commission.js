@@ -325,8 +325,10 @@ async function changeCommissionStatus(event, salonId, month) {
 
         let response = await requestAPI(`${apiURL}/admin/salons/commissions/salons/${salonId}`, JSON.stringify(data), headers, 'PATCH');
         response.json().then(function(res) {
+            // console.log(res);
             if (response.status == 200) {
-                // console.log(res);
+                let statusDiv = selectElement.closest('.commission-status-div');
+                statusDiv.innerHTML = '<span>Paid</span>';
             }
         })
     }
