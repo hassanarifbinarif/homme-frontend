@@ -87,7 +87,7 @@ function toggleDropdown(event) {
 
 function filterStatusOption(event) {
     let element = event.target;
-    requiredDataURL = setParams(requiredDataURL, 'status', element.getAttribute('data-value'));
+    requiredDataURL = setParams(requiredDataURL, 'month_status', element.getAttribute('data-value'));
     getData();
     document.getElementById('selected-status-text').innerText = element.innerText;
     setTimeout(() => {

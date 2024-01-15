@@ -345,6 +345,31 @@ input::-webkit-inner-spin-button {
     align-items: center;
 }
 
+.user-info .nav-notification-wrapper .notification-quantity {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    padding-left: 2px;
+    padding-right: 1px;
+    min-width: 12px;
+    width: fit-content;
+    height: 14px;
+    border-radius: 2px;
+    background: #000093;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.2px;
+}
+
 .user-info a {
     text-decoration: none!important;
     color: #FFF;

@@ -186,9 +186,6 @@ def get_purchase_order(request, pk):
         admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}/admin/inventory/{pk}', headers, {})
-        for obj in response['data']['products']:
-            obj['product']['images'][0]['image'] = base64_image_from_url(obj['product']['images'][0]['image'])
-
         text_template = loader.get_template('email_templates/purchase-order-email.html')
         total_price = 0
         if response['data']['products']:

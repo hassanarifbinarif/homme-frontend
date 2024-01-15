@@ -66,25 +66,29 @@
     width: 1px;
     background-color: #CECECE;
     height: 83px;
-    margin: 0px 24px;
+    /* margin: 0px 24px; */
+    margin: 0px 20px;
 }
 
 .details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    gap: 48px;
+    justify-content: space-between;
+    /* justify-content: center; */
+    /* gap: 48px; */
 
     color: #000;
     leading-trim: both;
     text-edge: cap;
     font-style: normal;
     font-weight: 500;
+    min-height: 75px;
 }
 
 .details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data.net-sales {
-    width: 10.5%;
+    /* width: 10.5%; */
+    width: 14%;
 }
 
 .details-wrapper-col-1 .specific-salon-overview-data-wrapper .salon-overview-data.registered-customers {
@@ -110,6 +114,8 @@
     font-family: Gotham Medium;
     font-size: 1rem;
     line-height: 16px;
+    word-break: break-all!important;
+    white-space: normal!important;
 }
 
 .details-wrapper-col-1 .specific-salon-latest-commission {
