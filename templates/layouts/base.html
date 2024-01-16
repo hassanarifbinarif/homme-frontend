@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{% static 'Assets/customer/css/styles.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/customer/css/sidebar.css' %}" />
     <link rel="icon" type="image/x-icon" href="{% static 'Assets/customer/images/favicon.svg' %}" />
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-messaging.js"></script>
 
     {% block links %} {% endblock %}
 
@@ -31,5 +35,6 @@
         crossorigin="anonymous"></script>
 </body>
 <script src="{% static 'Assets/customer/js/common.js' %}"></script>
+<script src="{% static 'Assets/customer/js/notifications.js' %}"></script>
 {% block scripts %} {% endblock %}
 </html>

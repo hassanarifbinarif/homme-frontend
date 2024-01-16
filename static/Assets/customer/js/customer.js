@@ -6,7 +6,7 @@ window.onload = () => {
     if (search) {
         requiredDataURL = setParams(requiredDataURL, 'search', search);
     }
-    getNotifications();
+    // getNotifications();
     getData();
     populateSalonDropdown();
 }

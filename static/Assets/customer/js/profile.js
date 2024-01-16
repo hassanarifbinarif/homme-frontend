@@ -1,5 +1,5 @@
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
 }
 
 

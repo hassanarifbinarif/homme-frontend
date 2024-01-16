@@ -20,7 +20,7 @@ showCommentsCheckbox.addEventListener('change', function() {
 
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getRelativeTime(document.getElementById('customer-joining-time').getAttribute('data-value'));
     populateSalonDropdown();
     populateStatesAndCountriesDropdown();
@@ -123,10 +123,13 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
 
 function getCommentMonthAndDate(dateString) {
     let dateObject = new Date(dateString);
-    let localeDateObject = new Date(dateObject.toLocaleString());
 
-    const month = monthNames[localeDateObject.getMonth()];
-    const day = localeDateObject.getDate();
+    const dateOptions = { month: 'long', day: 'numeric' };
+    let localeDateObject = dateObject.toLocaleDateString(undefined, dateOptions);
+    let newDate = new Date(localeDateObject);
+
+    const month = monthNames[newDate.getMonth()];
+    const day = newDate.getDate();
 
     return `${month} ${day}`;
 }
@@ -134,18 +137,11 @@ function getCommentMonthAndDate(dateString) {
 
 function getCommentTime(dateString) {
     let dateObject = new Date(dateString);
-    let localeDateObject = new Date(dateObject.toLocaleString());
 
-    const hours = localeDateObject.getHours();
-    const minutes = localeDateObject.getMinutes();
+    const dateOptions = { hour12: true, hour: 'numeric', minute: '2-digit' };
+    let localeDateObject = dateObject.toLocaleString(undefined, dateOptions);
 
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-
-    const result = `${formattedHours}:${formattedMinutes} ${ampm}`;
-
-    return result
+    return localeDateObject;
 }
 
 

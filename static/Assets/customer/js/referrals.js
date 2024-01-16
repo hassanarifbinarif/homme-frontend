@@ -1,7 +1,7 @@
 let requiredDataURL = `/admin/referrals?page=1&perPage=1000&ordering=-user__created_at&search=`;
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData();
 }
 

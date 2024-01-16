@@ -29,7 +29,7 @@ let salonChartDataURL = `/admin/dashboard/salon/net-sales-graph?search=&year=${g
 
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData(requiredDataURL);
     getSalonStatsData();
     getChartData();

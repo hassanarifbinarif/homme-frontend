@@ -75,7 +75,6 @@ async function loginForm(event) {
                 "X-CSRFToken": data.csrfmiddlewaretoken,
             };
             let response = await requestAPI(`${apiURL}/auth/admin/login`, JSON.stringify(data), headers, "POST");
-            // console.log(response);
             response.json().then(async function (res) {
                 if (response.status == 400) {
                     if(res.messages.password) {
@@ -104,33 +103,6 @@ async function loginForm(event) {
                     setCookie("admin_access", res.access, accessToken.exp);
                     setCookie("admin_refresh", res.refresh, refreshToken.exp);
                     location.href = location.origin + "/";
-                    // let header = {
-                    //     "Authorization": `Bearer ${res.access}`,
-                    // };
-                    // let checkAdmin = await requestAPI(`${apiURL}/me`, null, header, "GET");
-                    // console.log(checkAdmin);
-                    // checkAdmin.json().then(function (validRes) {
-                    //     console.log(validRes);
-                    //     // if (validRes.key == "validations") {
-                    //     //     emailMsg.classList.add("active");
-                    //     //     let key = Object.keys(validRes.messages);
-                    //     //     emailMsg.innerText = `Could not login. ${
-                    //     //         validRes.messages[key[0]]
-                    //     //     }`;
-                    //     //     afterLoad(button, buttonText);
-                    //     // } else {
-                    //     //     emailMsg.innerText = "";
-                    //     //     passwordMsg.innerText = "";
-                    //     //     emailMsg.classList.remove("active");
-                    //     //     passwordMsg.classList.remove("active");
-                    //     //     afterLoad(button, buttonText);
-                    //     //     const accessToken = parseJwt(res.access);
-                    //     //     const refreshToken = parseJwt(res.refresh);
-                    //     //     // setCookie("admin_access", res.access, accessToken.exp);
-                    //     //     // setCookie("admin_refresh", res.refresh, refreshToken.exp);
-                    //     //     // location.href = location.origin + "/administration/dashboard";
-                    //     // }
-                    // });
                 } else {
                     passwordMsg.innerText =
                         "An error occured. Please try again";
@@ -147,3 +119,59 @@ async function loginForm(event) {
         }
     }
 }
+
+
+
+// // Getting FCM Token
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("/firebase-messaging-sw.js",{scope: '/'}).then(function(response) {
+      // Service worker registration done
+      console.log('Registration Successful', response);
+    }, function(error) {
+      // Service worker registration failed
+      console.log('Registration Failed', error);
+    })
+}
+
+
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.ready.then((registration) => {
+      console.log(`A service worker is active: ${registration.active}`);
+      
+      // At this point, you can call methods that require an active
+      // service worker, like registration.pushManager.subscribe()
+    });
+} else {
+    console.error("Service workers are not supported.");
+}
+
+// self.addEventListener('install', function(event) {
+//     event.waitUntil(self.skipWaiting());
+// });
+// self.addEventListener('activate', function(event) {
+//     event.waitUntil(self.clients.claim());
+// });
+
+
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+const messaging = firebase.messaging();
+
+messaging.getToken({ vapidKey: vapidKey }).then((currentToken) => {
+    if (currentToken) {
+        console.log(currentToken);
+    } else {
+        console.log('No registration token available. Request permission to generate one.');
+    }
+}).catch((err) => {
+    console.log('An error occurred while retrieving token. ', err);
+});
+
+messaging.requestPermission().then(function () {
+    console.log("Notification permission granted.");
+    return messaging.getToken()
+}).catch(function (err) {
+    console.log("Unable to get permission to notify.", err);
+});

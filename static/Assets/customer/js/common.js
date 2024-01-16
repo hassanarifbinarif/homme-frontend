@@ -114,6 +114,14 @@ function setStorage(key, value) {
     localStorage.setItem(key, value);
 }
 
+function removeStorage(key) {
+    localStorage.removeItem(key);
+}
+
+function getStorage(key) {
+    return localStorage.getItem(key);
+}
+
 const apiURL = window.API_BASE_URL;
 
 async function onRefreshToken() {
@@ -159,6 +167,8 @@ function clearTokens(){
 function clearAdminTokens() {
     setCookie('admin_access', '', 0);
     setCookie('admin_refresh', '', 0);
+    removeStorage('fcm_token');
+    removeStorage('homme_dashboard');
 }
 
 
@@ -169,8 +179,10 @@ function logout() {
 
 
 function adminLogout() {
-    clearAdminTokens();
-    location.pathname = '/signin/';
+    deleteDevice().then(() => {
+        clearAdminTokens();
+        location.href = location.origin + '/signin/';
+    })
 }
 
 
@@ -464,12 +476,15 @@ let notificationIcon = document.getElementById('notification-icon');
 let notificationDataWrapper = document.getElementById('notification-data-wrapper');
 let notificationCloseBtn = document.getElementById('notification-close-btn');
 
-notificationIcon.addEventListener('click', toggleNotifications);
-notificationCloseBtn.addEventListener('click', toggleNotifications);
+if (notificationIcon) {
+    notificationIcon.addEventListener('click', toggleNotifications);
+    notificationCloseBtn.addEventListener('click', toggleNotifications);
+}
 
 function toggleNotifications() {
     if (notificationDataWrapper.classList.contains('hide')) {
         notificationDataWrapper.classList.remove('hide');
+        getNotifications();
     }
     else {
         notificationDataWrapper.classList.add('hide');
@@ -486,7 +501,8 @@ function closeSideSwitchDropdown(event) {
     }
 }
 
-document.body.addEventListener('click', closeSideSwitchDropdown);
+if (sideSwitchBtn)
+    document.body.addEventListener('click', closeSideSwitchDropdown);
 
 
 function searchCustomerForm(event, catgeory) {
@@ -512,6 +528,11 @@ function searchCustomerForm(event, catgeory) {
 
 
 async function getNotifications() {
+    if (db != undefined)
+        updateCount(true);
+    
+    document.getElementById('notification-loader').classList.remove('hide');
+    document.getElementById('notification-data').classList.add('hide');
     let token = getCookie('admin_access');
     let headers = {
         "Authorization": `Bearer ${token}`
@@ -535,6 +556,8 @@ async function getNotifications() {
                                                 </div>`;
             })
         }
+        document.getElementById('notification-loader').classList.add('hide');
+        document.getElementById('notification-data').classList.remove('hide');
     })
 }
 
@@ -548,3 +571,47 @@ numberInputs.forEach((input) => {
             return event;
     })
 })
+
+
+// Firebase Credentials
+
+const vapidKey = "BIjpmVYUoTvaVuMz9qquKvPCVxmPgRj7gyYCme0-J5wP5B_OyhjbQ_FlyDRAnpoEhgpcbp4xeb_pNooaj-tt09M";
+const firebaseConfig = {
+    apiKey: "AIzaSyB82Y7WJcq5dXGXlrGeBxXd2w8-FF8iwnw",
+    authDomain: "my-project-1532425885608.firebaseapp.com",
+    projectId: "my-project-1532425885608",
+    storageBucket: "my-project-1532425885608.appspot.com",
+    messagingSenderId: "812117382239",
+    appId: "1:812117382239:web:2e832dd7308e24a7f4b7ea",
+    measurementId: "G-81E7VHXFBJ"
+};
+
+
+// Open (or create) a database
+const dbName = "notifyDatabase";
+const dbVersion = 1;
+const storeName = "notificationCount";
+let db;
+
+
+function deleteIndexedDatabase(dbName) {
+    const deleteRequest = indexedDB.deleteDatabase(dbName);
+
+    deleteRequest.onsuccess = function () {
+        console.log("Deleted database successfully");
+    };
+    deleteRequest.onerror = function () {
+        console.log("Couldn't delete database");
+    };
+    deleteRequest.onblocked = function () {
+        deleteIndexedDatabase(dbName);
+        console.log("Couldn't delete database due to the operation being blocked");
+    };
+}
+
+// self.addEventListener("notificationclick", (event) => {
+//     event.notification.close();
+//     clients.openWindow("/orders/");
+//     },
+//     false,
+// );

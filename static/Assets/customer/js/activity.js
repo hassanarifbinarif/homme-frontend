@@ -17,7 +17,7 @@ let requiredDataURL = `/admin/activities?page=1&perPage=1000&ordering=-created_a
 
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData();
     populateDropdowns();
 }

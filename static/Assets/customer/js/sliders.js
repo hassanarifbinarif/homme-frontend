@@ -1,7 +1,7 @@
 let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=&target_role=user`;
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData();
 }
 

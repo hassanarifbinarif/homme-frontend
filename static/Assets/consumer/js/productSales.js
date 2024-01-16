@@ -14,7 +14,7 @@ let requiredDataURL = `/admin/orders?page=1&perPage=1000&ordering=-created_at&cr
 
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData();
 }
 

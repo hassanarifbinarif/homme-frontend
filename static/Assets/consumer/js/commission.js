@@ -23,7 +23,7 @@ yearField.addEventListener('click', toggleDropdown);
 
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData();
     populateSalonDropdown();
     populateYearList(20);

@@ -1,7 +1,7 @@
 let requiredDataURL = `/admin/marketings?page=1&perPage=1000&ordering=-created_at&role=${role}`;
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData();
     populateDropdowns();
 }

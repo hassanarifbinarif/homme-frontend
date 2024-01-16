@@ -2,7 +2,7 @@ let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-crea
 
 window.onload = () => {
     getData();
-    getNotifications();
+    // getNotifications();
 }
 
 function searchForm(event) {

@@ -16,7 +16,7 @@ let skinTypeOptions = document.querySelectorAll('input[name="skin_type_radio"]')
 window.onload = () => {
     getData();
     populateModalDropdowns();
-    getNotifications();
+    // getNotifications();
 }
 
 function searchForm(event) {

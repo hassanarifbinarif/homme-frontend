@@ -12,7 +12,7 @@ window.onload = () => {
         document.getElementById('selected-order-completion-type').innerText = search.toUpperCase();
     }
     getData();
-    getNotifications();
+    // getNotifications();
     populateDropdowns();
 }
 

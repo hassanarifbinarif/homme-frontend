@@ -3,7 +3,7 @@ let requiredDataURL = `/admin/inventory?page=1&perPage=1000&ordering=-id&search=
 window.onload = () => {
     document.querySelector('span[data-value="current_week"]').click();
     // getData();
-    getNotifications();
+    // getNotifications();
 }
 
 function searchForm(event) {

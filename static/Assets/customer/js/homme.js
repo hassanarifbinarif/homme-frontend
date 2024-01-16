@@ -36,13 +36,26 @@ let pickedupVsShippedChartDataURL = `/admin/dashboard/customer/net-sales-graph?s
 
 
 window.onload = () => {
-    getNotifications();
+    // getNotifications();
     getData(requiredDataURL);
     getSalesOverviewData();
     populateYearList(20);
     getChartData(salesChannelChartDataURL, 'sales_per_channel');
     getChartData(pickedupVsShippedChartDataURL, 'picked_up_vs_shipped');
     getSummaryData();
+    checkPageCount();
+}
+
+
+function checkPageCount() {
+    let count = getStorage('homme_dashboard');
+    if (count == null) {
+        setStorage('homme_dashboard', 1);
+    }
+    else {
+        setStorage('homme_dashboard', parseInt(count)+1);
+    }
+    checkForFCMToken();
 }
 
 
