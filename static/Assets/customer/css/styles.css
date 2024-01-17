@@ -348,13 +348,13 @@ input::-webkit-inner-spin-button {
 .user-info .nav-notification-wrapper .notification-quantity {
     position: absolute;
     top: -6px;
-    right: -6px;
+    right: -5px;
     padding-left: 2px;
     padding-right: 1px;
-    min-width: 12px;
+    min-width: 17px;
     width: fit-content;
-    height: 14px;
-    border-radius: 2px;
+    height: 17px;
+    border-radius: 3px;
     background: #000093;
     display: flex;
     justify-content: center;
@@ -362,7 +362,7 @@ input::-webkit-inner-spin-button {
     color: #FFF;
     leading-trim: both;
     text-edge: cap;
-    font-family: Gotham Book;
+    font-family: Gotham Medium;
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;

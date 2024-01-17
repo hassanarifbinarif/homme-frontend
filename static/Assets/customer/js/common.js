@@ -608,10 +608,3 @@ function deleteIndexedDatabase(dbName) {
         console.log("Couldn't delete database due to the operation being blocked");
     };
 }
-
-// self.addEventListener("notificationclick", (event) => {
-//     event.notification.close();
-//     clients.openWindow("/orders/");
-//     },
-//     false,
-// );

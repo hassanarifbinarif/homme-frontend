@@ -75,7 +75,7 @@ async function populateDropdowns() {
     })
     statesList.forEach((state, index) => {
         statesDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn state-item-list" data-id="${index+1}">
-                                                            <input onchange="selectState(this);" id="state-${index}" type="radio" value="${state.abbreviation}" name="state_radio" />
+                                                            <input onchange="selectState(this);" id="state-${index}" type="radio" value="${state.abbreviation}" data-value="${state.name}" name="state_radio" />
                                                             <label for="state-${index}" data-name="${state.name}" class="radio-label">${state.name}</label>
                                                         </div>`)
     })
@@ -221,9 +221,10 @@ function selectCustomer(event) {
             document.querySelector('input[name="zip_code"]').value = customerDetails[0].zip_code;
             // document.querySelector('#orderCreate input[name="country"]').value = customerDetails[0].country;
             
-            let isState = document.querySelector(`label[data-name="${customerDetails[0].state}"]`);
+            // let isState = document.querySelector(`label[data-name="${customerDetails[0].state}"]`);
+            let isState = document.querySelector(`input[name='state_radio'][value='${customerDetails[0].state}'], input[name='state_radio'][data-value='${customerDetails[0].state}']`);
             if (isState) {
-                isState.previousElementSibling.click();
+                isState.click();
             }
 
             let isCountry = document.querySelector(`label[data-name="${customerDetails[0].country}"]`);
@@ -643,11 +644,13 @@ async function openGenerateShippingLabelModal(modalID) {
                 document.querySelector(`.${modalID}`).click();
             }
             else if (response.status == 400) {
-                let keys = Object.keys(res.messages);
-                keys.forEach((key) => {
-                    errorMsg.classList.add('active');
-                    errorMsg.innerHTML += `${res.messages[key]} <br />`;
-                })
+                // let keys = Object.keys(res.messages);
+                // keys.forEach((key) => {
+                //     errorMsg.classList.add('active');
+                //     errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                // })
+                errorMsg.classList.add('active');
+                displayMessages(res.messages, errorMsg);
             }
             generateLabelLoader.classList.add('hide');
             generateLabelBtn.style.pointerEvents = 'auto';

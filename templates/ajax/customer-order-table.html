@@ -139,11 +139,7 @@
             </td>
             <td>
                 <div>
-                    {% if obj.total_rewards_redeemed > 0 %}
-                    <span>Redemption</span>
-                    {% else %}
-                    <span>Purchase</span>
-                    {% endif %}
+                    <span>{{obj.purchase_type|title}}</span>
                 </div>
             </td>
             <td>

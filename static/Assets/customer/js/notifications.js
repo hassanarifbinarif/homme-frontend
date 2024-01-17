@@ -1,33 +1,3 @@
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register("/firebase-messaging-sw.js",{scope: '/'}).then(function(response) {
-        // Service worker registration done
-        console.log('Registration Successful', response);
-
-        response.addEventListener('updatefound', () => {
-            // A wild service worker has appeared in reg.installing!
-            const newWorker = response.installing;
-        
-            newWorker.state;
-            // "installing" - the install event has fired, but not yet complete
-            // "installed"  - install complete
-            // "activating" - the activate event has fired, but not yet complete
-            // "activated"  - fully active
-            // "redundant"  - discarded. Either failed install, or it's been
-            //                replaced by a newer version
-        
-            newWorker.addEventListener('statechange', () => {
-                console.log('new worker enabled');
-              // newWorker.state has changed
-            });
-        });
-
-    }, function(error) {
-        // Service worker registration failed
-        console.log('Registration Failed', error);
-    })
-}
-
-
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
@@ -56,15 +26,57 @@ messaging.onMessage(function(payload) {
         });
     }
     else if (Notification.permission === "granted") {
-        // If it's okay let's create a notification
         // var notification = new Notification(notificationTitle,notificationOptions);
         // notification.onclick = function(event) {
         //     event.preventDefault(); // prevent the browser from focusing the Notification's tab
-        //     window.open(`${window.location.origin}/notifications/` , '_blank');
         //     notification.close();
         // }
     }
 });
+
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("/firebase-messaging-sw.js",{scope: '/'}).then(function(response) {
+        // Service worker registration done
+        console.log('Registration Successful', response);
+        messaging.useServiceWorker(response)
+        checkForFCMToken();
+
+        response.onupdatefound = () => {
+            const installingWorker = response.installing;
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed' &&
+                    navigator.serviceWorker.controller) {
+                    // TODO: Preferably, display a message asking the user to reload...
+                    location.reload();
+                }
+            };
+        };
+
+        // response.addEventListener('updatefound', () => {
+        //     // A wild service worker has appeared in reg.installing!
+        //     const newWorker = response.installing;
+        //     response.update();
+        
+        //     newWorker.state;
+        //     // "installing" - the install event has fired, but not yet complete
+        //     // "installed"  - install complete
+        //     // "activating" - the activate event has fired, but not yet complete
+        //     // "activated"  - fully active
+        //     // "redundant"  - discarded. Either failed install, or it's been
+        //     //                replaced by a newer version
+        
+        //     newWorker.addEventListener('statechange', () => {
+        //         console.log('new worker enabled', newWorker);
+        //       // newWorker.state has changed
+        //     });
+        // });
+
+    }, function(error) {
+        // Service worker registration failed
+        console.log('Registration Failed', error);
+    })
+}
 
 
 async function checkForFCMToken() {

@@ -122,12 +122,58 @@ async function loginForm(event) {
 
 
 
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+const messaging = firebase.messaging();
+
+
 // // Getting FCM Token
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register("/firebase-messaging-sw.js",{scope: '/'}).then(function(response) {
-      // Service worker registration done
-      console.log('Registration Successful', response);
+        // Service worker registration done
+        console.log('Registration Successful', response);
+
+        response.onupdatefound = () => {
+            const installingWorker = response.installing;
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed' &&
+                    navigator.serviceWorker.controller) {
+                    // TODO: Preferably, display a message asking the user to reload...
+                    location.reload();
+                }
+            };
+        };
+
+        messaging.useServiceWorker(response);
+        messaging.getToken({ vapidKey: vapidKey }).then((currentToken) => {
+            if (currentToken) {
+                console.log(currentToken);
+            } else {
+                console.log('No registration token available. Request permission to generate one.');
+            }
+        }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
+        });
+        
+        messaging.requestPermission().then(function () {
+            console.log("Notification permission granted.");
+            return messaging.getToken()
+        }).catch(function (err) {
+            console.log("Unable to get permission to notify.", err);
+        });
+
+        response.onupdatefound = () => {
+            const installingWorker = response.installing;
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed' &&
+                    navigator.serviceWorker.controller) {
+                    // Preferably, display a message asking the user to reload...
+                    location.reload();
+                }
+            };
+        };
     }, function(error) {
       // Service worker registration failed
       console.log('Registration Failed', error);
@@ -145,33 +191,3 @@ if ("serviceWorker" in navigator) {
 } else {
     console.error("Service workers are not supported.");
 }
-
-// self.addEventListener('install', function(event) {
-//     event.waitUntil(self.skipWaiting());
-// });
-// self.addEventListener('activate', function(event) {
-//     event.waitUntil(self.clients.claim());
-// });
-
-
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-
-const messaging = firebase.messaging();
-
-messaging.getToken({ vapidKey: vapidKey }).then((currentToken) => {
-    if (currentToken) {
-        console.log(currentToken);
-    } else {
-        console.log('No registration token available. Request permission to generate one.');
-    }
-}).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-});
-
-messaging.requestPermission().then(function () {
-    console.log("Notification permission granted.");
-    return messaging.getToken()
-}).catch(function (err) {
-    console.log("Unable to get permission to notify.", err);
-});

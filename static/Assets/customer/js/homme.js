@@ -55,7 +55,6 @@ function checkPageCount() {
     else {
         setStorage('homme_dashboard', parseInt(count)+1);
     }
-    checkForFCMToken();
 }
 
 
