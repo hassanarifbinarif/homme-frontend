@@ -191,3 +191,30 @@ if ("serviceWorker" in navigator) {
 } else {
     console.error("Service workers are not supported.");
 }
+
+
+const request = indexedDB.open(dbName, dbVersion);
+
+// Handle database creation or upgrade
+request.onupgradeneeded = function(event) {
+    db = event.target.result;
+    // Create an object store with an auto-incrementing keyPath
+    const objectStore = db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
+
+    // Add a count field to the object store
+    objectStore.createIndex("count", "count", { unique: true });
+
+    objectStore.add({count:0});
+    console.log('in upgrade needed');
+};
+
+// Handle successful database open
+request.onsuccess = function(event) {
+    db = event.target.result;
+    console.log('in success');
+};
+
+// Handle errors
+request.onerror = function(event) {
+    console.error("Database error: " + event.target.errorCode);
+};
