@@ -198,6 +198,7 @@ function selectCustomer(event) {
         document.getElementById('generate-div').classList.remove('hide');
         document.getElementById('label-div').classList.add('hide');
         base64Image = null;
+        delete orderData.status;
         customerField.value = inputElement.nextElementSibling.innerText;
         orderData.user = parseInt(inputElement.closest('.customer-item-list').getAttribute('data-id'));
         selectedCustomer = customerData.filter(customer => customer.user.id == inputElement.value)[0];
@@ -481,6 +482,7 @@ async function openCreateOrderModal(modalId) {
             is_preview: true,
             user: null,
         };
+        delete orderData.status;
     })
     document.querySelector(`.${modalId}`).click();
 }
@@ -663,6 +665,7 @@ async function openGenerateShippingLabelModal(modalID) {
                     form.removeAttribute('onsubmit');
                     shippingSpeedsWrapper.innerHTML = '';
                     document.getElementById('generate-btn').style.pointerEvents = 'auto';
+                    document.getElementById('generate-btn').querySelector('.btn-text').innerText = 'GENERATE';
                     document.getElementById('refresh-costs-btn').removeAttribute('onclick');
                     document.querySelector('.label-error-div').classList.add('hide');
                     document.querySelector('.label-error-msg').classList.remove('active');
