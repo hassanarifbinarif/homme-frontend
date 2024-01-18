@@ -111,9 +111,20 @@ function openCreateActivityModal() {
     let form = modal.querySelector('form');
     let generateDiv = modal.querySelector('#generate-div');
     let labelDiv = modal.querySelector('#label-div');
+    let orderBtn = document.getElementById('order-submit-btn');
 
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
+        selectedState = null;
+        selectedCountry = null;
+        selectedCustomer = {};
+        orderBtn.style.pointerEvents = 'auto';
+        orderBtn.classList.remove('opacity-point-6');
+        orderBtn.querySelector('.btn-text').innerText = 'CREATE';
+        document.getElementById('selected-state-text').innerText = 'State';
+        document.getElementById('selected-state-text').style.color = '#A9A9A9';
+        document.getElementById('selected-country-text').innerText = 'Country';
+        document.getElementById('selected-country-text').style.color = '#A9A9A9';
         form.querySelector('.create-error-msg').innerHTML = '';
         form.querySelector('.create-error-msg').classList.remove('active');
         selectedState = null;

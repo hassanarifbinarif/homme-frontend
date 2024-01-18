@@ -33,7 +33,7 @@
                     </div>
                     <div class="order-section hide" id="order-section">
                         <div class="selection-div">
-                            <input type="text" placeholder="Search Customer" name="customer" id="customer-field" autocomplete="off" />
+                            <input type="text" maxlength="100" placeholder="Search Customer" name="customer" id="customer-field" autocomplete="off" />
                             <div class="filter-dropdown" id="customer-dropdown">
                                 <span class="hide" id="no-customer-text">No Customer</span>
                             </div>
@@ -43,7 +43,7 @@
                             <input type="text" placeholder="Last Name" name="last_name" id="" />
                         </div>
                         <div class="selection-div">
-                            <input type="text" placeholder="Search Product" name="product" id="product-field" autocomplete="off" />
+                            <input type="text" maxlength="100" placeholder="Search Product" name="product" id="product-field" autocomplete="off" />
                             <div class="filter-dropdown" id="product-dropdown">
                                 <span class="hide" id="no-product-text">No Product</span>
                             </div>
@@ -62,7 +62,7 @@
                                 </div>
                                 <div>
                                     <span>Shipping</span>
-                                    <input type="number" oninput="updateShippingCost(event);" min="0" value="0" placeholder="Shipping Cost" name="shipping_cost" id="shipping-cost" />
+                                    <input type="number" oninput="updateShippingCost(event);" min="0" value="0" step="0.01" placeholder="Shipping Cost" name="shipping_cost" id="shipping-cost" />
                                 </div>
                                 <div>
                                     <span>Tax</span>
@@ -95,9 +95,9 @@
                                     <span class="label-text">SHIPPING LABEL</span>
                                 </div>
                             </div>
-                            <input type="text" oninput="getShippingDetails();" placeholder="Street Address" name="address" id="" />
+                            <input type="text" onblur="getShippingDetails();" maxlength="255" placeholder="Street Address" name="address" id="" />
                             <div class="group-inputs">
-                                <input type="text" oninput="getShippingDetails();" placeholder="City" name="city" id="" />
+                                <input type="text" onblur="getShippingDetails();" maxlength="50" placeholder="City" name="city" id="" />
                                 <div class="selection-input">
                                     <button class="filter-btn" id="states-field" type="button">
                                         <span id="selected-state-text">State</span>
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             <div class="group-inputs">
-                                <input type="number" oninput="getShippingDetails();" placeholder="ZIP" name="zip_code" id="" />
+                                <input type="number" onblur="getShippingDetails();" maxlength="20" placeholder="ZIP" name="zip_code" id="" />
                                 <div class="selection-input">
                                     <button class="filter-btn" id="country-field" type="button">
                                         <span id="selected-country-text">Country</span>
@@ -122,12 +122,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <textarea name="notes" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
+                            <textarea name="notes" placeholder="Add Notes..." id="order-notes" maxlength="500" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="reward-section" id="reward-section">
                         <div class="selection-div">
-                            <input type="text" placeholder="Select Customer" name="reward_customer" id="reward-customer-field" autocomplete="off" />
+                            <input type="text" maxlength="100" placeholder="Select Customer" name="reward_customer" id="reward-customer-field" autocomplete="off" />
                             <div class="filter-dropdown" id="reward-customer-dropdown">
                                 <span class="hide" id="no-reward-customer-text">No Customer</span>
                             </div>
@@ -135,7 +135,7 @@
                         <div class="search-product" id="credits-input-wrapper">
                             <input type="number" min="1" oninput="getRewardDetails();" step="any" placeholder="Credits" name="points" id="" />
                         </div>
-                        <textarea name="reward_notes" oninput="getRewardDetails();" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
+                        <textarea name="reward_notes" maxlength="500" oninput="getRewardDetails();" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="error-div" style="text-align: left;">

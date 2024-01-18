@@ -195,6 +195,9 @@ productField.addEventListener('input', function() {
 function selectCustomer(event) {
     let inputElement = event.target;
     if(inputElement.checked) {
+        document.getElementById('generate-div').classList.remove('hide');
+        document.getElementById('label-div').classList.add('hide');
+        base64Image = null;
         customerField.value = inputElement.nextElementSibling.innerText;
         orderData.user = parseInt(inputElement.closest('.customer-item-list').getAttribute('data-id'));
         selectedCustomer = customerData.filter(customer => customer.user.id == inputElement.value)[0];
@@ -250,8 +253,8 @@ function selectCustomer(event) {
             document.querySelectorAll('input[name="country_radio"]').forEach((input) => input.checked = false);
             document.getElementById('selected-country-text').innerText = 'Country';
             document.getElementById('selected-country-text').style.color = '#A9A9A9';
+            orderCreate();
         }
-        orderCreate();
     }
 }
 
@@ -442,10 +445,20 @@ async function openCreateOrderModal(modalId) {
     let form = modal.querySelector('form');
     let generateDiv = modal.querySelector('#generate-div');
     let labelDiv = modal.querySelector('#label-div');
+    let orderBtn = document.getElementById('order-submit-btn');
 
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         selectedState = null;
+        selectedCountry = null;
+        selectedCustomer = {};
+        orderBtn.style.pointerEvents = 'auto';
+        orderBtn.classList.remove('opacity-point-6');
+        orderBtn.querySelector('.btn-text').innerText = 'CREATE';
+        document.getElementById('selected-state-text').innerText = 'State';
+        document.getElementById('selected-state-text').style.color = '#A9A9A9';
+        document.getElementById('selected-country-text').innerText = 'Country';
+        document.getElementById('selected-country-text').style.color = '#A9A9A9';
         generateDiv.classList.remove('hide');
         generateLabelBtn.classList.add('opacity-point-3-5');
         generateLabelBtn.removeAttribute('onclick');
@@ -524,15 +537,20 @@ async function orderCreate(event) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
     };
-    if (data.shipping_address == null || data.shipping_address.address.trim().length == 0 || data.shipping_address.city.trim().length == "" || data.shipping_address.state.trim().length == 0 || data.shipping_address.zip_code == "" || data.shipping_address.country.trim().length == 0) {
-        generateLabelBtn.classList.add('opacity-point-3-5');
-        generateLabelBtn.removeAttribute('onclick');
-        generateLabelBtn.setAttribute('title', 'Complete all shipping details');
-    }
-    else {
-        generateLabelBtn.classList.remove('opacity-point-3-5');
-        generateLabelBtn.setAttribute('onclick', "openGenerateShippingLabelModal('orderShippingLabel')");
-        generateLabelBtn.removeAttribute('title');
+    if (data.is_preview) {
+        if (data.shipping_address == null || data.shipping_address.address.trim().length == 0 || data.shipping_address.city.trim().length == "" || selectedState == null || data.shipping_address.zip_code == "" || selectedCountry == null) {
+            generateLabelBtn.classList.add('opacity-point-3-5');
+            generateLabelBtn.removeAttribute('onclick');
+            generateLabelBtn.setAttribute('title', 'Complete all shipping details');
+        }
+        else {
+            generateLabelBtn.classList.remove('opacity-point-3-5');
+            generateLabelBtn.setAttribute('onclick', "openGenerateShippingLabelModal('orderShippingLabel')");
+            generateLabelBtn.removeAttribute('title');
+        }
+        button.style.pointerEvents = 'none';
+        button.classList.add('opacity-point-6');
+        button.querySelector('.btn-text').innerText = 'CALCULATING...';
     }
     if (data.is_preview == false) {
         if (data.user == null) {
@@ -545,11 +563,12 @@ async function orderCreate(event) {
             errorMsg.innerHTML = 'Select atleast one product';
             return false;
         }
-        else if (data.shipping_address == null || data.shipping_address.address == "" || data.shipping_address.city == "" || data.shipping_address.state == "" || data.shipping_address.zip_code == "" || data.shipping_address.country == "") {
+        else if (data.shipping_address == null || data.shipping_address.address.trim().length == 0 || data.shipping_address.city.trim().length == 0 || selectedState == null || data.shipping_address.zip_code == "" || selectedCountry == null) {
             errorMsg.classList.add('active');
             errorMsg.innerHTML = 'Complete all fields of shipping details';
             return false;
         }
+        data.notes = document.getElementById('order-notes').value || "";
         errorMsg.classList.remove('active');
         errorMsg.innerHTML = '';
         beforeLoad(button);
@@ -557,6 +576,7 @@ async function orderCreate(event) {
     let response = await requestAPI(`${apiURL}/admin/orders`, JSON.stringify(data), headers, 'POST');
     // console.log(response);
     response.json().then(function(res) {
+        console.log(res);
         if (response.status == 201) {
             if (data.is_preview == false) {
                 getData();
@@ -572,6 +592,10 @@ async function orderCreate(event) {
                 shippingCost.value = res.data.shipping;
                 grandTotal.innerText = '$' + res.data.total;
                 totalTax.innerText = '$' + res.data.tax_amount;
+                
+                button.style.pointerEvents = 'auto';
+                button.classList.remove('opacity-point-6');
+                button.querySelector('.btn-text').innerText = 'CREATE';
             }
         }
         else {
@@ -579,6 +603,11 @@ async function orderCreate(event) {
                 errorMsg.classList.add('active');
                 afterLoad(button, 'ERROR');
                 displayMessages(res.messages, errorMsg);
+            }
+            else {
+                button.style.pointerEvents = 'auto';
+                button.classList.remove('opacity-point-6');
+                button.querySelector('.btn-text').innerText = 'CREATE';
             }
         }
     })

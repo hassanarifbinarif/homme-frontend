@@ -270,7 +270,7 @@
                     </div>
                     <div class="order-product-notes-wrapper">
                         <span>Notes</span>
-                        <span>No notes recorded.</span>
+                        <span>{% if order.notes == "" or order.notes == None %}No notes recorded.{% else %}{{order.notes|linebreaksbr}}{% endif %}</span>
                     </div>
                 </div>
             </div>
