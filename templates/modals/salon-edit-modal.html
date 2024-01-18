@@ -13,7 +13,7 @@
                 <div class="modal-body">
                     <div class="input-div">
                         <div class="hide" id="salon-notes-div">
-                            <input type="text" name="admin_comment" placeholder="Notes" id="" />
+                            <input maxlength="255" type="text" name="admin_comment" placeholder="Notes" id="" />
                         </div>
 
                         <div class="hide" id="salon-status-div">
@@ -42,15 +42,15 @@
                         </div>
                         
                         <div class="hide" id="salon-contact-div">
-                            <input type="text" name="contact_name" placeholder="Contact Name" />
-                            <input type="email" name="email" placeholder="Email Address" />
-                            <input type="tel" name="phone" placeholder="Phone Number" />
+                            <input maxlength="100" type="text" name="contact_name" placeholder="Contact Name" />
+                            <input maxlength="100" type="email" name="email" placeholder="Email Address" />
+                            <input maxlength="15" type="tel" name="phone" placeholder="Phone Number" />
                         </div>
 
                         <div class="hide" id="salon-address-div">
-                            <input type="text" name="address" placeholder="Address" />
+                            <input maxlength="255" type="text" name="address" placeholder="Address" />
                             <div class="group-inputs">
-                                <input type="text" name="city" placeholder="City" />
+                                <input maxlength="50" type="text" name="city" placeholder="City" />
                                 <div class="selection-input">
                                     <button class="filter-btn" id="salon-states-field" type="button">
                                         <span id="selected-salon-state-text">State</span>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="group-inputs">
-                                <input type="number" name="zip_code" placeholder="ZIP" />
+                                <input maxlength="20" type="number" name="zip_code" placeholder="ZIP" />
                                 <div class="selection-input">
                                     <button class="filter-btn" id="salon-country-field" type="button">
                                         <span id="selected-salon-country-text">Country</span>

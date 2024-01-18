@@ -15,13 +15,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="general-inputs">
-                        <input type="text" name="title" placeholder="Title" />
-                        <input type="text" name="sub_title" placeholder="Sub-Title" />
-                        <input type="text" name="description" placeholder="Short Description..." />
-                        <textarea name="long_description" placeholder="Long Description..." id="" cols="30" rows="10"></textarea>
-                        <input type="text" name="venue" placeholder="Venue Name" />
-                        <input type="text" name="location" placeholder="Venue Address" />
-                        <input type="url" name="rsvp" placeholder="Enter RSVP link" />
+                        <input maxlength="100" type="text" name="title" placeholder="Title" />
+                        <input maxlength="100" type="text" name="sub_title" placeholder="Sub-Title" />
+                        <input maxlength="255" type="text" name="description" placeholder="Short Description..." />
+                        <textarea maxlength="500" name="long_description" placeholder="Long Description..." id="" cols="30" rows="10"></textarea>
+                        <input maxlength="100" type="text" name="venue" placeholder="Venue Name" />
+                        <input maxlength="255" type="text" name="location" placeholder="Venue Address" />
+                        <input maxlength="2083" type="url" name="rsvp" placeholder="Enter RSVP link" />
                     </div>
                     <div class="image-wrapper">
                         <label for="event-img">

@@ -16,14 +16,14 @@
                             <div class="address-inputs" id="shipping-address-wrapper">
                                 <span>Shipping Address</span>
                                 <div class="group-inputs">
-                                    <input type="text" name="shipping_first_name" placeholder="First Name" />
-                                    <input type="text" name="shipping_last_name" placeholder="Last Name" />
+                                    <input maxlength="50" type="text" name="shipping_first_name" placeholder="First Name" />
+                                    <input maxlength="50" type="text" name="shipping_last_name" placeholder="Last Name" />
                                 </div>
-                                <input type="tel" name="shipping_phone" placeholder="Phone" />
-                                <input type="text" name="shipping_address1" placeholder="Address 1" />
-                                <input type="text" name="shipping_address2" placeholder="Address 2" />
+                                <input maxlength="15" type="tel" name="shipping_phone" placeholder="Phone" />
+                                <input maxlength="255" type="text" name="shipping_address1" placeholder="Address 1" />
+                                <input maxlength="255" type="text" name="shipping_address2" placeholder="Address 2" />
                                 <div class="group-inputs">
-                                    <input type="text" name="shipping_city" placeholder="City" />
+                                    <input maxlength="50" type="text" name="shipping_city" placeholder="City" />
                                     <div class="selection-input">
                                         <button class="filter-btn" id="shipping-states-field" type="button">
                                             <span id="selected-shipping-state-text">State</span>
@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                                 <div class="group-inputs">
-                                    <input type="number" name="shipping_zip_code" placeholder="ZIP" />
+                                    <input maxlength="20" type="number" name="shipping_zip_code" placeholder="ZIP" />
                                     <div class="selection-input">
                                         <button class="filter-btn" id="shipping-country-field" type="button">
                                             <span id="selected-shipping-country-text">Country</span>
@@ -56,14 +56,14 @@
                             <div class="address-inputs" id="billing-address-wrapper">
                                 <span>Billing Address</span>
                                 <div class="group-inputs">
-                                    <input type="text" name="billing_first_name" placeholder="First Name" />
-                                    <input type="text" name="billing_last_name" placeholder="Last Name" />
+                                    <input maxlength="50" type="text" name="billing_first_name" placeholder="First Name" />
+                                    <input maxlength="50" type="text" name="billing_last_name" placeholder="Last Name" />
                                 </div>
-                                <input type="tel" name="billing_phone" placeholder="Phone" />
-                                <input type="text" name="billing_address1" placeholder="Address 1" />
-                                <input type="text" name="billing_address2" placeholder="Address 2" />
+                                <input maxlength="15" type="tel" name="billing_phone" placeholder="Phone" />
+                                <input maxlength="255" type="text" name="billing_address1" placeholder="Address 1" />
+                                <input maxlength="255" type="text" name="billing_address2" placeholder="Address 2" />
                                 <div class="group-inputs">
-                                    <input type="text" name="billing_city" placeholder="City" />
+                                    <input maxlength="50" type="text" name="billing_city" placeholder="City" />
                                     <div class="selection-input">
                                         <button class="filter-btn" id="billing-states-field" type="button">
                                             <span id="selected-billing-state-text">State</span>
@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <div class="group-inputs">
-                                    <input type="number" name="billing_zip_code" placeholder="ZIP" />
+                                    <input maxlength="20" type="number" name="billing_zip_code" placeholder="ZIP" />
                                     <div class="selection-input">
                                         <button class="filter-btn" id="billing-country-field" type="button">
                                             <span id="selected-billing-country-text">Country</span>

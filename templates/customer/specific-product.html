@@ -47,11 +47,11 @@
                                     <path d="M13.6465 4.36027L16.5931 7.30694M14.8965 3.11027C15.2872 2.71952 15.8172 2.5 16.3698 2.5C16.9224 2.5 17.4524 2.71952 17.8431 3.11027C18.2339 3.50103 18.4534 4.031 18.4534 4.58361C18.4534 5.13621 18.2339 5.66619 17.8431 6.05694L6.36979 17.5303H3.45312V14.5536L14.8965 3.11027Z" stroke="#000093" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <input type="text" readonly value="{{product.title}}" name="title" placeholder="Face Serum" />
+                            <input minlength="1" maxlength="100" type="text" readonly value="{{product.title}}" name="title" placeholder="Face Serum" />
                         </div>
                         <div>
                             <span>Short Description</span>
-                            <input type="text" readonly value="{{product.short_description}}" name="short_description" placeholder="Lorem ipsum dolor sit amet consectetur....." />
+                            <input maxlength="255" type="text" readonly value="{{product.short_description}}" name="short_description" placeholder="Lorem ipsum dolor sit amet consectetur....." />
                         </div>
                         <div class="group-inputs">
                             <div>
@@ -60,13 +60,13 @@
                             </div>
                             <div>
                                 <span>Size</span>
-                                <input type="text" value="{{product.size}}" readonly name="size" placeholder="1 fl.oz / 30 ml" />
+                                <input maxlength="50" type="text" value="{{product.size}}" readonly name="size" placeholder="1 fl.oz / 30 ml" />
                             </div>
                         </div>
                         <div class="group-inputs">
                             <div>
                                 <span>Special Attributes</span>
-                                <input type="text" value="{{product.special_attributes}}" readonly name="special_attributes" placeholder="Vegan / Infusion: Spirulina" />
+                                <input maxlength="255" type="text" value="{{product.special_attributes}}" readonly name="special_attributes" placeholder="Vegan / Infusion: Spirulina" />
                             </div>
                             <div>
                                 <span>Skin Type</span>
@@ -84,7 +84,7 @@
                         </div>                        
                         <div>
                             <span>Description</span>
-                            <textarea name="description" value="" readonly placeholder="Lorem ipsum dolor sit amet consectetur. Lobortis vitae id non sit vestibulum volutpat sapien et. Nisl amet enim tortor diam tortor. Congue convallis pellentesque in pretium egestas sed nunc porta. Cras leo nibh nulla ipsum nec. Dolor tortor varius quisque vel risus non pulvinar mi. A lectus sit rhoncus venenatis sem in eu. Semper rhoncus amet nibh pulvinar sit. Sit donec purus pretium bibendum. Egestas posuere ullamcorper viverra varius sed. Neque lobortis eu feugiat ullamcorper et ut non tristique. Placerat egestas arcu aenean purus nisl ut quisque cum ultrices." id="" cols="30" rows="10">{{product.description}}</textarea>
+                            <textarea maxlength="500" name="description" value="" readonly placeholder="Lorem ipsum dolor sit amet consectetur. Lobortis vitae id non sit vestibulum volutpat sapien et. Nisl amet enim tortor diam tortor. Congue convallis pellentesque in pretium egestas sed nunc porta. Cras leo nibh nulla ipsum nec. Dolor tortor varius quisque vel risus non pulvinar mi. A lectus sit rhoncus venenatis sem in eu. Semper rhoncus amet nibh pulvinar sit. Sit donec purus pretium bibendum. Egestas posuere ullamcorper viverra varius sed. Neque lobortis eu feugiat ullamcorper et ut non tristique. Placerat egestas arcu aenean purus nisl ut quisque cum ultrices." id="" cols="30" rows="10">{{product.description}}</textarea>
                         </div>
                         <div class="save-cancel-btn hide" id="description-update-btn">
                             <button type="button" onclick="toggleDescriptionInputs();">CANCEL</button>
@@ -110,7 +110,7 @@
                         <div class="specific-product-inventory-details" id="specific-product-inventory-details">
                             <div>
                                 <span>SKU#</span>
-                                <input type="text" value="{{product.sku_num}}" required readonly name="sku_num" placeholder="HOMME07834FH1" id="" />
+                                <input maxlength="100" type="text" value="{{product.sku_num}}" required readonly name="sku_num" placeholder="HOMME07834FH1" id="" />
                             </div>
                             <div>
                                 <span>Current Stock</span>
@@ -147,7 +147,7 @@
                                     <div class="input-div">
                                         <span>Length</span>
                                         <div>
-                                            <input type="number" required readonly min="0" step="any" value="{{product.length}}" name="length" placeholder="3" id="" />
+                                            <input type="number" required readonly min="0.1" step="0.01" value="{{product.length}}" name="length" placeholder="3" id="" />
                                             <div>in</div>
                                         </div>
                                     </div>
@@ -155,7 +155,7 @@
                                     <div class="input-div">
                                         <span>Width</span>
                                         <div>
-                                            <input type="number" required readonly min="0" step="any" value="{{product.width}}" name="width" placeholder="3" id="" />
+                                            <input type="number" required readonly min="0.1" step="0.01" value="{{product.width}}" name="width" placeholder="3" id="" />
                                             <div>in</div>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@
                                     <div class="input-div">
                                         <span>Height</span>
                                         <div>
-                                            <input type="number" required readonly min="0" step="any" value="{{product.height}}" name="height" placeholder="3" id="" />
+                                            <input type="number" required readonly min="0.1" step="0.01" value="{{product.height}}" name="height" placeholder="3" id="" />
                                             <div>in</div>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                                 <div class="input-div">
                                     <span>Weight</span>
                                     <div>
-                                        <input type="number" required readonly min="0" step="any" value="{{product.weight}}" name="weight" placeholder="349" id="" />
+                                        <input type="number" required readonly min="0.1" step="0.01" value="{{product.weight}}" name="weight" placeholder="349" id="" />
                                         <div>oz</div>
                                     </div>
                                 </div>
@@ -255,7 +255,7 @@
                                 <div class="filter-dropdown" id="specific-product-category-dropdown">
                                     <form class="add-btn" id="add-category-wrapper" onsubmit="addCategoryForm(event);">
                                         <button id="add-category-btn" type="button">ADD NEW CATEGORY</button>
-                                        <input type="text" required name="name" style="display: none;" />
+                                        <input maxlength="50" type="text" required name="name" style="display: none;" />
                                         <small class="cat-name-msg input-error-msg"></small>
                                     </form>
                                 </div>

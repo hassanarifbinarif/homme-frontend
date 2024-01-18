@@ -91,7 +91,7 @@ function populateCommissions(response) {
         if (response.status == 200 && res.data.length > 0) {
             res.data.forEach((item) => {
                 commissionsTableBody.innerHTML += `<tr>
-                                                        <td><div><span>${formatCustomDate(item.month, { month: 'long', year: 'numeric' })}</span></div></td>
+                                                        <td><div><span>${formatCustomDate(item.month)}</span></div></td>
                                                         <td><div><span>${item.total_products}</span></div></td>
                                                         <td><div><span>$${item.total_customer_purchase}</span></div></td>
                                                         <td><div><span>$${item.total_commission}</span></div></td>
@@ -348,9 +348,17 @@ async function commentForm(event) {
 }
 
 
-function formatCustomDate(dateString, options) {
-    const formattedDate = new Date(dateString).toLocaleString('en-US', options);
-    return formattedDate;
+function formatCustomDate(dateString) {
+    const inputDate = new Date(dateString);
+
+    const month = monthNames[inputDate.getUTCMonth()];
+    const year = inputDate.getUTCFullYear();
+
+    const result = `${month}, ${year}`;
+    return result;
+
+    // const formattedDate = new Date(dateString).toLocaleString('en-US', options);
+    // return formattedDate;
 }
 
 

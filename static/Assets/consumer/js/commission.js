@@ -371,6 +371,38 @@ function sortByAlphabets(event, columnIndex) {
 }
 
 
+function sortByDate(event, columnIndex) {
+    let arrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("commission-table");
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
+
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = new Date(rowA.getElementsByTagName("td")[columnIndex].getAttribute('dateTime'));
+        const y = new Date(rowB.getElementsByTagName("td")[columnIndex].getAttribute('dateTime'));
+
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
+
+    // Clear table content
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    // Append sorted rows to the table
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    // Toggle arrow opacity
+    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
+}
+
+
 function extractNumber(value) {
     const match = value.match(/\d+/);
     return match ? parseFloat(match[0]) : 0;
@@ -422,13 +454,19 @@ function reverseTableRows() {
 }
 
 
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 function convertDateTime() {
     let dateTimes = document.querySelectorAll('.month');
     dateTimes.forEach((timeString) => {
         const inputDate = new Date(timeString.innerText);
+        // console.log(monthNames[inputDate.getUTCMonth()], inputDate.getUTCFullYear());
 
-        const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(inputDate);
-        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+        const month = monthNames[inputDate.getUTCMonth()];
+        const year = inputDate.getUTCFullYear();
+
+        // const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(inputDate);
+        // const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
 
         const result = `${month}, ${year}`;
         timeString.innerText = result;

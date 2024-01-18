@@ -155,7 +155,10 @@
                         </svg>
                         <span>Finances</span>
                     </div>
-                    <button type="button">EXPORT ORDERS</button>
+                    <button type="button" onclick="getOrderDataInCSVFormat(this)">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">EXPORT ORDERS</span>
+                    </button>
                 </div>
             </div>
             <div class="content-col-2">

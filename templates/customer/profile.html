@@ -55,25 +55,25 @@
                         <div class="profile-input-wrapper">
                             <span>Name</span>
                             <div class="profile-input">
-                                <input type="text" name="fullname" value="{% if request.admin_name %}{{request.admin_name}}{% endif %}" placeholder="Daniel Russell" required />
+                                <input maxlength="100" type="text" name="fullname" value="{% if request.admin_name %}{{request.admin_name}}{% endif %}" placeholder="Daniel Russell" required />
                             </div>
                         </div>
                         <div class="profile-input-wrapper password-input">
                             <span>Current Password</span>
                             <div class="profile-input">
-                                <input type="password" name="current_password" placeholder="**********" />
+                                <input minlength="8" maxlength="30" type="password" name="current_password" placeholder="**********" />
                             </div>
                         </div>
                         <div class="profile-input-wrapper password-input">
                             <span>New Password</span>
                             <div class="profile-input">
-                                <input type="password" name="new_password" placeholder="**********" />
+                                <input minlength="8" maxlength="30" type="password" name="new_password" placeholder="**********" />
                             </div>
                         </div>
                         <div class="profile-input-wrapper password-input">
                             <span>Confirm Password</span>
                             <div class="profile-input">
-                                <input type="password" name="confirm_password" placeholder="**********" />
+                                <input minlength="8" maxlength="30" type="password" name="confirm_password" placeholder="**********" />
                             </div>
                         </div>
                         <small class="error-msg input-error-msg" style="width: 365px;"></small>

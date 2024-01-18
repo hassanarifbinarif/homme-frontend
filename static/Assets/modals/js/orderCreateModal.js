@@ -578,7 +578,7 @@ async function orderCreate(event) {
     let response = await requestAPI(`${apiURL}/admin/orders`, JSON.stringify(data), headers, 'POST');
     // console.log(response);
     response.json().then(function(res) {
-        console.log(res);
+        // console.log(res);
         if (response.status == 201) {
             if (data.is_preview == false) {
                 getData();

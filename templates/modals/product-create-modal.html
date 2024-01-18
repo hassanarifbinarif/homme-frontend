@@ -17,11 +17,11 @@
                     <div class="group-inputs">
                         <div>
                             <label for="title">Title</label>
-                            <input type="text" required placeholder="Enter title" name="title" id="title" />
+                            <input maxlength="100" type="text" required placeholder="Enter title" name="title" id="title" />
                         </div>
                         <div>
                             <label for="sku">SKU#</label>
-                            <input type="text" required placeholder="HOMME064B" name="sku_num" id="sku" />
+                            <input maxlength="100" type="text" required placeholder="HOMME064B" name="sku_num" id="sku" />
                         </div>
                     </div>
                     <div class="group-inputs">
@@ -37,7 +37,7 @@
                                 <div class="filter-dropdown" id="product-category-dropdown">
                                     <div class="add-btn" id="add-category-wrapper">
                                         <button id="add-category-btn" type="button" onclick="getNewCatInput();">ADD NEW CATEGORY</button>
-                                        <input type="text" id="add-category-inp" onkeypress="getCatField(event);" name="name" style="display: none;" />
+                                        <input maxlength="50" type="text" id="add-category-inp" onkeypress="getCatField(event);" name="name" style="display: none;" />
                                         <small class="cat-name-msg input-error-msg"></small>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                 <div class="filter-dropdown" id="product-type-dropdown">
                                     <div class="add-btn" id="add-type-wrapper">
                                         <button id="add-type-btn" type="button" onclick="getNewTypeInput();">ADD NEW TYPE</button>
-                                        <input type="text" id="add-type-inp" onkeypress="getTypeField(event);" name="name" style="display: none;" />
+                                        <input maxlength="50" type="text" id="add-type-inp" onkeypress="getTypeField(event);" name="name" style="display: none;" />
                                         <small class="type-name-msg input-error-msg"></small>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="general-input">
                         <label for="short_desc">Short Description</label>
-                        <input type="text" required placeholder="Short Description" name="short_description" id="short_desc" />
+                        <input maxlength="255" type="text" required placeholder="Short Description" name="short_description" id="short_desc" />
                     </div>
                     <div class="group-inputs">
                         <div>
@@ -73,13 +73,13 @@
                         </div>
                         <div>
                             <label for="size">Size</label>
-                            <input type="text" required placeholder="Size" name="size" id="size" />
+                            <input maxlength="100" type="text" required placeholder="Size" name="size" id="size" />
                         </div>
                     </div>
                     <div class="group-inputs">
                         <div>
                             <label for="special_attributes">Special Attributes</label>
-                            <input type="text" placeholder="Special attributes" name="special_attributes" id="special_attributes" />
+                            <input maxlength="255" type="text" placeholder="Special attributes" name="special_attributes" id="special_attributes" />
                         </div>
                         <div>
                             <span>Skin Type</span>
@@ -93,7 +93,7 @@
                                 <div class="filter-dropdown" id="skin-type-dropdown">
                                     <div class="add-btn" id="add-skin-wrapper">
                                         <button id="add-skin-btn" type="button" onclick="getNewSkinTypeInput();">ADD NEW SKIN TYPE</button>
-                                        <input type="text" id="add-skin-inp" onkeypress="getSkinField(event);" name="name" style="display: none;" />
+                                        <input maxlength="50" type="text" id="add-skin-inp" onkeypress="getSkinField(event);" name="name" style="display: none;" />
                                         <small class="skin-type-msg input-error-msg"></small>
                                     </div>
                                 </div>
@@ -102,11 +102,11 @@
                     </div>
                     <div class="general-input">
                         <label for="tags">Tags</label>
-                        <input type="text" placeholder="Add tags" name="tags" id="tags" />
+                        <input maxlength="255" type="text" placeholder="Add tags" name="tags" id="tags" />
                     </div>
                     <div class="description-input">
                         <label for="description">Description</label>
-                        <textarea name="description" required placeholder="Add description..." id="description" cols="30" rows="10"></textarea>
+                        <textarea maxlength="500" name="description" required placeholder="Add description..." id="description" cols="30" rows="10"></textarea>
                     </div>
                     <div class="add-media-wrapper">
                         <span>Add Media</span>
@@ -189,7 +189,7 @@
                                     <div class="input-div">
                                         <span>Length</span>
                                         <div>
-                                            <input type="number" required min="0" step="any" name="length" placeholder="0" id="" />
+                                            <input type="number" required min="0" step="0.01" name="length" placeholder="0" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -197,7 +197,7 @@
                                     <div class="input-div">
                                         <span>Width</span>
                                         <div>
-                                            <input type="number" required min="0" step="any" name="width" placeholder="0" id="" />
+                                            <input type="number" required min="0" step="0.01" name="width" placeholder="0" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
                                     <div class="input-div">
                                         <span>Height</span>
                                         <div>
-                                            <input type="number" required min="0" step="any" name="height" placeholder="0" id="" />
+                                            <input type="number" required min="0" step="0.01" name="height" placeholder="0" id="" />
                                             <div>Ft</div>
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@
                                 <div class="input-div">
                                     <span>Weight</span>
                                     <div>
-                                        <input type="number" required min="0" step="any" name="weight" placeholder="0" id="" />
+                                        <input type="number" required min="0" step="0.01" name="weight" placeholder="0" id="" />
                                         <div>oz</div>
                                     </div>
                                 </div>

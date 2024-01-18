@@ -637,6 +637,47 @@ function drawPickedupVsShippedSalesChart(res) {
 }
 
 
+async function getOrderDataInCSVFormat(button) {
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "text/csv"
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/orders/tax-report`, null, headers, 'GET');
+        if (response.status == 200) {
+            response.text().then(function(res) {
+                downloadCSV(res, 'order_report');
+            })
+            afterLoad(button, 'EXPORT ORDERS');
+        }
+        else {
+            afterLoad(button, 'ERROR');
+        }
+    }
+    catch (err) {
+        afterLoad(button, 'ERROR');
+        console.log(err);
+    }
+}
+
+
+function downloadCSV(csvData, filename) {
+    const blob = new Blob([csvData], { type: 'text/csv' });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+}
+
+
 function selectOrderStatTime(event) {
     let element = event.target;
     let startDate, endDate;

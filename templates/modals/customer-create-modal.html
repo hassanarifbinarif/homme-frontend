@@ -14,15 +14,15 @@
                     <div class="input-div">
                         <!-- <input type="text" name="name" placeholder="Name" /> -->
                         <div class="group-inputs">
-                            <input type="text" name="first_name" placeholder="First Name" />
-                            <input type="text" name="last_name" placeholder="Last Name" />
+                            <input maxlength="50" type="text" name="first_name" placeholder="First Name" />
+                            <input maxlength="50" type="text" name="last_name" placeholder="Last Name" />
                         </div>
-                        <input type="text" name="phone" placeholder="Phone Number" />
-                        <input type="email" name="email" placeholder="Email Address" />
-                        <input type="password" name="password" placeholder="Password" />
-                        <input type="password" name="confirm_password" placeholder="Confirm Password" />
+                        <input maxlength="15" type="tel" name="phone" placeholder="Phone Number" />
+                        <input maxlength="100" type="email" name="email" placeholder="Email Address" />
+                        <input minlength="8" maxlength="30" type="password" name="password" placeholder="Password" />
+                        <input minlength="8" maxlength="30" type="password" name="confirm_password" placeholder="Confirm Password" />
                         <div class="referral-input-div">
-                            <input type="text" name="referral_code" placeholder="Referral Code" />
+                            <input maxlength="50" type="text" name="referral_code" placeholder="Referral Code" />
                             <button class="referral-btn" type="button" id="referral-btn" onclick="getReferralData(event);">
                                 <span class="spinner-border spinner-border-sm hide" style="color: #FFFFFF;" role="status" aria-hidden="true"></span>
                                 <span>
@@ -33,7 +33,7 @@
                             </button>
                         </div>
                         <div class="selection-div">
-                            <input type="text" placeholder="Salon" name="customer" id="salon-field" autocomplete="off" />
+                            <input maxlength="100" type="text" placeholder="Salon" name="customer" id="salon-field" autocomplete="off" />
                             <div class="filter-dropdown" id="salon-dropdown">
                                 <span class="hide" id="no-salon-text">No Salon</span>
                             </div>

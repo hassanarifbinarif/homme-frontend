@@ -574,6 +574,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 8px;
+    word-break: break-all;
 }
 
 .order-product-other-details-wrapper .order-customer > div > span:last-of-type {
@@ -634,7 +635,12 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    word-break: break-all;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div > svg {
+    flex-shrink: 0;
 }
 
 .order-product-other-details-wrapper .order-shipping-address {

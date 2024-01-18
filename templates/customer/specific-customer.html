@@ -256,7 +256,7 @@
                             </svg>
                         </div>
                         <p id="notes-paragraph">{% if customer.salon_customer.notes == '' %}No notes recorded{% else %}{{customer.salon_customer.notes}}{% endif %}</p>
-                        <textarea name="notes" id="notes-textarea" oninput="autoResize(this)" class="hide"></textarea>
+                        <textarea maxlength="500" name="notes" id="notes-textarea" oninput="autoResize(this)" class="hide"></textarea>
                         <div class="specific-customer-favourite-products">
                             <span>Favourite Products</span>
                             <div>

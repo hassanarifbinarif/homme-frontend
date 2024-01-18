@@ -25,7 +25,7 @@
         {% csrf_token %}
         <div class="input-group">
             <div class="input">
-                <input class="input-field" type="number" name="otp_code" placeholder="1234" tabindex="1" required />
+                <input class="input-field" type="number" min="1" name="otp_code" placeholder="1234" tabindex="1" required />
                 <small class="code-msg input-error-msg"></small>
             </div>
             <div class="resend-code-div">

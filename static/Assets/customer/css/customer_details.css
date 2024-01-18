@@ -24,6 +24,7 @@
 
 .specific-order-wrapper .specific-customer-header > svg {
     margin-bottom: 10px;
+    flex-shrink: 0;
 }
 
 .specific-order-wrapper .specific-customer-header .specific-customer-overview {
@@ -36,6 +37,7 @@
     width: 54px;
     height: 54px;
     border-radius: 54px;
+    flex-shrink: 0;
 }
 
 .specific-order-wrapper .specific-customer-header .specific-customer-overview > .specific-customer-image > img {
@@ -60,7 +62,7 @@
     font-size: 1rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 16px;
 }
 
 .specific-customer-header .specific-customer-overview > div:last-of-type > div span {
@@ -396,6 +398,11 @@
     display: flex;
     align-items: center;
     gap: 14px;
+    max-width: calc(67%);
+}
+
+.details-wrapper-col-1 .specific-customer-all-order-wrapper > div > svg {
+    flex-shrink: 0;
 }
 
 .details-wrapper-col-1 .specific-customer-all-order-wrapper > div > span {
@@ -406,11 +413,17 @@
     font-size: .875rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 16px;
     letter-spacing: 1.4px;
+    flex-shrink: 1;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .details-wrapper-col-1 .specific-customer-all-order-wrapper > button {
+    flex-shrink: 0;
     display: flex;
     width: 226px;
     height: 38px;
@@ -1050,7 +1063,8 @@ ul.comment-section > li .post-area > button {
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    word-break: break-all;
 }
 
 .order-product-other-details-wrapper .order-shipping-address {

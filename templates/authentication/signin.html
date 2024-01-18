@@ -30,13 +30,13 @@
         {% csrf_token %}
         <div class="input-group">
             <div class="input">
-                <input class="input-field" type="email" name="email" id="login-email" placeholder="Email" tabindex="1" />
+                <input class="input-field" type="email" maxlength="100" name="email" id="login-email" placeholder="Email" tabindex="1" />
                 <small class="email-msg input-error-msg"></small>
             </div>
             <div class="password-input">
                 <div>
                     <i class="fa fa-eye-slash hide-password-field"></i>
-                    <input class="input-field login-password-field" type="password" placeholder="Password" name="password"
+                    <input class="input-field login-password-field" minlength="8" maxlength="30" type="password" placeholder="Password" name="password"
                         id="login-password" tabindex="2" />
                 </div>
                 <small class="password-msg input-error-msg"></small>

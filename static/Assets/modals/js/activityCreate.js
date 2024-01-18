@@ -125,6 +125,7 @@ function openCreateActivityModal() {
         document.getElementById('selected-state-text').style.color = '#A9A9A9';
         document.getElementById('selected-country-text').innerText = 'Country';
         document.getElementById('selected-country-text').style.color = '#A9A9A9';
+        document.getElementById('submit-btn').querySelector('.btn-text').innerText = 'CREATE';
         form.querySelector('.create-error-msg').innerHTML = '';
         form.querySelector('.create-error-msg').classList.remove('active');
         selectedState = null;

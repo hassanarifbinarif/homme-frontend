@@ -15,9 +15,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="general-inputs">
-                        <input type="text" name="title" placeholder="Title" />
-                        <input type="text" name="sub_title" placeholder="Sub-Title" />
-                        <input type="text" name="summary" placeholder="Offer Summary..." />
+                        <input maxlength="100" type="text" name="title" placeholder="Title" />
+                        <input maxlength="100" type="text" name="sub_title" placeholder="Sub-Title" />
+                        <input maxlength="255" type="text" name="summary" placeholder="Offer Summary..." />
                         <div class="select-products-div">
                             <button type="button" id="product-select-btn">
                                 <span id="selected-product-name">Specify Product</span>
@@ -30,7 +30,7 @@
                                     <svg class="search-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M18.4531 17.9219L13.4531 12.9219M15.1198 8.75521C15.1198 9.52125 14.9689 10.2798 14.6758 10.9875C14.3826 11.6953 13.9529 12.3383 13.4112 12.88C12.8696 13.4217 12.2265 13.8514 11.5188 14.1445C10.811 14.4377 10.0525 14.5885 9.28646 14.5885C8.52041 14.5885 7.76187 14.4377 7.05414 14.1445C6.34641 13.8514 5.70334 13.4217 5.16167 12.88C4.61999 12.3383 4.19031 11.6953 3.89716 10.9875C3.60401 10.2798 3.45312 9.52125 3.45313 8.75521C3.45313 7.20811 4.06771 5.72438 5.16167 4.63042C6.25563 3.53646 7.73936 2.92187 9.28646 2.92188C10.8336 2.92187 12.3173 3.53646 13.4112 4.63042C14.5052 5.72438 15.1198 7.20811 15.1198 8.75521Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <input type="text" oninput="searchProduct(this);" onkeypress="checkEnter(event);" placeholder="SEARCH PRODUCT" />
+                                    <input maxlength="100" type="text" oninput="searchProduct(this);" onkeypress="checkEnter(event);" placeholder="SEARCH PRODUCT" />
                                 </div>
                                 <div class="product-list-wrapper">
                                     <div id="product-list-items-wrapper">
@@ -39,11 +39,11 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="number" name="discount_percent" min="0" step="any" max="100" placeholder="Discount Percentage" />
-                        <textarea name="description" placeholder="Offer Description..." id="" cols="30" rows="10"></textarea>
-                        <input type="text" name="venue_name" placeholder="Venue Name (Optional)" />
-                        <input type="text" name="venue_address" placeholder="Venue Address (Optional)" />
-                        <input type="url" name="venue_link" placeholder="Hyperlink (Optional)" />
+                        <input type="number" name="discount_percent" min="0" step="0.01" max="100" placeholder="Discount Percentage" />
+                        <textarea maxlength="500" name="description" placeholder="Offer Description..." id="" cols="30" rows="10"></textarea>
+                        <input maxlength="100" type="text" name="venue_name" placeholder="Venue Name (Optional)" />
+                        <input maxlength="255" type="text" name="venue_address" placeholder="Venue Address (Optional)" />
+                        <input maxlength="2083" type="url" name="venue_link" placeholder="Hyperlink (Optional)" />
                     </div>
                     <div class="image-wrapper">
                         <label for="special-offer-img" id="special-image-label">
