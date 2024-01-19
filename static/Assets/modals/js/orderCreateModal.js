@@ -530,7 +530,7 @@ async function orderCreate(event) {
     let button = document.querySelector('#order-submit-btn');
     let data = JSON.parse(JSON.stringify(orderData));
     if (event) {
-        if (event.target.id == 'order-submit-btn') {
+        if (event.target.closest('#order-submit-btn').id == 'order-submit-btn') {
             data.is_preview = false;
         }
     }
@@ -573,10 +573,10 @@ async function orderCreate(event) {
         data.notes = document.getElementById('order-notes').value || "";
         errorMsg.classList.remove('active');
         errorMsg.innerHTML = '';
+        button.style.pointerEvents = 'none';
         beforeLoad(button);
     }
     let response = await requestAPI(`${apiURL}/admin/orders`, JSON.stringify(data), headers, 'POST');
-    // console.log(response);
     response.json().then(function(res) {
         // console.log(res);
         if (response.status == 201) {
@@ -586,6 +586,7 @@ async function orderCreate(event) {
                 setTimeout(()=> {
                     afterLoad(button, 'CREATE');
                     document.querySelector(`.${currentOrderModal}`).click();
+                    button.style.pointerEvents = 'auto';
                 }, 1500)
             }
             else {
@@ -602,6 +603,7 @@ async function orderCreate(event) {
         }
         else {
             if (data.is_preview == false) {
+                button.style.pointerEvents = 'auto';
                 errorMsg.classList.add('active');
                 afterLoad(button, 'ERROR');
                 displayMessages(res.messages, errorMsg);
