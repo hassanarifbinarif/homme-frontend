@@ -402,7 +402,9 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    text-align: left!important;
+    word-break: break-all;
 }
 
 #salonMarketingNotification .modal-body .selected-salons-wrapper .salon-search-wrapper .salon-list-wrapper .salon-list-item > label .all-select-option {

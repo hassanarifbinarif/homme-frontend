@@ -216,9 +216,9 @@ async function getData(url=null) {
 function insertTableBodyRows(data, tableBody) {
     data.forEach((item) => {
         var tr = document.createElement('tr');
-        tr.innerHTML = `<td><div><span>${item.order ? item.order.customer_name : 'None'}</span></div></td>
+        tr.innerHTML = `<td><div><span class="table-text-overflow" title="${item.order ? item.order.customer_name : 'None'}">${item.order ? item.order.customer_name : 'None'}</span></div></td>
                         <td><div><span class="order-number">${item.order ? item.order.id : '---'}</span></div></td>
-                        <td><div><span>${item.order ? item.order.hairstylist : 'None'}</span></div></td>
+                        <td><div><span class="table-text-overflow" title="${item.order ? item.order.hairstylist : 'None'}">${item.order ? item.order.hairstylist : 'None'}</span></div></td>
                         <td><div><span>${item.order ? '$' + item.order.retail_value : '---'}</span></div></td>
                         <td><div><span>${item.order ? '$' + item.order.net_sales : '---'}</span></div></td>
                         <td><div><span>$${item.amount}</span></div></td>
@@ -259,12 +259,19 @@ async function showCommissionDetails(clickedRow, salonId, month) {
         commissionDetailThead.appendChild(commissionDetailTheadRow);
         
         try {
+            newRow.innerHTML = `<td colspan="9">
+                                    <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2">
+                                        <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
+                                        </span>
+                                    </div>
+                                </td>`;
+
             let token = getCookie('admin_access');
             let headers = {
                 "Authorization": `Bearer ${token}`
             };
 
-            let response = await requestAPI(`${apiURL}/admin/salons/commissions?salon=${salonId}&date_month=${month}`, null, headers, 'GET');
+            let response = await requestAPI(`${apiURL}/admin/salons/commissions?salon=${salonId}&date_month=${month}&page=1&perPage=1000&ordering=-date`, null, headers, 'GET');
             response.json().then(function(res) {
                 if (response.status == 200) {
                     insertTableBodyRows(res.data, commissionDetailBody);

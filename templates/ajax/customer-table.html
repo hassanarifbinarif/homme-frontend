@@ -107,25 +107,25 @@
             </td>
             <td>
                 <div>
-                    <span>({{obj.referrals_count}}){{obj.completed_referrals_count}}</span>
+                    <span class="table-text-overflow" title="({{obj.referrals_count}}){{obj.completed_referrals_count}}">({{obj.referrals_count}}){{obj.completed_referrals_count}}</span>
                 </div>
             </td>
             <td>
                 <div>
                     {% if obj.salon == None %}
-                    <span class="table-text-overflow">Bronze (No Salon)</span>
+                    <span class="table-text-overflow" title="Bronze (No Salon)">Bronze (No Salon)</span>
                     {% elif obj.reward_summary.membership_level.level_name == 'Newly registered' %}
-                    <span class="table-text-overflow">Bronze ({{obj.reward_summary.total_rewards}})</span>
+                    <span class="table-text-overflow" title="Bronze ({{obj.reward_summary.total_rewards}})">Bronze ({{obj.reward_summary.total_rewards}})</span>
                     {% elif obj.reward_summary.membership_level.level_name == 'New User / Bronze' %}
-                    <span class="table-text-overflow">Bronze ({{obj.reward_summary.total_rewards}})</span>
+                    <span class="table-text-overflow" title="Bronze ({{obj.reward_summary.total_rewards}})">Bronze ({{obj.reward_summary.total_rewards}})</span>
                     {% else %}
-                    <span class="table-text-overflow">{{obj.reward_summary.membership_level.level_name}} ({{obj.reward_summary.total_rewards}})</span>
+                    <span class="table-text-overflow" title="{{obj.reward_summary.membership_level.level_name}} ({{obj.reward_summary.total_rewards}})">{{obj.reward_summary.membership_level.level_name}} ({{obj.reward_summary.total_rewards}})</span>
                     {% endif %}
                 </div>
             </td>
             <td>
                 <div>
-                    <span>{{obj.orders_count}}</span>
+                    <span class="table-text-overflow" title="{{obj.orders_count}}">{{obj.orders_count}}</span>
                 </div>
             </td>
             <td>
@@ -135,7 +135,7 @@
             </td>
             <td>
                 <div>
-                    <span class="table-text-overflow">{% if obj.source == None or obj.source == "" %}No Source{% else %}{{obj.source}}{% endif %}</span>
+                    <span class="table-text-overflow" title="{% if obj.source == None or obj.source == '' %}No Source{% else %}{{obj.source}}{% endif %}">{% if obj.source == None or obj.source == "" %}No Source{% else %}{{obj.source}}{% endif %}</span>
                 </div>
             </td>
             <td>
@@ -143,7 +143,7 @@
             </td>
             <td>
                 <div>
-                    <span>${{obj.total_spent}}</span>
+                    <span class="table-text-overflow" title="${{obj.total_spent}}">${{obj.total_spent}}</span>
                 </div>
             </td>
         </tr>

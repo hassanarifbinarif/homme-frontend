@@ -216,22 +216,46 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
+    gap: 11px;
 }
 
-.order-product-stats > .stat {
+.order-product-stats > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.order-product-stats .order-product-stat-1 {
+    width: 40.55%;
+    min-width: 279px;
+}
+
+.order-product-stats .order-product-stat-2 {
+    width: 23.69%;
+    min-width: 163px;
+}
+
+.order-product-stats .order-product-stat-3 {
+    width: 24.7%;
+    min-width: 170px;
+}
+
+.order-product-stats .stat {
     display: flex;
     flex-direction: column;
     gap: 11px;
 }
 
-.order-product-stats > .stat > div {
+/* .order-product-stats .stat > div {
     display: flex;
     align-items: center;
     gap: 8px;
     height: 14px;
-}
+} */
 
-.order-product-stats > .stat > div > span {
+.order-product-stats .stat > div > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -243,7 +267,7 @@
     opacity: .7;
 }
 
-.order-product-stats > .stat > span {
+.order-product-stats .stat > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -251,10 +275,11 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    word-break: break-all;
 }
 
-.order-product-stats > .order-product-stat-3.stat > .tracking-id {
+.order-product-stats .order-product-stat-3.stat > .tracking-id {
     color: #000093;
     font-family: Gotham Medium;
     text-decoration: underline;
@@ -382,6 +407,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
 }
 
 .order-shipping-confirmation-wrapper-2 .order-shipping-status {
@@ -406,7 +432,8 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    word-break: break-all;
 }
 
 .order-shipping-confirmation-wrapper .order-shipping-status > div > span:last-of-type,
@@ -418,7 +445,8 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    word-break: break-all;
 }
 
 .order-shipping-confirmation-wrapper .order-shipping-status > button,
@@ -449,6 +477,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
 }
 
 .order-shipping-confirmation-wrapper-2 .order-shipping-details > div:first-of-type {
@@ -495,7 +524,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    letter-spacing: 2.4px;
+    /* letter-spacing: 2.4px; */
     text-decoration-line: underline;
 }
 
@@ -573,7 +602,7 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 8px;
+    line-height: 10px;
     word-break: break-all;
 }
 
@@ -677,6 +706,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 16px;
+    word-break: break-all;
 }
 
 .details-wrapper-col-2 .order-product-notes-wrapper {
@@ -709,7 +739,7 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 12px;
+    line-height: 14px;
     opacity: .7;
     word-break: break-all;
 }

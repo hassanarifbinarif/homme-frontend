@@ -448,7 +448,8 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    word-break: break-all;
 }
 
 #addCommission .filter-btn > span {

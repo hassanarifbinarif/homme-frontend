@@ -6,7 +6,7 @@
 
 .specific-order-content .specific-salon-overview {
     width: 100%;
-    height: 102px;
+    min-height: 102px;
 
     background-color: #FFF;
     border: 1px solid #E0E0DD;
@@ -17,6 +17,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    gap: 27px;
 }
 
 .specific-order-content .specific-salon-overview .specific-salon-overview-header {
@@ -34,6 +35,11 @@
     line-height: 16px;
 }
 
+.specific-order-content .specific-salon-overview .specific-salon-overview-header > svg,
+.specific-order-content .specific-salon-overview .specific-salon-address > svg {
+    flex-shrink: 0;
+}
+
 .specific-order-content .specific-salon-overview .specific-salon-address {
     display: flex;
     align-items: center;
@@ -46,7 +52,7 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
 }
 
 .details-wrapper-col-1 .specific-salon-overview-data-wrapper {
@@ -679,7 +685,11 @@ ul.comment-section > li .post-area > button {
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+}
+
+.order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div > svg {
+    flex-shrink: 0;
 }
 
 .order-product-other-details-wrapper .order-shipping-address {

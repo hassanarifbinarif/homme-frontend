@@ -33,12 +33,13 @@
 
 #activityProduct .modal-body .activity-product-stats {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 #activityProduct .modal-body .activity-product-stats > div {
+    display: flex;
     flex-shrink: 0;
-    height: 72px;
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -46,23 +47,23 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 12px;
-
-
+    line-height: 14px;
+    word-break: break-all;
+    text-align: left!important;
 }
 
 #activityProduct .modal-body .activity-product-stats > div > div {
-    height: 36px;
+    min-height: 36px;
     display: flex;
     align-items: center;
     padding: 9px 5px;
 }
 
-#activityProduct .modal-body .activity-product-stats > .total-amount {
+#activityProduct .modal-body .activity-product-stats .total-amount {
     width: 230px;
 }
 
-#activityProduct .modal-body .activity-product-stats > .total-amount > div {
+#activityProduct .modal-body .activity-product-stats .total-amount > div {
     padding: 9px 10px;
 }
 
@@ -71,43 +72,43 @@
     border-bottom: 1px solid #CECECE;
 }
 
-#activityProduct .modal-body .activity-product-stats > div > div:first-of-type > span {
+#activityProduct .modal-body .activity-product-stats > div:first-of-type > div > span {
     opacity: .6;
 }
 
-#activityProduct .modal-body .activity-product-stats > div > div > span {
+/* #activityProduct .modal-body .activity-product-stats > div > div > span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+} */
 
-#activityProduct .modal-body .activity-product-stats > .rewards-earned {
+#activityProduct .modal-body .activity-product-stats .rewards-earned {
     width: 127px;
 }
 
-#activityProduct .modal-body .activity-product-stats > .associated-salon {
+#activityProduct .modal-body .activity-product-stats .associated-salon {
     width: 170px;
 }
 
-#activityProduct .modal-body .activity-product-stats > .order-status {
+#activityProduct .modal-body .activity-product-stats .order-status {
     width: 170px;
 }
 
-#activityProduct .modal-body .activity-product-stats > .tracking-link {
+#activityProduct .modal-body .activity-product-stats .tracking-link {
     width: 150px;
 }
 
-#activityProduct .modal-body .activity-product-stats > .tracking-link > div:last-of-type > span {
+#activityProduct .modal-body .activity-product-stats .tracking-link #purchase-tracking {
     color: #000093;
     text-decoration: underline;
 }
 
 
-#activityProduct .modal-body .activity-product-stats > .location {
+#activityProduct .modal-body .activity-product-stats .location {
     width: 174px;
 }
 
-#activityProduct .modal-body .activity-product-stats > .location > div {
+#activityProduct .modal-body .activity-product-stats .location > div {
     border-right: unset;
 }
 

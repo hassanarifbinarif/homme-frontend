@@ -2,7 +2,7 @@
     aria-labelledby="activityRewardLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form>
+            <div>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Reward Activity</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -12,28 +12,26 @@
                 </div>
                 <div class="modal-body">
                     <div class="activity-reward-stats">
-                        <div class="reward-credit">
-                            <div>
+                        <div>
+                            <div class="reward-credit">
                                 <span>Rewards Credit</span>
                             </div>
-                            <div>
-                                <span id="activity-credits">0.00</span>
-                            </div>
-                        </div>
-                        <div class="date">
-                            <div>
+                            <div class="date">
                                 <span>Date</span>
                             </div>
-                            <div>
-                                <span id="activity-reward-date"></span>
-                            </div>
-                        </div>
-                        <div class="notes">
-                            <div>
+                            <div class="notes">
                                 <span>Notes</span>
                             </div>
-                            <div>
-                                <span id="activity-reward-notes" class="table-text-overflow"></span>
+                        </div>
+                        <div>
+                            <div class="reward-credit">
+                                <span id="activity-credits">0.00</span>
+                            </div>
+                            <div class="date">
+                                <span id="activity-reward-date"></span>
+                            </div>
+                            <div class="notes">
+                                <span id="activity-reward-notes"></span>
                             </div>
                         </div>
                     </div>
@@ -43,7 +41,7 @@
                         OK
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="w-100 d-flex justify-content-center align-items-center pt-2 pb-2 modal-loader hide">
             <span class="spinner-border spinner-border-md" style="color: #000093;" role="status"

@@ -2,8 +2,7 @@
     aria-labelledby="activityProductLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
-            <form action="">
-                <!-- {% csrf_token %} -->
+            <div>
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
                     <span>Product Purchase</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -13,52 +12,44 @@
                 </div>
                 <div class="modal-body">
                     <div class="activity-product-stats">
-                        <div class="total-amount">
-                            <div>
+                        <div>
+                            <div class="total-amount">
                                 <span>Total $</span>
                             </div>
-                            <div>
-                                <span id="purchase-total">$50.00</span>
-                            </div>
-                        </div>
-                        <div class="rewards-earned">
-                            <div>
+                            <div class="rewards-earned">
                                 <span>Rewards Earned</span>
                             </div>
-                            <div>
-                                <span id="purchase-rewards">50</span>
-                            </div>
-                        </div>
-                        <div class="associated-salon">
-                            <div>
+                            <div class="associated-salon">
                                 <span>Associated Salon</span>
                             </div>
-                            <div>
-                                <span id="purchase-salon">Redge NYC</span>
-                            </div>
-                        </div>
-                        <div class="order-status">
-                            <div>
+                            <div class="order-status">
                                 <span>Order Status</span>
                             </div>
-                            <div>
-                                <span id="purchase-status">Picked Up</span>
-                            </div>
-                        </div>
-                        <div class="tracking-link">
-                            <div>
+                            <div class="tracking-link">
                                 <span>Tracking Link</span>
                             </div>
-                            <div>
-                                <span id="purchase-tracking">ORDER TRACKING</span>
-                            </div>
-                        </div>
-                        <div class="location">
-                            <div>
+                            <div class="location">
                                 <span>Location</span>
                             </div>
-                            <div>
-                                <span id="purchase-location">Syracuse, Connecticut</span>
+                        </div>
+                        <div>
+                            <div class="total-amount">
+                                <span id="purchase-total">$0.00</span>
+                            </div>
+                            <div class="rewards-earned">
+                                <span id="purchase-rewards">0</span>
+                            </div>
+                            <div class="associated-salon">
+                                <span id="purchase-salon"></span>
+                            </div>
+                            <div class="order-status">
+                                <span id="purchase-status"></span>
+                            </div>
+                            <div class="tracking-link">
+                                <span id="purchase-tracking"></span>
+                            </div>
+                            <div class="location">
+                                <span id="purchase-location"></span>
                             </div>
                         </div>
                     </div>
@@ -68,7 +59,7 @@
                         OK
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="w-100 d-flex justify-content-center align-items-center pt-2 pb-2 modal-loader hide">
             <span class="spinner-border spinner-border-md" style="color: #000093;" role="status"

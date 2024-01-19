@@ -33,12 +33,14 @@
 
 #activityReward .modal-body .activity-reward-stats {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 #activityReward .modal-body .activity-reward-stats > div {
+    display: flex;
     flex-shrink: 0;
-    height: 72px;
+    height: 100%;
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -46,21 +48,22 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
+    text-align: left!important;
 }
 
 #activityReward .modal-body .activity-reward-stats > div > div {
-    height: 36px;
+    min-height: 36px;
     display: flex;
     align-items: center;
     padding: 9px 5px;
 }
 
-#activityReward .modal-body .activity-reward-stats > .reward-credit {
+#activityReward .modal-body .activity-reward-stats .reward-credit {
     width: 230px;
 }
 
-#activityReward .modal-body .activity-reward-stats > .reward-credit > div {
+#activityReward .modal-body .activity-reward-stats .reward-credit > div {
     padding: 9px 10px;
 }
 
@@ -69,19 +72,19 @@
     border-bottom: 1px solid #CECECE;
 }
 
-#activityReward .modal-body .activity-reward-stats > div > div:first-of-type > span {
+#activityReward .modal-body .activity-reward-stats > div:first-of-type > div > span {
     opacity: .6;
 }
 
-#activityReward .modal-body .activity-reward-stats > .date {
+#activityReward .modal-body .activity-reward-stats .date {
     width: 127px;
 }
 
-#activityReward .modal-body .activity-reward-stats > .notes {
+#activityReward .modal-body .activity-reward-stats .notes {
     width: 664px;
 }
 
-#activityReward .modal-body .activity-reward-stats > .notes > div {
+#activityReward .modal-body .activity-reward-stats .notes > div {
     border-right: unset;
 }
 

@@ -90,38 +90,38 @@
             </td>
             <td>
                 <div class="salon-cell">
-                    <span class="table-text-overflow" title="{{obj.salon.salon_name}}">{{obj.salon.salon_name}}</span>
-                    <span class="opacity-point-6 table-text-overflow {% if obj.salon.salon_address != None %}{% else %}hide{% endif %}" title="{% if obj.salon.salon_address %}{{obj.salon.salon_address.street1}}{% endif %}">{% if obj.salon.salon_address %}{{obj.salon.salon_address.street1}}{% endif %}</span>
+                    <span class="table-text-overflow w-100" title="{{obj.salon.salon_name}}">{{obj.salon.salon_name}}</span>
+                    <span class="opacity-point-6 table-text-overflow w-100 {% if obj.salon.salon_address != None %}{% else %}hide{% endif %}" title="{% if obj.salon.salon_address %}{{obj.salon.salon_address.street1}}{% endif %}">{% if obj.salon.salon_address %}{{obj.salon.salon_address.street1}}{% endif %}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">{{obj.orders_count}}</span>
+                    <span class="opacity-point-6 table-text-overflow" title="{{obj.orders_count}}">{{obj.orders_count}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">{{obj.total_products_count}}</span>
+                    <span class="opacity-point-6 table-text-overflow" title="{{obj.total_products_count}}">{{obj.total_products_count}}</span>
                 </div>
             </td>
             <td dateTime="{{obj.month_created}}">
                 <div>
-                    <span class="opacity-point-6 month">{{obj.month_created}}</span>
+                    <span class="opacity-point-6 month" title="{{obj.month_created}}">{{obj.month_created}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">${{obj.total_purchase}}</span>
+                    <span class="opacity-point-6 table-text-overflow" title="${{obj.total_purchase}}">${{obj.total_purchase}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">${{obj.month_commission}}</span>
+                    <span class="opacity-point-6 table-text-overflow" title="${{obj.month_commission}}">${{obj.month_commission}}</span>
                 </div>
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6">${{obj.total_commission}}</span>
+                    <span class="opacity-point-6 table-text-overflow" title="${{obj.total_commission}}">${{obj.total_commission}}</span>
                 </div>
             </td>
             <td onclick="event.stopPropagation();">
