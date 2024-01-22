@@ -686,6 +686,7 @@ ul.comment-section > li .post-area > button {
     font-style: normal;
     font-weight: 500;
     line-height: 12px;
+    word-break: break-all;
 }
 
 .order-product-other-details-wrapper .order-contact-info .order-contact-info-details > div > svg {
