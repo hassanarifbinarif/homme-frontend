@@ -1,5 +1,13 @@
 let countryList = [
  {
+   "Country": "United States",
+   "Alpha-2 code": "US",
+   "Alpha-3 code": "USA",
+   "Numeric code": 840,
+   "Latitude (average)": 38,
+   "Longitude (average)": -97
+ },
+ {
    "Country": "Afghanistan",
    "Alpha-2 code": "AF",
    "Alpha-3 code": "AFG",
@@ -1910,14 +1918,6 @@ let countryList = [
    "Numeric code": 826,
    "Latitude (average)": 54,
    "Longitude (average)": -2
- },
- {
-   "Country": "United States",
-   "Alpha-2 code": "US",
-   "Alpha-3 code": "USA",
-   "Numeric code": 840,
-   "Latitude (average)": 38,
-   "Longitude (average)": -97
  },
  {
    "Country": "United States Minor Outlying Islands",
