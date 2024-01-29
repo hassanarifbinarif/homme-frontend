@@ -1,6 +1,6 @@
 let stockData = {
     salon: null,
-    status: 'shipped',
+    status: 'pending',
     notes: 'Initial inventory',
     products: []
 };
@@ -26,7 +26,7 @@ async function openInitialStockModal(salonId, salonName) {
         modal.querySelector('.create-error-msg').innerHTML = '';
         stockData = {
             salon: null,
-            status: 'shipped',
+            status: 'pending',
             notes: 'Initial inventory',
             products: []
         };
