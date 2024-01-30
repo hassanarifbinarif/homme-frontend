@@ -70,7 +70,6 @@ function openSalonEditModal(type='notes', addressData=null) {
     let modal = document.getElementById('salonEditModal');
     let form = modal.querySelector('form');
     form.setAttribute('onsubmit', `updateSalon${captalizeFirstLetter(type)}(event, ${specific_salon_id})`);
-    modal.querySelector(`#salon-${type}-div`).classList.remove('hide');
 
     if (type == 'notes') {
         modal.querySelector('input[name="admin_comment"]').value = document.getElementById('salon-notes').innerText;
@@ -121,6 +120,7 @@ function openSalonEditModal(type='notes', addressData=null) {
         modal.querySelector(`#salon-${type}-div`).classList.add('hide');
     })
 
+    modal.querySelector(`#salon-${type}-div`).classList.remove('hide');
     document.querySelector('.salonEditModal').click();
 }
 
@@ -137,6 +137,7 @@ async function updateSalonNotes(event, id) {
     let data = { "partnership_application": { "admin_comment": formObject.admin_comment } };
 
     try {
+        errorMsg.innerHTML = '';
         let token = getCookie('admin_access');
         let headers = {
             "Authorization": `Bearer ${token}`,
@@ -160,11 +161,7 @@ async function updateSalonNotes(event, id) {
             else {
                 afterLoad(button, 'ERROR');
                 errorMsg.classList.add('active');
-                
-                let keys = Object.keys(res.messages);
-                keys.forEach((key) => {
-                    errorMsg.innerHTML += `${key}: ${res.messages[key]}. <br />`;
-                })
+                displayMessages(res.messages, errorMsg);
             }
         })
     }
@@ -186,6 +183,8 @@ async function updateSalonStatus(event, id) {
     let data = { "partnership_application": { "status": formObject.salon_status } };
 
     try {
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
         let token = getCookie('admin_access');
         let headers = {
             "Authorization": `Bearer ${token}`,
@@ -209,26 +208,7 @@ async function updateSalonStatus(event, id) {
             else {
                 afterLoad(button, 'ERROR');
                 errorMsg.classList.add('active');
-                
-                let keys = Object.keys(res.messages);
-                keys.forEach((key) => {
-                    if (Array.isArray(res.messages[key])) {
-                        keys.forEach((key) => {
-                            errorMsg.innerHTML += `${res.messages[key]} <br />`;
-                        })
-                    }
-                    else if (typeof res.messages[key] === 'object') {
-                        const nestedKeys = Object.keys(res.messages[key]);
-                        nestedKeys.forEach((nestedKey) => {
-                            for( let i = 0; i < nestedKey.length; i++) {
-                                if (res.messages[key][nestedKey][i] == undefined)
-                                    continue;
-                                else
-                                    errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
-                            }
-                        });
-                    }
-                })
+                displayMessages(res.messages, errorMsg);
             }
         })
     }
@@ -264,6 +244,8 @@ async function updateSalonContact(event, id) {
     }
 
     try {
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
         let updateData = {
             "contact_name": data.contact_name,
             "user": {
@@ -298,26 +280,7 @@ async function updateSalonContact(event, id) {
             else {
                 afterLoad(button, 'ERROR');
                 errorMsg.classList.add('active');
-                
-                let keys = Object.keys(res.messages);
-                keys.forEach((key) => {
-                    if (Array.isArray(res.messages[key])) {
-                        keys.forEach((key) => {
-                            errorMsg.innerHTML += `${res.messages[key]} <br />`;
-                        })
-                    }
-                    else if (typeof res.messages[key] === 'object') {
-                        const nestedKeys = Object.keys(res.messages[key]);
-                        nestedKeys.forEach((nestedKey) => {
-                            for( let i = 0; i < nestedKey.length; i++) {
-                                if (res.messages[key][nestedKey][i] == undefined)
-                                    continue;
-                                else
-                                    errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
-                            }
-                        });
-                    }
-                })
+                displayMessages(res.messages, errorMsg);
             }
         })
     }
@@ -363,6 +326,8 @@ async function updateSalonAddress(event, id) {
     }
 
     try {
+        errorMsg.classList.remove('active');
+        errorMsg.innerHTML = '';
         let updateData = {
             "partnership_application": {
                 "salon_address": {
@@ -400,26 +365,7 @@ async function updateSalonAddress(event, id) {
             else {
                 afterLoad(button, 'ERROR');
                 errorMsg.classList.add('active');
-                
-                let keys = Object.keys(res.messages);
-                keys.forEach((key) => {
-                    if (Array.isArray(res.messages[key])) {
-                        keys.forEach((key) => {
-                            errorMsg.innerHTML += `${res.messages[key]} <br />`;
-                        })
-                    }
-                    else if (typeof res.messages[key] === 'object') {
-                        const nestedKeys = Object.keys(res.messages[key]);
-                        nestedKeys.forEach((nestedKey) => {
-                            for( let i = 0; i < nestedKey.length; i++) {
-                                if (res.messages[key][nestedKey][i] == undefined)
-                                    continue;
-                                else
-                                    errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
-                            }
-                        });
-                    }
-                })
+                displayMessages(res.messages, errorMsg);
             }
         })
     }
