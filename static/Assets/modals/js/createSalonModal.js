@@ -247,7 +247,8 @@ async function createSalonForm(event) {
                 "contact_name": data.person_name,
                 "user": {
                     "phone": data.person_phone,
-                    "email": data.person_email
+                    "email": data.person_email,
+                    "role": "salon"
                 },
                 "partnership_application": {
                     "salon_website": data.salon_website,

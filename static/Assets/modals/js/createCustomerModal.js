@@ -343,7 +343,8 @@ async function createCustomerForm(event) {
                     phone: data.phone,
                     email: data.email,
                     password: data.password,
-                    confirm_password: data.confirm_password
+                    confirm_password: data.confirm_password,
+                    role: "user"
                 }
             };
             
