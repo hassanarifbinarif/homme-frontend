@@ -1,8 +1,17 @@
 let requiredDataURL = `/admin/inventory?page=1&perPage=1000&ordering=-id&search=`;
 
 window.onload = () => {
-    document.querySelector('span[data-value="current_week"]').click();
-    // getData();
+    const { startOfWeek, endOfWeek } = getStartAndEndOfCurrentWeek();
+    requiredDataURL = setParams(requiredDataURL, 'created_at__gte', startOfWeek);
+    requiredDataURL = setParams(requiredDataURL, 'created_at__lte', endOfWeek);
+    document.getElementById('start-date').value = startOfWeek;
+    document.getElementById('end-date').value = endOfWeek;
+
+    dateTimeString = convertDateTime(startOfWeek) + ', ' + convertDateTime(endOfWeek);
+    document.getElementById('selected-date-range').innerText = dateTimeString;
+    document.getElementById('selected-date-range').title = dateTimeString;
+    getData();
+    // document.querySelector('span[data-value="current_week"]').click();
     // getNotifications();
 }
 
@@ -341,19 +350,19 @@ function getStartAndEndOfCurrentWeek() {
     const now = new Date();
     const dayOfWeek = now.getDay();
     const daysUntilMonday = (dayOfWeek + 6) % 7;
+    
     let startOfWeek = new Date(now);
-    let endOfWeek = new Date(now);
-
     startOfWeek.setDate(now.getDate() - daysUntilMonday);
     startOfWeek.setHours(0, 0, 0, 0);
-
+    
+    let endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6);
     endOfWeek.setHours(23, 59, 59, 999);
 
     const timezoneOffset = now.getTimezoneOffset() * 60000;
 
     startOfWeek = new Date(startOfWeek.getTime() - timezoneOffset).toISOString();
-    endOfWeek = new Date(endOfWeek.getTime() - timezoneOffset).toISOString();
+    endOfWeek = new Date(endOfWeek.getTime()).toISOString();
 
     return {
         startOfWeek,
