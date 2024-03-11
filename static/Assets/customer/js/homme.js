@@ -645,10 +645,11 @@ async function getOrderDataInCSVFormat(button) {
             "Accept": "text/csv"
         };
         beforeLoad(button);
-        let response = await requestAPI(`${apiURL}/admin/orders/tax-report`, null, headers, 'GET');
+        // let response = await requestAPI(`${apiURL}/admin/orders/tax-report`, null, headers, 'GET');
+        let response = await requestAPI(`${apiURL}/admin/orders/detail/sale-and-tax-report`, null, headers, 'GET');
         if (response.status == 200) {
             response.text().then(function(res) {
-                downloadCSV(res, 'order_report');
+                downloadCSV(res, 'sale-and-tax-report');
             })
             afterLoad(button, 'EXPORT ORDERS');
         }
