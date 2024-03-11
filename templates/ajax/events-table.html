@@ -46,7 +46,7 @@
                 <div title="{{obj.long_description}}"><span class="table-text-overflow">{{obj.long_description}}</span></div>
             </td>
             <td>
-                <div><a href="{{obj.rsvp}}" target="_blank" class="highlighted-text">RSVP</a></div>
+                <div><a href="{% if obj.rsvp != '' %}{{obj.rsvp}}{% else %}javascript:void(0);{% endif %}" target="_blank" class="highlighted-text {% if obj.rsvp == '' %}opacity-point-3-5 pe-none{% endif %}">RSVP</a></div>
             </td>
         </tr>
         {% empty %}
