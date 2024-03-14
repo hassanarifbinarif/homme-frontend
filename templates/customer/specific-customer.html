@@ -312,7 +312,7 @@
                         <div class="order-customer">
                             <div>
                                 <span>Customer</span>
-                                <div onclick="openUpdateCustomerModal(event, '{{customer.id}}', '{{customer.first_name}}', '{{customer.last_name}}', '{{customer.user.phone}}', '{{customer.user.email}}');" data-salon="{% if customer.salon %}{{customer.salon.id}}{% else %}null{% endif %}">
+                                <div class="cursor-pointer" onclick="openUpdateCustomerModal(event, '{{customer.id}}', '{{customer.first_name}}', '{{customer.last_name}}', '{{customer.user.phone}}', '{{customer.user.email}}');" data-salon="{% if customer.salon %}{{customer.salon.id}}{% else %}null{% endif %}">
                                     <span>Manage</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
                                         <path d="M10.9365 0.078125L5.4834 5.92076L0.0302734 0.078125H10.9365Z" fill="#000093"/>

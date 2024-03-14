@@ -30,14 +30,14 @@
 
 
 <div class="pagination-div" id="pagination-container">
-    <div class="prev-btn {% if orders.pagination.currentPage == 1 %}opacity-point-3-5{% endif %}" {% if orders.pagination.currentPage > 1 %}onclick="getData('{{orders.pagination.links.previous}}')"{% endif %}>
+    <div class="prev-btn {% if orders.pagination.currentPage == 1 %}opacity-point-3-5{% else %}cursor-pointer{% endif %}" {% if orders.pagination.currentPage > 1 %}onclick="getData('{{orders.pagination.links.previous}}')"{% endif %}>
         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
             <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
     <div class="pages" id="pages-container">
     </div>
-    <div class="next-btn {% if orders.pagination.total == orders.pagination.currentPage %}opacity-point-3-5{% endif %}" {% if orders.pagination.total != orders.pagination.currentPage and orders.pagination.total > orders.pagination.currentPage %}onclick="getData('{{orders.pagination.links.next}}')"{% endif %}>
+    <div class="next-btn {% if orders.pagination.total == orders.pagination.currentPage %}opacity-point-3-5{% else %}cursor-pointer{% endif %}" {% if orders.pagination.total != orders.pagination.currentPage and orders.pagination.total > orders.pagination.currentPage %}onclick="getData('{{orders.pagination.links.next}}')"{% endif %}>
         <svg class="rotate-180" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
             <path d="M9.77604 17.4466L3.35938 11.0299M3.35938 11.0299L9.77604 4.61328M3.35938 11.0299H19.8594" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

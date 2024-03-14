@@ -173,6 +173,10 @@
     padding: 0px;
 }
 
+.order-details-table thead th:not(:first-of-type) {
+    cursor: pointer;
+}
+
 .order-details-table thead th:last-of-type {
     border-right: unset;
 }

@@ -1,6 +1,6 @@
 <table class="order-details-table hide" id="inventory-table">
     <thead>
-        <th width="12.13%" onclick="sortByAlphabets(event, 0)">
+        <th width="12.13%" onclick="sortByAlphabets(event, 0)" class="cursor-pointer">
             <div>
                 <span>Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -9,7 +9,7 @@
                 </svg>
             </div>
         </th>
-        <th width="11.61%" onclick="sortByAlphabets(event, 1)">
+        <th width="11.61%" onclick="sortByAlphabets(event, 1)" class="cursor-pointer">
             <div>
                 <span>Salon Name</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -18,7 +18,7 @@
                 </svg>
             </div>
         </th>
-        <th width="17.46%" onclick="sortByAlphabets(event, 2)">
+        <th width="17.46%" onclick="sortByAlphabets(event, 2)" class="cursor-pointer">
             <div>
                 <span>SKUs To Fulfill</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -36,7 +36,7 @@
                 </svg>
             </div>
         </th>
-        <th width="17.29%" onclick="sortByAlphabets(event, 4)">
+        <th width="17.29%" onclick="sortByAlphabets(event, 4)" class="cursor-pointer">
             <div>
                 <span>Total Movement (wk/mo)</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -45,7 +45,7 @@
                 </svg>
             </div>
         </th>
-        <th width="13.1%" onclick="sortByDigits(event, 5)">
+        <th width="13.1%" onclick="sortByDigits(event, 5)" class="cursor-pointer">
             <div>
                 <span>Items To Fulfill</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -66,7 +66,7 @@
     </thead>
     <tbody>
         {% for obj in inventory.data %}
-        <tr onclick="showInventoryDetails(this, {{obj.products}}, '{{obj.salon.salon_name}}', '{{obj.salon.contact_phone}}', {{obj.salon.address}}, '{{obj.notes}}', '{{obj.id}}');" data-status="{{obj.status}}">
+        <tr class="cursor-pointer" onclick="showInventoryDetails(this, {{obj.products}}, '{{obj.salon.salon_name}}', '{{obj.salon.contact_phone}}', {{obj.salon.address}}, '{{obj.notes}}', '{{obj.id}}');" data-status="{{obj.status}}">
             <td>
                 <div>
                     <span id="row-status-field-{{obj.id}}">{{obj.status|title}}</span>

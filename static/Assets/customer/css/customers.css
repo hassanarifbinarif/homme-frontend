@@ -194,6 +194,10 @@
     padding: 0px;
 }
 
+.order-details-table thead th:not(:first-of-type) {
+    cursor: pointer;
+}
+
 .order-details-table thead th:last-of-type {
     border-right: unset;
 }
@@ -251,6 +255,10 @@
 
 .order-details-table tbody tr td .order-date {
     opacity: .6;
+}
+
+.order-details-table tbody tr td:not(:first-of-type) {
+    cursor: pointer;
 }
 
 .order-details-table tbody tr td > div {

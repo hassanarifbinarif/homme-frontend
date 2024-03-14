@@ -177,6 +177,10 @@
     line-height: 20px;
 }
 
+.order-details-table tbody tr td:not(:first-of-type) {
+    cursor: pointer;
+}
+
 .order-details-table tbody tr td .highlighted-data {
     color: #000093;
     text-decoration: underline;

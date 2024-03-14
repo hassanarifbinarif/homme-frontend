@@ -96,6 +96,10 @@
     font-weight: 500;
 }
 
+.order-details-table thead th:not(:first-of-type) {
+    cursor: pointer;
+}
+
 .order-details-table thead th:first-of-type {
     /* border-left: 1px solid transparent; */
     border-left-style: solid;

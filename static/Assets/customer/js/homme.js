@@ -413,21 +413,21 @@ function generatePages(currentPage, totalPages) {
     }
 
     if (startPage > 1) {
-        pagesContainer.innerHTML += '<span>1</span>';
+        pagesContainer.innerHTML += '<span class="cursor-pointer">1</span>';
         if (startPage > 2) {
             pagesContainer.innerHTML += '<span class="ellipsis-container">...</span>';
         }
     }
 
     for (let i = startPage; i <= endPage; i++) {
-        pagesContainer.innerHTML += `<span${i === currentPage ? ' class="active"' : ''}>${i}</span>`;
+        pagesContainer.innerHTML += `<span${i === currentPage ? ' class="active"' : ' class="cursor-pointer"'}>${i}</span>`;
     }
 
     if (endPage < totalPages) {
         if (endPage < totalPages - 1) {
             pagesContainer.innerHTML += '<span class="ellipsis-container">...</span>';
         }
-        pagesContainer.innerHTML += `<span>${totalPages}</span>`;
+        pagesContainer.innerHTML += `<span class="cursor-pointer">${totalPages}</span>`;
     }
     pagesContainer.querySelectorAll('span').forEach((span) => {
         if ((!span.classList.contains('active'))  && (!span.classList.contains('ellipsis-container'))) {

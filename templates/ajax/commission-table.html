@@ -7,7 +7,7 @@
                 <input type="checkbox" />
             </div>
         </th>
-        <th width="14.32%" onclick="sortByAlphabets(event, 1);">
+        <th width="14.32%" onclick="sortByAlphabets(event, 1);" class="cursor-pointer">
             <div>
                 <span class="table-text-overflow" title="Salon Name">Salon Name</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -16,7 +16,7 @@
                 </svg>
             </div>
         </th>
-        <th width="9.78%" onclick="sortByDigits(event, 2);">
+        <th width="9.78%" onclick="sortByDigits(event, 2);" class="cursor-pointer">
             <div>
                 <span class="table-text-overflow" title="No. Of Sales">No. Of Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -25,7 +25,7 @@
                 </svg>
             </div>
         </th>
-        <th width="13.79%" onclick="sortByDigits(event, 3);">
+        <th width="13.79%" onclick="sortByDigits(event, 3);" class="cursor-pointer">
             <div>
                 <span class="table-text-overflow" title="No. Of Sold Products">No. Of Sold Products</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -34,7 +34,7 @@
                 </svg>
             </div>
         </th>
-        <th width="10.76%" onclick="sortByDate(event, 4);">
+        <th width="10.76%" onclick="sortByDate(event, 4);" class="cursor-pointer">
             <div>
                 <span class="table-text-overflow" title="Month/Year">Month/Year</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -43,7 +43,7 @@
                 </svg>
             </div>
         </th>
-        <th width="13.10%" onclick="sortByDigits(event, 5);">
+        <th width="13.10%" onclick="sortByDigits(event, 5);" class="cursor-pointer">
             <div>
                 <span class="table-text-overflow" title="Total Retail Value">Total Retail Value</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -52,7 +52,7 @@
                 </svg>
             </div>
         </th>
-        <th width="15.10%" onclick="sortByDigits(event, 6);">
+        <th width="15.10%" onclick="sortByDigits(event, 6);" class="cursor-pointer">
             <div>
                 <span class="table-text-overflow" title="Pending Commissions">Pending Commissions</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -70,7 +70,7 @@
                 </svg>
             </div>
         </th>
-        <th width="7.48%" onclick="sortByAlphabets(event, 8);">
+        <th width="7.48%" onclick="sortByAlphabets(event, 8);" class="cursor-pointer">
             <div>
                 <span class="table-text-overflow" title="Status">Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -84,7 +84,7 @@
         {% for obj in commissions.data %}
         <tr onclick="showCommissionDetails(this, '{{obj.salon.id}}', '{{obj.month_created}}');">
             <td>
-                <div class="table-checkbox">
+                <div class="table-checkbox" onclick="event.stopPropagation();">
                     <input type="checkbox" />
                 </div>
             </td>

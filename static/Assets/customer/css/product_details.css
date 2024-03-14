@@ -1181,6 +1181,9 @@ textarea::placeholder {
     display: none;
 }
 
+#specific-product-category-dropdown .radio-btn:first-of-type > label {
+    border-radius: 0px;
+}
 
 
 @media (min-width: 1441px) {

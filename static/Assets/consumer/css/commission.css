@@ -403,6 +403,10 @@
     line-height: 20px;
 }
 
+.order-details-table tbody tr td:not(:first-of-type) {
+    cursor: pointer;
+}
+
 .order-details-table tbody tr td:last-of-type {
     border-right: unset;
 }
@@ -594,6 +598,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
+    cursor: unset!important;
 }
 
 .inventory-details-table tbody tr td:last-of-type {
@@ -666,6 +671,11 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
+    cursor: pointer;
+}
+
+.order-details-table tbody tr td .status-options option {
+    cursor: pointer;
 }
 
 @media (max-width: 1439px) {

@@ -650,6 +650,11 @@
     background-position-y: 2px;
     /* border: 1px solid #dfdfdf; */
     border-radius: 2px;
+    cursor: pointer;
+}
+
+.order-details-table tbody tr td > .stock-details-container .container-header > div > div > select option {
+    cursor: pointer;
 }
 
 .inventory-details-table {

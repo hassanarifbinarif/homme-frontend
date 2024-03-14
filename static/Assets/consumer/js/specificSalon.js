@@ -124,8 +124,8 @@ function populateOrders(response) {
                     itemQuantity += prod.qty;
                 })
                 orderTableBody.innerHTML += `<tr>
-                                                <td onclick="location.pathname = '/specific-order/${item.id}'"><div class="highlighted-data"><span>#${item.id}</span></div></td>
-                                                <td onclick="location.pathname = '/specific-customer/${item.user_profile.id}'"><div class="highlighted-data"><span title="${item.user_profile.first_name} ${item.user_profile.last_name}" class="table-text-overflow">${item.user_profile.first_name} ${item.user_profile.last_name}</span></div></td>
+                                                <td onclick="location.pathname = '/specific-order/${item.id}'"><div class="highlighted-data cursor-pointer"><span>#${item.id}</span></div></td>
+                                                <td onclick="location.pathname = '/specific-customer/${item.user_profile.id}'"><div class="highlighted-data cursor-pointer"><span title="${item.user_profile.first_name} ${item.user_profile.last_name}" class="table-text-overflow">${item.user_profile.first_name} ${item.user_profile.last_name}</span></div></td>
                                                 <td><div><span>${itemQuantity}</span></div></td>
                                                 <td><div><span>$${item.total}</span></div></td>
                                                 <td><div><span>${captalizeFirstLetter(item.pickup_type)}</span></div></td>
@@ -154,7 +154,7 @@ function populateCustomers(response) {
             res.data.forEach((item) => {
                 let addressString = item.address ? `${item.address.city || ''}, ${item.address.state || ''} ${item.address.zip_code || ''}` : 'No Address';
                 customersTableBody.innerHTML += `<tr>
-                                                    <td onclick="location.pathname = '/specific-customer/${item.user_profile_id}'"><div class="highlighted-data"><span title="${item.fullname}" class="table-text-overflow">${item.fullname}</span></div></td>
+                                                    <td onclick="location.pathname = '/specific-customer/${item.user_profile_id}'"><div class="highlighted-data cursor-pointer"><span title="${item.fullname}" class="table-text-overflow">${item.fullname}</span></div></td>
                                                     <td><div><span class="table-text-overflow" title="${addressString}">${addressString}</span></div></td>
                                                     <td><div><span class="table-text-overflow">${convertDateTime(item.created_at)}</span></div></td>
                                                     <td><div><span class="table-text-overflow">$${item.net_sales || 0}</span></div></td>

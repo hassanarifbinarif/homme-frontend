@@ -415,6 +415,10 @@
     padding: 0px!important;
 }
 
+.order-details-table thead th:not(:first-of-type) {
+    cursor: pointer;
+}
+
 .order-details-table thead th:first-of-type {
     border-left: 1px solid #CECECE!important;
 }
@@ -468,6 +472,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
+}
+
+.order-details-table tbody tr td:not(:first-of-type) {
+    cursor: pointer;
 }
 
 .order-details-table tbody tr td:first-of-type {
