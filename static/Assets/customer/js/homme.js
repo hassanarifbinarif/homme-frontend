@@ -532,7 +532,16 @@ function drawSalesPerChannelChart(res) {
                 }
             },
             plugins: {
+                // tooltips: {
+                //     mode: 'dataset',
+                // },
                 legend: {
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = 'pointer';
+                    },
+                    onLeave: (event, chartElement) => {
+                        event.native.target.style.cursor = 'default';
+                    },
                     display: true,
                     position: 'bottom',
                     labels: {
@@ -545,9 +554,9 @@ function drawSalesPerChannelChart(res) {
                             family: 'Gotham Book',
                             weight: '500'
                         },
-                        color: '#000000'
+                        color: '#000000',
                     },
-                }
+                },
             }
         }
     })
@@ -616,6 +625,12 @@ function drawPickedupVsShippedSalesChart(res) {
             },
             plugins: {
                 legend: {
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = 'pointer';
+                    },
+                    onLeave: (event, chartElement) => {
+                        event.native.target.style.cursor = 'default';
+                    },
                     display: true,
                     position: 'bottom',
                     labels: {

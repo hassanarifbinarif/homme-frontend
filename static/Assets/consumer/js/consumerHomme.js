@@ -437,6 +437,12 @@ function salonNetSalesChart(res) {
             },
             plugins: {
                 legend: {
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = 'pointer';
+                    },
+                    onLeave: (event, chartElement) => {
+                        event.native.target.style.cursor = 'default';
+                    },
                     display: true,
                     position: 'bottom',
                     labels: {
