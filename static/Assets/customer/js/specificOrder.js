@@ -106,8 +106,8 @@ async function openGenerateShippingLabelModal(orderID, simple_rate_size) {
                 res.data.forEach((shippingType, index) => {
                     shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
                                                             <div>
-                                                                <input type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
-                                                                <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
+                                                                <input class="cursor-pointer" type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                                <label class="cursor-pointer" for="type-${shippingType.service.description}">${shippingType.service.description}</label>
                                                             </div>
                                                             <span>$${shippingType.total_charges.monetary_value}</span>
                                                         </div>`;
@@ -239,8 +239,8 @@ async function refreshShippingCosts(element, address, city, state, zipcode) {
             res.data.forEach((shippingType, index) => {
                 shippingSpeedsWrapper.innerHTML += `<div class="shipping-type ${index != 0 ? "opacity-point-3-5" : ''}">
                                                         <div>
-                                                            <input type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
-                                                            <label for="type-${shippingType.service.description}">${shippingType.service.description}</label>
+                                                            <input class="cursor-pointer" type="radio" data-cost="${shippingType.total_charges.monetary_value}" name="service_type" value="${shippingType.service.code}" id="type-${shippingType.service.description}" ${index == 0 ? "checked" : ''} />
+                                                            <label class="cursor-pointer" for="type-${shippingType.service.description}">${shippingType.service.description}</label>
                                                         </div>
                                                         <span>$${shippingType.total_charges.monetary_value}</span>
                                                     </div>`;

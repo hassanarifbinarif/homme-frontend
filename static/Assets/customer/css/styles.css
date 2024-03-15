@@ -141,6 +141,15 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input[type="checkbox"],
+input[type="date"] {
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer!important;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 6px;

@@ -190,7 +190,7 @@ async function createSliderForm(event) {
 
 function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
     let modal = document.querySelector(`#${modalID}`);
-    modal.querySelector('#slider-modal-header').innerText = 'Edit Slide';
+    modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
     form.setAttribute("onsubmit", `updateSliderForm(event, ${id})`);
     form.querySelector('input[name="name"]').value = name;
@@ -204,7 +204,7 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
     })
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
-        modal.querySelector('#slider-modal-header').innerText = 'Create Slide';
+        modal.querySelector('#slider-modal-header').innerText = 'Create Slider';
         form.removeAttribute("onsubmit");
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');

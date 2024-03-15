@@ -10,6 +10,8 @@ let dateSelectorInputWrapper = document.getElementById('date-selector');
 let statusBtn = document.getElementById('status-btn');
 let statusWrapper = document.getElementById('status-selector');
 
+let searchField = document.getElementById('search-order');
+
 let requiredDataURL = `/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
 
 
@@ -360,7 +362,6 @@ function reverseTableRows() {
 
 
 function openSearchInput() {
-    let searchField = document.getElementById('search-order');
     if (searchField.classList.contains('hide')) {
         searchField.classList.remove('hide');
         searchField.focus();
@@ -368,8 +369,15 @@ function openSearchInput() {
 }
 
 
+function closeSearchInput(event) {
+    if (!searchField.classList.contains('hide')) {
+        searchField.classList.add('hide');
+        event.stopPropagation();
+    }
+}
+
+
 function searchData(event) {
-    let searchField = document.getElementById('search-order');
     if (event.key == 'Enter') {
         urlParams = setParams(requiredDataURL, 'search', `${searchField.value}`);
         getData(urlParams);
