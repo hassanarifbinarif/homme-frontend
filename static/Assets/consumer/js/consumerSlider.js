@@ -420,3 +420,35 @@ async function delSliderForm(event, id) {
         console.log(res);
     }
 }
+
+
+// Handling Draggable Table Rows
+
+let dragSrcEl;
+
+function handleDragStart(e) {
+    row = e.target.closest('tr');
+    row.style.opacity = '0.4';
+    dragSrcEl = row;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', row.innerHTML);
+}
+
+function handleDragEnd(e) {
+    row = e.target.closest('tr');
+    row.style.opacity = '1';
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    return false;
+}
+
+async function handleDrop(e) {
+    e.stopPropagation();
+    row = e.target.closest('tr');
+    if (dragSrcEl !== row) {
+        dragSrcEl.innerHTML = row.innerHTML;
+        row.innerHTML = e.dataTransfer.getData('text/html');
+    }
+}

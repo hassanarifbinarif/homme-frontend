@@ -1,6 +1,6 @@
 {% load static %}
 
-<table class="order-details-table hide" id="slider-table">
+<table class="order-details-table user-select-none hide" id="slider-table">
     <thead>
         <th width="60px"></th>
         <th width="26.88%" onclick="sortByAlphabets(event, 1);" class="cursor-pointer">
@@ -25,10 +25,10 @@
     </thead>
     <tbody>
         {% for obj in sliders.data %}
-        <tr>
+        <tr data-id="tr-{{obj.id}}" draggable='true' ondragstart='handleDragStart(event)' ondragend="handleDragEnd(event)" ondragover='handleDragOver(event)' ondrop="handleDrop(event)">
             <td>
                 <div class="product-image">
-                    <img src="{{obj.image}}" alt="slider image" />
+                    <img src="{{obj.image}}" class="user-select-none pe-none" alt="slider image" />
                 </div>
             </td>
             <td>
