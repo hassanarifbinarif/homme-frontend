@@ -13,6 +13,9 @@ let statusWrapper = document.getElementById('status-selector');
 let hairstylistBtn = document.getElementById('hairstylist-btn');
 let hairstylistWrapper = document.getElementById('hairstylist-selector');
 
+let salonFilerBtn = document.getElementById('salon-btn');
+let salonFilterWrapper = document.getElementById('salon-selector');
+
 let requiredDataURL = `/admin/salons/commissions/monthly?page=1&perPage=1000&search=&ordering=-date`;
 
 let filterMonthValue = null;
@@ -54,6 +57,15 @@ function toggleHairstylistDropdown(event) {
     }
 }
 
+function toggleSalonDropdown(event) {
+    if ((salonFilerBtn.contains(event.target)) && salonFilterWrapper.style.display == 'none') {
+        salonFilterWrapper.style.display = 'flex';
+    }
+    else {
+        statusWrapper.style.display = 'none';
+    }
+}
+
 
 function toggleDateSelectorDropdown(event) {
     if ((dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'none') {
@@ -87,7 +99,7 @@ function toggleDropdown(event) {
 
 function filterStatusOption(event) {
     let element = event.target;
-    requiredDataURL = setParams(requiredDataURL, 'month_status', element.getAttribute('data-value'));
+    requiredDataURL = setParams(requiredDataURL, 'status', element.getAttribute('data-value'));
     getData();
     document.getElementById('selected-status-text').innerText = element.innerText;
     setTimeout(() => {
@@ -107,12 +119,26 @@ function searchHairstylist(event, inputElement) {
 }
 
 
+function searchSalon(event, inputElement) {
+    if (event.keyCode == 13) {
+        requiredDataURL = setParams(requiredDataURL, 'salon__name', inputElement.value);
+        getData();
+        document.getElementById('selected-salon-filter-text').innerText = inputElement.value == '' ? 'SALON' : inputElement.value;
+        document.getElementById('selected-salon-filter-text').title = inputElement.value == '' ? 'SALON' : inputElement.value;
+        salonFilterWrapper.style.display = 'none';
+    }
+}
+
+
 function closeDropdowns(event) {
     if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
         statusWrapper.style.display = 'none';
     }
     if ((!hairstylistBtn.contains(event.target)) && hairstylistWrapper.style.display == 'flex') {
         hairstylistWrapper.style.display = 'none';
+    }
+    if ((!salonFilerBtn.contains(event.target)) && salonFilterWrapper.style.display == 'flex') {
+        salonFilterWrapper.style.display = 'none';
     }
     if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
         dateSelectorInputWrapper.style.display = 'none';
@@ -318,8 +344,10 @@ function closeCommissionDetail(event) {
 
 async function changeCommissionStatus(event, salonId, month) {
     event.preventDefault();
-    let selectElement = event.target.closest('select');
-    let selectedValue = selectElement.options[selectElement.selectedIndex].value;
+    // let selectElement = event.target.closest('select');
+    // let selectedValue = selectElement.options[selectElement.selectedIndex].value;
+
+    let selectedValue = event.target.getAttribute('data-value');
     
     try {
         let token = getCookie('admin_access');
@@ -334,7 +362,8 @@ async function changeCommissionStatus(event, salonId, month) {
         response.json().then(function(res) {
             // console.log(res);
             if (response.status == 200) {
-                let statusDiv = selectElement.closest('.commission-status-div');
+                // let statusDiv = selectElement.closest('.commission-status-div');
+                let statusDiv = event.target.closest('.commission-status-div');
                 statusDiv.innerHTML = '<span>Paid</span>';
             }
         })

@@ -57,21 +57,26 @@
     text-transform: uppercase;
 }
 
-.order-wrapper > div > button:first-of-type {
-    width: 280px;
+.order-details-filters > div > #date-selector-btn {
+    width: 250px;
     background: #FFF;
     color: #000;
     border: 1px solid #515254;
     padding: 0px;
     position: relative;
+    justify-content: center;
 }
 
-.order-wrapper > div > button:first-of-type > svg {
+.order-details-filters > div > #date-selector-btn > svg {
     position: absolute;
     right: 10px;
 }
 
-.order-wrapper > div > button:first-of-type #date-selector {
+.order-details-filters > div > #date-selector-btn > span {
+    padding-left: 0px;
+}
+
+.order-details-filters > div > #date-selector-btn #date-selector {
     flex-direction: row;
     gap: 10px;
     justify-content: space-between;
@@ -79,29 +84,29 @@
     padding: 10px;
 }
 
-.order-wrapper > div > button:first-of-type #date-selector > .selection-input {
+.order-details-filters > div > #date-selector-btn #date-selector > .selection-input {
     margin-bottom: 0px;
     width: 100%;
 }
 
-.order-wrapper > div > button:first-of-type #date-selector > .selection-input span {
+.order-details-filters > div > #date-selector-btn #date-selector > .selection-input span {
     font-size: .75rem;
     letter-spacing: normal;
     color: #000;
     font-family: Gotham Book;
 }
 
-.order-wrapper > div > button:first-of-type #date-selector > .selection-input .filter-btn {
+.order-details-filters > div > #date-selector-btn #date-selector > .selection-input .filter-btn {
     padding: 0px 10px;
 }
 
-.order-wrapper > div > button:first-of-type #date-selector > .selection-input .filter-dropdown {
+.order-details-filters > div > #date-selector-btn #date-selector > .selection-input .filter-dropdown {
     top: 42px;
     max-height: 200px;
     overflow: auto;
 }
 
-.order-wrapper > div > button:first-of-type #date-selector > .selection-input .filter-dropdown span {
+.order-details-filters > div > #date-selector-btn #date-selector > .selection-input .filter-dropdown span {
     padding: 6px 15px;
 }
 
@@ -295,6 +300,11 @@
     width: 128px;
 }
 
+.order-details-wrapper .order-details-filters .salon-btn > span {
+    padding-left: 20px;
+    padding-right: 23px;
+}
+
 .order-details-wrapper .order-details-filters .hairstylist-btn {
     width: 180px;
     justify-content: space-between;
@@ -460,6 +470,53 @@
     justify-content: space-between;
     padding: 9px 10px;
     height: 45px;
+}
+
+.order-details-table tbody tr td .status-change-dropdown {
+    width: 100%;
+    max-width: 86px;
+}
+
+.order-details-table tbody tr td .status-change-dropdown .dropdown-toggle {
+    color: #000000;
+    background-color: transparent;
+    box-shadow: none!important;
+    border: unset;
+    padding: 0px;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-details-table tbody tr td .status-change-dropdown .dropdown-toggle.show {
+    display: flex!important;
+}
+
+.order-details-table tbody tr td .status-change-dropdown .dropdown-toggle::after {
+    display: none;
+}
+
+.order-details-table tbody tr td .status-change-dropdown .dropdown-menu {
+    padding: 0px!important;
+    min-width: unset!important;
+    width: 100%;
+}
+
+.order-details-table tbody tr td .status-change-dropdown .dropdown-menu a {
+    padding: 3px 5px!important;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-decoration: none!important;
 }
 
 .order-details-table tbody tr td > .stock-details-container {

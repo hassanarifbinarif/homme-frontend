@@ -156,7 +156,7 @@ async function addCommissionForm(event) {
         errorMsg.classList.remove('active');
 
         data.salon = parseInt(selectedSalon);
-        data.status = 'paid';
+        data.status = 'unpaid';
         
         const currentDate = new Date();
         const year = currentDate.getFullYear();

@@ -24,54 +24,6 @@
             <div class="order-wrapper">
                 <span>COMMISSIONS</span>
                 <div>
-                    <button onclick="toggleDateSelectorDropdown(event);" type="button" id="date-selector-btn" style="position: relative;" class="date-range-btn">
-                        <span><span id="selected-month-value">MONTH</span> / <span id="selected-year-value">YEAR</span></span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
-                            <g clip-path="url(#clip0_776_5475)">
-                                <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
-                                <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_776_5475">
-                                    <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        <div class="filter-dropdown date-selector" style="display: none;" id="date-selector">
-                            <div class="selection-input">
-                                <div class="filter-btn" id="month-field" type="button">
-                                    <span id="selected-month-text">MONTH</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
-                                        <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
-                                    </svg>
-                                </div>
-                                <div class="filter-dropdown" id="month-dropdown">
-                                    <span onclick="filterMonthOption(this);" data-value="1">JANUARY</span>
-                                    <span onclick="filterMonthOption(this);" data-value="2">FEBRUARY</span>
-                                    <span onclick="filterMonthOption(this);" data-value="3">MARCH</span>
-                                    <span onclick="filterMonthOption(this);" data-value="4">APRIL</span>
-                                    <span onclick="filterMonthOption(this);" data-value="5">MAY</span>
-                                    <span onclick="filterMonthOption(this);" data-value="6">JUNE</span>
-                                    <span onclick="filterMonthOption(this);" data-value="7">JULY</span>
-                                    <span onclick="filterMonthOption(this);" data-value="8">AUGUST</span>
-                                    <span onclick="filterMonthOption(this);" data-value="9">SEPTEMBER</span>
-                                    <span onclick="filterMonthOption(this);" data-value="10">OCTOBER</span>
-                                    <span onclick="filterMonthOption(this);" data-value="11">NOVEMBER</span>
-                                    <span onclick="filterMonthOption(this);" data-value="12">DECEMBER</span>      
-                                </div>
-                            </div>
-                            <div class="selection-input">
-                                <div class="filter-btn" id="year-field" type="button">
-                                    <span id="selected-year-text">YEAR</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
-                                        <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
-                                    </svg>
-                                </div>
-                                <div class="filter-dropdown" id="year-dropdown">
-                                </div>
-                            </div>
-                        </div>
-                    </button>
                     <button type="button" onclick="openAddCommissionModal();">ADD COMMISSION</button>
                 </div>
             </div>
@@ -84,12 +36,12 @@
                         </svg>
                     </form>
                     <div>
-                        <button onclick="sortBySalonBtn(event);" id="salon-btn" style="position: relative;" class="salon-btn">
-                            <span id="selected-sales-channel">SALON</span>
+                        <button onclick="toggleSalonDropdown(event);" id="salon-btn" style="position: relative;" class="salon-btn">
+                            <span id="selected-salon-filter-text">SALON</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
                                 <g clip-path="url(#clip0_776_5475)">
-                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706" opacity=".2"/>
-                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706" opacity=".2"/>
+                                    <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                    <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
                                 </g>
                                 <defs>
                                     <clipPath id="clip0_776_5475">
@@ -97,6 +49,14 @@
                                     </clipPath>
                                 </defs>
                             </svg>
+                            <div class="filter-dropdown hairstylist-selector" id="salon-selector" style="display: none;">
+                                <div class="search-div">
+                                    <input maxlength="100" type="text" name="search" onkeypress="searchSalon(event, this);" id="" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                                        <path opacity="0.5" d="M18.1953 17.8594L13.1953 12.8594M14.862 8.69271C14.862 9.45875 14.7111 10.2173 14.4179 10.925C14.1248 11.6328 13.6951 12.2758 13.1534 12.8175C12.6118 13.3592 11.9687 13.7889 11.261 14.082C10.5532 14.3752 9.79469 14.526 9.02865 14.526C8.2626 14.526 7.50406 14.3752 6.79633 14.082C6.08859 13.7889 5.44553 13.3592 4.90386 12.8175C4.36218 12.2758 3.9325 11.6328 3.63935 10.925C3.3462 10.2173 3.19531 9.45875 3.19531 8.69271C3.19531 7.14561 3.80989 5.66188 4.90386 4.56792C5.99782 3.47396 7.48155 2.85937 9.02865 2.85938C10.5757 2.85937 12.0595 3.47396 13.1534 4.56792C14.2474 5.66188 14.862 7.14561 14.862 8.69271Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
                         </button>
                         <button type="button" onclick="toggleHairstylistDropdown(event)" id="hairstylist-btn" style="position: relative;" class="hairstylist-btn">
                             <span id="selected-hairstylist-text">HAIRSTYLIST</span>
@@ -137,6 +97,54 @@
                                 <span onclick="filterStatusOption(event);" data-value="paid">PAID</span>
                                 <span onclick="filterStatusOption(event);" data-value="unpaid">UNPAID</span>
                             </div>
+                            <button onclick="toggleDateSelectorDropdown(event);" type="button" id="date-selector-btn" style="position: relative;" class="date-range-btn">
+                                <span><span id="selected-month-value">MONTH</span> / <span id="selected-year-value">YEAR</span></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
+                                    <g clip-path="url(#clip0_776_5475)">
+                                        <path d="M14.4766 8.86328L7.47656 16.3633L0.476562 8.86328H14.4766Z" fill="#030706"/>
+                                        <path d="M14.4766 7.79687L7.47656 0.296875L0.476562 7.79687H14.4766Z" fill="#030706"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_776_5475">
+                                            <rect width="14" height="16.5" fill="white" transform="translate(0.476562 0.296875)"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <div class="filter-dropdown date-selector" style="display: none;" id="date-selector">
+                                    <div class="selection-input">
+                                        <div class="filter-btn" id="month-field" type="button">
+                                            <span id="selected-month-text">MONTH</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                                <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                            </svg>
+                                        </div>
+                                        <div class="filter-dropdown" id="month-dropdown">
+                                            <span onclick="filterMonthOption(this);" data-value="1">JANUARY</span>
+                                            <span onclick="filterMonthOption(this);" data-value="2">FEBRUARY</span>
+                                            <span onclick="filterMonthOption(this);" data-value="3">MARCH</span>
+                                            <span onclick="filterMonthOption(this);" data-value="4">APRIL</span>
+                                            <span onclick="filterMonthOption(this);" data-value="5">MAY</span>
+                                            <span onclick="filterMonthOption(this);" data-value="6">JUNE</span>
+                                            <span onclick="filterMonthOption(this);" data-value="7">JULY</span>
+                                            <span onclick="filterMonthOption(this);" data-value="8">AUGUST</span>
+                                            <span onclick="filterMonthOption(this);" data-value="9">SEPTEMBER</span>
+                                            <span onclick="filterMonthOption(this);" data-value="10">OCTOBER</span>
+                                            <span onclick="filterMonthOption(this);" data-value="11">NOVEMBER</span>
+                                            <span onclick="filterMonthOption(this);" data-value="12">DECEMBER</span>      
+                                        </div>
+                                    </div>
+                                    <div class="selection-input">
+                                        <div class="filter-btn" id="year-field" type="button">
+                                            <span id="selected-year-text">YEAR</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                                <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                                            </svg>
+                                        </div>
+                                        <div class="filter-dropdown" id="year-dropdown">
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
                         </button>
                         <button class="sort-btn" onclick="reverseTableRows();">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
