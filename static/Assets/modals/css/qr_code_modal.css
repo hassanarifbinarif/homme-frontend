@@ -47,6 +47,8 @@
     font-weight: 500;
     line-height: 16px;
     text-transform: capitalize;
+    word-break: break-all;
+    padding: 0px 10px;
 }
 
 #qrCodeDialog .modal-body .qr-code-info > span:last-of-type {
