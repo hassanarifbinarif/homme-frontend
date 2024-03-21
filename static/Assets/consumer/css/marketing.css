@@ -143,6 +143,10 @@
     line-height: 20px;
 }
 
+.order-details-table tbody tr td:not(:first-of-type) {
+    cursor: pointer;
+}
+
 .order-details-table tbody tr td:last-of-type {
     border-right: unset;
 }

@@ -210,6 +210,27 @@ def consumer_marketing(request):
     return render(request, 'consumer/consumer-marketing.html', context)
 
 
+@csrf_exempt
+@admin_signin_required
+def get_salon_marketing_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
+        text_template = loader.get_template('ajax/salon-marketing-table.html')
+        html = text_template.render({'marketing':response})
+        context['marketing_data'] = html
+        context['msg'] = 'Marketing list retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
 @admin_signin_required
 def consumer_products(request):
     context = {}

@@ -1,9 +1,10 @@
 let requiredDataURL = `/admin/marketings?page=1&perPage=1000&ordering=-created_at&role=${role}`;
+let requestView = '/get-marketing-list/';
 
 window.onload = () => {
     // getNotifications();
     getData();
-    populateDropdowns();
+    // populateDropdowns();
 }
 
 
@@ -18,8 +19,9 @@ async function getData(url=null) {
     let tableBody = document.getElementById('marketing-table');
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
+    requestView = role == 'salon' ? '/consumer/get-salon-marketing-list/' : '/get-marketing-list/';
     try {
-        let response = await requestAPI('/get-marketing-list/', JSON.stringify(data), {}, 'POST');
+        let response = await requestAPI(requestView, JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
             // console.log(res);
             if (res.success) {

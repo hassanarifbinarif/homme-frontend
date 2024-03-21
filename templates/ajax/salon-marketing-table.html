@@ -46,7 +46,7 @@
     </thead>
     <tbody>
         {% for obj in marketing.data %}
-        <tr onclick="openNotificationDetailModal('marketingNotification', '{{obj.title}}', '{{obj.target_type}}', `{% if obj.salons %}{{obj.salons|comma_separated_string:'salon_name'}}{% else %}null{% endif %}`, '{{obj.text}}');">
+        <tr onclick="openSalonNotificationDetailModal('salonMarketingNotification', '{{obj.title}}', `{% if obj.salons %}{{obj.salons|comma_separated_string:'salon_name'}}{% else %}null{% endif %}`, '{{obj.text}}', '{{obj.state}}');">
             <td onclick="event.stopPropagation();">
                 <div class="table-checkbox">
                     <input type="checkbox" />

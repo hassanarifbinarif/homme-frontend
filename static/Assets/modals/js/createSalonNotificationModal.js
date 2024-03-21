@@ -37,6 +37,59 @@ function openCreateNotificationModal(modalID) {
 }
 
 
+function openSalonNotificationDetailModal(modalID, title, notificationTargetedSalons, description, salonState) {
+    let modal = document.querySelector(`#${modalID}`);
+    let form = modal.querySelector('form');
+    form.setAttribute('onsubmit', 'event.preventDefault();');
+    let targetedSalons = notificationTargetedSalons != 'null' ? notificationTargetedSalons.split(', ') : [];
+    modal.querySelector('#salon-marketing-notification-modal-header').innerText = "Notification";
+    modal.querySelector('#salon-marketing-notification-title').value = title || '';
+    modal.querySelector('#salon-marketing-notification-title').readOnly = true;
+    modal.querySelector('#salon-marketing-notification-description').value = description || '';
+    modal.querySelector('#salon-marketing-notification-description').readOnly = true;
+    let targetStateInput = modal.querySelector(`input[name="state"][value="${salonState}"]`);
+    modal.querySelector('#selected-state-name').innerText = 'Salons in ' + targetStateInput.value;
+    stateSelectBtn.removeEventListener('click', toggleStateOptions);
+    modal.querySelector('#selected-state-name').style.color = '#000000';
+    modal.querySelector('#selected-state-name').nextElementSibling.classList.add('hide');
+    modal.querySelector('button[type="submit"]').classList.add('hide');
+
+    if (targetedSalons.length > 0) {
+        salonsWrapper.classList.remove('hide');
+        salonSelectBtn.classList.add('hide');
+        targetedSalons.forEach((salon) => {
+            selectedSalons.innerHTML += `<div class="salon-card">
+                                            <span style="width: 100%;" title="${salon}">${salon}</span>
+                                            <svg class="hide" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                                <path d="M14.2992 9.85066C14.651 9.00138 14.832 8.09113 14.832 7.17188C14.832 5.31536 14.0945 3.53488 12.7818 2.22213C11.469 0.909373 9.68855 0.171875 7.83203 0.171875C5.97552 0.171875 4.19504 0.909373 2.88228 2.22213C1.56953 3.53488 0.832031 5.31536 0.832031 7.17188C0.832031 8.09113 1.01309 9.00138 1.36487 9.85066C1.71666 10.6999 2.23227 11.4716 2.88228 12.1216C3.53229 12.7716 4.30397 13.2872 5.15325 13.639C6.00253 13.9908 6.91278 14.1719 7.83203 14.1719C8.75128 14.1719 9.66154 13.9908 10.5108 13.639C11.3601 13.2872 12.1318 12.7716 12.7818 12.1216C13.4318 11.4716 13.9474 10.6999 14.2992 9.85066Z" fill="#D9D9D9"/>
+                                                <path d="M5.49805 9.50705L7.83165 7.17345M7.83165 7.17345L10.1653 4.83984M7.83165 7.17345L5.49805 4.83984M7.83165 7.17345L10.1653 9.50705" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>`;
+        })
+        selectedSalons.classList.remove('hide');
+    }
+
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute('onsubmit');
+        modal.querySelector('#salon-marketing-notification-title').readOnly = false;
+        modal.querySelector('#salon-marketing-notification-description').readOnly = false;
+        document.getElementById('selected-state-name').innerText = 'Select target';
+        document.getElementById('selected-state-name').style.color = '#A9A9A9';
+        stateSelectBtn.addEventListener('click', toggleStateOptions);
+        modal.querySelector('#selected-state-name').nextElementSibling.classList.remove('hide');
+        modal.querySelector('button[type="submit"]').classList.remove('hide');
+        
+        salonsWrapper.classList.add('hide');
+        salonSelectBtn.classList.remove('hide');
+        selectedSalons.innerHTML = '';
+        selectedSalons.classList.add('hide');
+        modal.querySelector('#salon-marketing-notification-modal-header').innerText = "Create New Notification";
+    })
+    document.querySelector(`.${modalID}`).click();
+}
+
+
 async function populateDropdowns() {
     statesList.forEach((state) => {
         stateListWrapper.innerHTML += `<div class="state-list-item" data-id="${state.id}">
@@ -50,15 +103,19 @@ async function populateDropdowns() {
     })
 }
 
+window.addEventListener('DOMContentLoaded', populateDropdowns);
 
-stateSelectBtn.addEventListener('click', function() {
+
+function toggleStateOptions() {
     if (stateSearchWrapper.classList.contains('hide')) {
         stateSearchWrapper.classList.remove('hide');
     }
     else {
         stateSearchWrapper.classList.add('hide');
     }
-})
+}
+
+stateSelectBtn.addEventListener('click', toggleStateOptions);
 
 
 function checkEnter(event) {

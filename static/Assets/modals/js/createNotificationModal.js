@@ -9,6 +9,29 @@ let salonsWrapper = document.getElementById('salons-wrapper');
 let salonSelectBtn = document.getElementById('salon-select-btn');
 let salonsList = [];
 
+let targetTypeObj = {
+    "all_users": {
+      "value": "all_users",
+      "name": "All D2C users"
+    },
+    "all_users_by_salon": {
+      "value": "all_users_by_salon",
+      "name": "All D2C users registered for specific salons"
+    },
+    "all_users_by_no_salon": {
+      "value": "all_users_by_no_salon",
+      "name": "All D2C users without a Salon"
+    },
+    "all_users_by_no_purchase": {
+      "value": "all_users_by_no_purchase",
+      "name": "All D2C users that have not purchased"
+    },
+    "all_users_by_no_referral": {
+      "value": "all_users_by_no_referral",
+      "name": "All D2C users that have no referrals"
+    }
+}
+
 targetTypeDropdownBtn.addEventListener('click', toggleDropdown);
 
 
@@ -41,6 +64,60 @@ function openCreateNotificationModal(modalID) {
         document.querySelectorAll('.salon-list-item').forEach((item) => {
             item.classList.remove('hide');
         })
+    })
+    document.querySelector(`.${modalID}`).click();
+}
+
+
+function openNotificationDetailModal(modalID, title, target_type, notificationTargetedSalons, description) {
+    let modal = document.querySelector(`#${modalID}`);
+    let form = modal.querySelector('form');
+    form.setAttribute('onsubmit', 'event.preventDefault();');
+    // let targetedSalons = JSON.parse(notificationTargetedSalons.replace(/'/g, '"'));
+    let targetedSalons = notificationTargetedSalons != 'null' ? notificationTargetedSalons.split(', ') : [];
+    modal.querySelector('#marketing-notification-modal-header').innerText = "Notification";
+    modal.querySelector('#marketing-notification-title').value = title || '';
+    modal.querySelector('#marketing-notification-title').readOnly = true;
+    modal.querySelector('#marketing-notification-description').value = description || '';
+    modal.querySelector('#marketing-notification-description').readOnly = true;
+    let targetInput = modal.querySelector(`input[name="target_type"][value="${target_type}"]`);
+    modal.querySelector('#selected-target-type').innerText = targetInput ? targetInput.nextElementSibling.innerText : (targetTypeObj[`${target_type}`] ? targetTypeObj[`${target_type}`]["name"] : captalizeFirstLetter(target_type));
+    targetTypeDropdownBtn.removeEventListener('click', toggleDropdown);
+    modal.querySelector('#selected-target-type').style.color = '#000000';
+    modal.querySelector('#selected-target-type').nextElementSibling.classList.add('hide');
+    modal.querySelector('button[type="submit"]').classList.add('hide');
+
+    if (targetedSalons.length > 0) {
+        salonsWrapper.classList.remove('hide');
+        salonSelectBtn.classList.add('hide');
+        targetedSalons.forEach((salon) => {
+            selectedSalons.innerHTML += `<div class="salon-card">
+                                            <span title="${salon}">${salon}</span>
+                                            <svg class="hide" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                                <path d="M14.2992 9.85066C14.651 9.00138 14.832 8.09113 14.832 7.17188C14.832 5.31536 14.0945 3.53488 12.7818 2.22213C11.469 0.909373 9.68855 0.171875 7.83203 0.171875C5.97552 0.171875 4.19504 0.909373 2.88228 2.22213C1.56953 3.53488 0.832031 5.31536 0.832031 7.17188C0.832031 8.09113 1.01309 9.00138 1.36487 9.85066C1.71666 10.6999 2.23227 11.4716 2.88228 12.1216C3.53229 12.7716 4.30397 13.2872 5.15325 13.639C6.00253 13.9908 6.91278 14.1719 7.83203 14.1719C8.75128 14.1719 9.66154 13.9908 10.5108 13.639C11.3601 13.2872 12.1318 12.7716 12.7818 12.1216C13.4318 11.4716 13.9474 10.6999 14.2992 9.85066Z" fill="#D9D9D9"/>
+                                                <path d="M5.49805 9.50705L7.83165 7.17345M7.83165 7.17345L10.1653 4.83984M7.83165 7.17345L5.49805 4.83984M7.83165 7.17345L10.1653 9.50705" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>`;
+        })
+        selectedSalons.classList.remove('hide');
+    }
+
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute('onsubmit');
+        modal.querySelector('#marketing-notification-title').readOnly = false;
+        modal.querySelector('#marketing-notification-description').readOnly = false;
+        document.getElementById('selected-target-type').innerText = 'Select target';
+        document.getElementById('selected-target-type').style.color = '#A9A9A9';
+        targetTypeDropdownBtn.addEventListener('click', toggleDropdown);
+        modal.querySelector('#selected-target-type').nextElementSibling.classList.remove('hide');
+        modal.querySelector('button[type="submit"]').classList.remove('hide');
+        
+        salonsWrapper.classList.add('hide');
+        salonSelectBtn.classList.remove('hide');
+        selectedSalons.innerHTML = '';
+        selectedSalons.classList.add('hide');
+        modal.querySelector('#marketing-notification-modal-header').innerText = "Create New Notification";
     })
     document.querySelector(`.${modalID}`).click();
 }
@@ -83,6 +160,8 @@ async function populateDropdowns() {
         }
     })
 }
+
+window.addEventListener('DOMContentLoaded', populateDropdowns);
 
 
 function checkSelectedSalons() {
