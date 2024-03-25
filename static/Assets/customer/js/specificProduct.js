@@ -1,4 +1,6 @@
 let requiredDataURL = `${apiURL}`;
+let supportedImageWidth = 1000;
+let supportedImageHeight = 1000;
 
 window.onload = () => {
     initializeDropdowns();
@@ -309,21 +311,60 @@ function toggleShippingInputs() {
 }
 
 
-function previewImage(event) {
-    let imageInput = event.currentTarget;
-    let image = imageInput.files;
-    let imageTag = imageInput.closest('label').querySelector('.product-image');
-    let svgIcon = imageInput.closest('label').querySelector('svg');
-    let spanText = imageInput.closest('label').querySelector('span');
-    if (svgIcon) {
-        svgIcon.style.display = 'none';
-    }
-    if (spanText) {
-        spanText.style.display = 'none';
-    }
-    imageTag.closest('label').classList.remove('label-border');
-    imageTag.src = window.URL.createObjectURL(image[0]);
-    imageTag.classList.remove('hide');
+// function previewImage(event) {
+//     let imageInput = event.currentTarget;
+//     let image = imageInput.files;
+//     let imageTag = imageInput.closest('label').querySelector('.product-image');
+//     let svgIcon = imageInput.closest('label').querySelector('svg');
+//     let spanText = imageInput.closest('label').querySelector('span');
+//     if (svgIcon) {
+//         svgIcon.style.display = 'none';
+//     }
+//     if (spanText) {
+//         spanText.style.display = 'none';
+//     }
+//     imageTag.closest('label').classList.remove('label-border');
+//     imageTag.src = window.URL.createObjectURL(image[0]);
+//     imageTag.classList.remove('hide');
+// }
+
+function previewImage(event, input) {
+    let label = input.closest('label');
+    const img = document.createElement('img');
+    const selectedImage = input.files[0];
+    const objectURL = URL.createObjectURL(selectedImage);
+    let imageTag = label.querySelector('.product-image');
+    let svgIcon = label.querySelector('svg');
+
+    img.onload = function handleLoad() {
+
+        if (img.width == supportedImageWidth && img.height == supportedImageHeight) {
+            imageTag.src = objectURL;
+            imageTag.classList.remove('hide');
+            label.querySelector('svg').style.display = 'none';
+            label.querySelectorAll('span').forEach((span) => {
+                span.style.display = 'none';
+            })
+            document.querySelector('.error-div').classList.add('hide');
+            document.querySelector('.upload-image-error-msg').classList.remove('active');
+            document.querySelector('.upload-image-error-msg').innerText = "";
+        }
+        else {
+            URL.revokeObjectURL(objectURL);
+            if (imageTag.getAttribute('data-src') == "0") {
+                imageTag.classList.add('hide');
+                svgIcon.style.display = 'block';
+                label.querySelectorAll('span').forEach((span) => {
+                    span.style.display = 'block';
+                })
+            }
+            document.querySelector('.error-div').classList.remove('hide');
+            document.querySelector('.upload-image-error-msg').classList.add('active');
+            document.querySelector('.upload-image-error-msg').innerText = `Image does not match supported dimensions: ${supportedImageWidth}x${supportedImageHeight} px`;
+            input.value = null;
+        }
+    };
+    img.src = objectURL;
 }
 
 async function uploadImage(event, inputFieldName, oldImageID=null) {
@@ -343,6 +384,9 @@ async function uploadImage(event, inputFieldName, oldImageID=null) {
         formData.append('images', imageFile.files[0]);
         let imagesWrapper = document.getElementById('specific-product-media-images');
         imagesWrapper.innerHTML = '<div class="w-100 d-flex justify-content-center align-items-center pt-2 pb-2"><span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true"></span></div>';
+        document.querySelector('.error-div').classList.add('hide');
+        document.querySelector('.upload-image-error-msg').classList.remove('active');
+        document.querySelector('.upload-image-error-msg').innerText = "";
         let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}`, formData, headers, 'PATCH');
         response.json().then(async function(res) {
             if (response.status == 200) {

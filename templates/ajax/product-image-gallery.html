@@ -1,15 +1,21 @@
 <div>
     <label class="image-wrapper {% if product.images.0.image %}{% else %}label-border{% endif %}" for="{% if product.images.0.image %}prod-img-{{product.images.0.id}}{% else %}product-detail-0{% endif %}">
         {% if product.images.0.image %}
-        <input type="file" accept="image/jpeg, image/jpg, image/png" name="buy_page" id="{% if product.images.0.image %}prod-img-{{product.images.0.id}}{% else %}product-detail-0{% endif %}" oninput="previewImage(event);" />
-        <img class="product-image" src="{{product.images.0.image}}" alt="product image" />
+        <input type="file" accept="image/jpeg, image/jpg, image/png" name="buy_page" id="{% if product.images.0.image %}prod-img-{{product.images.0.id}}{% else %}product-detail-0{% endif %}" oninput="previewImage(event, this);" />
+        <img class="product-image" src="{{product.images.0.image}}" data-src="1" alt="product image" />
+        <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
+            <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
+        </svg>
+        <span style="display: none;">Upload an Image</span>
+        <span class="text-center" style="display: none; line-height: 12px;">(supported dimension: 1000x1000px)</span>
         {% else %}
-        <input type="file" accept="image/jpeg, image/jpg, image/png" name="buy_page" id="product-detail-0" oninput="previewImage(event);" />
+        <input type="file" accept="image/jpeg, image/jpg, image/png" name="buy_page" id="product-detail-0" oninput="previewImage(event, this);" />
         <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
             <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
         </svg>
         <span>Upload an Image</span>
-        <img class="product-image hide" src="" alt="product image" />
+        <span class="text-center" style="line-height: 12px;">(supported dimension: 1000x1000px)</span>
+        <img class="product-image hide" src="" data-src="0" alt="product image" />
         {% endif %}
     </label>
     <div class="edit-btn">
@@ -37,15 +43,21 @@
     <div>
         <label class="image-wrapper {% if product.images.1.image %}{% else %}label-border{% endif %}" for="{% if product.images.1.image %}prod-img-{{product.images.1.id}}{% else %}product-detail-1{% endif %}">
             {% if product.images.1.image %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_1" id="{% if product.images.1.image %}prod-img-{{product.images.1.id}}{% else %}product-detail-1{% endif %}" oninput="previewImage(event);" />
-            <img class="product-image" src="{{product.images.1.image}}" alt="product image" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_1" id="{% if product.images.1.image %}prod-img-{{product.images.1.id}}{% else %}product-detail-1{% endif %}" oninput="previewImage(event, this);" />
+            <img class="product-image" src="{{product.images.1.image}}" data-src="1" alt="product image" />
+            <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
+                <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
+            </svg>
+            <span style="display: none;">Upload an Image</span>
+            <span class="text-center" style="display: none; line-height: 12px;">(supported dimension: 1000x1000px)</span>
             {% else %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_1" id="product-detail-1" oninput="previewImage(event);" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_1" id="product-detail-1" oninput="previewImage(event, this);" />
             <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
                 <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
             </svg>
             <span>Upload an Image</span>
-            <img class="product-image hide" src="" alt="product image" />
+            <span class="text-center" style="line-height: 12px;">(supported dimension: 1000x1000px)</span>
+            <img class="product-image hide" src="" data-src="0" alt="product image" />
             {% endif %}
         </label>
         <div class="edit-btn">
@@ -72,15 +84,21 @@
     <div>
         <label class="image-wrapper {% if product.images.2.image %}{% else %}label-border{% endif %}" for="{% if product.images.2.image %}prod-img-{{product.images.2.id}}{% else %}product-detail-2{% endif %}">
             {% if product.images.2.image %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_2" id="{% if product.images.2.image %}prod-img-{{product.images.2.id}}{% else %}product-detail-2{% endif %}" oninput="previewImage(event);" />
-            <img class="product-image" src="{{product.images.2.image}}" alt="product image" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_2" id="{% if product.images.2.image %}prod-img-{{product.images.2.id}}{% else %}product-detail-2{% endif %}" oninput="previewImage(event, this);" />
+            <img class="product-image" src="{{product.images.2.image}}" data-src="1" alt="product image" />
+            <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
+                <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
+            </svg>
+            <span style="display: none;">Upload an Image</span>
+            <span class="text-center" style="display: none; line-height: 12px;">(supported dimension: 1000x1000px)</span>
             {% else %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_2" id="product-detail-2" oninput="previewImage(event);" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_2" id="product-detail-2" oninput="previewImage(event, this);" />
             <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
                 <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
             </svg>
             <span>Upload an Image</span>
-            <img class="product-image hide" src="" alt="product image" />
+            <span class="text-center" style="line-height: 12px;">(supported dimension: 1000x1000px)</span>
+            <img class="product-image hide" src="" data-src="0" alt="product image" />
             {% endif %}
         </label>
         <div class="edit-btn">
@@ -107,15 +125,21 @@
     <div>
         <label class="image-wrapper {% if product.images.3.image %}{% else %}label-border{% endif %}" for="{% if product.images.3.image %}prod-img-{{product.images.3.id}}{% else %}product-detail-3{% endif %}">
             {% if product.images.3.image %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_3" id="{% if product.images.3.image %}prod-img-{{product.images.3.id}}{% else %}product-detail-3{% endif %}" oninput="previewImage(event);" />
-            <img class="product-image" src="{{product.images.3.image}}" alt="product image" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_3" id="{% if product.images.3.image %}prod-img-{{product.images.3.id}}{% else %}product-detail-3{% endif %}" oninput="previewImage(event, this);" />
+            <img class="product-image" src="{{product.images.3.image}}" data-src="1" alt="product image" />
+            <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
+                <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
+            </svg>
+            <span style="display: none;">Upload an Image</span>
+            <span class="text-center" style="display: none; line-height: 12px;">(supported dimension: 1000x1000px)</span>
             {% else %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_3" id="product-detail-3" oninput="previewImage(event);" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_3" id="product-detail-3" oninput="previewImage(event, this);" />
             <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
                 <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
             </svg>
             <span>Upload an Image</span>
-            <img class="product-image hide" src="" alt="product image" />
+            <span class="text-center" style="line-height: 12px;">(supported dimension: 1000x1000px)</span>
+            <img class="product-image hide" src="" data-src="0" alt="product image" />
             {% endif %}
         </label>
         <div class="edit-btn">
@@ -142,15 +166,21 @@
     <div>
         <label class="image-wrapper {% if product.images.4.image %}{% else %}label-border{% endif %}" for="{% if product.images.4.image %}prod-img-{{product.images.4.id}}{% else %}product-detail-4{% endif %}">
             {% if product.images.4.image %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_4" id="{% if product.images.4.image %}prod-img-{{product.images.4.id}}{% else %}product-detail-4{% endif %}" oninput="previewImage(event);" />
-            <img class="product-image" src="{{product.images.4.image}}" alt="product image" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_4" id="{% if product.images.4.image %}prod-img-{{product.images.4.id}}{% else %}product-detail-4{% endif %}" oninput="previewImage(event, this);" />
+            <img class="product-image" src="{{product.images.4.image}}" data-src="1" alt="product image" />
+            <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
+                <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
+            </svg>
+            <span style="display: none; line-height: 12px;">Upload an Image</span>
+            <span class="text-center" style="display: none;">(supported dimension: 1000x1000px)</span>
             {% else %}
-            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_4" id="product-detail-4" oninput="previewImage(event);" />
+            <input type="file" accept="image/jpeg, image/jpg, image/png" name="product_detail_4" id="product-detail-4" oninput="previewImage(event, this);" />
             <svg xmlns="http://www.w3.org/2000/svg" width="52" height="35" viewBox="0 0 52 35" fill="none">
                 <path d="M43.8023 15.28C42.6902 6.675 35.1908 0 26.1314 0C19.118 0 13.0258 4.0275 10.2443 10.375C4.77814 11.98 0.683594 17.05 0.683594 22.5C0.683594 29.3925 6.39153 35 13.4075 35H41.4C47.0138 35 51.5791 30.515 51.5791 25C51.5752 22.759 50.8071 20.5839 49.3975 18.8221C47.9878 17.0602 46.0179 15.8131 43.8023 15.28ZM28.6761 22.5V30H23.5866V22.5H15.9523L26.1314 10L36.3105 22.5H28.6761Z" fill="#000093"/>
             </svg>
             <span>Upload an Image</span>
-            <img class="product-image hide" src="" alt="product image" />
+            <span class="text-center" style="line-height: 12px;">(supported dimension: 1000x1000px)</span>
+            <img class="product-image hide" src="" data-src="0" alt="product image" />
             {% endif %}
         </label>
         <div class="edit-btn">

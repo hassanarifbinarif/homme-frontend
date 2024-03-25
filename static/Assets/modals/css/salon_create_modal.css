@@ -133,14 +133,15 @@
 }
 
 #salonCreate .modal-body .salon-info-input .salon-image-input label {
-    width: 208px;
+    /* width: 208px; */
+    width: 95px;
     height: 95px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 2px;
 
     border-radius: 8px;
     border: 0.8px solid #CECECE;
@@ -151,7 +152,12 @@
     font-family: Gotham Book;
     font-size: .75rem;
     font-weight: 400;
-    line-height: normal;
+    line-height: 12px;
+}
+
+#salonCreate .modal-body .salon-info-input .salon-image-input label > span:last-of-type {
+    font-size: .6rem;
+    word-break: break-all;
 }
 
 #salonCreate .modal-body .salon-info-input .salon-image-input label > input {

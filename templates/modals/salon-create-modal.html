@@ -83,7 +83,8 @@
                                         <path d="M42.86 15.28C41.7675 6.675 34.4 0 25.5 0C18.61 0 12.625 4.0275 9.8925 10.375C4.5225 11.98 0.5 17.05 0.5 22.5C0.5 29.3925 6.1075 35 13 35H40.5C46.015 35 50.5 30.515 50.5 25C50.4962 22.759 49.7416 20.5839 48.3567 18.8221C46.9719 17.0602 45.0366 15.8131 42.86 15.28ZM28 22.5V30H23V22.5H15.5L25.5 10L35.5 22.5H28Z" fill="black"/>
                                     </svg>
                                     <span class="opacity-point-6">Upload an image</span>
-                                    <input type="file" accept="image/jpeg, image/jpg, image/png" name="salon_picture" id="salon-image" oninput="previewImage(event);" />
+                                    <span class="opacity-point-6">supported dimension: 1000x1000px</span>
+                                    <input type="file" accept="image/jpeg, image/jpg, image/png" name="salon_picture" id="salon-image" oninput="previewImage(event, this);" />
                                     <img class="salon-image hide" src="" alt="salon image" />
                                 </label>
                             </div>

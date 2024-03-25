@@ -185,7 +185,8 @@
     border: 1px dashed #000;
     border-radius: 4px;
     width: 128px;
-    height: 111px;
+    height: 128px;
+    /* height: 111px; */
 }
 
 #productCreate .modal-body .add-media-wrapper .add-media-inputs .media-input > div > label {
@@ -197,6 +198,12 @@
     align-items: center;
     gap: 16px;
     color: #A9A9A9;
+}
+
+#productCreate .modal-body .add-media-wrapper .add-media-inputs .media-input > div > label {
+    font-size: .75rem;
+    line-height: 12px;
+    text-align: center;
 }
 
 #productCreate .modal-body .add-media-wrapper .add-media-inputs .media-input > div > label > input {
