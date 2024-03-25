@@ -1,3 +1,6 @@
+let supportedImageWidth = 1000;
+let supportedImageHeight = 1000;
+
 window.onload = () => {
     // getNotifications();
 }
@@ -5,10 +8,38 @@ window.onload = () => {
 
 // Preview Image on profile form
 
-function previewImage(event) {
-    let image = event.currentTarget.files;
-    let imageTag = document.getElementById('profile-image');
-    imageTag.src = window.URL.createObjectURL(image[0]);
+// function previewImage(event) {
+//     let image = event.currentTarget.files;
+//     let imageTag = document.getElementById('profile-image');
+//     imageTag.src = window.URL.createObjectURL(image[0]);
+// }
+
+function previewImage(event, input) {
+    let label = input.closest('label');
+    const img = document.createElement('img');
+    const selectedImage = input.files[0];
+    const objectURL = URL.createObjectURL(selectedImage);
+    let imageTag = label.querySelector('.profile-image');
+    img.onload = function handleLoad() {
+
+        if (img.width == supportedImageWidth && img.height == supportedImageHeight) {
+            imageTag.src = objectURL;
+            imageTag.classList.remove('hide');
+            label.querySelector('svg').style.display = 'none';
+            label.querySelectorAll('span').forEach((span) => {
+                span.style.display = 'none';
+            })
+            document.querySelector('.error-msg').classList.remove('active');
+            document.querySelector('.error-msg').innerText = "";
+        }
+        else {
+            URL.revokeObjectURL(objectURL);
+            document.querySelector('.error-msg').classList.add('active');
+            document.querySelector('.error-msg').innerText = `Image does not match supported dimensions: ${supportedImageWidth}x${supportedImageHeight} px`;
+            input.value = null;
+        }
+    };
+    img.src = objectURL;
 }
 
 

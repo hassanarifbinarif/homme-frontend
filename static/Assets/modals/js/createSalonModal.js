@@ -164,39 +164,36 @@ function selectPaymentType(event) {
 
 function previewImage(event, input) {
     let label = input.closest('label');
-        const img = document.createElement('img');
-        const selectedImage = input.files[0];
-        const objectURL = URL.createObjectURL(selectedImage);
-        let imageTag = label.querySelector('.salon-image');
-        img.onload = function handleLoad() {
-            // console.log(`Width: ${img.width}, Height: ${img.height}`);
-    
-            if (img.width == supportedImageWidth && img.height == supportedImageHeight) {
-                imageTag.src = objectURL;
-                imageTag.classList.remove('hide');
-                label.querySelector('svg').style.display = 'none';
-                label.querySelectorAll('span').forEach((span) => {
-                    span.style.display = 'none';
-                })
-                // document.querySelector('.error-div').classList.add('hide');
-                document.querySelector('.create-error-msg').classList.remove('active');
-                document.querySelector('.create-error-msg').innerText = "";
-            }
-            else {
-                URL.revokeObjectURL(objectURL);
-                imageTag.classList.add('hide');
-                label.querySelector('svg').style.display = 'block';
-                label.querySelectorAll('span').forEach((span) => {
-                    span.style.display = 'block';
-                })
-                document.querySelector('.error-div').classList.remove('hide');
-                document.querySelector('.create-error-msg').classList.add('active');
-                document.querySelector('.create-error-msg').innerText = `Image does not match supported dimensions: ${supportedImageWidth}x${supportedImageHeight} px`;
-                input.value = null;
-            }
-        };
-  
-        img.src = objectURL;
+    const img = document.createElement('img');
+    const selectedImage = input.files[0];
+    const objectURL = URL.createObjectURL(selectedImage);
+    let imageTag = label.querySelector('.salon-image');
+    img.onload = function handleLoad() {
+
+        if (img.width == supportedImageWidth && img.height == supportedImageHeight) {
+            imageTag.src = objectURL;
+            imageTag.classList.remove('hide');
+            label.querySelector('svg').style.display = 'none';
+            label.querySelectorAll('span').forEach((span) => {
+                span.style.display = 'none';
+            })
+            document.querySelector('.create-error-msg').classList.remove('active');
+            document.querySelector('.create-error-msg').innerText = "";
+        }
+        else {
+            URL.revokeObjectURL(objectURL);
+            imageTag.classList.add('hide');
+            label.querySelector('svg').style.display = 'block';
+            label.querySelectorAll('span').forEach((span) => {
+                span.style.display = 'block';
+            })
+            document.querySelector('.error-div').classList.remove('hide');
+            document.querySelector('.create-error-msg').classList.add('active');
+            document.querySelector('.create-error-msg').innerText = `Image does not match supported dimensions: ${supportedImageWidth}x${supportedImageHeight} px`;
+            input.value = null;
+        }
+    };
+    img.src = objectURL;
 }
 
 
