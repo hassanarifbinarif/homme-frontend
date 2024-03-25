@@ -1,4 +1,7 @@
 let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=&target_role=salon`;
+let supportedImageWidth = 1000;
+let supportedImageHeight = 1000;
+
 
 window.onload = () => {
     getData();
@@ -296,8 +299,6 @@ async function updateSliderForm(event, id) {
 function verifyEventImage(input) {
     if (input.files.length > 0) {
         let label = input.closest('label');
-        let width = 330;
-        let height = 330;
         const img = document.createElement('img');
         const selectedImage = input.files[0];
         const objectURL = URL.createObjectURL(selectedImage);
@@ -305,7 +306,7 @@ function verifyEventImage(input) {
         img.onload = function handleLoad() {
             // console.log(`Width: ${img.width}, Height: ${img.height}`);
     
-            if (img.width == width && img.height == height) {
+            if (img.width == supportedImageWidth && img.height == supportedImageHeight) {
                 imageTag.src = objectURL;
                 imageTag.classList.remove('hide');
                 label.querySelector('svg').style.display = 'none';
@@ -325,7 +326,7 @@ function verifyEventImage(input) {
                 })
                 document.querySelector('.error-div').classList.remove('hide');
                 document.querySelector('.create-error-msg').classList.add('active');
-                document.querySelector('.create-error-msg').innerText = "Image does not match supported dimensions: 330x330 px";
+                document.querySelector('.create-error-msg').innerText = `Image does not match supported dimensions: ${supportedImageWidth}x${supportedImageHeight} px`;
                 input.value = null;
             }
         };
@@ -448,7 +449,12 @@ async function handleDrop(e) {
     e.stopPropagation();
     row = e.target.closest('tr');
     if (dragSrcEl !== row) {
+        let droppedUponRowOrder = row.getAttribute('data-id');
+        let draggedRowOrder = dragSrcEl.getAttribute('data-id');
+        // console.log(droppedUponRowOrder, draggedRowOrder);
         dragSrcEl.innerHTML = row.innerHTML;
         row.innerHTML = e.dataTransfer.getData('text/html');
+
+        // let request1 = await requestAPI(`${apiURL}/admin/content/sliders/${draggedRowOrder}`, )
     }
 }

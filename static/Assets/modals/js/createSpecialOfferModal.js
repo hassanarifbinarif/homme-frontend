@@ -150,7 +150,7 @@ async function createSpecialOfferForm(event) {
     else {
         try {
             data.is_expired = false;
-            delete data.image;
+            // delete data.image;
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
@@ -196,8 +196,6 @@ async function createSpecialOfferForm(event) {
 function verifyOfferImage(input) {
     if (input.files.length > 0) {
         let label = input.closest('label');
-        let width = 330;
-        let height = 330;
         const img = document.createElement('img');
         const selectedImage = input.files[0];
         const objectURL = URL.createObjectURL(selectedImage);
@@ -205,7 +203,7 @@ function verifyOfferImage(input) {
         img.onload = function handleLoad() {
             // console.log(`Width: ${img.width}, Height: ${img.height}`);
     
-            if (img.width == width && img.height == height) {
+            if (img.width == supportedImageWidth && img.height == supportedImageHeight) {
                 imageTag.src = objectURL;
                 imageTag.classList.remove('hide');
                 label.querySelector('svg').style.display = 'none';
@@ -225,7 +223,7 @@ function verifyOfferImage(input) {
                 })
                 document.querySelector('.special-error-div').classList.remove('hide');
                 document.querySelector('.create-special-error-msg').classList.add('active');
-                document.querySelector('.create-special-error-msg').innerText = "Image does not match supported dimensions: 330x330 px";
+                document.querySelector('.create-special-error-msg').innerText = `Image does not match supported dimensions: ${supportedImageWidth}x${supportedImageHeight} px`;
                 input.value = null;
             }
         };

@@ -1,4 +1,7 @@
 let resizedDataUrl;
+let supportedImageWidth = 1000;
+let supportedImageHeight = 1000;
+
 
 function openCreateEventModal(modalID) {
     let modal = document.querySelector(`#${modalID}`);
@@ -86,8 +89,6 @@ function openCreateEventModal(modalID) {
 function verifyEventImage(event, input) {
     if (input.files.length > 0) {
         let label = input.closest('label');
-        let width = 330;
-        let height = 330;
         const img = document.createElement('img');
         const selectedImage = input.files[0];
         const objectURL = URL.createObjectURL(selectedImage);
@@ -95,7 +96,7 @@ function verifyEventImage(event, input) {
         img.onload = function handleLoad() {
             // console.log(`Width: ${img.width}, Height: ${img.height}`);
     
-            if (img.width == width && img.height == height) {
+            if (img.width == supportedImageWidth && img.height == supportedImageHeight) {
                 imageTag.src = objectURL;
                 imageTag.classList.remove('hide');
                 label.querySelector('svg').style.display = 'none';
@@ -115,7 +116,7 @@ function verifyEventImage(event, input) {
                 })
                 document.querySelector('.error-div').classList.remove('hide');
                 document.querySelector('.create-error-msg').classList.add('active');
-                document.querySelector('.create-error-msg').innerText = "Image does not match supported dimensions: 330x330 px";
+                document.querySelector('.create-error-msg').innerText = `Image does not match supported dimensions: ${supportedImageWidth}x${supportedImageHeight} px`;
                 input.value = null;
             }
         };

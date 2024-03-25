@@ -60,6 +60,16 @@ async function getData(url=null) {
                 document.getElementById('total-order-completion-time').innerHTML = Math.ceil(roundDecimalPlaces(parseFloat(res.completion_time) / 24)) + ' Days';
                 convertDateTime();
             }
+            else {
+                tableBody.querySelector('tbody').innerHTML = `<tr><td colspan="11" class="no-record-row">No record available</td></tr>`;
+                document.getElementById('total-order-value').innerHTML = '--';
+                document.getElementById('total-ordered-items').innerHTML = '--';
+                document.getElementById('total-orders-completed').innerHTML = '--';
+                document.getElementById('total-open-orders').innerHTML = '--';
+                document.getElementById('total-order-completion-time').innerHTML = '--';
+                document.getElementById('table-loader').classList.add('hide');
+                tableBody.classList.remove('hide');
+            }
         })
     }
     catch (err) {
