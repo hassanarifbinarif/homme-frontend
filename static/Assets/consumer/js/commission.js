@@ -121,7 +121,7 @@ function searchHairstylist(event, inputElement) {
 
 function searchSalon(event, inputElement) {
     if (event.keyCode == 13) {
-        requiredDataURL = setParams(requiredDataURL, 'salon__name', inputElement.value);
+        requiredDataURL = setParams(requiredDataURL, 'salon__salon_name__icontains', inputElement.value);
         getData();
         document.getElementById('selected-salon-filter-text').innerText = inputElement.value == '' ? 'SALON' : inputElement.value;
         document.getElementById('selected-salon-filter-text').title = inputElement.value == '' ? 'SALON' : inputElement.value;
