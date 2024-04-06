@@ -1,12 +1,43 @@
+const role = 'user';
 let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=&target_role=user`;
 let supportedImageWidth = 1000;
 let supportedImageHeight = 1000;
+let selectedLevel = null;
+
+let userLevelDropdown = document.getElementById('user-level-dropdown');
+let userLevelDropdownBtn = document.getElementById('user-level');
 
 
 window.onload = () => {
     // getNotifications();
     getData();
 }
+
+window.addEventListener('load', populateMembershipLevels);
+
+
+async function populateMembershipLevels() {
+    let token = getCookie('admin_access');
+    let headers = {
+        "Authorization": `Bearer ${token}`
+    };
+
+    try {
+        let response = await requestAPI(`${apiURL}/admin/membership-levels?search=&page=1&perPage=100&ordering=-id`, null, headers, 'GET');
+        response.json().then(function(res) {
+            res.data.forEach((membership_level) => {
+                userLevelDropdown.innerHTML += `<div class="radio-btn">
+                                                    <input id="user-membership-${membership_level.id}" onchange="selectUserLevel(event);" type="radio" value="${membership_level.id}" name="user_level_radio" />
+                                                    <label for="user-membership-${membership_level.id}" class="radio-label">${captalizeFirstLetter(membership_level.name)} Users</label>
+                                                </div>`
+            })
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 
 function searchForm(event) {
     event.preventDefault();
@@ -44,6 +75,23 @@ async function getData(url=null) {
         console.log(err);
     }
 }
+
+
+function toggleDropdown(event) {
+    let elementBtn = event.target;
+    if(!elementBtn.classList.contains('filter-btn')) {
+        elementBtn = elementBtn.closest('.filter-btn');
+    }
+    let elementDropdown = elementBtn.nextElementSibling;
+    if(elementDropdown.style.display == 'flex') {
+        elementDropdown.style.display = 'none';
+    }
+    else {
+        elementDropdown.style.display = 'flex';
+    }
+}
+
+userLevelDropdownBtn.addEventListener('click', toggleDropdown);
 
 
 function reverseTableRows() {
@@ -96,10 +144,15 @@ function openCreateSliderModal(modalID) {
     let modal = document.querySelector(`#${modalID}`);
     let form = modal.querySelector("form");
     form.setAttribute("onsubmit", `createSliderForm(event)`);
+    modal.querySelector('#user-level-dropdown-container').classList.remove('hide');
     modal.addEventListener('hidden.bs.modal', event => {
+        selectedLevel = null;
         form.reset();
         form.removeAttribute("onsubmit");
-        let label = modal.querySelector('label');
+        modal.querySelector('#user-level-dropdown-container').classList.add('hide');
+        document.getElementById('selected-user-level').innerText = 'Select User Type';
+        document.getElementById('selected-user-level').style.color = 'rgba(3, 7, 6, 0.60)';
+        let label = modal.querySelector('#image-input-label');
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
         label.querySelector('svg').style.display = 'block';
@@ -113,6 +166,25 @@ function openCreateSliderModal(modalID) {
     })
     document.querySelector(`.${modalID}`).click();
 }
+
+
+function selectUserLevel(event) {
+    let inputElement = event.target;
+    if(inputElement.checked) {
+        selectedLevel = inputElement.value;
+        document.getElementById('selected-user-level').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-user-level').style.color = '#000';
+    }
+}
+
+
+function closeSliderModalDropdowns(event) {
+    if((!userLevelDropdownBtn.contains(event.target)) && userLevelDropdown.style.display == 'flex') {
+        userLevelDropdown.style.display = 'none';
+    }
+}
+
+document.body.addEventListener('click', closeSliderModalDropdowns);
 
 
 async function createSliderForm(event) {
@@ -138,6 +210,12 @@ async function createSliderForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
+    else if (selectedLevel == null) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Select type of users';
+        errorMsg.classList.add('active');
+        return false;
+    }
     else if (imageInput.files.length == 0) {
         errorDiv.classList.remove('hide');
         errorMsg.innerText = 'Image with supported dimensions is required';
@@ -149,6 +227,7 @@ async function createSliderForm(event) {
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
+            formData.append("target_membership_levels", parseInt(selectedLevel));
             let token = getCookie('admin_access');
             let headers = {
                 "Authorization": `Bearer ${token}`
@@ -190,7 +269,7 @@ async function createSliderForm(event) {
 }
 
 
-function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
+function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
@@ -199,14 +278,25 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
     form.querySelector('input[name="text"]').value = description;
     form.querySelector('.event-img').src = imageUrl;
     form.querySelector('.event-img').classList.remove('hide');
-    let label = modal.querySelector('label');
+    let label = modal.querySelector('#image-input-label');
     label.querySelector('svg').style.display = 'none';
     label.querySelectorAll('span').forEach((span) => {
         span.style.display = 'none';
     })
+    modal.querySelector('#user-level-dropdown-container').classList.remove('hide');
+    if (target_membership_level != '') {
+        selectedLevel = target_membership_level;
+        let checkedInput = modal.querySelector(`input[name="user_level_radio"][value="${target_membership_level}"]`);
+        document.getElementById('selected-user-level').innerText = checkedInput.nextElementSibling.innerText;
+        document.getElementById('selected-user-level').style.color = '#000';
+    }
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
+        selectedLevel = null;
         modal.querySelector('#slider-modal-header').innerText = 'Create Slider';
+        modal.querySelector('#user-level-dropdown-container').classList.add('hide');
+        document.getElementById('selected-user-level').innerText = 'Select User Type';
+        document.getElementById('selected-user-level').style.color = 'rgba(3, 7, 6, 0.60)';
         form.removeAttribute("onsubmit");
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -221,6 +311,7 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
     })
     document.querySelector(`.${modalID}`).click();
 }
+
 
 async function updateSliderForm(event, id) {
     event.preventDefault();
@@ -250,6 +341,9 @@ async function updateSliderForm(event, id) {
         try {
             if (imageInput.files.length == 0) {
                 formData.delete("image");
+            }
+            if (selectedLevel != null) {
+                formData.append("target_membership_levels", parseInt(selectedLevel));
             }
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';

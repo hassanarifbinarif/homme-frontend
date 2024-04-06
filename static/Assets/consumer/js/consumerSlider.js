@@ -1,3 +1,4 @@
+const role = 'salon';
 let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=&target_role=salon`;
 let supportedImageWidth = 1000;
 let supportedImageHeight = 1000;
@@ -96,10 +97,11 @@ function openCreateSliderModal(modalID) {
     let modal = document.querySelector(`#${modalID}`);
     let form = modal.querySelector("form");
     form.setAttribute("onsubmit", `createSliderForm(event)`);
+    modal.querySelector('#user-level-dropdown-container').classList.add('hide');
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
-        let label = modal.querySelector('label');
+        let label = modal.querySelector('#image-input-label');
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
         label.querySelector('svg').style.display = 'block';
@@ -191,7 +193,7 @@ async function createSliderForm(event) {
 }
 
 
-function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
+function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
@@ -200,7 +202,7 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl) {
     form.querySelector('input[name="text"]').value = description;
     form.querySelector('.event-img').src = imageUrl;
     form.querySelector('.event-img').classList.remove('hide');
-    let label = modal.querySelector('label');
+    let label = modal.querySelector('#image-input-label');
     label.querySelector('svg').style.display = 'none';
     label.querySelectorAll('span').forEach((span) => {
         span.style.display = 'none';

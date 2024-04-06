@@ -18,8 +18,18 @@
                         <input maxlength="100" type="text" name="name" placeholder="Name" />
                         <input maxlength="255" type="text" name="text" placeholder="Description" />
                     </div>
+                    <div class="user-level-dropdown-container hide" id="user-level-dropdown-container">
+                        <button class="filter-btn" id="user-level" type="button">
+                            <span id="selected-user-level">Select User Type</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
+                            </svg>
+                        </button>
+                        <div class="filter-dropdown" id="user-level-dropdown">
+                        </div>
+                    </div>
                     <div class="image-wrapper">
-                        <label for="event-img">
+                        <label for="event-img" id="image-input-label">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 50 35" fill="none">
                                 <path d="M42.36 15.28C41.2675 6.675 33.9 0 25 0C18.11 0 12.125 4.0275 9.3925 10.375C4.0225 11.98 0 17.05 0 22.5C0 29.3925 5.6075 35 12.5 35H40C45.515 35 50 30.515 50 25C49.9962 22.759 49.2416 20.5839 47.8567 18.8221C46.4719 17.0602 44.5366 15.8131 42.36 15.28ZM27.5 22.5V30H22.5V22.5H15L25 10L35 22.5H27.5Z" fill="#000093"/>
                             </svg>
