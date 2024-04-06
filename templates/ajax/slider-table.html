@@ -25,7 +25,7 @@
     </thead>
     <tbody>
         {% for obj in sliders.data %}
-        <tr data-id="{{obj.id}}" draggable='true' ondragstart='handleDragStart(event)' ondragend="handleDragEnd(event)" ondragover='handleDragOver(event)' ondrop="handleDrop(event)">
+        <tr data-id="{{obj.id}}" data-sort-order="{{obj.sort_order}}" draggable='true' ondragstart='handleDragStart(event)' ondragend="handleDragEnd(event)" ondragover='handleDragOver(event)' ondrop="handleDrop(event)">
             <td>
                 <div class="product-image">
                     <img src="{{obj.image}}" class="user-select-none pe-none" alt="slider image" />

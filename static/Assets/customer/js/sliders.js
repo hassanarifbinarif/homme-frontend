@@ -1,5 +1,5 @@
 const role = 'user';
-let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-created_at&search=&target_role=user`;
+let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-sort_order&search=&target_role=user`;
 let supportedImageWidth = 1000;
 let supportedImageHeight = 1000;
 let selectedLevel = null;
@@ -541,8 +541,29 @@ function handleDragOver(e) {
 async function handleDrop(e) {
     e.stopPropagation();
     row = e.target.closest('tr');
-    if (dragSrcEl !== row) {
+    if (dragSrcEl !== row) {      
         dragSrcEl.innerHTML = row.innerHTML;
         row.innerHTML = e.dataTransfer.getData('text/html');
+        let draggedUponRowId = row.getAttribute("data-id");
+        let draggedRowId = dragSrcEl.getAttribute("data-id");
+        let draggedUponRowOrder = row.getAttribute("data-sort-order") == "0" ? row.getAttribute("data-id") : row.getAttribute("data-sort-order");
+        let draggedRowOrder = dragSrcEl.getAttribute("data-sort-order") == "0" ? dragSrcEl.getAttribute("data-id") : dragSrcEl.getAttribute("data-sort-order");
+        updateSortOrder(parseInt(draggedUponRowId), parseInt(draggedRowOrder));
+        updateSortOrder(parseInt(draggedRowId), parseInt(draggedUponRowOrder));
+    }
+}
+
+
+async function updateSortOrder(id, order) {
+    try {
+        let token = getCookie('admin_access');
+        let headers = { 
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        };
+        let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({ "sort_order": order}), headers, 'PATCH');
+    }
+    catch (err) {
+        console.log(err);
     }
 }
