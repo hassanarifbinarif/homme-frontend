@@ -386,6 +386,7 @@ async function updateSliderForm(event, id) {
     }
     else {
         try {
+            let token = getCookie('admin_access');
             if (imageInput.files.length == 0) {
                 formData.delete("image");
             }
@@ -396,13 +397,17 @@ async function updateSliderForm(event, id) {
                     })
                 }
                 else {
-                    formData.append("target_membership_levels", []);
+                    let headers = {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    };
+                    beforeLoad(button);
+                    let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({"target_membership_levels": []}), headers, 'PATCH');
                 }
             }
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';
-            errorMsg.classList.remove('active');
-            let token = getCookie('admin_access');
+            errorMsg.classList.remove('active');            
             let headers = {
                 "Authorization": `Bearer ${token}`
             };
