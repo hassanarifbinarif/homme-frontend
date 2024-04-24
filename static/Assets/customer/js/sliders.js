@@ -3,6 +3,8 @@ let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-sort
 let supportedImageWidth = 1000;
 let supportedImageHeight = 1000;
 let selectedLevel = null;
+let levelList = [];
+let selectedLevelList = [];
 
 let userLevelDropdown = document.getElementById('user-level-dropdown');
 let userLevelDropdownBtn = document.getElementById('user-level');
@@ -25,11 +27,22 @@ async function populateMembershipLevels() {
     try {
         let response = await requestAPI(`${apiURL}/admin/membership-levels?search=&page=1&perPage=100&ordering=-id`, null, headers, 'GET');
         response.json().then(function(res) {
-            res.data.forEach((membership_level) => {
-                userLevelDropdown.innerHTML += `<div class="radio-btn">
-                                                    <input id="user-membership-${membership_level.id}" onchange="selectUserLevel(event);" type="radio" value="${membership_level.id}" name="user_level_radio" />
-                                                    <label for="user-membership-${membership_level.id}" class="radio-label">${captalizeFirstLetter(membership_level.name)} Users</label>
-                                                </div>`
+            levelList = [...res.data];
+            let newUserfilteredList = levelList.filter(item => item.name.includes("new"));
+            let newUserfilteredListIds = new Set(newUserfilteredList.map(item => item.id));
+
+            userLevelDropdown.innerHTML += `<div class="radio-btn">
+                                                <input id="user-membership-${newUserfilteredList.map(item => item.id)}" onchange="selectUserLevel(event);" type="radio" value="${newUserfilteredList.map(item => item.id)}" name="user_level_radio" />
+                                                <label for="user-membership-${newUserfilteredList.map(item => item.id)}" class="radio-label">New Users</label>
+                                            </div>`
+
+            levelList.forEach((membership_level) => {
+                if (!newUserfilteredListIds.has(membership_level.id)) {
+                    userLevelDropdown.innerHTML += `<div class="radio-btn">
+                                                        <input id="user-membership-${membership_level.id}" onchange="selectUserLevel(event);" type="radio" value="${membership_level.id}" name="user_level_radio" />
+                                                        <label for="user-membership-${membership_level.id}" class="radio-label">${captalizeFirstLetter(membership_level.level_name)} Users</label>
+                                                    </div>`
+                }
             })
         })
     }
@@ -171,7 +184,7 @@ function openCreateSliderModal(modalID) {
 function selectUserLevel(event) {
     let inputElement = event.target;
     if(inputElement.checked) {
-        selectedLevel = inputElement.value;
+        selectedLevel = inputElement.value ? inputElement.value.split(',') : [];
         document.getElementById('selected-user-level').innerText = inputElement.nextElementSibling.innerText;
         document.getElementById('selected-user-level').style.color = '#000';
     }
@@ -227,7 +240,11 @@ async function createSliderForm(event) {
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
-            formData.append("target_membership_levels", parseInt(selectedLevel));
+            if (Array.isArray(selectedLevel) && selectedLevel.length > 0) {
+                selectedLevel.forEach((level) => {
+                    formData.append("target_membership_levels", parseInt(level));
+                })
+            }
             let token = getCookie('admin_access');
             let headers = {
                 "Authorization": `Bearer ${token}`
@@ -269,6 +286,21 @@ async function createSliderForm(event) {
 }
 
 
+function arraysAreEqual(array1, array2) {
+    if (array1.length !== array2.length) {
+        return false;
+    }
+  
+    for (let i = 0; i < array1.length; i++) {
+        if (array1[i] !== array2[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
 function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
@@ -284,12 +316,28 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
         span.style.display = 'none';
     })
     modal.querySelector('#user-level-dropdown-container').classList.remove('hide');
-    if (target_membership_level != '') {
-        selectedLevel = target_membership_level;
-        let checkedInput = modal.querySelector(`input[name="user_level_radio"][value="${target_membership_level}"]`);
-        document.getElementById('selected-user-level').innerText = checkedInput.nextElementSibling.innerText;
-        document.getElementById('selected-user-level').style.color = '#000';
+    let membership_level_list = JSON.parse(target_membership_level);
+    if (Array.isArray(membership_level_list)) {
+        if (arraysAreEqual(membership_level_list, [])) {
+            document.getElementById('selected-user-level').innerText = 'All Users';
+            document.getElementById('selected-user-level').style.color = '#000';
+            selectedLevel = [];  
+        }
+        else if (arraysAreEqual(membership_level_list, [6, 7]) || arraysAreEqual(membership_level_list, [7, 6])) {
+            let checkedInput = modal.querySelector(`input[name="user_level_radio"][value="7,6"]`);
+            checkedInput.click();
+        }
+        else {
+            let checkedInput = modal.querySelector(`input[name="user_level_radio"][value="${membership_level_list[0]}"]`);
+            checkedInput.click();
+        }
     }
+    // if (target_membership_level != '') {
+    //     selectedLevel = target_membership_level;
+    //     let checkedInput = modal.querySelector(`input[name="user_level_radio"][value="${target_membership_level}"]`);
+    //     document.getElementById('selected-user-level').innerText = checkedInput.nextElementSibling.innerText;
+    //     document.getElementById('selected-user-level').style.color = '#000';
+    // }
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         selectedLevel = null;
@@ -318,7 +366,6 @@ async function updateSliderForm(event, id) {
     let form = event.currentTarget;
     let formData = new FormData(form);
     let data = formDataToObject(formData);
-    // console.log(data);
     let imageInput = form.querySelector('input[name="image"]');
     let button = form.querySelector('button[type="submit"]');
     let buttonText = button.innerText;
@@ -339,16 +386,28 @@ async function updateSliderForm(event, id) {
     }
     else {
         try {
+            let token = getCookie('admin_access');
             if (imageInput.files.length == 0) {
                 formData.delete("image");
             }
             if (selectedLevel != null) {
-                formData.append("target_membership_levels", parseInt(selectedLevel));
+                if (Array.isArray(selectedLevel) && selectedLevel.length > 0) {
+                    selectedLevel.forEach((level) => {
+                        formData.append("target_membership_levels", parseInt(level));
+                    })
+                }
+                else {
+                    let headers = {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    };
+                    beforeLoad(button);
+                    let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({"target_membership_levels": []}), headers, 'PATCH');
+                }
             }
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';
-            errorMsg.classList.remove('active');
-            let token = getCookie('admin_access');
+            errorMsg.classList.remove('active');            
             let headers = {
                 "Authorization": `Bearer ${token}`
             };
