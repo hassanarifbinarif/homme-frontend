@@ -4,9 +4,14 @@ let activityTypeDropdownBtn = document.getElementById('activity-type');
 let rewardCustomerField = document.getElementById('reward-customer-field');
 let selectedRewardCustomer = null;
 
+let refundCustomerField = document.getElementById('refund-customer-field');
+let selectedRefundCustomer = null;
+
 let rewardData = {};
+let refundData = {"amount": 0, "note": ''};
 
 let submitBtn = document.getElementById('submit-btn');
+let refundSubmitBtn = document.getElementById('refund-submit-btn');
 let orderSubmitBtn = document.getElementById('order-submit-btn');
 
 
@@ -40,16 +45,28 @@ function selectActivityType(event) {
     let inputElement = event.target;
     if(inputElement.checked) {
         if (inputElement.value == 'product_purchase') {
-            document.getElementById('order-section').classList.remove('hide');
             document.getElementById('reward-section').classList.add('hide');
+            document.getElementById('refund-section').classList.add('hide');
+            document.getElementById('order-section').classList.remove('hide');
             submitBtn.classList.add('hide');
+            refundSubmitBtn.classList.add('hide');
             orderSubmitBtn.classList.remove('hide');
         }
         else if (inputElement.value == 'reward_activity') {
             document.getElementById('order-section').classList.add('hide');
+            document.getElementById('refund-section').classList.add('hide');
             document.getElementById('reward-section').classList.remove('hide');
-            submitBtn.classList.remove('hide');
+            refundSubmitBtn.classList.add('hide');
             orderSubmitBtn.classList.add('hide');
+            submitBtn.classList.remove('hide');
+        }
+        else if (inputElement.value == 'refund_activity') {
+            document.getElementById('order-section').classList.add('hide');
+            document.getElementById('reward-section').classList.add('hide');
+            document.getElementById('refund-section').classList.remove('hide');
+            submitBtn.classList.add('hide');
+            orderSubmitBtn.classList.add('hide');
+            refundSubmitBtn.classList.remove('hide');
         }
         
         document.querySelector('.create-error-msg').innerHTML = '';
@@ -64,6 +81,14 @@ function selectRewardCustomer(inputField) {
     if (inputField.checked) {
         rewardCustomerField.value = inputField.nextElementSibling.innerText;
         selectedRewardCustomer = inputField.value;
+    }
+}
+
+
+function selectRefundCustomer(inputField) {
+    if (inputField.checked) {
+        refundCustomerField.value = inputField.nextElementSibling.innerText;
+        selectedRefundCustomer = inputField.value;
     }
 }
 
@@ -100,9 +125,47 @@ rewardCustomerField.addEventListener('input', function() {
 })
 
 
+refundCustomerField.addEventListener('focus', function() {
+    refundCustomerDropdown.style.display = 'flex';
+})
+
+refundCustomerField.addEventListener('blur', function(event) {
+    setTimeout(() => {
+        refundCustomerDropdown.style.display = 'none';
+    }, 200);
+})
+
+refundCustomerField.addEventListener('input', function() {
+    let filteredCustomer = [];
+    filteredCustomer = customerData.filter(customer => customer.full_name.toLowerCase().includes(this.value.toLowerCase())).map((customer => customer.user.id));
+    if (filteredCustomer.length == 0) {
+        document.getElementById('no-refund-customer-text').classList.remove('hide');
+        document.querySelectorAll('.refund-customer-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-refund-customer-text').classList.add('hide');
+        document.querySelectorAll('.refund-customer-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredCustomer.includes(parseInt(itemID, 10))) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+})
+
+
 function getRewardDetails() {
     rewardData.points = parseFloat(document.querySelector('input[name="points"]').value);
     rewardData.notes = document.querySelector('textarea[name="reward_notes"]').value;
+}
+
+
+function getRefundDetails() {
+    refundData.amount = parseFloat(document.querySelector('input[name="refund_points"]').value);
+    refundData.note = document.querySelector('textarea[name="refund_notes"]').value;
 }
 
 
@@ -152,6 +215,8 @@ function openCreateActivityModal() {
             user: null,
         };
         rewardData = {};
+        refundData = {"amount": 0, "note": ''};
+        selectedRefundCustomer = null;
     })
 
     document.querySelector('.activityCreate').click();
@@ -198,6 +263,67 @@ async function rewardCreate(event) {
             let response = await requestAPI(`${apiURL}/admin/rewards`, JSON.stringify(data), headers, 'POST');
             response.json().then(function(res) {
                 // console.log(res);
+                if (response.status == 201) {
+                    getData();
+                    afterLoad(button, 'CREATED');
+                    setTimeout(()=> {
+                        afterLoad(button, 'CREATE');
+                        document.querySelector('.activityCreate').click();
+                    }, 1200)
+                }
+                else {
+                    afterLoad(button, 'ERROR');
+                    let keys = Object.keys(res.messages);
+                    keys.forEach((key) => {
+                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                    })
+                    errorMsg.classList.add('active');
+                }
+            })
+        }
+        catch (err) {
+            afterLoad(button, 'ERROR');
+            console.log(err);
+        }
+    }
+}
+
+
+async function refundCreate(event) {
+    let errorMsg = document.querySelector('.create-error-msg');
+    let button = document.querySelector('#refund-submit-btn');
+    let data = JSON.parse(JSON.stringify(refundData));
+
+    if (event.target.id == 'refund-submit-btn') {
+        if (selectedRefundCustomer == null) {
+            errorMsg.innerHTML = 'Select a customer';
+            errorMsg.classList.add('active');
+            return false;
+        }
+        else if (data.amount <= 0) {
+            errorMsg.innerHTML = 'Enter refund amount';
+            errorMsg.classList.add('active');
+            return false;
+        }
+        else if (data.note.trim().length == 0) {
+            errorMsg.innerHTML = 'Enter notes';
+            errorMsg.classList.add('active');
+            return false;
+        }
+        try {
+            errorMsg.innerHTML = '';
+            errorMsg.classList.remove('active');
+
+            let token = getCookie('admin_access');
+            let headers = {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            };
+
+            data.user = selectedRefundCustomer;
+            beforeLoad(button);
+            let response = await requestAPI(`${apiURL}/admin/refunds`, JSON.stringify(data), headers, 'POST');
+            response.json().then(function(res) {
                 if (response.status == 201) {
                     getData();
                     afterLoad(button, 'CREATED');

@@ -29,6 +29,10 @@
                                 <input id="reward-activity" onchange="selectActivityType(event);" type="radio" value="reward_activity" name="activity_type_radio" />
                                 <label for="reward-activity" class="radio-label">Reward Activity</label>
                             </div>
+                            <div class="radio-btn">
+                                <input id="refund-activity" onchange="selectActivityType(event);" type="radio" value="refund_activity" name="activity_type_radio" />
+                                <label for="refund-activity" class="radio-label">Refund Activity</label>
+                            </div>
                         </div>
                     </div>
                     <div class="order-section hide" id="order-section">
@@ -127,7 +131,7 @@
                     </div>
                     <div class="reward-section" id="reward-section">
                         <div class="selection-div">
-                            <input type="text" maxlength="100" placeholder="Select Customer" name="reward_customer" id="reward-customer-field" autocomplete="off" />
+                            <input type="text" maxlength="100" placeholder="Select Customer" name="reward_customer" data-type="customer_field" id="reward-customer-field" autocomplete="off" />
                             <div class="filter-dropdown" id="reward-customer-dropdown">
                                 <span class="hide" id="no-reward-customer-text">No Customer</span>
                             </div>
@@ -136,6 +140,18 @@
                             <input type="number" min="1" oninput="getRewardDetails();" step="any" placeholder="Credits" name="points" id="" />
                         </div>
                         <textarea name="reward_notes" maxlength="500" oninput="getRewardDetails();" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="reward-section hide" id="refund-section">
+                        <div class="selection-div">
+                            <input type="text" maxlength="100" placeholder="Select Customer" name="refund_customer" data-type="customer_field" id="refund-customer-field" autocomplete="off" />
+                            <div class="filter-dropdown" id="refund-customer-dropdown">
+                                <span class="hide" id="no-refund-customer-text">No Customer</span>
+                            </div>
+                        </div>
+                        <div class="search-product" id="refund-amount-input-wrapper">
+                            <input type="number" min="1" oninput="getRefundDetails();" step="any" placeholder="Refund Amount" name="refund_points" id="" />
+                        </div>
+                        <textarea name="refund_notes" maxlength="500" oninput="getRefundDetails();" placeholder="Add Notes..." id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="error-div" style="text-align: left;">
@@ -146,6 +162,10 @@
                         DISCARD
                     </button>
                     <button id="submit-btn" class="submit-btn" type="button" onclick="rewardCreate(event);">
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">CREATE</span>
+                    </button>
+                    <button id="refund-submit-btn" class="submit-btn hide" type="button" onclick="refundCreate(event);">
                         <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
                         <span class="btn-text">CREATE</span>
                     </button>

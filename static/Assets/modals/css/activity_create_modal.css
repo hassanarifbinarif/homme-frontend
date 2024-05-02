@@ -511,7 +511,8 @@
 #activityCreate #product-dropdown,
 #activityCreate #states-dropdown,
 #activityCreate #country-dropdown,
-#activityCreate #reward-customer-dropdown {
+#activityCreate #reward-customer-dropdown,
+#activityCreate #refund-customer-dropdown {
     max-height: 216px;
     overflow-y: auto;
 }
@@ -592,7 +593,7 @@
     right: 18px;
 }
 
-#activityCreate .reward-section input[name="reward_customer"] {
+#activityCreate .reward-section input[data-type="customer_field"] {
     width: 100%;
     height: 40px;
     padding: 14px 18px;

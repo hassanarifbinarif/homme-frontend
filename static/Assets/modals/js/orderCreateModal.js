@@ -1,6 +1,7 @@
 let customerDropdown = document.getElementById('customer-dropdown');
 let customerField = document.getElementById('customer-field');
 let rewardCustomerDropdown = document.getElementById('reward-customer-dropdown');
+let refundCustomerDropdown = document.getElementById('refund-customer-dropdown');
 
 let productDropdown = document.getElementById('product-dropdown');
 let productField = document.getElementById('product-field');
@@ -60,6 +61,14 @@ async function populateDropdowns() {
                 rewardCustomerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn reward-customer-item-list" data-id="${customer.user.id}">
                                                                             <input onchange="selectRewardCustomer(this);" id="reward-cust-${customer.user.id}" type="radio" value="${customer.user.id}" name="reward_customer_radio" />
                                                                             <label for="reward-cust-${customer.user.id}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
+                                                                        </div>`);
+            })  
+        }
+        if (refundCustomerDropdown) {
+            res.data.forEach((customer) => {
+                refundCustomerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn reward-customer-item-list" data-id="${customer.user.id}">
+                                                                            <input onchange="selectRefundCustomer(this);" id="refund-cust-${customer.user.id}" type="radio" value="${customer.user.id}" name="refund_customer_radio" />
+                                                                            <label for="refund-cust-${customer.user.id}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
                                                                         </div>`);
             })  
         }

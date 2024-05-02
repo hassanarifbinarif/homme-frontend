@@ -136,6 +136,7 @@ async function openGenerateShippingLabelModal(orderID, simple_rate_size) {
                     generateLabelData = {};
                     orderID = null;
                 })
+                modal.querySelector('.btn-text').innerText = 'GENERATE';
                 document.querySelector('.orderShippingLabel').click();
             }
             else if (response.status == 400) {
