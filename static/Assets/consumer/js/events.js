@@ -44,6 +44,59 @@ async function getData(url=null) {
 }
 
 
+function openDelEventModal(modalID, id) {
+    let modal = document.querySelector(`#${modalID}`);
+    let form = modal.querySelector('form');
+    form.setAttribute("onsubmit", `delEventForm(event, ${id})`);
+    modal.querySelector('#modal-header-text').innerText = 'Delete Event';
+    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this event?';
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        form.querySelector('button[type="submit"]').disabled = false;
+        modal.querySelector('#modal-header-text').innerText = '';
+        modal.querySelector('#warning-statement').innerText = '';
+        modal.querySelector('.btn-text').innerText = 'DELETE';
+    })
+    document.querySelector(`.${modalID}`).click();
+}
+
+async function delEventForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/content/events/${id}`, null, headers, 'DELETE');
+        // console.log(response);
+        if (response.status == 204) {
+            form.reset();
+            form.removeAttribute("onsubmit");
+            button.disabled = true;
+            afterLoad(button, 'DELETED');
+            getData();
+            setTimeout(() => {
+                button.disabled = false;
+                document.querySelector('.delModal').click();
+            }, 1000)
+        }
+        else {
+            afterLoad(button, 'Error');
+        }
+    }
+    catch (err) {
+        afterLoad(button, 'Error');
+        console.log(res);
+    }
+}
+
+
 const sortOrders = {};
 
 function sortByAlphabets(event, columnIndex) {

@@ -204,7 +204,8 @@
 .order-details-table tbody tr td > div {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap: 10px;
     padding: 9px 5px;
     height: 37px;
 }

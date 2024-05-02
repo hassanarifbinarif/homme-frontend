@@ -233,3 +233,129 @@ async function createEventForm(event) {
         }
     }
 }
+
+
+function openUpdateEventModal(modalID, id, title, sub_title, description, long_description, venue, location, rsvp, imageUrl) {
+    let modal = document.querySelector(`#${modalID}`);
+    modal.querySelector('#event-modal-header-text').innerText = 'Edit Event';
+    let form = modal.querySelector("form");
+    form.setAttribute("onsubmit", `updateEventForm(event, ${id})`);
+    form.querySelector('input[name="title"]').value = title;
+    form.querySelector('input[name="sub_title"]').value = sub_title;
+    form.querySelector('input[name="description"]').value = description;
+    form.querySelector('textarea[name="long_description"]').value = long_description
+    form.querySelector('input[name="venue"]').value = venue;
+    form.querySelector('input[name="location"]').value = location;
+    form.querySelector('input[name="rsvp"]').value = rsvp;
+    form.querySelector('.event-img').src = imageUrl;
+    form.querySelector('.event-img').classList.remove('hide');
+    form.querySelector('button[type="submit"]').disabled = false;
+    let label = modal.querySelector('.image-input-label');
+    label.querySelector('svg').style.display = 'none';
+    label.querySelectorAll('span').forEach((span) => {
+        span.style.display = 'none';
+    })
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        modal.querySelector('#event-modal-header-text').innerText = 'Create New Event';
+        form.removeAttribute("onsubmit");
+        form.querySelector('button[type="submit"]').disabled = false;
+        label.querySelector('.event-img').src = '';
+        label.querySelector('.event-img').classList.add('hide');
+        label.querySelector('svg').style.display = 'block';
+        label.querySelectorAll('span').forEach((span) => {
+            span.style.display = 'block';
+        })
+        modal.querySelector('.btn-text').innerText = 'SAVE';
+        document.querySelector('.error-div').classList.add('hide');
+        document.querySelector('.create-error-msg').classList.remove('active');
+        document.querySelector('.create-error-msg').innerText = "";
+    })
+    document.querySelector(`.${modalID}`).click();
+}
+
+async function updateEventForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    let imageInput = form.querySelector('input[name="image"]');
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+    let errorDiv = form.querySelector('.error-div');
+    let errorMsg = form.querySelector('.create-error-msg');
+
+    if (data.title.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter valid title';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.description.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter short description';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.long_description.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter long description';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.venue.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter venue';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.location.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter venue address';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    try {
+        if (imageInput.files.length == 0) {
+            formData.delete("image");
+        }
+        errorDiv.classList.add('hide');
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/content/events/${id}`, formData, headers, 'PATCH');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                form.removeAttribute("onsubmit");
+                button.disabled = true;
+                afterLoad(button, 'SAVED');
+                getData();
+                setTimeout(() => {
+                    button.disabled = false;
+                    afterLoad(button, 'SAVE');
+                    document.querySelector('.eventCreate').click();
+                }, 1000)
+            }
+            else if (response.status == 400) {
+                afterLoad(button, buttonText);
+                errorDiv.classList.remove('hide');
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                })
+                errorMsg.classList.add('active');
+            }
+            else {
+                afterLoad(button, 'ERROR');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
+    }
+}
