@@ -651,3 +651,32 @@ async function openRewardActivityModal(id) {
         console.log(err);
     }
 }
+
+
+async function openRefundActivityModal(id, customerName) {
+    let modal = document.getElementById('activityRefund');
+    modal.querySelector('.modal-content').classList.add('hide');
+    modal.querySelector('.modal-loader').classList.remove('hide');
+    document.querySelector('.activityRefund').click();
+    try {
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        let response = await requestAPI(`${apiURL}/admin/refunds/${id}`, null, headers, 'GET');
+        response.json().then(function(res) {
+
+            if (response.status == 200) {
+                modal.querySelector('#activity-amount').innerText = res.data.amount;
+                modal.querySelector('#activity-refund-date').innerText = convertDateTime(res.data.created_at);
+                modal.querySelector('#activity-refund-customer').innerText = customerName || '';
+                modal.querySelector('#activity-refund-notes').innerText = res.data.note;
+                modal.querySelector('.modal-loader').classList.add('hide');
+                modal.querySelector('.modal-content').classList.remove('hide');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}

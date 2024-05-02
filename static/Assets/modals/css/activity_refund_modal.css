@@ -1,0 +1,123 @@
+#activityRefund .modal-dialog {
+    max-width: unset;
+    width: 1023px;
+    justify-content: center;
+}
+
+#activityRefund .modal-header {
+    padding: 9px 10px!important;
+    background-color: #EEE;
+    height: 40px;
+    border-radius: 0px!important;
+}
+
+#activityRefund .modal-footer,
+#activityRefund .modal-content {
+    border-radius: 0px!important;
+}
+
+#activityRefund .modal-header > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+}
+
+#activityRefund .modal-body {
+    padding: 0px!important;
+}
+
+#activityRefund .modal-body .activity-reward-stats {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+#activityRefund .modal-body .activity-reward-stats > div {
+    display: flex;
+    flex-shrink: 0;
+    height: 100%;
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    text-align: left!important;
+}
+
+#activityRefund .modal-body .activity-reward-stats > div span {
+    word-break: break-all;
+}
+
+#activityRefund .modal-body .activity-reward-stats > div > div {
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 9px 5px;
+}
+
+#activityRefund .modal-body .activity-reward-stats .reward-credit {
+    width: 230px;
+}
+
+#activityRefund .modal-body .activity-reward-stats .reward-credit > div {
+    padding: 9px 10px;
+}
+
+#activityRefund .modal-body .activity-reward-stats > div > div {
+    border-right: 1px solid #CECECE;
+    border-bottom: 1px solid #CECECE;
+}
+
+#activityRefund .modal-body .activity-reward-stats > div:first-of-type > div > span {
+    opacity: .6;
+}
+
+#activityRefund .modal-body .activity-reward-stats .date {
+    width: 127px;
+}
+
+#activityRefund .modal-body .activity-reward-stats .notes {
+    width: 434px;
+    border-right: unset;
+}
+
+#activityRefund .modal-body .activity-reward-stats .notes > div {
+    border-right: unset;
+}
+
+#activityRefund .modal-footer {
+    padding: 9px 12px!important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#activityRefund .modal-footer > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: var(--Brand-color, #000093);
+    width: 150px;
+    height: 36px;
+
+    color: var(--white, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.4px;
+}
