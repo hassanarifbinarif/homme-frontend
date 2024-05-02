@@ -111,7 +111,7 @@
             </td>
             <td>
                 <div>
-                    <span class="opacity-point-6 table-text-overflow" title="${{obj.total_purchase}}">${{obj.total_purchase}}</span>
+                    <span class="opacity-point-6 table-text-overflow" title="${{obj.total_purchase}}">${% if obj.total_purchase %}{{obj.total_purchase}}{% else %}0{% endif %}</span>
                 </div>
             </td>
             <td>

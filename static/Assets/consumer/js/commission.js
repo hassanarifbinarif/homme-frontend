@@ -249,7 +249,8 @@ function insertTableBodyRows(data, tableBody) {
                         <td><div><span>${item.order ? '$' + item.order.net_sales : '---'}</span></div></td>
                         <td><div><span>$${item.amount}</span></div></td>
                         <td><div><span>${item.order ? captalizeFirstLetter(item.order.status) : '---'}</span></div></td>
-                        <td><div><span>${item.order ? (item.order.pickup_type == 'self' ? 'Picked-Up' : 'Shipped') : 'None'}</span></div></td>`;
+                        <td><div><span>${item.order ? (item.order.pickup_type == 'self' ? 'Picked-Up' : 'Shipped') : 'None'}</span></div></td>
+                        <td><div><span>${item.description == "" ? '---' : item.description}</span></div></td>`;
         tableBody.appendChild(tr);
     })
 }
@@ -276,10 +277,11 @@ async function showCommissionDetails(clickedRow, salonId, month) {
                                                 <th width="7.93%"><div><span>Order #</span></div></th>
                                                 <th width="10.75%"><div><span>Hairstylist</span></div></th>
                                                 <th width="10.20%"><div><span>Retail Value</span></div></th>
-                                                <th width="12.94%"><div><span>Net Sales</span></div></th>
+                                                <th width="10.94%"><div><span>Net Sales</span></div></th>
                                                 <th width="10.75%"><div><span>Commission</span></div></th>
                                                 <th width="11.03%"><div><span>Status</span></div></th>
-                                                <th width="23.60%"><div><span>Delivery Method</span></div></th>`;
+                                                <th width="10.60%"><div><span>Delivery Method</span></div></th>
+                                                <th width="25.60%"><div><span>Description</span></div></th>`;
         
 
         commissionDetailThead.appendChild(commissionDetailTheadRow);

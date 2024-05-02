@@ -667,7 +667,13 @@
     align-items: center;
     justify-content: space-between;
     padding: 9px 5px;
-    height: 33px;
+    min-height: 33px;
+    height: fit-content;
+}
+
+.inventory-details-table tbody tr td > div > span {
+    word-break: break-all;
+    line-height: 12px;
 }
 
 .inventory-details-table tbody tr td:first-of-type > div {
