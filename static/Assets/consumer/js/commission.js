@@ -365,8 +365,9 @@ async function changeCommissionStatus(event, salonId, month) {
             // console.log(res);
             if (response.status == 200) {
                 // let statusDiv = selectElement.closest('.commission-status-div');
-                let statusDiv = event.target.closest('.commission-status-div');
-                statusDiv.innerHTML = '<span>Paid</span>';
+                getData();
+                // let statusDiv = event.target.closest('.commission-status-div');
+                // statusDiv.innerHTML = '<span>Paid</span>';
             }
         })
     }

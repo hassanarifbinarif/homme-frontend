@@ -66,7 +66,7 @@ async function populateDropdowns() {
         }
         if (refundCustomerDropdown) {
             res.data.forEach((customer) => {
-                refundCustomerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn reward-customer-item-list" data-id="${customer.user.id}">
+                refundCustomerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn reward-customer-item-list refund-customer-item-list" data-id="${customer.user.id}">
                                                                             <input onchange="selectRefundCustomer(this);" id="refund-cust-${customer.user.id}" type="radio" value="${customer.user.id}" name="refund_customer_radio" />
                                                                             <label for="refund-cust-${customer.user.id}" class="radio-label">${customer.first_name} ${customer.last_name}</label>
                                                                         </div>`);
