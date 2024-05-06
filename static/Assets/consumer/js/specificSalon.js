@@ -212,7 +212,7 @@ function populateTimeline(data) {
         ul.classList.add('timeline', 'see');
 
         let dateParagraph = document.createElement("p");
-        dateParagraph.textContent = getCommentMonthAndDate(date);
+        dateParagraph.textContent = getCommentMonthAndDate(comments[comments.length - 1].created_at);
         ul.appendChild(dateParagraph);
 
         let commentDiv = document.createElement('div');
@@ -261,14 +261,18 @@ function addNewComment(newComment) {
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function getCommentMonthAndDate(dateString) {
-    let dateObject = new Date(dateString);
+    // let dateObject = new Date(dateString);
 
-    const dateOptions = { month: 'long', day: 'numeric' };
-    let localeDateObject = dateObject.toLocaleDateString(undefined, dateOptions);
-    let newDate = new Date(localeDateObject);
+    // const dateOptions = { month: 'long', day: 'numeric' };
+    // let localeDateObject = dateObject.toLocaleDateString(undefined, dateOptions);
+    // let newDate = new Date(localeDateObject);
 
-    const month = monthNames[newDate.getMonth()];
-    const day = newDate.getDate();
+    // const month = monthNames[newDate.getMonth()];
+    // const day = newDate.getDate();
+
+    const inputDate = new Date(dateString);
+    const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+    const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(inputDate);
 
     return `${month} ${day}`;
 }
