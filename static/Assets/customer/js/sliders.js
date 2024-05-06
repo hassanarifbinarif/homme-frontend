@@ -158,6 +158,7 @@ function openCreateSliderModal(modalID) {
     let form = modal.querySelector("form");
     form.setAttribute("onsubmit", `createSliderForm(event)`);
     modal.querySelector('#user-level-dropdown-container').classList.remove('hide');
+    modal.querySelector('#salon-level-dropdown-container').classList.add('hide');
     modal.addEventListener('hidden.bs.modal', event => {
         selectedLevel = null;
         form.reset();

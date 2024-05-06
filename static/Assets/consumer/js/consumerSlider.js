@@ -2,6 +2,9 @@ const role = 'salon';
 let requiredDataURL = `/admin/content/sliders?page=1&perPage=1000&ordering=-sort_order&search=&target_role=salon`;
 let supportedImageWidth = 1000;
 let supportedImageHeight = 1000;
+let selectedSalonLevel = null;
+let salonLevelDropdown = document.getElementById('salon-level-dropdown');
+let salonLevelDropdownBtn = document.getElementById('salon-level');
 
 
 window.onload = () => {
@@ -45,6 +48,42 @@ async function getData(url=null) {
         console.log(err);
     }
 }
+
+
+function toggleDropdown(event) {
+    let elementBtn = event.target;
+    if(!elementBtn.classList.contains('filter-btn')) {
+        elementBtn = elementBtn.closest('.filter-btn');
+    }
+    let elementDropdown = elementBtn.nextElementSibling;
+    if(elementDropdown.style.display == 'flex') {
+        elementDropdown.style.display = 'none';
+    }
+    else {
+        elementDropdown.style.display = 'flex';
+    }
+}
+
+salonLevelDropdownBtn.addEventListener('click', toggleDropdown);
+
+
+function selectSalonLevel(event) {
+    let inputElement = event.target;
+    if(inputElement.checked) {
+        selectedSalonLevel = inputElement.value;
+        document.getElementById('selected-salon-level').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-salon-level').style.color = '#000';
+    }
+}
+
+
+function closeSliderModalDropdowns(event) {
+    if((!salonLevelDropdownBtn.contains(event.target)) && salonLevelDropdown.style.display == 'flex') {
+        salonLevelDropdown.style.display = 'none';
+    }
+}
+
+document.body.addEventListener('click', closeSliderModalDropdowns);
 
 
 function reverseTableRows() {
@@ -98,9 +137,13 @@ function openCreateSliderModal(modalID) {
     let form = modal.querySelector("form");
     form.setAttribute("onsubmit", `createSliderForm(event)`);
     modal.querySelector('#user-level-dropdown-container').classList.add('hide');
+    modal.querySelector('#salon-level-dropdown-container').classList.remove('hide');
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
+        modal.querySelector('#salon-level-dropdown-container').classList.add('hide');
+        document.getElementById('selected-salon-level').innerText = 'Select Salon Type';
+        document.getElementById('selected-salon-level').style.color = 'rgba(3, 7, 6, 0.60)';
         let label = modal.querySelector('#image-input-label');
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -112,6 +155,7 @@ function openCreateSliderModal(modalID) {
         document.querySelector('.error-div').classList.add('hide');
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
+        selectedSalonLevel = null;
     })
     document.querySelector(`.${modalID}`).click();
 }
@@ -140,6 +184,12 @@ async function createSliderForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
+    else if (selectedSalonLevel == null) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Select type of salon';
+        errorMsg.classList.add('active');
+        return false;
+    }
     else if (imageInput.files.length == 0) {
         errorDiv.classList.remove('hide');
         errorMsg.innerText = 'Image with supported dimensions is required';
@@ -151,13 +201,15 @@ async function createSliderForm(event) {
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
-            let token = getCookie('admin_access');
-            let headers = {
-                "Authorization": `Bearer ${token}`
-            };
-            beforeLoad(button);
+
             formData.append("is_visible", true);
             formData.append("target_role", 'salon');
+            formData.append('partnership_application_status ', selectedSalonLevel);
+
+            let token = getCookie('admin_access');
+            let headers = { "Authorization": `Bearer ${token}` };
+            
+            beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
             // console.log(response);
             response.json().then(function(res) {
@@ -165,6 +217,7 @@ async function createSliderForm(event) {
                 if (response.status == 201) {
                     form.removeAttribute("onsubmit");
                     afterLoad(button, 'CREATED');
+                    selectedSalonLevel = null;
                     getData();
                     setTimeout(() => {
                         afterLoad(button, 'SAVE');
@@ -193,7 +246,7 @@ async function createSliderForm(event) {
 }
 
 
-function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level) {
+function openUpdateSliderModal(modalID, id, name, description, imageUrl, partnership_application_status) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
@@ -207,9 +260,17 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
     label.querySelectorAll('span').forEach((span) => {
         span.style.display = 'none';
     })
+    modal.querySelector('#user-level-dropdown-container').classList.add('hide');
+    modal.querySelector('#salon-level-dropdown-container').classList.remove('hide');
+    
+    let checkedInput = modal.querySelector(`input[name="salon_level_radio"][value="${partnership_application_status}"]`);
+    checkedInput.click();
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         modal.querySelector('#slider-modal-header').innerText = 'Create Slider';
+        modal.querySelector('#salon-level-dropdown-container').classList.add('hide');
+        document.getElementById('selected-salon-level').innerText = 'Select Salon Type';
+        document.getElementById('selected-salon-level').style.color = 'rgba(3, 7, 6, 0.60)';
         form.removeAttribute("onsubmit");
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -221,6 +282,7 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
         document.querySelector('.error-div').classList.add('hide');
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
+        selectedSalonLevel = null;
     })
     document.querySelector(`.${modalID}`).click();
 }
@@ -251,6 +313,7 @@ async function updateSliderForm(event, id) {
     }
     else {
         try {
+            formData.append('partnership_application_status ', selectedSalonLevel);
             if (imageInput.files.length == 0) {
                 formData.delete("image");
             }
@@ -258,9 +321,7 @@ async function updateSliderForm(event, id) {
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
             let token = getCookie('admin_access');
-            let headers = {
-                "Authorization": `Bearer ${token}`
-            };
+            let headers = { "Authorization": `Bearer ${token}` };
             beforeLoad(button);
             let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
             // console.log(response);
@@ -270,6 +331,7 @@ async function updateSliderForm(event, id) {
                     form.removeAttribute("onsubmit");
                     afterLoad(button, 'SAVED');
                     getData();
+                    selectedSalonLevel = null;
                     setTimeout(() => {
                         afterLoad(button, 'SAVE');
                         document.querySelector('.createSlider').click();

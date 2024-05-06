@@ -132,7 +132,8 @@
     border: 1px solid #E0E0DD;
 }
 
-#createSlider #user-level-dropdown {
+#createSlider #user-level-dropdown,
+#createSlider #salon-level-dropdown {
     max-width: 579px;
     max-height: 290px;
     overflow-y: auto;
