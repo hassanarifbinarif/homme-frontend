@@ -8,6 +8,9 @@ let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
 let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
 let orderStatsDropdown = document.getElementById('order-stats-dropdown');
 
+let salesChannelOverviewBtn = document.getElementById('select-sales-overview-btn');
+let salesChannelOverviewDropdown = document.getElementById('sales-channel-overview-dropdown');
+
 let salonStatTimeBtn = document.getElementById('select-salon-stat-time-btn');
 let selectedSalonStatTime = document.getElementById('selected-salon-stat-opt');
 let salonStatsDropdown = document.getElementById('salon-stats-dropdown');
@@ -78,6 +81,16 @@ selectYearBtn.addEventListener('click', function() {
 })
 
 
+salesChannelOverviewBtn.addEventListener('click', function() {
+    if (salesChannelOverviewDropdown.classList.contains('hide')) {
+        salesChannelOverviewDropdown.classList.remove('hide');
+    }
+    else {
+        salesChannelOverviewDropdown.classList.add('hide');
+    }
+})
+
+
 let selectedSalesChannel = [];
 let salesChannelFilterString = '';
 
@@ -137,6 +150,12 @@ function closeDropdowns(event) {
     }
     if (!(selectYearBtn.contains(event.target)) && !(selectYearDropdown.classList.contains('hide'))) {
         selectYearDropdown.classList.add('hide');
+    }
+    if (!(salesChannelOverviewBtn.contains(event.target)) && !(salesChannelOverviewDropdown.contains(event.target))) {
+        salesChannelOverviewDropdown.classList.add('hide');
+    }
+    if (!(chartTypeBtn.contains(event.target)) && !(chartTypeDropdown.classList.contains('hide'))) {
+        chartTypeDropdown.classList.add('hide');
     }
 }
 
@@ -603,6 +622,7 @@ function selectSalonStatTime(event) {
     }
     getSalonStatsData();
     selectedSalonStatTime.innerText = element.innerText;
+    selectedSalonStatTime.title = element.innerText;
     salonStatsDropdown.classList.add('hide');
     salonStatTimeBtn.click();
 }

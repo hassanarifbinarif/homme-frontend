@@ -42,18 +42,18 @@
                                     </svg>
                                 </div>
                                 <div class="order-channel-dropdown hide" id="order-channel-dropdown">
-                                    <label for="homme-channel" class="cursor-pointer">
+                                    <!-- <label for="homme-channel" class="cursor-pointer">
                                         <span>HOMME</span>
                                         <input type="checkbox" onchange="selectSalesChannel(this);" id="homme-channel" value="homme" name="sales_channel" />
-                                    </label>
+                                    </label> -->
                                     <label for="salon-channel" class="cursor-pointer">
                                         <span>SALONS</span>
                                         <input type="checkbox" onchange="selectSalesChannel(this);" id="salon-channel" value="salon" name="sales_channel" />
                                     </label>
-                                    <label for="referrer-channel" class="cursor-pointer">
+                                    <!-- <label for="referrer-channel" class="cursor-pointer">
                                         <span>REFERRERS</span>
                                         <input type="checkbox" onchange="selectSalesChannel(this);" id="referrer-channel" value="referral" name="sales_channel" />
-                                    </label>
+                                    </label> -->
                                 </div>
                             </button>
                             <button data-type="select-order-stat-time-btn" id="select-order-stat-time-btn">
@@ -110,7 +110,18 @@
                 </div>
                 <div class="chart-wrapper">
                     <div class="chart-btn">
-                        <span>Net Sales</span>
+                        <!-- <span>Net Sales</span> -->
+                        <button id="chart-type-btn">
+                            <span id="selected-chart-type">Salon Sales Channel</span>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                                    <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
+                                </svg>
+                            </div>
+                            <div class="chart-type-dropdown hide" id="chart-type-dropdown">
+                                <span data-value="sales">Salon Sales Channel</span>
+                            </div>
+                        </button>
                         <button class="year-btn" data-type="select-order-stat-time-btn" id="select-year-btn">
                             <span id="selected-year">Year</span>
                             <div>
@@ -134,7 +145,67 @@
             </div>
             <div class="content-col-2">
                 <div class="all-sales-view">
-                    <button data-type="select-order-stat-time-btn" id="select-salon-stat-time-btn">
+                    <div class="order-filters">
+                        <button data-type="select-order-channel-btn" id="select-sales-overview-btn">
+                            <span id="selected-sales-channel-opt">SALES CHANNEL</span>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                    <g clip-path="url(#clip0_771_3739)">
+                                      <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                      <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                    </g>
+                                    <defs>
+                                      <clipPath id="clip0_771_3739">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                      </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <div class="order-channel-dropdown hide" id="sales-channel-overview-dropdown">
+                                <!-- <label for="overview-homme-channel" class="cursor-pointer">
+                                    <span>HOMME</span>
+                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-homme-channel" value="homme" name="sales_channel" />
+                                </label> -->
+                                <label for="overview-salon-channel" class="cursor-pointer">
+                                    <span>SALONS</span>
+                                    <input type="checkbox" checked disabled class="visibilty-hidden" id="overview-salon-channel" value="salon" name="sales_channel" />
+                                </label>
+                                <!-- <label for="overview-referrer-channel" class="cursor-pointer">
+                                    <span>REFERRERS</span>
+                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-referrer-channel" value="referral" name="sales_channel" />
+                                </label> -->
+                            </div>
+                        </button>
+                        <button data-type="select-order-stat-time-btn" id="select-salon-stat-time-btn">
+                            <span id="selected-salon-stat-opt">ALL TIME</span>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                    <g clip-path="url(#clip0_771_3739)">
+                                        <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                        <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_771_3739">
+                                        <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <div class="order-stats-dropdown hide" id="salon-stats-dropdown">
+                                <span onclick="selectSalonStatTime(event);">TODAY</span>
+                                <span onclick="selectSalonStatTime(event);">CURRENT WEEK</span>
+                                <span onclick="selectSalonStatTime(event);">LAST WEEK</span>
+                                <span onclick="selectSalonStatTime(event);">CURRENT MONTH</span>
+                                <span onclick="selectSalonStatTime(event);">LAST MONTH</span>
+                                <span onclick="selectSalonStatTime(event);">CURRENT QUARTER</span>
+                                <span onclick="selectSalonStatTime(event);">LAST QUARTER</span>
+                                <span onclick="selectSalonStatTime(event);">CURRENT YEAR</span>
+                                <span onclick="selectSalonStatTime(event);">LAST YEAR</span>
+                                <span onclick="selectSalonStatTime(event);">ALL TIME</span>
+                            </div>
+                        </button>
+                    </div>
+                    <!-- <button data-type="select-order-stat-time-btn" id="select-salon-stat-time-btn">
                         <span id="selected-salon-stat-opt">ALL TIME</span>
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
@@ -161,7 +232,7 @@
                             <span onclick="selectSalonStatTime(event);">LAST YEAR</span>
                             <span onclick="selectSalonStatTime(event);">ALL TIME</span>
                         </div>
-                    </button>
+                    </button> -->
 
                     <div class="salon-stats-wrapper">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2" id="salon-stat-loader">

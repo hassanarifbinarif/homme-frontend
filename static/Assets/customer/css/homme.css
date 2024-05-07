@@ -452,6 +452,11 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     margin-right: 10px;
 }
 
+.chart-wrapper > .chart-btn > button:last-of-type > div:first-of-type > svg {
+    position: relative;
+    top: -2px;
+}
+
 .chart-wrapper #select-year-dropdown {
     top: 40px;
     max-height: 200px;

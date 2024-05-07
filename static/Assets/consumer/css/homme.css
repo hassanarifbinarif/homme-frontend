@@ -215,6 +215,47 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     border-bottom: 1px solid #CECECE;
 }
 
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown {
+    position: absolute;
+    top: 33px;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+}
+
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label > span {
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .65rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-filters > button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label:not(:last-of-type) {
+    border-bottom: 1px solid #CECECE;
+}
+
 /* .order-filters > #select-order-channel-btn > .order-channel-dropdown > label:hover {
     background: #DDDDDD;
 } */
@@ -356,26 +397,16 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     margin-bottom: 20px;
 }
 
-.chart-wrapper > .chart-btn > span {
-    color: #000;
-    leading-trim: both;
-    text-edge: cap;
-    font-family: Gotham Medium;
-    font-size: .875rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-}
-
 .chart-wrapper > .chart-btn > button {
     display: inline-flex;
     position: relative;
-    width: 192px;
+    width: fit-content;
     height: 40px;
     justify-content: space-between;
+    gap: 15px;
     align-items: center;
     flex-shrink: 0;
-    /* padding: 14px 18px; */
+    padding: 14px 18px;
     border: .8px solid #515254;
     border-radius: 8px;
     background-color: #FFF;
@@ -389,16 +420,82 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     font-weight: 500;
     line-height: normal;
     height: 18px;
-    padding-left: 14px;
+}
+
+.chart-wrapper > .chart-btn > #chart-type-btn {
+    padding: 0px;
+}
+
+.chart-wrapper > .chart-btn > #chart-type-btn > span {
+    padding-left: 18px;
+}
+
+.chart-wrapper > .chart-btn > #chart-type-btn > div:first-of-type {
+    padding-right: 18px;
+    display: flex;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown {
+    position: absolute;
+    top: 40px;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown > span {
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .65rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown span:not(:last-of-type) {
+    border-bottom: 1px solid #CECECE;
+}
+
+.chart-wrapper > .chart-btn > button > .chart-type-dropdown span:hover {
+    background: #DDDDDD;
 }
 
 .chart-wrapper > .chart-btn > button:last-of-type {
     width: 100px;
+    padding: 0px;
+}
+
+.chart-wrapper > .chart-btn > button:last-of-type > span {
+    padding-left: 14px;
 }
 
 .chart-wrapper > .chart-btn > button:last-of-type > div:first-of-type {
     width: 14px;
     margin-right: 10px;
+}
+
+.chart-wrapper > .chart-btn > button:last-of-type > div:first-of-type > svg {
+    position: relative;
+    top: -2px;
+}
+
+.all-sales-view .order-filters > button:first-of-type > span {
+    justify-content: center;
+    padding-right: 23px;
+    padding-left: 0px;
 }
 
 .chart-wrapper #select-year-dropdown {
@@ -462,10 +559,29 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     right: 12px;
 } */
 
-.all-sales-view > button {
-    width: 100%;
+.all-sales-view button {
+    width: calc(50% - 10px);
     height: 30px;
     margin-bottom: 30px;
+}
+
+.all-sales-view .order-filters > button:last-of-type > span {
+    padding-left: calc(6%);
+    padding-right: calc(14%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.all-sales-view .order-filters > button:last-of-type > span {
+    border: none;
+    height: unset;
+    display: inline-block !important;
+    padding-right: unset !important;
+}
+
+.all-sales-view .order-filters > button:last-of-type > div:first-of-type {
+    position: relative;
 }
 
 .all-sales-view .salon-stats-wrapper {
