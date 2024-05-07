@@ -90,6 +90,14 @@ def get_sliders_list(request):
 
 
 @admin_signin_required
+def events(request):
+    context = {}
+    context['active_page'] = 'events'
+    context['sidebar'] = 'customer'
+    return render(request, 'consumer/events.html', context)
+
+
+@admin_signin_required
 def orders(request, pk=None):
     context = {}
     context['user'] = pk

@@ -44,14 +44,14 @@
                         <span>Homme</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'sliders' %}active{% endif %}" href="{% url 'sliders' %}">
+                <!-- <a class="sidebar-link {% if active_page == 'sliders' %}active{% endif %}" href="{% url 'sliders' %}">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span>Content</span>
                     </div>
-                </a>
+                </a> -->
                 <a class="sidebar-link {% if active_page == 'orders' %}active{% endif %}" href="{% url 'orders' %}">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -76,7 +76,7 @@
                         <span>Products</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'activity' %}active{% endif %}" href="{% url 'activity' %}">
+                <a class="sidebar-link" onclick="openContentDropdown(event);" href="javascript:void(0);">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
                             <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
@@ -85,22 +85,65 @@
                             <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
                         </svg>
                         <span>Activity</span>
-                        <svg class="submenu-btn {% if active_page == 'referrals' or active_page == 'activity' %}{% else %}{% endif %}" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
+                        <svg class="submenu-btn" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
                             <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
                         </svg>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'referrals' %}active{% endif %} {% if active_page == 'referrals' or active_page == 'activity' %}{% else %}hide{% endif %}" href="{% url 'referrals' %}">
-                    <div class="link-content">
-                        <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-                            <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
-                            <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
-                            <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
-                            <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
-                        </svg>
-                        <span>Referrals</span>
-                    </div>
-                </a>
+                <div class="submenu-div {% if active_page == 'referrals' or active_page == 'sliders' or active_page == 'events' or active_page == 'marketing' %}{% else %}hide{% endif %}" id="content-submenu">
+                    <a class="sidebar-link {% if active_page == 'referrals' %}active{% endif %} " href="{% url 'referrals' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
+                                <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
+                                <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
+                            </svg>
+                            <span>Referrals</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'sliders' %}active{% endif %}" href="{% url 'sliders' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
+                                <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
+                                <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
+                            </svg>
+                            <span>Sliders</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'events' %}active{% endif %}" href="{% url 'customer_events' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
+                                <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
+                                <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
+                            </svg>
+                            <span>Offer/Event</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'marketing' %}active{% endif %}" href="{% url 'marketing' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="17" height="19" viewBox="0 0 17 19" fill="none">
+                                <g clip-path="url(#clip0_771_3771)">
+                                  <path d="M1.255 17.0896C1.255 17.3566 1.43303 17.5346 1.70006 17.5346H15.9418C16.2089 17.5346 16.3869 17.3566 16.3869 17.0896L15.4968 6.23021C15.4968 5.96318 15.2297 5.78516 15.0517 5.78516H2.67918C2.41215 5.78516 2.23413 5.96318 2.23413 6.23021L1.255 17.0896Z" stroke="#CECECE"/>
+                                  <path d="M5.17188 6.58925V5.43211C5.17188 5.43211 5.17187 1.51562 9.08836 1.51562C12.9158 1.51562 12.8268 5.52112 12.8268 5.52112V6.67826" stroke="#CECECE"/>
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_771_3771">
+                                    <rect width="16.2" height="17.6242" fill="white" transform="translate(0.721313 0.980469)"/>
+                                  </clipPath>
+                                </defs>
+                            </svg>
+                            <span>Notifications</span>
+                            <svg class="submenu-btn hide" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
+                                <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
                 <a class="sidebar-link" href="https://analytics.google.com/analytics/web/#/p422682877/reports/intelligenthome?params=_u..nav%3Dmaui" target="_blank">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -109,23 +152,12 @@
                         <span>Analytics</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'marketing' %}active{% endif %}" href="{% url 'marketing' %}">
+                <a class="sidebar-link {% if active_page == 'activity' %}active{% endif %}" href="{% url 'activity' %}">
                     <div class="link-content">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="19" viewBox="0 0 17 19" fill="none">
-                            <g clip-path="url(#clip0_771_3771)">
-                              <path d="M1.255 17.0896C1.255 17.3566 1.43303 17.5346 1.70006 17.5346H15.9418C16.2089 17.5346 16.3869 17.3566 16.3869 17.0896L15.4968 6.23021C15.4968 5.96318 15.2297 5.78516 15.0517 5.78516H2.67918C2.41215 5.78516 2.23413 5.96318 2.23413 6.23021L1.255 17.0896Z" stroke="#CECECE"/>
-                              <path d="M5.17188 6.58925V5.43211C5.17188 5.43211 5.17187 1.51562 9.08836 1.51562C12.9158 1.51562 12.8268 5.52112 12.8268 5.52112V6.67826" stroke="#CECECE"/>
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_771_3771">
-                                <rect width="16.2" height="17.6242" fill="white" transform="translate(0.721313 0.980469)"/>
-                              </clipPath>
-                            </defs>
+                        <svg width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.8969 15.7996C14.4969 15.4996 13.2969 15.2996 11.7969 14.8996C10.4969 14.5996 8.99687 13.9996 8.99687 12.3996C8.99687 10.9996 10.4969 10.3996 12.8969 10.3996C16.5969 10.3996 20.3969 12.6996 21.1969 13.2996L24.5969 7.69961C22.0969 5.99961 19.2969 4.89961 15.8969 4.49961V0.599609H11.5969V4.39961C5.29688 4.89961 1.69687 8.19961 1.69687 12.9996C1.69687 18.5996 5.99687 20.5996 10.6969 21.7996C12.1969 22.0996 15.5969 22.7996 15.5969 22.7996C17.6969 23.3996 18.3969 23.9996 18.3969 25.0996C18.3969 26.8996 15.8969 27.2996 13.8969 27.2996C9.59688 27.2996 5.19688 24.3996 3.99688 23.5996L0.296875 29.0996C3.39687 31.2996 7.39688 32.7996 11.3969 33.1996V37.2996H15.6969V33.2996C19.0969 33.0996 25.3969 31.2996 25.3969 24.5996C25.4969 19.5996 22.1969 17.2996 15.8969 15.7996Z" fill="white"/>
                         </svg>
-                        <span>Notifications</span>
-                        <svg class="submenu-btn hide" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
-                            <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
-                        </svg>
+                        <span>Finance</span>
                     </div>
                 </a>
                 <a class="sidebar-link {% if active_page == 'source' %}active{% endif %}" href="{% url 'source' %}">
@@ -202,7 +234,7 @@
                         <span>Homme</span>
                     </div>
                 </a>
-                <a class="sidebar-link" onclick="openContentDropdown(event);" href="javascript:void(0);">
+                <!-- <a class="sidebar-link" onclick="openContentDropdown(event);" href="javascript:void(0);">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M7.50069 10H12.5007M7.50069 13.3333H12.5007M14.1674 17.5H5.83403C5.392 17.5 4.96807 17.3244 4.65551 17.0118C4.34295 16.6993 4.16736 16.2754 4.16736 15.8333V4.16667C4.16736 3.72464 4.34295 3.30072 4.65551 2.98816C4.96807 2.67559 5.392 2.5 5.83403 2.5H10.489C10.71 2.50005 10.9219 2.58788 11.0782 2.74417L15.5899 7.25583C15.7461 7.41208 15.834 7.624 15.834 7.845V15.8333C15.834 16.2754 15.6584 16.6993 15.3459 17.0118C15.0333 17.3244 14.6094 17.5 14.1674 17.5Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
@@ -230,7 +262,7 @@
                             <span>Sliders</span>
                         </div>
                     </a>
-                </div>
+                </div> -->
                 <a class="sidebar-link {% if active_page == 'salons' %}active{% endif %}" href="{% url 'salon' %}">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -239,15 +271,7 @@
                         <span>Salons</span>
                     </div>
                 </a>
-                <a class="sidebar-link {% if active_page == 'products' %}active{% endif %}" href="{% url 'consumer_products' %}">
-                    <div class="link-content">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M16.6677 5.83333L10.001 2.5L3.33435 5.83333M16.6677 5.83333L10.001 9.16667M16.6677 5.83333V14.1667L10.001 17.5M3.33435 5.83333L10.001 9.16667M3.33435 5.83333V14.1667L10.001 17.5M10.001 9.16667V17.5" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Products</span>
-                    </div>
-                </a>
-                <a class="sidebar-link {% if active_page == 'inventory' %}active{% endif %}" href="{% url 'inventory' %}">
+                <a class="sidebar-link {% if active_page == 'commissions' %}active{% endif %}" href="{% url 'commissions' %}">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                             <path d="M9.67876 1.62472C9.58987 1.53583 9.41211 1.62471 9.41211 1.80249V17.891C9.41211 18.0688 9.50099 18.1577 9.67876 18.1577H17.2341C17.4119 18.1577 17.5008 18.0688 17.5008 17.891V5.53574C17.5008 5.35797 17.4119 5.18019 17.2341 5.18019L9.67876 1.62472Z" fill="white"/>
@@ -255,10 +279,72 @@
                             <path d="M5.501 1.71484C5.41211 1.71484 5.41211 1.89262 5.41211 2.15928V18.1589H5.501C5.58989 18.1589 5.58989 17.9812 5.58989 17.7145V1.71484H5.501Z" stroke="white" stroke-width="1.25"/>
                             <path d="M1.58889 1.71484C1.50001 1.71484 1.5 1.89262 1.5 2.15928V18.1589H1.58889C1.67778 18.1589 1.67776 17.9812 1.67776 17.7145V1.71484H1.58889Z" stroke="white" stroke-width="1.25"/>
                         </svg>
+                        <span>Commissions</span>
+                    </div>
+                </a>
+                <a class="sidebar-link {% if active_page == 'inventory' %}active{% endif %}" href="{% url 'inventory' %}">
+                    <div class="link-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M16.6677 5.83333L10.001 2.5L3.33435 5.83333M16.6677 5.83333L10.001 9.16667M16.6677 5.83333V14.1667L10.001 17.5M3.33435 5.83333L10.001 9.16667M3.33435 5.83333V14.1667L10.001 17.5M10.001 9.16667V17.5" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                         <span>Inventory</span>
                     </div>
                 </a>
-                <a class="sidebar-link" onclick="openFinanceDropdown(event);" href="javascript:void(0);">
+                <a class="sidebar-link" onclick="openContentDropdown(event);" href="javascript:void(0);">
+                    <div class="link-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                            <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
+                            <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
+                            <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
+                            <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
+                        </svg>
+                        <span>Activity</span>
+                        <svg class="submenu-btn" xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
+                            <path d="M0 -6.11959e-07L3.5 4L7 0L0 -6.11959e-07Z" fill="white"/>
+                        </svg>
+                    </div>
+                </a>
+                <div class="submenu-div {% if active_page == 'referrals' or active_page == 'sliders' or active_page == 'events' or active_page == 'marketing' %}{% else %}hide{% endif %}" id="content-submenu">
+                    <a class="sidebar-link {% if active_page == 'sliders' %}active{% endif %}" href="{% url 'consumer_slider' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
+                                <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
+                                <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
+                            </svg>
+                            <span>Sliders</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'events' %}active{% endif %}" href="{% url 'events' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" fill="white"/>
+                                <path d="M8.15641 1.03157C8.07864 0.951096 7.9231 1.03157 7.9231 1.19252V15.7586C7.9231 15.9195 8.00086 16 8.15641 16H14.7674C14.9229 16 15.0007 15.9195 15.0007 15.7586V4.57249C15.0007 4.41154 14.9229 4.25059 14.7674 4.25059L8.15641 1.03157Z" stroke="white" stroke-width="1.25"/>
+                                <path d="M4.501 1.11328C4.42322 1.11328 4.42322 1.27423 4.42322 1.51566V16.0012H4.501C4.57877 16.0012 4.57878 15.8403 4.57878 15.5989V1.11328H4.501Z" stroke="white"/>
+                                <path d="M1.07851 1.11328C1.00074 1.11328 1.00073 1.27423 1.00073 1.51566V16.0012H1.07851C1.15629 16.0012 1.15627 15.8403 1.15627 15.5989V1.11328H1.07851Z" stroke="white"/>
+                            </svg>
+                            <span>Offer/Event</span>
+                        </div>
+                    </a>
+                    <a class="sidebar-link {% if active_page == 'marketing' %}active{% endif %}" href="{% url 'consumer_marketing' %}">
+                        <div class="link-content">
+                            <svg class="visibilty-hidden" xmlns="http://www.w3.org/2000/svg" width="17" height="19" viewBox="0 0 17 19" fill="none">
+                                <g clip-path="url(#clip0_771_3771)">
+                                  <path d="M1.255 17.0896C1.255 17.3566 1.43303 17.5346 1.70006 17.5346H15.9418C16.2089 17.5346 16.3869 17.3566 16.3869 17.0896L15.4968 6.23021C15.4968 5.96318 15.2297 5.78516 15.0517 5.78516H2.67918C2.41215 5.78516 2.23413 5.96318 2.23413 6.23021L1.255 17.0896Z" stroke="#CECECE"/>
+                                  <path d="M5.17188 6.58925V5.43211C5.17188 5.43211 5.17187 1.51562 9.08836 1.51562C12.9158 1.51562 12.8268 5.52112 12.8268 5.52112V6.67826" stroke="#CECECE"/>
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_771_3771">
+                                    <rect width="16.2" height="17.6242" fill="white" transform="translate(0.721313 0.980469)"/>
+                                  </clipPath>
+                                </defs>
+                            </svg>
+                            <span>Notifications</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- <a class="sidebar-link" onclick="openFinanceDropdown(event);" href="javascript:void(0);">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                             <path d="M1 17.4381C1 17.7069 1.17921 17.8862 1.44801 17.8862H6.28657C6.55537 17.8862 6.73458 17.7069 6.73458 17.4381V12.3308C6.73458 12.062 6.91379 11.8828 7.18259 11.8828H10.7667C11.0355 11.8828 11.2147 12.062 11.2147 12.3308V17.4381C11.2147 17.7069 11.3939 17.8862 11.6627 17.8862H16.5909C16.8597 17.8862 17.0389 17.7069 17.0389 17.4381V6.50659C17.0389 6.23779 16.8597 5.96898 16.6805 5.78977L9.33306 1.39923C9.06425 1.30963 8.79544 1.30963 8.52664 1.39923L1.44801 5.87937C1.26881 5.96898 1.0896 6.23779 1.0896 6.50659L1 17.4381Z" stroke="#CECECE" stroke-width="1.25"/>
@@ -294,29 +380,13 @@
                             <span>Activity</span>
                         </div>
                     </a>
-                </div>
+                </div> -->
                 <a class="sidebar-link" href="https://analytics.google.com/analytics/web/#/p422682877/reports/intelligenthome?params=_u..nav%3Dmaui" target="_blank">
                     <div class="link-content">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M13.3344 6.66536V13.332M10.001 9.16536V13.332M6.66768 11.6654V13.332M5.00102 16.6654H15.001C15.443 16.6654 15.867 16.4898 16.1795 16.1772C16.4921 15.8646 16.6677 15.4407 16.6677 14.9987V4.9987C16.6677 4.55667 16.4921 4.13275 16.1795 3.82019C15.867 3.50763 15.443 3.33203 15.001 3.33203H5.00102C4.55899 3.33203 4.13507 3.50763 3.82251 3.82019C3.50995 4.13275 3.33435 4.55667 3.33435 4.9987V14.9987C3.33435 15.4407 3.50995 15.8646 3.82251 16.1772C4.13507 16.4898 4.55899 16.6654 5.00102 16.6654Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span>Analytics</span>
-                    </div>
-                </a>
-                <a class="sidebar-link {% if active_page == 'marketing' %}active{% endif %}" href="{% url 'consumer_marketing' %}">
-                    <div class="link-content">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="19" viewBox="0 0 17 19" fill="none">
-                            <g clip-path="url(#clip0_771_3771)">
-                              <path d="M1.255 17.0896C1.255 17.3566 1.43303 17.5346 1.70006 17.5346H15.9418C16.2089 17.5346 16.3869 17.3566 16.3869 17.0896L15.4968 6.23021C15.4968 5.96318 15.2297 5.78516 15.0517 5.78516H2.67918C2.41215 5.78516 2.23413 5.96318 2.23413 6.23021L1.255 17.0896Z" stroke="#CECECE"/>
-                              <path d="M5.17188 6.58925V5.43211C5.17188 5.43211 5.17187 1.51562 9.08836 1.51562C12.9158 1.51562 12.8268 5.52112 12.8268 5.52112V6.67826" stroke="#CECECE"/>
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_771_3771">
-                                <rect width="16.2" height="17.6242" fill="white" transform="translate(0.721313 0.980469)"/>
-                              </clipPath>
-                            </defs>
-                        </svg>
-                        <span>Notifications</span>
                     </div>
                 </a>
                 <a class="sidebar-link {% if active_page == 'support' %}active{% endif %}" href="mailto:someone@example.com">
