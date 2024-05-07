@@ -73,10 +73,13 @@
                             </svg>
                             <div class="filter-dropdown hairstylist-selector" id="hairstylist-selector" style="display: none;">
                                 <div class="search-div">
-                                    <input maxlength="100" type="text" name="search" onkeypress="searchHairstylist(event, this);" id="" />
+                                    <input maxlength="100" type="text" name="search" oninput="searchHairstylist(event, this);" onkeypress="searchHairstylist(event, this);" id="hairstylist-filter-input" />
                                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                         <path opacity="0.5" d="M18.1953 17.8594L13.1953 12.8594M14.862 8.69271C14.862 9.45875 14.7111 10.2173 14.4179 10.925C14.1248 11.6328 13.6951 12.2758 13.1534 12.8175C12.6118 13.3592 11.9687 13.7889 11.261 14.082C10.5532 14.3752 9.79469 14.526 9.02865 14.526C8.2626 14.526 7.50406 14.3752 6.79633 14.082C6.08859 13.7889 5.44553 13.3592 4.90386 12.8175C4.36218 12.2758 3.9325 11.6328 3.63935 10.925C3.3462 10.2173 3.19531 9.45875 3.19531 8.69271C3.19531 7.14561 3.80989 5.66188 4.90386 4.56792C5.99782 3.47396 7.48155 2.85937 9.02865 2.85938C10.5757 2.85937 12.0595 3.47396 13.1534 4.56792C14.2474 5.66188 14.862 7.14561 14.862 8.69271Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
+                                </div>
+                                <div class="filter-dropdown show-flex" id="hairstylist-dropdown">
+                                    <span class="hide" id="no-hairstylist-text">No Hairstylist</span>
                                 </div>
                             </div>
                         </button>

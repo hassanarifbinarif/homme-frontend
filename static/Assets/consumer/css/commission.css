@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-height: calc(100vh - 75px);
 }
 
 .order-wrapper {
@@ -115,6 +116,8 @@
     /* border: 1px solid #E0E0DD; */
     border-radius: 8px;
     margin-bottom: 28px;
+    min-height: calc(100vh - 157px);
+    background: #000000;
 }
 
 .order-details-wrapper .order-details-filters {
@@ -124,6 +127,7 @@
     gap: 21px;
     padding: 13px 23px 13px 20px;
     min-width: 1142px;
+    background: #FFFFFF;
 }
 
 .order-details-wrapper .order-details-filters > form {
@@ -184,6 +188,38 @@
     line-height: normal;
     padding-left: 30px;
     padding-right: 10px;
+}
+
+#hairstylist-selector {
+    border: none;
+}
+
+#hairstylist-selector .search-div {
+    border: 1px solid #E0E0DD;
+    border-radius: 8px;
+}
+
+#hairstylist-dropdown {
+    top: 45px;
+    border: none;
+    border-radius: 0px 0px 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    border-right: 1px solid #E0E0DD;
+    border-left: 1px solid #E0E0DD;
+    border-bottom: 1px solid #E0E0DD;
+}
+
+#hairstylist-dropdown input {
+    display: none;
+}
+
+#hairstylist-dropdown .radio-btn > label {
+    min-height: 40px;
+    height: unset;
+    word-break: break-all;
+    padding: 5px 10px;
+    line-height: 12px;
 }
 
 .filter-btn {
@@ -340,12 +376,18 @@
     right: unset;
 }
 
+.commissions-table-wrapper {
+    background: #FFFFFF;
+    padding-bottom: 18px;
+    border-radius: 0px 0px 8px 8px;
+    min-width: 1142px;
+}
+
 .order-details-table {
     width: 100%;
-    min-width: 1142px;
     border-bottom: 1px solid #CECECE;
     background-color: #FFF;
-    margin-bottom: 18px;
+    /* margin-bottom: 18px; */
     table-layout: fixed;
 }
 

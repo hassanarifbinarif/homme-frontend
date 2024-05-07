@@ -12,11 +12,14 @@ let statusWrapper = document.getElementById('status-selector');
 
 let hairstylistBtn = document.getElementById('hairstylist-btn');
 let hairstylistWrapper = document.getElementById('hairstylist-selector');
+let hairstylistDropdown = document.getElementById('hairstylist-dropdown');
+let hairstylistData = {};
 
 let salonFilerBtn = document.getElementById('salon-btn');
 let salonFilterWrapper = document.getElementById('salon-selector');
 
 let requiredDataURL = `/admin/salons/commissions/monthly?page=1&perPage=1000&search=&ordering=-date`;
+let requiredHairStylistURL = '/admin/salons/stylists?perPage=1000';
 
 let filterMonthValue = null;
 let filterYearValue = null;
@@ -30,6 +33,7 @@ window.onload = () => {
     getData();
     populateSalonDropdown();
     populateYearList(20);
+    populateHairStylists();
 }
 
 
@@ -105,17 +109,6 @@ function filterStatusOption(event) {
     setTimeout(() => {
         statusBtn.click();
     }, 100)
-}
-
-
-function searchHairstylist(event, inputElement) {
-    if (event.keyCode == 13) {
-        requiredDataURL = setParams(requiredDataURL, 'hairstylist__fullname', inputElement.value);
-        getData();
-        document.getElementById('selected-hairstylist-text').innerText = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
-        document.getElementById('selected-hairstylist-text').title = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
-        hairstylistWrapper.style.display = 'none';
-    }
 }
 
 
@@ -235,6 +228,65 @@ async function getData(url=null) {
     }
     catch (err) {
         console.log(err);
+    }
+}
+
+
+async function populateHairStylists() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let response = await requestAPI(`${apiURL}${requiredHairStylistURL}`, null, headers, 'GET');
+    response.json().then(function(res) {
+        hairstylistData = [...res.data];
+        res.data.forEach((stylist) => {
+            hairstylistDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn hairstylist-item-list" data-id="${stylist.id}">
+                                                                    <input onchange="selectHairStylist(this);" id="hs-${stylist.id}" type="radio" value="${stylist.fullname}" name="stylist_radio" />
+                                                                    <label for="hs-${stylist.id}" class="radio-label">${stylist.fullname}</label>
+                                                                </div>`);
+        })
+    })
+}
+
+
+function searchHairstylist(event, inputElement) {
+    if (event.keyCode == 13) {
+        requiredDataURL = setParams(requiredDataURL, 'hairstylist__fullname', inputElement.value);
+        getData();
+        document.getElementById('selected-hairstylist-text').innerText = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
+        document.getElementById('selected-hairstylist-text').title = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
+        hairstylistWrapper.style.display = 'none';
+    }
+    else {
+        let filteredCustomer = [];
+        filteredCustomer = hairstylistData.filter(stylist => stylist.fullname.toLowerCase().includes(inputElement.value.toLowerCase())).map((stylist => stylist.id));
+        if (filteredCustomer.length == 0) {
+            document.getElementById('no-hairstylist-text').classList.remove('hide');
+            document.querySelectorAll('.hairstylist-item-list').forEach((item) => item.classList.add('hide'));
+        }
+        else {
+            document.getElementById('no-hairstylist-text').classList.add('hide');
+            document.querySelectorAll('.hairstylist-item-list').forEach((item) => {
+                let itemID = item.getAttribute('data-id');
+                if (filteredCustomer.includes(parseInt(itemID, 10))) {
+                    item.classList.remove('hide');
+                }
+                else {
+                    item.classList.add('hide');
+                }
+            })
+        }
+    }
+}
+
+
+function selectHairStylist(inputElement) {
+    if (inputElement.checked) {
+        requiredDataURL = setParams(requiredDataURL, 'hairstylist__fullname', inputElement.value);
+        getData();
+        document.getElementById('selected-hairstylist-text').innerText = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
+        document.getElementById('selected-hairstylist-text').title = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
+        document.getElementById('hairstylist-filter-input').value = inputElement.value;
+        hairstylistWrapper.style.display = 'none';
     }
 }
 
