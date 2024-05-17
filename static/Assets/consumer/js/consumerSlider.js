@@ -246,7 +246,7 @@ async function createSliderForm(event) {
 }
 
 
-function openUpdateSliderModal(modalID, id, name, description, imageUrl, partnership_application_status) {
+function openUpdateSliderModal(modalID, id, name, description, imageUrl, partnership_application_status, service_region) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");

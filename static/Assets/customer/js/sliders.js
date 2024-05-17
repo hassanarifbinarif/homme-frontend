@@ -5,6 +5,7 @@ let supportedImageHeight = 1000;
 let selectedLevel = null;
 let levelList = [];
 let selectedLevelList = [];
+let is_serviced_region = true;
 
 let userLevelDropdown = document.getElementById('user-level-dropdown');
 let userLevelDropdownBtn = document.getElementById('user-level');
@@ -44,6 +45,10 @@ async function populateMembershipLevels() {
                                                     </div>`
                 }
             })
+            userLevelDropdown.innerHTML += `<div class="radio-btn">
+                                                <input id="user-membership-no-region" onchange="selectUserLevel(event);" type="radio" value="is_not_serviced_region" name="user_level_radio" />
+                                                <label for="user-membership-no-region" class="radio-label">Users Outside The Service Region</label>
+                                            </div>`
         })
     }
     catch (err) {
@@ -161,6 +166,7 @@ function openCreateSliderModal(modalID) {
     modal.querySelector('#salon-level-dropdown-container').classList.add('hide');
     modal.addEventListener('hidden.bs.modal', event => {
         selectedLevel = null;
+        is_serviced_region = true;
         form.reset();
         form.removeAttribute("onsubmit");
         modal.querySelector('#user-level-dropdown-container').classList.add('hide');
@@ -185,7 +191,14 @@ function openCreateSliderModal(modalID) {
 function selectUserLevel(event) {
     let inputElement = event.target;
     if(inputElement.checked) {
-        selectedLevel = inputElement.value ? inputElement.value.split(',') : [];
+        if (inputElement.value == 'is_not_serviced_region') {
+            is_serviced_region = false;
+            selectedLevel = [];
+        }
+        else {
+            is_serviced_region = true;
+            selectedLevel = inputElement.value ? inputElement.value.split(',') : [];
+        }
         document.getElementById('selected-user-level').innerText = inputElement.nextElementSibling.innerText;
         document.getElementById('selected-user-level').style.color = '#000';
     }
@@ -246,6 +259,9 @@ async function createSliderForm(event) {
                     formData.append("target_membership_levels", parseInt(level));
                 })
             }
+            if (is_serviced_region == false) {
+                formData.append('is_serviced_region', false);
+            }
             let token = getCookie('admin_access');
             let headers = {
                 "Authorization": `Bearer ${token}`
@@ -302,10 +318,11 @@ function arraysAreEqual(array1, array2) {
 }
 
 
-function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level) {
+function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level, service_region) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
+    is_serviced_region = service_region == 'False' ? false : true;
     form.setAttribute("onsubmit", `updateSliderForm(event, ${id})`);
     form.querySelector('input[name="name"]').value = name;
     form.querySelector('input[name="text"]').value = description;
@@ -320,9 +337,14 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
     let membership_level_list = JSON.parse(target_membership_level);
     if (Array.isArray(membership_level_list)) {
         if (arraysAreEqual(membership_level_list, [])) {
-            document.getElementById('selected-user-level').innerText = 'All Users';
+            if (is_serviced_region == false) {
+                document.getElementById('selected-user-level').innerText = 'Users Outside The Service Region';
+            }
+            else {
+                document.getElementById('selected-user-level').innerText = 'All Users';
+            }
             document.getElementById('selected-user-level').style.color = '#000';
-            selectedLevel = [];  
+            selectedLevel = [];
         }
         else if (arraysAreEqual(membership_level_list, [6, 7]) || arraysAreEqual(membership_level_list, [7, 6])) {
             let checkedInput = modal.querySelector(`input[name="user_level_radio"][value="7,6"]`);
@@ -342,6 +364,7 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         selectedLevel = null;
+        is_serviced_region = true;
         modal.querySelector('#slider-modal-header').innerText = 'Create Slider';
         modal.querySelector('#user-level-dropdown-container').classList.add('hide');
         document.getElementById('selected-user-level').innerText = 'Select User Type';
@@ -405,6 +428,12 @@ async function updateSliderForm(event, id) {
                     beforeLoad(button);
                     let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({"target_membership_levels": []}), headers, 'PATCH');
                 }
+            }
+            if (is_serviced_region == false) {
+                formData.append('is_serviced_region', false);
+            }
+            else {
+                formData.append('is_serviced_region', true);
             }
             errorDiv.classList.add('hide');
             errorMsg.innerText = '';
