@@ -7,7 +7,7 @@
             <form>
                 {% csrf_token %}
                 <div class="modal-header border-bottom-0 w-100 justify-content-between">
-                    <span>Create Special Offer</span>
+                    <span id="special-offer-modal-header-text">Create Special Offer</span>
                     <svg class="cursor-pointer" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M13.4672 9.67878C13.8189 8.8295 14 7.91925 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 7.91925 0.18106 8.8295 0.532843 9.67878C0.884626 10.5281 1.40024 11.2997 2.05025 11.9497C2.70026 12.5998 3.47194 13.1154 4.32122 13.4672C5.1705 13.8189 6.08075 14 7 14C7.91925 14 8.8295 13.8189 9.67878 13.4672C10.5281 13.1154 11.2997 12.5998 11.9497 11.9497C12.5998 11.2997 13.1154 10.5281 13.4672 9.67878Z" fill="#D9D9D9"/>
                         <path d="M4.66602 9.33518L6.99962 7.00157M6.99962 7.00157L9.33323 4.66797M6.99962 7.00157L4.66602 4.66797M6.99962 7.00157L9.33323 9.33518" stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,7 +53,7 @@
                             <input type="file" accept="image/jpeg, image/jpg, image/png" name="image" id="special-offer-img" oninput="verifyOfferImage(this);" />
                             <span>Upload an Image</span>
                             <span>(supported dimension: 1000x1000px)</span>
-                            <img src="" class="event-img hide" name="image" alt="event image" />
+                            <img src="" class="event-img hide" name="image" alt="event image" id="special-offer-image" />
                         </label>
                     </div>
                     <div class="special-error-div hide">

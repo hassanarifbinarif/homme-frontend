@@ -95,6 +95,7 @@ function openSpecialOfferModal(modalID) {
         label.querySelectorAll('span').forEach((span) => {
             span.style.display = 'block';
         })
+        productSearchWrapper.classList.add('hide');
         modal.querySelector('#selected-product-name').innerText = 'Specify Product';
         modal.querySelector('#selected-product-name').style.color = 'rgba(3, 7, 6, 0.60)';
         selectedProduct = null;
@@ -229,5 +230,143 @@ function verifyOfferImage(input) {
         };
   
         img.src = objectURL;
+    }
+}
+
+
+function openUpdateSpecialOfferModal(modalID, id, title, sub_title, description, discount_percent, summary, venue_name, venue_address, venue_link, image, product_id) {
+    let modal = document.getElementById(`${modalID}`);
+    let form = modal.querySelector('form');
+    form.setAttribute("onsubmit", `updateSpecialOfferForm(event, ${id})`);
+    form.querySelector('input[name="title"]').value = title;
+    form.querySelector('input[name="sub_title"]').value = sub_title;
+    form.querySelector('input[name="summary"]').value = summary;
+    form.querySelector('input[name="title"]').value = title;
+    form.querySelector('input[name="discount_percent"]').value = discount_percent;
+    form.querySelector('input[name="title"]').value = title;
+    form.querySelector('textarea[name="description"]').value = description;
+    form.querySelector('input[name="title"]').value = title;
+    form.querySelector('input[name="venue_name"]').value = venue_name;
+    form.querySelector('input[name="venue_address"]').value = venue_address;
+    form.querySelector('input[name="venue_link"]').value = venue_link;
+    let productOption = form.querySelector(`input[name="product"][value="${product_id}"]`);
+    if (productOption) {
+        productOption.click();
+    }
+    form.querySelector('#special-offer-image').src = image;
+    form.querySelector('#special-offer-image').classList.remove('hide');
+    let label = modal.querySelector('#special-image-label');
+    label.querySelector('svg').style.display = 'none';
+    label.querySelectorAll('span').forEach((span) => {
+        span.style.display = 'none';
+    })
+    modal.querySelector('#special-offer-modal-header-text').innerText = 'Edit Special Offer';
+    modal.addEventListener('hidden.bs.modal', event => {
+        modal.querySelector('#special-offer-modal-header-text').innerText = 'Create Special Offer';
+        form.reset();
+        form.removeAttribute("onsubmit");
+        form.querySelector('#special-offer-image').classList.add('hide');
+        label.querySelector('.event-img').src = '';
+        label.querySelector('.event-img').classList.add('hide');
+        label.querySelector('svg').style.display = 'block';
+        label.querySelectorAll('span').forEach((span) => {
+            span.style.display = 'block';
+        })
+        modal.querySelector('#selected-product-name').innerText = 'Specify Product';
+        modal.querySelector('#selected-product-name').style.color = 'rgba(3, 7, 6, 0.60)';
+        selectedProduct = null;
+        productSearchWrapper.classList.add('hide');
+        modal.querySelector('.btn-text').innerText = 'SAVE';
+        document.querySelector('.special-error-div').classList.add('hide');
+        document.querySelector('.create-special-error-msg').classList.remove('active');
+        document.querySelector('.create-special-error-msg').innerText = "";
+    })
+    document.querySelector(`.${modalID}`).click();
+}
+
+
+async function updateSpecialOfferForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    let errorDiv = form.querySelector('.special-error-div');
+    let errorMsg = form.querySelector('.create-special-error-msg');
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+
+    if (data.title.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter valid title';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.sub_title.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter valid sub-title';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (selectedProduct == null) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Select a product';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.discount_percent < 0 || data.discount_percent > 100 || data.discount_percent.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter valid discount percent';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (data.description.trim().length == 0) {
+        errorDiv.classList.remove('hide');
+        errorMsg.innerText = 'Enter valid description';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else {
+        try {
+            // data.is_expired = false;
+            // delete data.image;
+            errorDiv.classList.add('hide');
+            errorMsg.innerText = '';
+            errorMsg.classList.remove('active');
+            let token = getCookie('admin_access');
+            let headers = {
+                "Authorization": `Bearer ${token}`,
+                // "Content-Type": 'application/json'
+            };
+            beforeLoad(button);
+            let response = await requestAPI(`${apiURL}/admin/content/special-offers/${id}`, formData, headers, 'PATCH');
+            response.json().then(function(res) {
+                if (response.status == 200) {
+                    afterLoad(button, 'SAVED');
+                    form.reset();
+                    form.removeAttribute('onsubmit');
+                    getData();
+                    setTimeout(() => {
+                        document.querySelector('.eventCreateOffer').click();
+                        afterLoad(button, 'SAVE');
+                    }, 1000)
+                }
+                else if (response.status == 400) {
+                    afterLoad(button, buttonText);
+                    errorDiv.classList.remove('hide');
+                    let keys = Object.keys(res.messages);
+                    keys.forEach((key) => {
+                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                    })
+                    errorMsg.classList.add('active');
+                }
+                else {
+                    afterLoad(button, 'ERROR');
+                }
+            })
+        }
+        catch (err) {
+            console.log(err);
+            afterLoad(button, 'ERROR');
+        }
     }
 }

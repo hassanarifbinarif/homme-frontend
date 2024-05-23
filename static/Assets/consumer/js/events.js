@@ -1,4 +1,5 @@
-let requiredDataURL = `/admin/content/events?page=1&perPage=1000&search=&ordering=-created_at`;
+// let requiredDataURL = `/admin/content/events?page=1&perPage=1000&search=&ordering=-created_at`;
+let requiredDataURL = `/admin/content/events-and-special-offers?page=1&perPage=1000&search=&ordering=-created_at`;
 
 window.onload = () => {
     getData();
@@ -44,12 +45,18 @@ async function getData(url=null) {
 }
 
 
-function openDelEventModal(modalID, id) {
+function openDelEventModal(modalID, id, type) {
     let modal = document.querySelector(`#${modalID}`);
     let form = modal.querySelector('form');
-    form.setAttribute("onsubmit", `delEventForm(event, ${id})`);
-    modal.querySelector('#modal-header-text').innerText = 'Delete Event';
-    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this event?';
+    form.setAttribute("onsubmit", `delEventForm(event, ${id}, '${type}')`);
+    if (type == 'special_offer') {
+        modal.querySelector('#modal-header-text').innerText = 'Delete Special Offer';
+        modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this special offer?';    
+    }
+    else {
+        modal.querySelector('#modal-header-text').innerText = 'Delete Event';
+        modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this event?';
+    }
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
@@ -61,7 +68,7 @@ function openDelEventModal(modalID, id) {
     document.querySelector(`.${modalID}`).click();
 }
 
-async function delEventForm(event, id) {
+async function delEventForm(event, id, type) {
     event.preventDefault();
     let form = event.currentTarget;
     let button = form.querySelector('button[type="submit"]');
@@ -73,7 +80,12 @@ async function delEventForm(event, id) {
             "Authorization": `Bearer ${token}`
         };
         beforeLoad(button);
-        let response = await requestAPI(`${apiURL}/admin/content/events/${id}`, null, headers, 'DELETE');
+        if (type == 'special_offer') {
+            var response = await requestAPI(`${apiURL}/admin/content/special-offers/${id}`, null, headers, 'DELETE');
+        }
+        else {
+            var response = await requestAPI(`${apiURL}/admin/content/events/${id}`, null, headers, 'DELETE');
+        }
         // console.log(response);
         if (response.status == 204) {
             form.reset();
@@ -92,7 +104,7 @@ async function delEventForm(event, id) {
     }
     catch (err) {
         afterLoad(button, 'Error');
-        console.log(res);
+        console.log(response);
     }
 }
 
