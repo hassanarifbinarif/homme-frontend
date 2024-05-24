@@ -253,13 +253,15 @@ function openUpdateSpecialOfferModal(modalID, id, title, sub_title, description,
     if (productOption) {
         productOption.click();
     }
-    form.querySelector('#special-offer-image').src = image;
-    form.querySelector('#special-offer-image').classList.remove('hide');
     let label = modal.querySelector('#special-image-label');
-    label.querySelector('svg').style.display = 'none';
-    label.querySelectorAll('span').forEach((span) => {
-        span.style.display = 'none';
-    })
+    if (image != 'None') {
+        form.querySelector('#special-offer-image').src = image;
+        form.querySelector('#special-offer-image').classList.remove('hide');
+        label.querySelector('svg').style.display = 'none';
+        label.querySelectorAll('span').forEach((span) => {
+            span.style.display = 'none';
+        })
+    }
     modal.querySelector('#special-offer-modal-header-text').innerText = 'Edit Special Offer';
     modal.addEventListener('hidden.bs.modal', event => {
         modal.querySelector('#special-offer-modal-header-text').innerText = 'Create Special Offer';

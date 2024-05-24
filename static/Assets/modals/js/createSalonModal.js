@@ -202,6 +202,7 @@ function openCreateSalonModal() {
     let form = modal.querySelector('form');
     form.setAttribute('onsubmit', 'createSalonForm(event)');
     let imageLabel = modal.querySelector('.image-label');
+    document.getElementById('selected-payment-type').style.color = '#000';
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         imageLabel.querySelector('.salon-image').src = '';
@@ -223,6 +224,7 @@ function openCreateSalonModal() {
         document.getElementById(`selected-salon-country-text`).style.color = '#A9A9A9';
         document.getElementById(`selected-payment-country-text`).innerText = 'Country';
         document.getElementById(`selected-payment-country-text`).style.color = '#A9A9A9';
+        document.getElementById('selected-payment-type').style.color = '#A9A9A9';
     })
     document.querySelector('.salonCreate').click();
 }
@@ -244,11 +246,11 @@ async function createSalonForm(event) {
         errorMsg.innerHTML += "General Information: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (data.legal_name.trim().length == 0 || data.business_name.trim().length == 0 || data.tax_id.trim().length == 0 || data.street_number.trim().length == 0) {
+    if (data.legal_name.trim().length == 0) {
         errorMsg.innerHTML += "Entity Information: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (data.legal_street1.trim().length == 0 || data.legal_street2.trim().length == 0 || data.legal_city.trim().length == 0 || (!data.legal_state) || data.legal_zip_code.trim().length != 5 || (!data.legal_country)) {
+    if (data.legal_street1.trim().length == 0 || data.legal_city.trim().length == 0 || (!data.legal_state) || data.legal_zip_code.trim().length != 5 || (!data.legal_country)) {
         errorMsg.innerHTML += "Legal Address: Enter valid data in all fields <br />";
         checkValidations = false;
     }
@@ -256,22 +258,22 @@ async function createSalonForm(event) {
         errorMsg.innerHTML += "Salon Information: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (data.salon_street1.trim().length == 0 || data.salon_street2.trim().length == 0 || data.salon_city.trim().length == 0 || (!data.salon_state) || data.salon_zip_code.trim().length != 5 || (!data.salon_country)) {
+    if (data.salon_street1.trim().length == 0 || data.salon_city.trim().length == 0 || (!data.salon_state) || data.salon_zip_code.trim().length != 5 || (!data.salon_country)) {
         errorMsg.innerHTML += "Salon Address: Enter valid data in all fields <br />";
         checkValidations = false;
     }
-    if (data.payment_type == 'ach') {
-        if (data.name_on_account.trim().length == 0 || data.bank_name.trim().length == 0 || data.routing_number.trim().length == 0 || data.account_number.trim().length == 0) {
-            errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
-            checkValidations = false;
-        }
-    }
-    else {
-        if (data.payment_street1.trim().length == 0 || data.payment_street2.trim().length == 0 || data.payment_city.trim().length == 0 || (!data.payment_state) || data.payment_zip_code.trim().length != 5 || (!data.payment_country)) {
-            errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
-            checkValidations = false;
-        }
-    }
+    // if (data.payment_type == 'ach') {
+    //     if (data.name_on_account.trim().length == 0 || data.bank_name.trim().length == 0 || data.routing_number.trim().length == 0 || data.account_number.trim().length == 0) {
+    //         errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
+    //         checkValidations = false;
+    //     }
+    // }
+    // else {
+    //     if (data.payment_street1.trim().length == 0 || data.payment_street2.trim().length == 0 || data.payment_city.trim().length == 0 || (!data.payment_state) || data.payment_zip_code.trim().length != 5 || (!data.payment_country)) {
+    //         errorMsg.innerHTML += "Payment Detail: Enter valid data in all fields";
+    //         checkValidations = false;
+    //     }
+    // }
     if (!checkValidations) {
         errorMsg.classList.add('active');
         return false;
@@ -296,12 +298,13 @@ async function createSalonForm(event) {
                     "person_email": data.person_email,
                     "person_phone": data.person_phone,
                     "legal_name": data.legal_name,
-                    "business_name": data.business_name,
-                    "tax_id": data.tax_id,
-                    "payment_type": data.payment_type,
+                    "business_name": data.business_name || '',
+                    "tax_id": data.tax_id || '',
+                    "street_number": data.street_number || '',
+                    // "payment_type": data.payment_type || '',
                     "legal_address": {
                         "street1": data.legal_street1,
-                        "street2": data.legal_street2,
+                        "street2": data.legal_street2 || '',
                         "zip_code": data.legal_zip_code,
                         "city": data.legal_city,
                         "state": data.legal_state,
@@ -309,7 +312,7 @@ async function createSalonForm(event) {
                     },
                     "salon_address": {
                         "street1": data.salon_street1,
-                        "street2": data.salon_street2,
+                        "street2": data.salon_street2 || '',
                         "zip_code": data.salon_zip_code,
                         "city": data.salon_city,
                         "state": data.salon_state,
@@ -325,19 +328,21 @@ async function createSalonForm(event) {
                 }
             }
             if (data.payment_type == 'ach') {
-                salonData.partnership_application.name_on_account = data.name_on_account;
-                salonData.partnership_application.bank_name = data.bank_name;
-                salonData.partnership_application.routing_number = data.routing_number;
-                salonData.partnership_application.account_number = data.account_number;
+                salonData.partnership_application.payment_type = data.payment_type;
+                salonData.partnership_application.name_on_account = data.name_on_account || '';
+                salonData.partnership_application.bank_name = data.bank_name || '';
+                salonData.partnership_application.routing_number = data.routing_number || '';
+                salonData.partnership_application.account_number = data.account_number || '';
             }
-            else {
+            else if (data.payment_type == 'check') {
+                salonData.partnership_application.payment_type = data.payment_type;
                 salonData.partnership_application.payment_address = {
-                    "street1": data.payment_street1,
-                    "street2": data.payment_street2,
-                    "zip_code": data.payment_zip_code,
-                    "city": data.payment_city,
-                    "state": data.payment_state,
-                    "country": data.payment_country
+                    "street1": data.payment_street1 || '',
+                    "street2": data.payment_street2 || '',
+                    "zip_code": data.payment_zip_code || '',
+                    "city": data.payment_city || '',
+                    "state": data.payment_state || '',
+                    "country": data.payment_country || ''
                 }
             }
             let token = getCookie('admin_access');
@@ -381,25 +386,26 @@ async function createSalonForm(event) {
                     afterLoad(button, 'ERROR');
                     errorMsg.classList.add('active');
                     let keys = Object.keys(res.messages);
+                    displayMessages(res.messages, errorMsg);
                     
-                    keys.forEach((key) => {
-                        if (Array.isArray(res.messages[key])) {
-                            keys.forEach((key) => {
-                                errorMsg.innerHTML += `${res.messages[key]} <br />`;
-                            })
-                        }
-                        else if (typeof res.messages[key] === 'object') {
-                            const nestedKeys = Object.keys(res.messages[key]);
-                            nestedKeys.forEach((nestedKey) => {
-                                for( let i = 0; i < nestedKey.length; i++) {
-                                    if (res.messages[key][nestedKey][i] == undefined)
-                                        continue;
-                                    else
-                                        errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
-                                }
-                            });
-                        }
-                    })
+                    // keys.forEach((key) => {
+                    //     if (Array.isArray(res.messages[key])) {
+                    //         keys.forEach((key) => {
+                    //             errorMsg.innerHTML += `${res.messages[key]} <br />`;
+                    //         })
+                    //     }
+                    //     else if (typeof res.messages[key] === 'object') {
+                    //         const nestedKeys = Object.keys(res.messages[key]);
+                    //         nestedKeys.forEach((nestedKey) => {
+                    //             for( let i = 0; i < nestedKey.length; i++) {
+                    //                 if (res.messages[key][nestedKey][i] == undefined)
+                    //                     continue;
+                    //                 else
+                    //                     errorMsg.innerHTML += `${res.messages[key][nestedKey][i]} <br />`;
+                    //             }
+                    //         });
+                    //     }
+                    // })
                 }
             })
         }
