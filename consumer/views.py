@@ -277,6 +277,7 @@ def events(request):
     context = {}
     context['active_page'] = 'events'
     context['sidebar'] = 'consumer'
+    context['API_URL'] = settings.API_URL
     return render(request, 'consumer/events.html', context)
 
 
@@ -292,7 +293,10 @@ def get_events_list(request):
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/events-table.html')
-        html = text_template.render({'events':response})
+        api_url = settings.API_URL
+        if api_url.endswith("/api"):
+            api_url = api_url[:-4] or settings.API_URL
+        html = text_template.render({'events':response, 'base_media_url': api_url})
         context['events_data'] = html
         context['msg'] = 'Events retrieved'
         context['success'] = True
