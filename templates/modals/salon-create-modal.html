@@ -30,9 +30,9 @@
                         </div>
                         <div class="entity-info-input">
                             <input maxlength="100" type="text" placeholder="Full Legal Name" name="legal_name" id="" />
-                            <input maxlength="100" type="text" placeholder="Doing Business As (DBA)" name="business_name" id="" />
-                            <input maxlength="100" type="text" placeholder="Tax Payer ID" name="tax_id" id="" />
-                            <input maxlength="100" type="text" placeholder="Dunn & Bradstreet Number" name="street_number" id="" />
+                            <input maxlength="100" type="text" placeholder="Doing Business As (DBA) (Optional)" name="business_name" id="" />
+                            <input maxlength="100" type="text" placeholder="Tax Payer ID (Optional)" name="tax_id" id="" />
+                            <input maxlength="100" type="text" placeholder="Dunn & Bradstreet Number (Optional)" name="street_number" id="" />
                         </div>
                     </div>
                     <div class="general-info-wrapper">
@@ -42,7 +42,7 @@
                         <div class="legal-info-input">
                             <div>
                                 <input maxlength="255" type="text" placeholder="Address 1" name="legal_street1" id="" />
-                                <input maxlength="255" type="text" placeholder="Address 2" name="legal_street2" id="" />
+                                <input maxlength="255" type="text" placeholder="Address 2 (Optional)" name="legal_street2" id="" />
                                 <input maxlength="50" type="text" placeholder="City" name="legal_city" id="" />
                             </div>
                             <div>
@@ -107,7 +107,7 @@
                         <div class="legal-info-input">
                             <div>
                                 <input maxlength="255" type="text" placeholder="Address 1" name="salon_street1" id="" />
-                                <input maxlength="255" type="text" placeholder="Address 2" name="salon_street2" id="" />
+                                <input maxlength="255" type="text" placeholder="Address 2 (Optional)" name="salon_street2" id="" />
                                 <input maxlength="50" type="text" placeholder="City" name="salon_city" id="" />
                             </div>
                             <div>
@@ -145,7 +145,7 @@
                             <div class="flex-wrap">
                                 <div class="selection-input">
                                     <button class="filter-btn" id="payment-type" type="button">
-                                        <span id="selected-payment-type">Select Payment Type</span>
+                                        <span id="selected-payment-type">Select Payment Type (Optional)</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
                                             <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
                                         </svg>
@@ -161,17 +161,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input maxlength="100" type="text" placeholder="Name" data-name="for_ach" name="name_on_account" id="" />
-                                <input maxlength="100" type="text" placeholder="Bank" data-name="for_ach" name="bank_name" id="" />
-                                <input maxlength="255" class="hide" type="text" placeholder="Address 1" data-name="for_cheque" name="payment_street1" id="" />
-                                <input maxlength="100" type="text" placeholder="Routing Number" data-name="for_ach" name="routing_number" id="" />
-                                <input maxlength="100" type="text" placeholder="Account Number" data-name="for_ach" name="account_number" id="" />
-                                <input maxlength="255" class="hide" type="text" placeholder="Address 2" data-name="for_cheque" name="payment_street2" id="" />
-                                <input maxlength="50" class="hide" type="text" placeholder="City" data-name="for_cheque" name="payment_city" id="" />
+                                <input maxlength="100" type="text" placeholder="Name (Optional)" data-name="for_ach" name="name_on_account" id="" />
+                                <input maxlength="100" type="text" placeholder="Bank (Optional)" data-name="for_ach" name="bank_name" id="" />
+                                <input maxlength="255" class="hide" type="text" placeholder="Address 1 (Optional)" data-name="for_cheque" name="payment_street1" id="" />
+                                <input maxlength="100" type="text" placeholder="Routing Number (Optional)" data-name="for_ach" name="routing_number" id="" />
+                                <input maxlength="100" type="text" placeholder="Account Number (Optional)" data-name="for_ach" name="account_number" id="" />
+                                <input maxlength="255" class="hide" type="text" placeholder="Address 2 (Optional)" data-name="for_cheque" name="payment_street2" id="" />
+                                <input maxlength="50" class="hide" type="text" placeholder="City (Optional)" data-name="for_cheque" name="payment_city" id="" />
                                 
                                 <div class="selection-input hide" data-name="for_cheque">
                                     <button class="filter-btn" id="payment-states-field" type="button">
-                                        <span id="selected-payment-state-text">State</span>
+                                        <span id="selected-payment-state-text">State (Optional)</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
                                             <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
                                         </svg>
@@ -179,13 +179,13 @@
                                     <div class="filter-dropdown" id="payment-states-dropdown">        
                                     </div>
                                 </div>
-                                <!-- <input class="hide" type="text" placeholder="State" data-name="for_cheque" name="payment_state" id="" /> -->
+                                <!-- <input class="hide" type="text" placeholder="State (Optional)" data-name="for_cheque" name="payment_state" id="" /> -->
                                 
-                                <input maxlength="20" class="hide" type="number" placeholder="ZIP" data-name="for_cheque" name="payment_zip_code" id="" />
+                                <input maxlength="20" class="hide" type="number" placeholder="ZIP (Optional)" data-name="for_cheque" name="payment_zip_code" id="" />
                                 
                                 <div class="selection-input hide" data-name="for_cheque">
                                     <button class="filter-btn" id="payment-country-field" type="button">
-                                        <span id="selected-payment-country-text">Country</span>
+                                        <span id="selected-payment-country-text">Country (Optional)</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
                                             <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
                                         </svg>
