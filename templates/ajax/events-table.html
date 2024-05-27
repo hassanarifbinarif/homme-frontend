@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 
 <table class="order-details-table hide" id="events-table">
     <thead>
@@ -49,7 +50,7 @@
                 <div title="{{obj.long_description}}"><span class="table-text-overflow">{{obj.long_description|default:"--"}}</span></div>
             </td>
             <td>
-                <div title="{{obj.model_type}}"><span class="table-text-overflow">{{obj.model_type|title}}</span></div>
+                <div title="{{obj.model_type}}"><span class="table-text-overflow">{{obj.model_type|title|string_without_underscore}}</span></div>
             </td>
             <td>
                 <div>

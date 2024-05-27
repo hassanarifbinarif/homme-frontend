@@ -110,6 +110,16 @@ def comma_separated_string(value, arg):
     except Exception as e:
         print(e)
         return ''
+    
+
+def string_without_underscore(value):
+    if not value:
+        return ''
+    try:
+        return value.replace('_', ' ')
+    except Exception as e:
+        print(e)
+        return ''
 
 
 register.filter("custom_date", convert_to_date)
@@ -121,3 +131,4 @@ register.filter("calculate_items", calculate_items)
 register.filter("page_number", get_page_numbers)
 register.filter("split_string", split_string)
 register.filter("comma_separated_string", comma_separated_string)
+register.filter('string_without_underscore', string_without_underscore)
