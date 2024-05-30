@@ -293,10 +293,10 @@ def get_events_list(request):
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/events-table.html')
-        api_url = settings.API_URL
-        if api_url.endswith("/api"):
-            api_url = api_url[:-4] or settings.API_URL
-        html = text_template.render({'events':response, 'base_media_url': api_url})
+        # api_url = settings.API_URL
+        # if api_url.endswith("/api"):
+        #     api_url = api_url[:-4] or settings.API_URL
+        html = text_template.render({'events':response})
         context['events_data'] = html
         context['msg'] = 'Events retrieved'
         context['success'] = True
