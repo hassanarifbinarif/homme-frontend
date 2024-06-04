@@ -1,4 +1,8 @@
-let requiredDataURL = `/admin/inventory?page=1&perPage=1000&ordering=-id&search=`;
+let requiredDataURL = `/admin/inventory?ordering=-id&page=1&perPage=80&search=`;
+let currentPage = 1;
+let previousPageBtn = document.getElementById('previous-nav-btn');
+let nextPageBtn = document.getElementById('next-nav-btn');
+let currentPageElement = document.getElementById('current-nav-page');
 
 window.onload = () => {
     const { startOfWeek, endOfWeek } = getStartAndEndOfCurrentWeek();
@@ -21,6 +25,7 @@ function searchForm(event) {
     let formData = new FormData(form);
     let data = formDataToObject(formData);
     requiredDataURL = setParams(requiredDataURL, 'search', `${data.search}`);
+    requiredDataURL = setParams(requiredDataURL, 'page', '1');
     getData(requiredDataURL);
 }
 
@@ -37,18 +42,57 @@ async function getData(url=null) {
     document.getElementById('table-loader').classList.remove('hide');
     tableBody.classList.add('hide');
     try {
+        document.querySelector('.order-details-wrapper').style.backgroundColor = '#000000';
+        document.querySelector('.order-details-wrapper').style.overflow = 'hidden';
         let response = await requestAPI('/consumer/get-inventory-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
+            document.querySelector('.order-details-wrapper').style.overflow = 'auto';
+            document.querySelector('.order-details-wrapper').style.backgroundColor = '#FFFFFF';
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.inventory_data;
                 tableBody.classList.remove('hide');
+                setPaginationLinks(res.pagination_data);
             }
         })
     }
     catch (err) {
         console.log(err);
     }
+}
+
+
+function setPaginationLinks(paginationData) {
+    currentPage = paginationData.currentPage;
+    currentPageElement.innerText = currentPage;
+
+    if (paginationData.links.next != null) {
+        nextPageBtn.classList.remove('opacity-point-6');
+        nextPageBtn.classList.add('cursor-pointer');
+        nextPageBtn.setAttribute('onclick', `getPageData(${currentPage + 1})`);
+    }
+    else {
+        nextPageBtn.classList.add('opacity-point-6');
+        nextPageBtn.classList.remove('cursor-pointer');
+        nextPageBtn.removeAttribute('onclick');
+    }
+
+    if (paginationData.links.previous != null) {
+        previousPageBtn.classList.remove('opacity-point-6');
+        previousPageBtn.classList.add('cursor-pointer');
+        previousPageBtn.setAttribute('onclick', `getPageData(${currentPage - 1})`);
+    }
+    else {
+        previousPageBtn.classList.add('opacity-point-6');
+        previousPageBtn.classList.remove('cursor-pointer');
+        previousPageBtn.removeAttribute('onclick');
+    }
+}
+
+
+function getPageData(pageNumber) {
+    requiredDataURL = setParams(requiredDataURL, 'page', pageNumber);
+    getData(requiredDataURL);
 }
 
 
@@ -213,6 +257,7 @@ let statusWrapper = document.getElementById('status-selector');
 function closeDropdowns(event) {
     if ((!dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
         dateSelectorInputWrapper.style.display = 'none';
+        document.querySelector('.order-details-wrapper').style.overflow = 'auto';
     }
     else if ((!statusBtn.contains(event.target)) && statusWrapper.style.display == 'flex') {
         statusWrapper.style.display = 'none';
@@ -225,14 +270,17 @@ document.body.addEventListener('click', closeDropdowns);
 function toggleDateSelectorDropdown(event) {
     if ((dateSelectorBtn.contains(event.target)) && dateSelectorInputWrapper.style.display == 'none') {
         dateSelectorInputWrapper.style.display = 'flex';
+        document.querySelector('.order-details-wrapper').style.overflow = 'hidden';
     }
     else if ((dateSelectorBtn.querySelector('span').contains(event.target) || dateSelectorBtn.querySelector('svg').contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
         dateSelectorInputWrapper.style.display = 'none';
+        document.querySelector('.order-details-wrapper').style.overflow = 'auto';
     }
     else if ((dateSelectorBtn.querySelector('.date-selector').contains(event.target)) && dateSelectorInputWrapper.style.display == 'flex') {
     }
     else {
         dateSelectorInputWrapper.style.display = 'none';
+        document.querySelector('.order-details-wrapper').style.overflow = 'auto';
     }
 }
 
@@ -241,6 +289,7 @@ function toggleDateInputs(event) {
         event.target.nextElementSibling.classList.remove('hide');
         event.target.style.background = '#FFF';
         event.target.style.color = '#000093';
+        document.querySelector('.order-details-wrapper').style.overflow = 'hidden';
     }
     else {
         event.target.nextElementSibling.classList.add('hide');

@@ -160,6 +160,7 @@ def get_inventory_list(request):
         text_template = loader.get_template('ajax/inventory-table.html')
         html = text_template.render({'inventory':response})
         context['inventory_data'] = html
+        context['pagination_data'] = response['pagination']
         context['msg'] = 'Inventory retrieved'
         context['success'] = True
     except Exception as e:
