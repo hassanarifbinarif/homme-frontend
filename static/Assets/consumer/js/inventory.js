@@ -1,4 +1,4 @@
-let requiredDataURL = `/admin/inventory?ordering=-id&page=1&perPage=80&search=`;
+let requiredDataURL = `/admin/inventory?ordering=-id&page=1&perPage=50&search=`;
 let currentPage = 1;
 let previousPageBtn = document.getElementById('previous-nav-btn');
 let nextPageBtn = document.getElementById('next-nav-btn');
