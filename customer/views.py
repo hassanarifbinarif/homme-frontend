@@ -373,6 +373,14 @@ def get_source_list(request):
 
 
 @admin_signin_required
+def all_sources(request):
+    context = {}
+    context['active_page'] = 'all_sources'
+    context['sidebar'] = 'customer'
+    return render(request, 'customer/all-sources.html', context)
+
+
+@admin_signin_required
 def profile(request):
     context = {}
     sidebarType = 'customer'
