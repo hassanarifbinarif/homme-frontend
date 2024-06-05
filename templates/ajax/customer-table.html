@@ -23,7 +23,7 @@
                 </svg>
             </div>
         </th>
-        <th width="9%" onclick="sortByAlphabets(event, 3);">
+        <th width="8.5%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Referrals</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -50,9 +50,9 @@
                 </svg>
             </div>
         </th>
-        <th width="13.8%" onclick="sortByAlphabets(event, 6);">
+        <th width="13%" onclick="sortByAlphabets(event, 6);">
             <div>
-                <span>Originating Channel</span>
+                <span>Sales Channel</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -61,16 +61,16 @@
         </th>
         <th width="12%" onclick="sortByAlphabets(event, 7);">
             <div>
-                <span>Source</span>
+                <span>Source Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="9.36%" onclick="sortByAlphabets(event, 8);">
+        <th width="11%" onclick="sortByAlphabets(event, 8);">
             <div>
-                <span>Salon</span>
+                <span>Source Channel</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -135,11 +135,11 @@
             </td>
             <td>
                 <div>
-                    <span class="table-text-overflow" title="{% if obj.source == None or obj.source == '' %}No Source{% else %}{{obj.source}}{% endif %}">{% if obj.source == None or obj.source == "" %}No Source{% else %}{{obj.source}}{% endif %}</span>
+                    <span class="table-text-overflow" title="{% if obj.user.source_referrer == None or obj.user.source_referrer == '' %}--{% else %}{{obj.user.source_referrer.type|default:'--'}}{% endif %}">{% if obj.user.source_referrer == None or obj.user.source_referrer == "" %}--{% else %}{{obj.user.source_referrer.type|default:'--'}}{% endif %}</span>
                 </div>
             </td>
             <td>
-                <div><span class="table-text-overflow" title="{% if obj.salon %}{{obj.salon.salon_name}}{% else %}None{% endif %}">{% if obj.salon %}{{obj.salon.salon_name}}{% else %}None{% endif %}</span></div>
+                <div><span class="table-text-overflow" title="{% if obj.user.source_referrer == None or obj.user.source_referrer == '' %}--{% else %}{{obj.user.source_referrer.channel|default:'--'|title}}{% endif %}">{% if obj.user.source_referrer == None or obj.user.source_referrer == '' %}--{% else %}{{obj.user.source_referrer.channel|default:'--'|title}}{% endif %}</span></div>
             </td>
             <td>
                 <div>

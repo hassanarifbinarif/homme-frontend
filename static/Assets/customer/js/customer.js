@@ -74,101 +74,69 @@ function reverseTableRows() {
 }
 
 
+const sortOrders = {};
+
+
 function sortByAlphabets(event, columnIndex) {
-    let arrows = event.target.closest('th').querySelectorAll('path');
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("customer-table");
-    switching = true;
-    dir = "asc";
+    const arrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("customer-table");
+    const currentOrder = sortOrders[columnIndex] || 'asc';
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
+    const rows = Array.from(table.rows).slice(1);
 
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
+    rows.sort((rowA, rowB) => {
+        const valueA = rowA.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
+        const valueB = rowB.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
 
-            x = rows[i].getElementsByTagName("td")[columnIndex].textContent;
-            y = rows[i + 1].getElementsByTagName("td")[columnIndex].textContent;
+        return currentOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    });
 
-            if (dir === "asc") {
-                arrows[0].setAttribute('opacity', '.2');
-                arrows[1].setAttribute('opacity', '1');
-                if (x.toLowerCase() > y.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (dir === "desc") {
-                arrows[0].setAttribute('opacity', '1');
-                arrows[1].setAttribute('opacity', '.2');
-                if (x.toLowerCase() < y.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount === 0 && dir === "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
+    const tbody = table.querySelector('tbody');
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
     }
+
+    for (let i = 0; i < rows.length; i++) {
+        tbody.appendChild(rows[i]);
+    }
+
+    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+    
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
 }
 
 
 function extractNumber(value) {
-    return parseFloat(value.match(/\d+/)[0]);
+    const match = value.match(/\d+/);
+    return match ? parseFloat(match[0]) : 0;
 }
 
 function sortByOrder(event, columnIndex) {
-    let columnArrows = event.target.closest('th').querySelectorAll('path');
-    var table = document.getElementById("customer-table");
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    switching = true;
-    dir = "asc";
+    const columnArrows = event.target.closest('th').querySelectorAll('path');
+    const table = document.getElementById("customer-table");
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-    
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-    
-            x = extractNumber(rows[i].getElementsByTagName("td")[columnIndex].textContent);
-            y = extractNumber(rows[i + 1].getElementsByTagName("td")[columnIndex].textContent);
-        
-            if (dir === "asc") {
-                columnArrows[0].setAttribute('opacity', '.2');
-                columnArrows[1].setAttribute('opacity', '1');
-                if (x > y) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (dir === "desc") {
-                columnArrows[0].setAttribute('opacity', '1');
-                columnArrows[1].setAttribute('opacity', '.2');
-                if (x < y) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-    
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount === 0 && dir === "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
+    const currentOrder = sortOrders[columnIndex] || 'asc';
+
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const x = extractNumber(rowA.getElementsByTagName("td")[columnIndex].textContent);
+        const y = extractNumber(rowB.getElementsByTagName("td")[columnIndex].textContent);
+
+        return currentOrder === 'asc' ? x - y : y - x;
+    });
+
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
     }
+
+    for (const sortedRow of sortedRows) {
+        tbody.appendChild(sortedRow);
+    }
+
+    columnArrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
+    columnArrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
+
+    sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
 }
