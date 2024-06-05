@@ -25,7 +25,7 @@
                 </svg>
             </div>
         </th>
-        <th width="13.39%" onclick="sortByAlphabets(event, 3);">
+        <th width="12%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Customer</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -43,27 +43,27 @@
                 </svg>
             </div>
         </th>
-        <th width="11.4%" onclick="sortByAlphabets(event, 5);">
+        <th width="10%" onclick="sortByAlphabets(event, 5);">
             <div>
-                <span>Source</span>
+                <span>Source Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
             </div>
         </th>
-        <th width="8.59%" onclick="sortByOrder(event, 6);">
+        <th width="11.4%" onclick="sortByAlphabets(event, 6);">
+            <div>
+                <span>Source Channel</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th width="8.59%" onclick="sortByOrder(event, 7);">
             <div>
                 <span>Net Sales</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
-                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
-                </svg>
-            </div>
-        </th>
-        <th width="8.95%" onclick="sortByAlphabets(event, 7);">
-            <div>
-                <span>Payment</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -79,7 +79,7 @@
                 </svg>
             </div>
         </th>
-        <th width="11.76%" onclick="sortByAlphabets(event, 9);">
+        <th width="9%" onclick="sortByAlphabets(event, 9);">
             <div>
                 <span>Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -91,6 +91,15 @@
         <th width="5.42%" onclick="sortByOrder(event, 10);">
             <div>
                 <span>Items</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th width="7%" onclick="sortByAlphabets(event, 11);">
+            <div>
+                <span>Delivery</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -125,16 +134,14 @@
                 <div><span class="table-text-overflow" title="{{obj.sales_channel|title}}">{{obj.sales_channel|title}}</span></div>
             </td>
             <td>
-                <div><span class="table-text-overflow">{% if obj.source == None or obj.source == "" %}No Source{% else %}{{obj.source}}{% endif %}</span></div>
+                <div><span class="table-text-overflow">{% if obj.user_profile.user.source_referrer == None or obj.user_profile.user.source_referrer == "" %}--{% else %}{{obj.user_profile.user.source_referrer.type|default:'--'|title}}{% endif %}</span></div>
+            </td>
+            <td>
+                <div><span class="table-text-overflow">{% if obj.user_profile.user.source_referrer == None or obj.user_profile.user.source_referrer == "" %}--{% else %}{{obj.user_profile.user.source_referrer.channel|default:'--'|title}}{% endif %}</span></div>
             </td>
             <td>
                 <div>
                     <span class="table-text-overflow">${{obj.total}}</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span>Paid</span>
                 </div>
             </td>
             <td>
@@ -150,6 +157,11 @@
             <td>
                 <div>
                     <span class="table-text-overflow" title="{{obj.products|calculate_items}} items">{{obj.products|calculate_items}} items</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span>{{obj.pickup_type|title}}</span>
                 </div>
             </td>
         </tr>
