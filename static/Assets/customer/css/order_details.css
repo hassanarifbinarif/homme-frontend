@@ -65,6 +65,35 @@
     flex-shrink: 0;
 }
 
+.details-wrapper-col-1 .source-details-wrapper {
+    background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 30px 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: flex-start;
+}
+
+.source-details-wrapper .source-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.source-details-wrapper .source-detail > span {
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 14px;
+    text-align: left;
+}
+
+.source-details-wrapper .source-detail > span:first-of-type {
+    opacity: .7;
+}
+
 .details-wrapper-col-1 .order-delivery-status-wrapper {
     background-color: #FFF;
     border: 1px solid #E0E0DD;
