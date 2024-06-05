@@ -74,6 +74,7 @@
 
     display: flex;
     align-items: flex-start;
+    gap: 10px;
 }
 
 .source-details-wrapper .source-detail {
@@ -88,6 +89,7 @@
     font-weight: 500;
     line-height: 14px;
     text-align: left;
+    word-wrap: break-word;
 }
 
 .source-details-wrapper .source-detail > span:first-of-type {

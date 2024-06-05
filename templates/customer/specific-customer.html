@@ -60,17 +60,33 @@
                                 <span>{% if customer.stylist == None %}No Stylist{% else %}{{customer.stylist.fullname}}{% endif %}</span>
                             </div>
                             <div>
+                                <span>Original Sales Channel</span>
+                                <span>{{customer.user.source.channel|default:"--"|title}}</span>
+                            </div>
+                            <!-- <div>
                                 <span>Referrer</span>
                                 <span>{% if customer.referrer == None %}No referrer{% else %}{{customer.referrer.name}}{% endif %}</span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="specific-customer-attributes">
                             <div>
-                                <span>Source</span>
-                                <span>{% if customer.source == None or customer.source == "" %}No Source{% else %}{{customer.source}}{% endif %}</span>
+                                <span>Originating Source</span>
+                                <span>{{customer.user.source.referral_code|default:"--"}}</span>
                             </div>
                             <div>
-                                <span>Sales Channel</span>
+                                <span>Source Owner</span>
+                                <span>{{customer.user.source.name|default:"--"}}</span>
+                            </div>
+                            <div>
+                                <span>Source Type</span>
+                                <span>{{customer.user.source.type|default:"--"}}</span>
+                            </div>
+                            <!-- <div>
+                                <span>Source</span>
+                                <span>{% if customer.source == None or customer.source == "" %}No Source{% else %}{{customer.source}}{% endif %}</span>
+                            </div> -->
+                            <div>
+                                <span>Current Sales Channel</span>
                                 <span>{{customer.sales_channel|title}}</span>
                             </div>
                         </div>

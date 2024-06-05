@@ -46,19 +46,19 @@
                     <div class="source-details-wrapper">
                         <div class="source-detail" style="width: 38%;">
                             <span>Originating Source</span>
-                            <span>Maxim March 2024 Ferrand Ad</span>
+                            <span>{{order.user_profile.user.source.referral_code|default:"--"}}</span>
                         </div>
                         <div class="source-detail" style="width: 23.4%;">
                             <span>Source Owner</span>
-                            <span>HOMME</span>
+                            <span>{{order.user_profile.user.source.name|default:"--"}}</span>
                         </div>
                         <div class="source-detail" style="width: 22.8%;">
                             <span>Source Type</span>
-                            <span>Advertisment</span>
+                            <span>{{order.user_profile.user.source.type|default:"--"}}</span>
                         </div>
                         <div class="source-detail" style="width: 16.3%;">
                             <span>Sales Channel</span>
-                            <span>Salon</span>
+                            <span>{{order.sales_channel|title}}</span>
                         </div>
                     </div>
                     <div class="order-delivery-status-wrapper">

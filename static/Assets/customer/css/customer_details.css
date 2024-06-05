@@ -77,9 +77,15 @@
 }
 
 .specific-order-wrapper .specific-customer-attributes {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    gap: 100px;
+    gap: 100px; */
+
+    display: grid;
+    grid-template-columns: minmax(160px, 180px) minmax(160px, 180px) minmax(160px, 180px) minmax(160px, 180px);
+    justify-content: space-between;
+    row-gap: 20px;
+    column-gap: 10px;
 }
 
 .specific-order-wrapper .specific-customer-attributes > div {
