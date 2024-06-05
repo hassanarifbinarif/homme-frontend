@@ -10,7 +10,43 @@
         </th>
         <th width="20.14%" onclick="sortByAlphabets(event, 1);">
             <div>
-                <span>Source Name</span>
+                <span>Source</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th width="14%" onclick="sortByAlphabets(event, 2);">
+            <div>
+                <span>Source Type</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th width="13%" onclick="sortByAlphabets(event, 3);">
+            <div>
+                <span>Source Channel</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th width="13%" onclick="sortByAlphabets(event, 4);">
+            <div>
+                <span>Source Owner</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th width="12%" onclick="sortByAlphabets(event, 5);">
+            <div>
+                <span>Location</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
@@ -26,34 +62,7 @@
                 </svg>
             </div>
         </th>
-        <th width="30.29%" onclick="sortByAlphabets(event, 3);">
-            <div>
-                <span>Description</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
-                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
-                </svg>
-            </div>
-        </th>
-        <th width="12.78%" onclick="sortByAlphabets(event, 4);">
-            <div>
-                <span>Embedded String</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
-                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
-                </svg>
-            </div>
-        </th>
-        <th width="12.78%" onclick="sortByAlphabets(event, 5);">
-            <div>
-                <span>Sales Channel</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
-                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
-                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
-                </svg>
-            </div>
-        </th>
-        <th width="12.78%" onclick="sortByAlphabets(event, 6);">
+        <th width="12.78%" onclick="sortByAlphabets(event, 7);">
             <div>
                 <span>Referrals Code</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -79,23 +88,22 @@
             <td>
                 <div><span class="table-text-overflow" title="{{obj.name}}">{{obj.name}}</span></div>
             </td>
+            <td>
+                <div><span class="table-text-overflow" title="{{obj.type|default:'--'|title}}">{{obj.type|default:'--'|title}}</span></div>
+            </td>
+            <td>
+                <div><span class="table-text-overflow" title="{{obj.channel|default:'--'|title}}">{{obj.channel|default:'--'|title}}</span></div>
+            </td>
+            <td>
+                <div><span class="table-text-overflow" title="{% if obj.owner.source_referrer == None or obj.owner.source_referrer == '' %}--{% else %}{{obj.owner.source_referrer.name|default:'--'|title}}{% endif %}">{% if obj.owner.source_referrer == None or obj.owner.source_referrer == '' %}--{% else %}{{obj.owner.source_referrer.name|default:'--'|title}}{% endif %}</span></div>
+            </td>
+            <td>
+                <div><span class="table-text-overflow" title="">NY, USA</span></div>
+            </td>
             <td dateTime="{{obj.created_at}}">
                 <div>
                     <span class="opacity-point-6 created-at-date">{{obj.created_at}}</span>
                 </div>
-            </td>
-            <td>
-                <div>
-                    <span class="table-text-overflow" title="{{obj.description}}">{{obj.description}}</span>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <span class="table-text-overflow" title="{{obj.embedded_string}}">{{obj.embedded_string}}</span>
-                </div>
-            </td>
-            <td>
-                <div><span>HOMME</span></div>
             </td>
             <td>
                 <div><span>{{obj.referral_code}}</span></div>
