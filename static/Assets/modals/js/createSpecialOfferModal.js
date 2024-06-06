@@ -165,6 +165,7 @@ async function createSpecialOfferForm(event) {
             response.json().then(function(res) {
                 if (response.status == 201) {
                     afterLoad(button, 'SAVED');
+                    getData();
                     form.reset();
                     form.removeAttribute('onsubmit');
                     setTimeout(() => {

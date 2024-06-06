@@ -79,6 +79,12 @@
     width: 100%;
 }
 
+#createSource .modal-body .selection-input .dropdown-arrow {
+    position: absolute;
+    top: 45%;
+    right: 18px;
+}
+
 #createSource .modal-body .filter-btn {
     width: 100%;
     height: 40px;
@@ -120,6 +126,10 @@
     z-index: 1;
     max-height: 172px;
     overflow-y: auto;
+}
+
+#createSource .modal-body .radio-btn {
+    order: 1;
 }
 
 #createSource .modal-body .radio-btn > label {

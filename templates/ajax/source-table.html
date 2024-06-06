@@ -89,7 +89,7 @@
                 <div><span class="table-text-overflow" title="{{obj.name}}">{{obj.name}}</span></div>
             </td>
             <td>
-                <div><span class="table-text-overflow" title="{{obj.type|default:'--'|title}}">{{obj.type|default:'--'|title}}</span></div>
+                <div><span class="table-text-overflow" title="{% if obj.type == None or obj.type == '' %}--{% else %}{{obj.type.name|default:'--'|title}}{% endif %}">{% if obj.type == None or obj.type == '' %}--{% else %}{{obj.type.name|default:'--'|title}}{% endif %}</span></div>
             </td>
             <td>
                 <div><span class="table-text-overflow" title="{{obj.channel|default:'--'|title}}">{{obj.channel|default:'--'|title}}</span></div>

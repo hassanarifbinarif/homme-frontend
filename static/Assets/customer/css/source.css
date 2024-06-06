@@ -34,7 +34,7 @@
 
 .order-wrapper .order-wrapper-header > button {
     display: flex;
-    width: 150px;
+    width: 176px;
     height: 30px;
     padding: 0px;
     justify-content: center;
@@ -42,9 +42,9 @@
     gap: 10px;
     border: 1px solid #000093;
     border-radius: 7px;
-    background: #FFF;
+    background: #000093;
 
-    color: #000093;
+    color: #FFFFFF;
     leading-trim: both;
     text-edge: cap;
     font-family: Gotham Medium;

@@ -13,21 +13,26 @@
                 <div class="modal-body">
                     <div class="input-div">
                         <input maxlength="100" type="text" name="name" placeholder="Source Name" required />
-                        <input maxlength="255" type="text" name="embedded_string" placeholder="Embedded String" required />
                         <div class="selection-input">
-                            <button class="filter-btn" id="entity-field" type="button">
-                                <span id="selected-entity-text">Select Entity</span>
+                            <button class="filter-btn" id="type-field" type="button">
+                                <span id="selected-type-text">Source Type</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
                                     <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
                                 </svg>
                             </button>
-                            <div class="filter-dropdown" id="entity-dropdown">
-                                <div class="radio-btn entity-item-list">
-                                    <input onchange="selectEntity(this);" id="entity-homme" type="radio" value="homme" name="entity" />
-                                    <label for="entity-homme" class="radio-label">Homme</label>
-                                </div>     
+                            <div class="filter-dropdown" id="type-dropdown">
                             </div>
                         </div>
+                        <div class="selection-input">
+                            <input type="text" maxlength="100" placeholder="Source Owner" name="source_owner" id="source-owner-field" autocomplete="off" style="padding-right: 30px" />
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                                <path opacity="0.7" d="M10.5 0.5L5.5 5.5L0.5 0.5H10.5Z" fill="#030706"/>
+                            </svg>
+                            <div class="filter-dropdown" id="source-owner-dropdown">
+                                <span class="hide" id="no-source-owner-text">No Owner</span>
+                            </div>
+                        </div>
+                        <input maxlength="255" type="text" name="embedded_string" placeholder="Embedded String" required />
                         <textarea name="description" cols="30" rows="10" placeholder="Description" maxlength="500" required></textarea>
                     </div>
                     <div class="error-div">
