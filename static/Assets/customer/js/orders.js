@@ -1,3 +1,20 @@
+let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
+let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
+let orderStatsDropdown = document.getElementById('order-stats-dropdown');
+
+let purchaseTypeDropdown = document.getElementById('purchase-type-dropdown');
+let purchaseTypeBtn = document.getElementById('purchase-type-btn');
+
+let sourceTypeDropdown = document.getElementById('source-type-dropdown');
+let sourceTypeBtn = document.getElementById('source-type-btn');
+let selectedSourceType = document.getElementById('selected-source-type');
+
+let salesChannelBtn = document.getElementById('select-order-channel-btn');
+let salesChannelDropdown = document.getElementById('order-channel-dropdown');
+
+let sourceChannelBtn = document.getElementById('select-source-channel-btn');
+let sourceChannelDropdown = document.getElementById('source-channel-dropdown');
+
 let requiredDataURL = `/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
 let searchField = document.getElementById('search-order');
 
@@ -30,6 +47,15 @@ function closeDropdowns(event) {
     else if ((!purchaseTypeBtn.contains(event.target)) && purchaseTypeDropdown.style.display == 'flex') {
         purchaseTypeDropdown.style.display = "none";
     }
+    if ((!sourceTypeBtn.contains(event.target)) && sourceTypeDropdown.style.display == 'flex') {
+        sourceTypeDropdown.style.display = "none";
+    }
+    if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+        salesChannelDropdown.style.display = "none";
+    }
+    if (!(sourceChannelBtn.contains(event.target)) && !(sourceChannelDropdown.contains(event.target))) {
+        sourceChannelDropdown.style.display = "none";
+    }
 }
 
 document.body.addEventListener('click', closeDropdowns);
@@ -53,11 +79,12 @@ async function getData(url=null) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.order_data;
                 tableBody.classList.remove('hide');
-                document.getElementById('total-order-value').innerHTML = res.total_orders;
-                document.getElementById('total-ordered-items').innerHTML = res.order_items || 0;
-                document.getElementById('total-orders-completed').innerHTML = res.completed_orders;
-                document.getElementById('total-open-orders').innerHTML = res.open_orders;
-                document.getElementById('total-order-completion-time').innerHTML = Math.ceil(roundDecimalPlaces(parseFloat(res.completion_time) / 24)) + ' Days';
+                document.getElementById('total-order-sales').innerHTML = '$' + res.stats.total_sales || 0;
+                document.getElementById('total-order-value').innerHTML = res.stats.total_orders || 0;
+                document.getElementById('total-ordered-items').innerHTML = res.stats.order_items || 0;
+                document.getElementById('total-orders-completed').innerHTML = res.stats.completed_orders || 0;
+                document.getElementById('total-open-orders').innerHTML = res.stats.open_orders || 0;
+                document.getElementById('total-order-completion-time').innerHTML = Math.ceil(roundDecimalPlaces(parseFloat(res.stats.completion_time) / 24)) + ' Days';
                 convertDateTime();
             }
             else {
@@ -78,9 +105,66 @@ async function getData(url=null) {
 }
 
 
-let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
-let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
-let orderStatsDropdown = document.getElementById('order-stats-dropdown');
+salesChannelBtn.addEventListener('click', function() {
+    if (salesChannelDropdown.style.display == 'flex') {
+        salesChannelDropdown.style.display = 'none';
+    }
+    else {
+        salesChannelDropdown.style.display = 'flex';
+    }
+})
+
+
+let selectedSalesChannel = [];
+let salesChannelFilterString = '';
+
+function selectSalesChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSalesChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSalesChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSalesChannel.splice(index, 1);
+        }
+    }
+    salesChannelFilterString = selectedSalesChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'sales_channel', salesChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.style.display = "none";
+    salesChannelBtn.click();
+}
+
+
+sourceChannelBtn.addEventListener('click', function() {
+    if (sourceChannelDropdown.style.display == 'flex') {
+        sourceChannelDropdown.style.display = 'none';
+    }
+    else {
+        sourceChannelDropdown.style.display = 'flex';
+    }
+})
+
+let selectedSourceChannel = [];
+let sourceChannelFilterString = '';
+
+function selectSourceChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSourceChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSourceChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSourceChannel.splice(index, 1);
+        }
+    }
+    sourceChannelFilterString = selectedSourceChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__channel__in', sourceChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.style.display = "none";
+    sourceChannelBtn.click();
+}
+
 
 orderStatTimeBtn.addEventListener('click', function() {
     if (orderStatsDropdown.classList.contains('hide')) {
@@ -367,8 +451,41 @@ function searchData(event) {
     }
 }
 
-let purchaseTypeDropdown = document.getElementById('purchase-type-dropdown');
-let purchaseTypeBtn = document.getElementById('purchase-type-btn');
+
+async function getSourceTypes() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=1000`, null, headers, 'GET');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            res.data.forEach((sourceType) => {
+                sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
+            })
+        }
+    })
+}
+
+window.addEventListener('load', getSourceTypes);
+
+
+function toggleSourceTypeDropdown() {
+    if (sourceTypeDropdown.style.display == 'flex') {
+        sourceTypeDropdown.style.display = 'none';
+    }
+    else {
+        sourceTypeDropdown.style.display = 'flex';
+    }
+}
+
+
+function filterSourceType(element) {
+    if (selectedSourceType.innerText != element.innerText) {
+        requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__type', element.getAttribute('data-value'));
+        getData(requiredDataURL);
+    }
+    selectedSourceType.innerText = element.innerText;
+}
+
 
 function togglePurchaseDropdown() {
     if (purchaseTypeDropdown.style.display == 'flex') {

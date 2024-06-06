@@ -176,12 +176,14 @@
 .order-details-wrapper {
     border-radius: 6px;
     margin-bottom: 28px;
+    padding-bottom: 10px;
 }
 
 .order-details-wrapper .order-details-filters {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     width: 100%;
     min-width: 1142px;
     padding: 16px 20px;
@@ -192,7 +194,7 @@
 .order-details-wrapper .order-details-filters > div:first-of-type {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .order-details-wrapper .order-details-filters > div:first-of-type button {
@@ -205,6 +207,7 @@
     justify-content: space-around;
     align-items: center;
     background-color: #FFF;
+    position: relative;
 }
 
 .order-details-wrapper .order-details-filters > div:first-of-type button > span {
@@ -377,6 +380,44 @@
 .order-details-wrapper .order-details-filters > div:last-of-type button:last-of-type {
     width: 30px;
     height: 30px;
+}
+
+.order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+
+.order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label > span {
+    color: var(--Black, #030706);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Medium;
+    font-size: .65rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px!important;
+}
+
+.order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label > span:hover {
+    background-color: initial;
+}
+
+.order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label > input {
+    display: inline-block;
+}
+
+.order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label:not(:last-of-type) {
+    border-bottom: 1px solid #CECECE;
 }
 
 .order-details-table-wrapper {

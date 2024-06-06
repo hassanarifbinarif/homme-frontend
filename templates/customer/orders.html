@@ -33,12 +33,11 @@
                             <path d="M25.1089 0C11.2634 0 0 11.2511 0 25.0815C1.26172 58.3103 48.9623 58.302 50.2177 25.0815C50.2177 11.2511 38.9543 0 25.1089 0ZM27.2013 35.5321V37.6223C27.1908 40.3562 23.0269 40.3541 23.0165 37.6223V35.5321H22.4557C20.2231 35.5321 18.1391 34.3324 17.0196 32.399C16.44 31.3979 16.7832 30.1208 17.7813 29.5439C18.7835 28.9608 20.0641 29.3078 20.6395 30.3047C21.014 30.9527 21.7087 31.3519 22.4536 31.3519H27.1992C29.2853 31.4878 30.2185 28.1122 27.9441 27.6733L21.5811 26.6136C14.2535 25.2571 15.8311 14.5891 23.0144 14.6309V12.5408C23.0269 9.80687 27.1887 9.80896 27.1992 12.5408V14.6309H27.7599C29.9925 14.6309 32.0766 15.8327 33.196 17.7661C33.7756 18.7652 33.4324 20.0422 32.4344 20.6212C31.43 21.2002 30.1516 20.8574 29.5761 19.8583C29.2016 19.2124 28.5069 18.8132 27.762 18.8132H23.0165C20.9303 18.6774 19.9992 22.0529 22.2716 22.4918L28.6346 23.5515C35.9622 24.908 34.3845 35.5739 27.2013 35.5321Z" fill="white"/>
                         </svg>
                         <span class="status-category-name">Total Sales</span>
-                        <span class="status-category-value" id="total-sales">
-                            $0
-                            <!-- <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2">
+                        <span class="status-category-value" id="total-order-sales">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center pt-2 pb-2">
                                 <span class="spinner-border spinner-border-md" style="color: #000093;" role="status" aria-hidden="true">
                                 </span>
-                            </div> -->
+                            </div>
                         </span>
                     </div>
                     <div class="order-status-categories">
@@ -179,7 +178,7 @@
                 </div>
                 <div class="order-details-filters">
                     <div>
-                        <button onclick="toggleOrderCompletionDropdown();" id="order-completion-type-btn" style="position: relative;">
+                        <button onclick="toggleOrderCompletionDropdown();" id="order-completion-type-btn" style="position: relative; width: 114px">
                             <span id="selected-order-completion-type">STATUS</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
@@ -199,7 +198,7 @@
                                 <span onclick="filterOrderCompletionType(event);" data-value="shipped">SHIPPED</span>
                             </div>
                         </button>
-                        <button onclick="sortByDateBtn(event);">
+                        <button onclick="sortByDateBtn(event);" style="width: 140px;">
                             <span>SORT BY DATE</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
@@ -231,6 +230,78 @@
                                 <span onclick="filterPurchaseType(event);" data-value="redemption">Redemption</span>
                             </div>
                         </button>
+                        <button data-type="select-order-channel-btn" id="select-order-channel-btn" style="width: 166px;">
+                            <span id="selected-order-channel-opt">SALES CHANNEL</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                <g clip-path="url(#clip0_771_3739)">
+                                  <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                  <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_771_3739">
+                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                  </clipPath>
+                                </defs>
+                            </svg>
+                            <div class="filter-dropdown order-channel-dropdown" id="order-channel-dropdown">
+                                <label for="homme-channel" class="cursor-pointer">
+                                    <span>HOMME</span>
+                                    <input type="checkbox" onchange="selectSalesChannel(this);" id="homme-channel" value="homme" name="sales_channel" />
+                                </label>
+                                <label for="salon-channel" class="cursor-pointer">
+                                    <span>SALONS</span>
+                                    <input type="checkbox" onchange="selectSalesChannel(this);" id="salon-channel" value="salon" name="sales_channel" />
+                                </label>
+                                <!-- <label for="referrer-channel" class="cursor-pointer">
+                                    <span>REFERRERS</span>
+                                    <input type="checkbox" onchange="selectSalesChannel(this);" id="referrer-channel" value="referral" name="sales_channel" />
+                                </label> -->
+                            </div>
+                        </button>
+                        <button onclick="toggleSourceTypeDropdown();" id="source-type-btn" style="position: relative; width: 152px">
+                            <span id="selected-source-type" style="text-transform: uppercase;">SOURCE TYPE</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                <g clip-path="url(#clip0_771_3739)">
+                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_771_3739">
+                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <div class="filter-dropdown source-type-dropdown" id="source-type-dropdown">
+                            </div>
+                        </button>
+                        <button data-type="select-order-channel-btn" id="select-source-channel-btn" style="width: 180px;">
+                            <span id="selected-source-channel-opt">SOURCE CHANNEL</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                <g clip-path="url(#clip0_771_3739)">
+                                  <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                  <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_771_3739">
+                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                  </clipPath>
+                                </defs>
+                            </svg>
+                            <div class="filter-dropdown order-channel-dropdown" id="source-channel-dropdown">
+                                <label for="source-homme-channel" class="cursor-pointer">
+                                    <span>HOMME</span>
+                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-homme-channel" value="homme" name="source_channel" />
+                                </label>
+                                <label for="source-salon-channel" class="cursor-pointer">
+                                    <span>SALONS</span>
+                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-salon-channel" value="salon" name="source_channel" />
+                                </label>
+                                <label for="source-referrer-channel" class="cursor-pointer">
+                                    <span>REFERRERS</span>
+                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-referrer-channel" value="referral" name="source_channel" />
+                                </label>
+                            </div>
+                        </button>
                     </div>
                     <div>
                         <button onclick="openSearchInput();">
@@ -240,7 +311,7 @@
                                 </svg>
                                 <input maxlength="100" id="search-order" onkeypress="searchData(event);" class="hide" type="text" name="search" />
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                 <path d="M4.01985 5.42188H17.3532M5.01985 10.4219H16.3532" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M7.77002 15.4219H13.6034" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>

@@ -120,12 +120,13 @@ def get_order_list(request):
         text_template = loader.get_template('ajax/customer-order-table.html')
         html = text_template.render({'orders':response})
         context['order_data'] = html
-        context['total_orders'] = response['stats']['total_orders']
-        context['order_items'] = response['stats']['order_items']
-        context['completed_orders'] = response['stats']['completed_orders']
-        context['total_orders'] = response['stats']['total_orders']
-        context['open_orders'] = response['stats']['open_orders']
-        context['completion_time'] = response['stats']['completion_time']
+        context['stats'] = response['stats']
+        # context['total_orders'] = response['stats']['total_orders']
+        # context['order_items'] = response['stats']['order_items']
+        # context['completed_orders'] = response['stats']['completed_orders']
+        # context['total_orders'] = response['stats']['total_orders']
+        # context['open_orders'] = response['stats']['open_orders']
+        # context['completion_time'] = response['stats']['completion_time']
         context['msg'] = 'Orders retrieved'
         context['success'] = True
     except Exception as e:
