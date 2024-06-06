@@ -44,12 +44,86 @@
             </div>
             <div class="order-details-wrapper">
                 <div class="order-details-filters">
-                    <form onsubmit="searchForm(event);">
-                        <input maxlength="100" type="text" name="search" id="search-customer" />
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
-                            <path opacity="0.5" d="M18.1953 17.8594L13.1953 12.8594M14.862 8.69271C14.862 9.45875 14.7111 10.2173 14.4179 10.925C14.1248 11.6328 13.6951 12.2758 13.1534 12.8175C12.6118 13.3592 11.9687 13.7889 11.261 14.082C10.5532 14.3752 9.79469 14.526 9.02865 14.526C8.2626 14.526 7.50406 14.3752 6.79633 14.082C6.08859 13.7889 5.44553 13.3592 4.90386 12.8175C4.36218 12.2758 3.9325 11.6328 3.63935 10.925C3.3462 10.2173 3.19531 9.45875 3.19531 8.69271C3.19531 7.14561 3.80989 5.66188 4.90386 4.56792C5.99782 3.47396 7.48155 2.85937 9.02865 2.85938C10.5757 2.85937 12.0595 3.47396 13.1534 4.56792C14.2474 5.66188 14.862 7.14561 14.862 8.69271Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </form>
+                    <div>
+                        <form onsubmit="searchForm(event);" class="search-form">
+                            <input maxlength="100" type="text" name="search" id="search-customer" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                                <path opacity="0.5" d="M18.1953 17.8594L13.1953 12.8594M14.862 8.69271C14.862 9.45875 14.7111 10.2173 14.4179 10.925C14.1248 11.6328 13.6951 12.2758 13.1534 12.8175C12.6118 13.3592 11.9687 13.7889 11.261 14.082C10.5532 14.3752 9.79469 14.526 9.02865 14.526C8.2626 14.526 7.50406 14.3752 6.79633 14.082C6.08859 13.7889 5.44553 13.3592 4.90386 12.8175C4.36218 12.2758 3.9325 11.6328 3.63935 10.925C3.3462 10.2173 3.19531 9.45875 3.19531 8.69271C3.19531 7.14561 3.80989 5.66188 4.90386 4.56792C5.99782 3.47396 7.48155 2.85937 9.02865 2.85938C10.5757 2.85937 12.0595 3.47396 13.1534 4.56792C14.2474 5.66188 14.862 7.14561 14.862 8.69271Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </form>
+                        <button data-type="select-order-channel-btn" id="select-order-channel-btn" style="width: 166px;">
+                            <span id="selected-order-channel-opt">SALES CHANNEL</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                <g clip-path="url(#clip0_771_3739)">
+                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_771_3739">
+                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <div class="filter-dropdown order-channel-dropdown" id="order-channel-dropdown">
+                                <label for="homme-channel" class="cursor-pointer">
+                                    <span>HOMME</span>
+                                    <input type="checkbox" onchange="selectSalesChannel(this);" id="homme-channel" value="homme" name="sales_channel" />
+                                </label>
+                                <label for="salon-channel" class="cursor-pointer">
+                                    <span>SALONS</span>
+                                    <input type="checkbox" onchange="selectSalesChannel(this);" id="salon-channel" value="salon" name="sales_channel" />
+                                </label>
+                                <!-- <label for="referrer-channel" class="cursor-pointer">
+                                    <span>REFERRERS</span>
+                                    <input type="checkbox" onchange="selectSalesChannel(this);" id="referrer-channel" value="referral" name="sales_channel" />
+                                </label> -->
+                            </div>
+                        </button>
+                        <button onclick="toggleSourceTypeDropdown();" id="source-type-btn" style="position: relative; width: 152px">
+                            <span id="selected-source-type" style="text-transform: uppercase;">SOURCE TYPE</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                <g clip-path="url(#clip0_771_3739)">
+                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_771_3739">
+                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <div class="filter-dropdown source-type-dropdown" id="source-type-dropdown">
+                            </div>
+                        </button>
+                        <button data-type="select-order-channel-btn" id="select-source-channel-btn" style="width: 180px;">
+                            <span id="selected-source-channel-opt">SOURCE CHANNEL</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                <g clip-path="url(#clip0_771_3739)">
+                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_771_3739">
+                                    <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <div class="filter-dropdown order-channel-dropdown" id="source-channel-dropdown">
+                                <label for="source-homme-channel" class="cursor-pointer">
+                                    <span>HOMME</span>
+                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-homme-channel" value="homme" name="source_channel" />
+                                </label>
+                                <label for="source-salon-channel" class="cursor-pointer">
+                                    <span>SALONS</span>
+                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-salon-channel" value="salon" name="source_channel" />
+                                </label>
+                                <label for="source-referrer-channel" class="cursor-pointer">
+                                    <span>REFERRERS</span>
+                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-referrer-channel" value="referral" name="source_channel" />
+                                </label>
+                            </div>
+                        </button>
+                    </div>
                     <div>
                         <button onclick="reverseTableRows();">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">

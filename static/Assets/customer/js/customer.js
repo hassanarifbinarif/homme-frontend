@@ -1,4 +1,21 @@
+let sourceTypeDropdown = document.getElementById('source-type-dropdown');
+let sourceTypeBtn = document.getElementById('source-type-btn');
+let selectedSourceType = document.getElementById('selected-source-type');
+
+let salesChannelBtn = document.getElementById('select-order-channel-btn');
+let salesChannelDropdown = document.getElementById('order-channel-dropdown');
+
+let sourceChannelBtn = document.getElementById('select-source-channel-btn');
+let sourceChannelDropdown = document.getElementById('source-channel-dropdown');
+
+let selectedSalesChannel = [];
+let salesChannelFilterString = '';
+
+let selectedSourceChannel = [];
+let sourceChannelFilterString = '';
+
 let requiredDataURL = `/admin/user-profiles?user__is_blocked=false&perPage=1000&search=&ordering=-id`;
+
 
 window.onload = () => {
     let url = new URL(location.href);
@@ -11,6 +28,22 @@ window.onload = () => {
     populateSalonDropdown();
 }
 
+
+function closeDropdowns(event) {
+    if ((!sourceTypeBtn.contains(event.target)) && sourceTypeDropdown.style.display == 'flex') {
+        sourceTypeDropdown.style.display = "none";
+    }
+    if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+        salesChannelDropdown.style.display = "none";
+    }
+    if (!(sourceChannelBtn.contains(event.target)) && !(sourceChannelDropdown.contains(event.target))) {
+        sourceChannelDropdown.style.display = "none";
+    }
+}
+
+document.body.addEventListener('click', closeDropdowns);
+
+
 function searchForm(event) {
     event.preventDefault();
     let form = event.currentTarget;
@@ -19,6 +52,7 @@ function searchForm(event) {
     urlParams = setParams(requiredDataURL, 'search', `${data.search}`);
     getData(urlParams);
 }
+
 
 let totalCustomers = null;
 
@@ -57,6 +91,97 @@ async function getData(url=null) {
     catch (err) {
         console.log(err);
     }
+}
+
+
+salesChannelBtn.addEventListener('click', function() {
+    if (salesChannelDropdown.style.display == 'flex') {
+        salesChannelDropdown.style.display = 'none';
+    }
+    else {
+        salesChannelDropdown.style.display = 'flex';
+    }
+})
+
+
+function selectSalesChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSalesChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSalesChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSalesChannel.splice(index, 1);
+        }
+    }
+    salesChannelFilterString = selectedSalesChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'sales_channel', salesChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.style.display = "none";
+    salesChannelBtn.click();
+}
+
+
+sourceChannelBtn.addEventListener('click', function() {
+    if (sourceChannelDropdown.style.display == 'flex') {
+        sourceChannelDropdown.style.display = 'none';
+    }
+    else {
+        sourceChannelDropdown.style.display = 'flex';
+    }
+})
+
+
+function selectSourceChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSourceChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSourceChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSourceChannel.splice(index, 1);
+        }
+    }
+    sourceChannelFilterString = selectedSourceChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__channel__in', sourceChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.style.display = "none";
+    sourceChannelBtn.click();
+}
+
+
+async function getSourceTypes() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=1000`, null, headers, 'GET');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            res.data.forEach((sourceType) => {
+                sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
+            })
+        }
+    })
+}
+
+window.addEventListener('load', getSourceTypes);
+
+
+function toggleSourceTypeDropdown() {
+    if (sourceTypeDropdown.style.display == 'flex') {
+        sourceTypeDropdown.style.display = 'none';
+    }
+    else {
+        sourceTypeDropdown.style.display = 'flex';
+    }
+}
+
+
+function filterSourceType(element) {
+    if (selectedSourceType.innerText != element.innerText) {
+        requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__type', element.getAttribute('data-value'));
+        getData(requiredDataURL);
+    }
+    selectedSourceType.innerText = element.innerText;
 }
 
 
