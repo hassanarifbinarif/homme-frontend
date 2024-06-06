@@ -44,6 +44,7 @@ window.onload = () => {
     getChartData(pickedupVsShippedChartDataURL, 'picked_up_vs_shipped');
     getSummaryData();
     checkPageCount();
+    getSourceTypes();
 }
 
 
@@ -235,6 +236,34 @@ async function getData(url=null) {
     catch (err) {
         console.log(err);
     }
+}
+
+
+async function getSourceTypes() {
+    
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=1000`, null, headers, 'GET');
+    response.json().then(function(res) {
+        console.log('here');
+        if (response.status == 200) {
+            res.data.forEach((sourceType) => {
+                salesChannelOverviewDropdown.innerHTML += `<label for="source-${sourceType.id}" class="cursor-pointer">
+                                                            <span>${sourceType.name}</span>
+                                                            <input type="radio" onchange="filterSourceType(this);" id="source-${sourceType.id}" value="${sourceType.id}" name="source_channel" />
+                                                        </label>`;
+            })
+        }
+    })
+}
+
+
+function filterSourceType(inputElement) {
+    if (inputElement.checked) {
+        salesOverviewDataURL = setParams(salesOverviewDataURL, 'user__source_referrer__type', inputElement.value);
+        getSalesOverviewData();
+    }
+    // selectedSourceType.innerText = element.innerText;
 }
 
 
