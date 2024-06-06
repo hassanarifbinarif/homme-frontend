@@ -8,7 +8,7 @@
                 <input type="checkbox" />
             </div>
         </th>
-        <th width="20.14%" onclick="sortByAlphabets(event, 1);">
+        <th width="25.14%" onclick="sortByAlphabets(event, 1);">
             <div>
                 <span>Source</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -35,7 +35,7 @@
                 </svg>
             </div>
         </th>
-        <th width="13%" onclick="sortByAlphabets(event, 4);">
+        <th width="16%" onclick="sortByAlphabets(event, 4);">
             <div>
                 <span>Source Owner</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -44,7 +44,7 @@
                 </svg>
             </div>
         </th>
-        <th width="12%" onclick="sortByAlphabets(event, 5);">
+        <th class="hide" width="12%" onclick="sortByAlphabets(event, 5);">
             <div>
                 <span>Location</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -97,7 +97,7 @@
             <td>
                 <div><span class="table-text-overflow" title="{% if obj.owner.source_referrer == None or obj.owner.source_referrer == '' %}--{% else %}{{obj.owner.source_referrer.name|default:'--'|title}}{% endif %}">{% if obj.owner.source_referrer == None or obj.owner.source_referrer == '' %}--{% else %}{{obj.owner.source_referrer.name|default:'--'|title}}{% endif %}</span></div>
             </td>
-            <td>
+            <td class="hide">
                 <div><span class="table-text-overflow" title="">NY, USA</span></div>
             </td>
             <td dateTime="{{obj.created_at}}">

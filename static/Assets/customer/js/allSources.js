@@ -1,23 +1,49 @@
-let requiredDataURL = `/admin/orders?page=1&perPage=1000&ordering=-created_at&created_at__gte=&created_at__lte=&status=&search=&purchase_type=`;
+let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
+let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
+let orderStatsDropdown = document.getElementById('order-stats-dropdown');
+
+let orderCompletionTypeDropdown = document.getElementById('order-completion-type-dropdown');
+let orderCompletionTypeBtn = document.getElementById('order-completion-type-btn');
+
+let purchaseTypeDropdown = document.getElementById('purchase-type-dropdown');
+let purchaseTypeBtn = document.getElementById('purchase-type-btn');
+
+let sourceTypeDropdown = document.getElementById('source-type-dropdown');
+let sourceTypeBtn = document.getElementById('source-type-btn');
+let selectedSourceType = document.getElementById('selected-source-type');
+
+let salesChannelBtn = document.getElementById('select-order-channel-btn');
+let salesChannelDropdown = document.getElementById('order-channel-dropdown');
+
+let sourceChannelBtn = document.getElementById('select-source-channel-btn');
+let sourceChannelDropdown = document.getElementById('source-channel-dropdown');
+
+let requiredDataURL = `/admin/sources?page=1&perPage=1000&ordering=-id`;
 let searchField = document.getElementById('search-order');
+let tableBody = document.getElementById('all-sources-table');
 
-// window.onload = () => {
-//     getData();
-//     populateDropdowns();
-// }
+let sourceTypeList = document.getElementById('source-type-list');
 
-let currentOrderModal = 'orderCreate';
+window.onload = () => {
+    getData();
+}
 
 
 function closeDropdowns(event) {
     if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
-    else if ((!orderCompletionTypeBtn.contains(event.target)) && orderCompletionTypeDropdown.style.display == 'flex') {
+    if ((!orderCompletionTypeBtn.contains(event.target)) && orderCompletionTypeDropdown.style.display == 'flex') {
         orderCompletionTypeDropdown.style.display = "none";
     }
-    // else if ((!purchaseTypeBtn.contains(event.target)) && purchaseTypeDropdown.style.display == 'flex') {
-    //     purchaseTypeDropdown.style.display = "none";
+    // if ((!sourceTypeBtn.contains(event.target)) && sourceTypeDropdown.style.display == 'flex') {
+    //     sourceTypeDropdown.style.display = "none";
+    // }
+    // if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
+    //     salesChannelDropdown.style.display = "none";
+    // }
+    // if (!(sourceChannelBtn.contains(event.target)) && !(sourceChannelDropdown.contains(event.target))) {
+    //     sourceChannelDropdown.style.display = "none";
     // }
 }
 
@@ -26,7 +52,6 @@ document.body.addEventListener('click', closeDropdowns);
 
 async function getData(url=null) {
     let data;
-    let tableBody = document.getElementById('order-table');
     if (url == null) {
         data = requiredDataURL;
     }
@@ -36,26 +61,25 @@ async function getData(url=null) {
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {
-        let response = await requestAPI('/get-order-list/', JSON.stringify(data), {}, 'POST');
+        let response = await requestAPI('/get-all-sources-list/', JSON.stringify(data), {}, 'POST');
         response.json().then(function(res) {
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
-                tableBody.innerHTML = res.order_data;
+                tableBody.innerHTML = res.all_sources_data;
                 tableBody.classList.remove('hide');
-                document.getElementById('total-order-value').innerHTML = res.total_orders;
-                document.getElementById('total-ordered-items').innerHTML = res.order_items || 0;
-                document.getElementById('total-orders-completed').innerHTML = res.completed_orders;
-                document.getElementById('total-open-orders').innerHTML = res.open_orders;
-                document.getElementById('total-order-completion-time').innerHTML = Math.ceil(roundDecimalPlaces(parseFloat(res.completion_time) / 24)) + ' Days';
-                convertDateTime();
+                document.getElementById('total-sources-count').innerHTML = res.stats.total_sources || 0;
+                document.getElementById('total-users-count').innerHTML = res.stats.total_referrals || 0;
+                document.getElementById('total-customers-count').innerHTML = res.stats.total_referrals_with_orders || 0;
+                document.getElementById('total-order-count').innerHTML = res.stats.total_orders_by_referrals || 0;
+                document.getElementById('total-sales').innerHTML = res.stats.total_sales_by_referrals || 0;
             }
             else {
-                tableBody.querySelector('tbody').innerHTML = `<tr><td colspan="11" class="no-record-row">No record available</td></tr>`;
-                document.getElementById('total-order-value').innerHTML = '--';
-                document.getElementById('total-ordered-items').innerHTML = '--';
-                document.getElementById('total-orders-completed').innerHTML = '--';
-                document.getElementById('total-open-orders').innerHTML = '--';
-                document.getElementById('total-order-completion-time').innerHTML = '--';
+                tableBody.querySelector('tbody').innerHTML = `<tr><td colspan="9" class="no-record-row">No record available</td></tr>`;
+                document.getElementById('total-sources-count').innerHTML = '--';
+                document.getElementById('total-users-count').innerHTML = '--';
+                document.getElementById('total-customers-count').innerHTML = '--';
+                document.getElementById('total-order-count').innerHTML = '--';
+                document.getElementById('total-sales').innerHTML = '--';
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.classList.remove('hide');
             }
@@ -67,9 +91,66 @@ async function getData(url=null) {
 }
 
 
-let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
-let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
-let orderStatsDropdown = document.getElementById('order-stats-dropdown');
+// salesChannelBtn.addEventListener('click', function() {
+//     if (salesChannelDropdown.style.display == 'flex') {
+//         salesChannelDropdown.style.display = 'none';
+//     }
+//     else {
+//         salesChannelDropdown.style.display = 'flex';
+//     }
+// })
+
+
+// let selectedSalesChannel = [];
+// let salesChannelFilterString = '';
+
+// function selectSalesChannel(inputElement) {
+//     if (inputElement.checked) {
+//         selectedSalesChannel.push(inputElement.value);
+//     }
+//     else {
+//         const index = selectedSalesChannel.indexOf(inputElement.value);
+//         if (index !== -1) {
+//           selectedSalesChannel.splice(index, 1);
+//         }
+//     }
+//     salesChannelFilterString = selectedSalesChannel.join(',');
+//     requiredDataURL = setParams(requiredDataURL, 'sales_channel', salesChannelFilterString);
+//     getData(requiredDataURL);
+//     salesChannelDropdown.style.display = "none";
+//     salesChannelBtn.click();
+// }
+
+
+// sourceChannelBtn.addEventListener('click', function() {
+//     if (sourceChannelDropdown.style.display == 'flex') {
+//         sourceChannelDropdown.style.display = 'none';
+//     }
+//     else {
+//         sourceChannelDropdown.style.display = 'flex';
+//     }
+// })
+
+// let selectedSourceChannel = [];
+// let sourceChannelFilterString = '';
+
+// function selectSourceChannel(inputElement) {
+//     if (inputElement.checked) {
+//         selectedSourceChannel.push(inputElement.value);
+//     }
+//     else {
+//         const index = selectedSourceChannel.indexOf(inputElement.value);
+//         if (index !== -1) {
+//           selectedSourceChannel.splice(index, 1);
+//         }
+//     }
+//     sourceChannelFilterString = selectedSourceChannel.join(',');
+//     requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__channel__in', sourceChannelFilterString);
+//     getData(requiredDataURL);
+//     salesChannelDropdown.style.display = "none";
+//     sourceChannelBtn.click();
+// }
+
 
 orderStatTimeBtn.addEventListener('click', function() {
     if (orderStatsDropdown.classList.contains('hide')) {
@@ -166,65 +247,9 @@ function sortByDateBtn(event) {
 
     requiredDataURL = paramsArray.join('&');
     getData(requiredDataURL);
-
-    // const url = new URL(requiredDataURL);
-    // let ordering = url.searchParams.get('ordering');
-    // if (ordering == '-created_at') {
-    //     ordering = 'created_at';
-    //     arrows[0].setAttribute('opacity', '.2');
-    //     arrows[1].setAttribute('opacity', '1');
-    //     url.searchParams.set('ordering', ordering);
-    // }
-    // else {
-    //     ordering = '-created_at';
-    //     arrows[0].setAttribute('opacity', '1');
-    //     arrows[1].setAttribute('opacity', '.2');
-    //     url.searchParams.set('ordering', ordering);
-    // }
-    // requiredDataURL = url.toString();
-    // getData(requiredDataURL);
 }
 
 
-function sortByDate(event) {
-    let arrows;
-    if (event.target.closest('button')) {
-        arrows = event.target.closest('button').querySelectorAll('path');
-    } else if (event.target.closest('th')) {
-        arrows = event.target.closest('th').querySelectorAll('path');
-    }
-    const table = document.getElementById("order-table");
-    const tbody = table.querySelector('tbody');
-    const rows = Array.from(tbody.rows);
-
-    const currentOrder = sortOrders[2] || 'asc';
-
-    const sortedRows = rows.sort((rowA, rowB) => {
-        const x = convertToDateTime(rowA.getElementsByTagName("td")[2].getAttribute('dateTime'));
-        const y = convertToDateTime(rowB.getElementsByTagName("td")[2].getAttribute('dateTime'));
-
-        return currentOrder === 'asc' ? x - y : y - x;
-    });
-
-    // Clear table content
-    while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
-    }
-
-    // Append sorted rows to the table
-    for (const sortedRow of sortedRows) {
-        tbody.appendChild(sortedRow);
-    }
-
-    // Toggle arrow opacity
-    arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
-    arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
-    sortOrders[2] = currentOrder === 'asc' ? 'desc' : 'asc';
-}
-
-
-
-// Initialize an object to store the sort order for each column
 const sortOrders = {};
 
 
@@ -235,7 +260,7 @@ function extractNumber(value) {
 
 function sortByOrder(event, columnIndex) {
     const columnArrows = event.target.closest('th').querySelectorAll('path');
-    const table = document.getElementById("order-table");
+    const table = document.getElementById("all-sources-table");
     const tbody = table.querySelector('tbody');
     const rows = Array.from(tbody.rows);
 
@@ -248,17 +273,14 @@ function sortByOrder(event, columnIndex) {
         return currentOrder === 'asc' ? x - y : y - x;
     });
 
-    // Clear table content
     while (tbody.firstChild) {
         tbody.removeChild(tbody.firstChild);
     }
 
-    // Append sorted rows to the table
     for (const sortedRow of sortedRows) {
         tbody.appendChild(sortedRow);
     }
 
-    // Toggle arrow opacity and update sort order
     columnArrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
     columnArrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
 
@@ -268,10 +290,10 @@ function sortByOrder(event, columnIndex) {
 
 function sortByAlphabets(event, columnIndex) {
     const arrows = event.target.closest('th').querySelectorAll('path');
-    const table = document.getElementById("order-table");
+    const table = document.getElementById("all-sources-table");
     const currentOrder = sortOrders[columnIndex] || 'asc';
 
-    const rows = Array.from(table.rows).slice(1); // Exclude the header row
+    const rows = Array.from(table.rows).slice(1);
 
     rows.sort((rowA, rowB) => {
         const valueA = rowA.getElementsByTagName("td")[columnIndex].textContent.toLowerCase();
@@ -280,29 +302,25 @@ function sortByAlphabets(event, columnIndex) {
         return currentOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
     });
 
-    // Clear table content
     const tbody = table.querySelector('tbody');
     while (tbody.firstChild) {
         tbody.removeChild(tbody.firstChild);
     }
 
-    // Append sorted rows to the table
     for (let i = 0; i < rows.length; i++) {
         tbody.appendChild(rows[i]);
     }
 
-    // Toggle arrow opacity and update sortOrders object
     arrows[0].setAttribute('opacity', currentOrder === 'asc' ? '0.2' : '1');
     arrows[1].setAttribute('opacity', currentOrder === 'asc' ? '1' : '0.2');
     
-    // Update sort order for the current column
     sortOrders[columnIndex] = currentOrder === 'asc' ? 'desc' : 'asc';
 }
 
 
 
 function reverseTableRows() {
-    const table = document.getElementById('order-table');
+    const table = document.getElementById('all-sources-table');
     const tableBody = table.querySelector('tbody');
     const rows = Array.from(tableBody.querySelectorAll('tr'));
 
@@ -334,30 +352,56 @@ function searchData(event) {
     if (event.key == 'Enter') {
         urlParams = setParams(requiredDataURL, 'search', `${searchField.value}`);
         getData(urlParams);
-        // const table = document.getElementById("order-table");
-        // const rows = table.getElementsByTagName("tr");
-        // for (let i = 1; i < rows.length; i++) {
-        //     const cellValue = rows[i].getElementsByTagName("td")[3].children[0].children[0].innerText;
-
-        //     if (cellValue.toLowerCase().includes(searchField.value.toLowerCase())) {
-        //         if (rows[i].getAttribute('purchase-filtered') != 'false' && rows[i].getAttribute('order-completion-filtered') != 'false')
-        //             rows[i].style.display = "";
-        //         rows[i].setAttribute('search-filtered', true);
-        //     } else if (searchField.value == '') {
-        //         if (rows[i].getAttribute('purchase-filtered') != 'false')
-        //             rows[i].style.display = "";
-        //         rows[i].setAttribute('search-filtered', true);
-        //     }
-        //     else {
-        //         rows[i].style.display = "none";
-        //         rows[i].setAttribute('search-filtered', false);
-        //     }
-        // }
     }
 }
 
-let purchaseTypeDropdown = document.getElementById('purchase-type-dropdown');
-let purchaseTypeBtn = document.getElementById('purchase-type-btn');
+
+async function getSourceTypes() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=1000`, null, headers, 'GET');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            sourceTypeList.innerHTML = '';
+            res.data.forEach((sourceType) => {
+                // <span>${sourceType.name}</span>
+                sourceTypeList.innerHTML += `<div class="source">
+                                                    <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceType.id}" value="${sourceType.name}" placeholder="Source Name" />
+                                                    <div>
+                                                        <svg class="cursor-pointer" onclick="openUpdateSourceTypeModal('editSourceTypeModal', ${sourceType.id}, '${sourceType.name}')" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.16683 4.16762H5.00016C4.55814 4.16762 4.13421 4.34321 3.82165 4.65577C3.50909 4.96833 3.3335 5.39225 3.3335 5.83428V15.0009C3.3335 15.443 3.50909 15.8669 3.82165 16.1795C4.13421 16.492 4.55814 16.6676 5.00016 16.6676H14.1668C14.6089 16.6676 15.0328 16.492 15.3453 16.1795C15.6579 15.8669 15.8335 15.443 15.8335 15.0009V10.8343M14.6552 2.98928C14.8089 2.8301 14.9928 2.70313 15.1962 2.61578C15.3995 2.52843 15.6182 2.48245 15.8395 2.48053C16.0608 2.47861 16.2803 2.52078 16.4851 2.60458C16.6899 2.68838 16.876 2.81214 17.0325 2.96862C17.189 3.12511 17.3127 3.3112 17.3965 3.51603C17.4803 3.72085 17.5225 3.94032 17.5206 4.16162C17.5187 4.38292 17.4727 4.60162 17.3853 4.80496C17.298 5.0083 17.171 5.1922 17.0118 5.34595L9.85683 12.5009H7.50016V10.1443L14.6552 2.98928Z" stroke="#000093" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        <svg class="cursor-pointer" onclick="openDelSourceTypeModal('delModal', ${sourceType.id})" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M3.3335 5.83333H16.6668M15.8335 5.83333L15.111 15.9517C15.0811 16.3722 14.8929 16.7657 14.5844 17.053C14.2759 17.3403 13.87 17.5 13.4485 17.5H6.55183C6.13028 17.5 5.72438 17.3403 5.4159 17.053C5.10742 16.7657 4.91926 16.3722 4.88933 15.9517L4.16683 5.83333H15.8335ZM12.5002 5.83333V3.33333C12.5002 3.11232 12.4124 2.90036 12.2561 2.74408C12.0998 2.5878 11.8878 2.5 11.6668 2.5H8.3335C8.11248 2.5 7.90052 2.5878 7.74424 2.74408C7.58796 2.90036 7.50016 3.11232 7.50016 3.33333V5.83333H12.5002Z" stroke="#CF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>`;
+            })
+        }
+    })
+}
+
+window.addEventListener('load', getSourceTypes);
+
+
+function toggleSourceTypeDropdown() {
+    if (sourceTypeDropdown.style.display == 'flex') {
+        sourceTypeDropdown.style.display = 'none';
+    }
+    else {
+        sourceTypeDropdown.style.display = 'flex';
+    }
+}
+
+
+function filterSourceType(element) {
+    if (selectedSourceType.innerText != element.innerText) {
+        requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__type', element.getAttribute('data-value'));
+        getData(requiredDataURL);
+    }
+    selectedSourceType.innerText = element.innerText;
+}
+
 
 function togglePurchaseDropdown() {
     if (purchaseTypeDropdown.style.display == 'flex') {
@@ -377,25 +421,8 @@ function filterPurchaseType(event) {
         getData(requiredDataURL);
     }
     selectedPurchaseType.innerText = element.innerText;
-    // const table = document.getElementById("order-table");
-    // const rows = table.getElementsByTagName("tr");
-    // for (let i = 1; i < rows.length; i++) {
-    //     const cellValue = rows[i].getElementsByTagName("td")[8].children[0].children[0].innerText;
-
-    //     if (cellValue === element.innerText) {
-    //         if (rows[i].getAttribute('search-filtered') != 'false' && rows[i].getAttribute('order-completion-filtered') != 'false')
-    //             rows[i].style.display = "";
-    //         rows[i].setAttribute('purchase-filtered', true);
-    //     } else {
-    //         rows[i].style.display = "none";
-    //         rows[i].setAttribute('purchase-filtered', false);
-    //     }
-    // }
 }
 
-
-let orderCompletionTypeDropdown = document.getElementById('order-completion-type-dropdown');
-let orderCompletionTypeBtn = document.getElementById('order-completion-type-btn');
 
 function toggleOrderCompletionDropdown() {
     if (orderCompletionTypeDropdown.style.display == 'flex') {
@@ -412,22 +439,6 @@ function filterOrderCompletionType(event) {
     requiredDataURL = setParams(requiredDataURL, 'status', element.getAttribute('data-value'));
     getData(requiredDataURL);
     document.getElementById('selected-order-completion-type').innerText = element.innerText;
-
-
-    // const table = document.getElementById("order-table");
-    // const rows = table.getElementsByTagName("tr");
-    // for (let i = 1; i < rows.length; i++) {
-    //     const cellValue = rows[i].getElementsByTagName("td")[9].children[0].children[0].innerText;
-
-    //     if (cellValue === element.getAttribute('data-value')) {
-    //         if (rows[i].getAttribute('search-filtered') != 'false' && rows[i].getAttribute('purchase-filtered') != 'false')
-    //             rows[i].style.display = "";
-    //         rows[i].setAttribute('order-completion-filtered', true);
-    //     } else {
-    //         rows[i].style.display = "none";
-    //         rows[i].setAttribute('order-completion-filtered', false);
-    //     }
-    // }
 }
 
 

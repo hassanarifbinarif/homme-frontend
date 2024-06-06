@@ -31,6 +31,7 @@ urlpatterns = [
     path('source/', views.source, name='source'),
     path('get-source-list/', views.get_source_list, name='get_source_list'),
     path('all-sources/', views.all_sources, name='all_sources'),
+    path('get-all-sources-list/', views.get_all_sources_list, name='get_all_sources_list'),
     path('profile/', views.profile, name='profile'),
     path('get-packing-slip/<int:pk>/', views.get_packing_slip, name='get_packing_slip'),
     path('users/register/', views.user_register_redirector, name='redirect_url'),

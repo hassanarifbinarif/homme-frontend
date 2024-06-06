@@ -381,6 +381,28 @@ def all_sources(request):
     return render(request, 'customer/all-sources.html', context)
 
 
+@csrf_exempt
+@admin_signin_required
+def get_all_sources_list(request):
+    context = {}
+    context['success'] = False
+    context['msg'] = None
+    try:
+        request_data = json.loads(request.body.decode('utf-8'))
+        admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
+        headers = {"Authorization": f'Bearer {admin_access_token}'}
+        status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
+        text_template = loader.get_template('ajax/all-sources-table.html')
+        html = text_template.render({'all_sources':response})
+        context['all_sources_data'] = html
+        context['stats'] = response['stats']
+        context['msg'] = 'All sources retrieved'
+        context['success'] = True
+    except Exception as e:
+        print(e)
+    return JsonResponse(context)
+
+
 @admin_signin_required
 def profile(request):
     context = {}
