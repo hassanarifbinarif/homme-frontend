@@ -95,7 +95,7 @@
                 <div><span class="table-text-overflow" title="{{obj.channel|default:'--'|title}}">{{obj.channel|default:'--'|title}}</span></div>
             </td>
             <td>
-                <div><span class="table-text-overflow" title="{% if obj.owner.source_referrer == None or obj.owner.source_referrer == '' %}--{% else %}{{obj.owner.source_referrer.name|default:'--'|title}}{% endif %}">{% if obj.owner.source_referrer == None or obj.owner.source_referrer == '' %}--{% else %}{{obj.owner.source_referrer.name|default:'--'|title}}{% endif %}</span></div>
+                <div><span class="table-text-overflow" title="{% if obj.owner == None or obj.owner == '' %}--{% else %}{{obj.owner.name|default:'--'|title}}{% endif %}">{% if obj.owner == None or obj.owner == '' %}--{% else %}{{obj.owner.name|default:'--'|title}}{% endif %}</span></div>
             </td>
             <td class="hide">
                 <div><span class="table-text-overflow" title="">NY, USA</span></div>
