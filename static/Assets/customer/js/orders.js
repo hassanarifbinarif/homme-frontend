@@ -79,7 +79,7 @@ async function getData(url=null) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.order_data;
                 tableBody.classList.remove('hide');
-                document.getElementById('total-order-sales').innerHTML = '$' + res.stats.total_sales || 0;
+                document.getElementById('total-order-sales').innerHTML = '$' + (res.stats.total_sales || 0);
                 document.getElementById('total-order-value').innerHTML = res.stats.total_orders || 0;
                 document.getElementById('total-ordered-items').innerHTML = res.stats.order_items || 0;
                 document.getElementById('total-orders-completed').innerHTML = res.stats.completed_orders || 0;

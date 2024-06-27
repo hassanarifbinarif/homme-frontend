@@ -2,8 +2,15 @@ let orderStatTimeBtn = document.getElementById('select-order-stat-time-btn');
 let selectedOrderStatTime = document.getElementById('selected-order-stat-opt');
 let orderStatsDropdown = document.getElementById('order-stats-dropdown');
 
-let orderCompletionTypeDropdown = document.getElementById('order-completion-type-dropdown');
-let orderCompletionTypeBtn = document.getElementById('order-completion-type-btn');
+let sourceOwnerBtn = document.getElementById('source-owner-btn');
+let sourceOwnerWrapper = document.getElementById('source-owner-selector');
+let sourceOwnerDropdown = document.getElementById('source-owner-dropdown');
+let sourceOwnerData = {};
+
+let sourceBtn = document.getElementById('source-btn');
+let sourceWrapper = document.getElementById('source-selector');
+let sourceDropdown = document.getElementById('source-dropdown');
+let sourceData = {};
 
 let purchaseTypeDropdown = document.getElementById('purchase-type-dropdown');
 let purchaseTypeBtn = document.getElementById('purchase-type-btn');
@@ -12,8 +19,8 @@ let sourceTypeDropdown = document.getElementById('source-type-dropdown');
 let sourceTypeBtn = document.getElementById('source-type-btn');
 let selectedSourceType = document.getElementById('selected-source-type');
 
-let salesChannelBtn = document.getElementById('select-order-channel-btn');
-let salesChannelDropdown = document.getElementById('order-channel-dropdown');
+let salesChannelBtn = document.getElementById('select-source-channel-btn');
+let salesChannelDropdown = document.getElementById('source-channel-dropdown');
 
 let sourceChannelBtn = document.getElementById('select-source-channel-btn');
 let sourceChannelDropdown = document.getElementById('source-channel-dropdown');
@@ -33,18 +40,21 @@ function closeDropdowns(event) {
     if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
-    if ((!orderCompletionTypeBtn.contains(event.target)) && orderCompletionTypeDropdown.style.display == 'flex') {
-        orderCompletionTypeDropdown.style.display = "none";
+    if ((!sourceOwnerBtn.contains(event.target)) && sourceOwnerDropdown.style.display == 'flex') {
+        sourceOwnerDropdown.style.display = "none";
     }
-    // if ((!sourceTypeBtn.contains(event.target)) && sourceTypeDropdown.style.display == 'flex') {
-    //     sourceTypeDropdown.style.display = "none";
-    // }
-    // if (!(salesChannelBtn.contains(event.target)) && !(salesChannelDropdown.contains(event.target))) {
-    //     salesChannelDropdown.style.display = "none";
-    // }
-    // if (!(sourceChannelBtn.contains(event.target)) && !(sourceChannelDropdown.contains(event.target))) {
-    //     sourceChannelDropdown.style.display = "none";
-    // }
+    if ((!sourceBtn.contains(event.target)) && sourceDropdown.style.display == 'flex') {
+        sourceDropdown.style.display = "none";
+    }
+    if ((!sourceTypeBtn.contains(event.target)) && sourceTypeDropdown.style.display == 'flex') {
+        sourceTypeDropdown.style.display = "none";
+    }
+    if (!(sourceChannelBtn.contains(event.target)) && !(sourceChannelDropdown.contains(event.target))) {
+        sourceChannelDropdown.style.display = "none";
+    }
+    if ((!sourceOwnerBtn.contains(event.target)) && sourceOwnerWrapper.style.display == 'flex') {
+        sourceOwnerWrapper.style.display = 'none';
+    }
 }
 
 document.body.addEventListener('click', closeDropdowns);
@@ -122,34 +132,34 @@ async function getData(url=null) {
 // }
 
 
-// sourceChannelBtn.addEventListener('click', function() {
-//     if (sourceChannelDropdown.style.display == 'flex') {
-//         sourceChannelDropdown.style.display = 'none';
-//     }
-//     else {
-//         sourceChannelDropdown.style.display = 'flex';
-//     }
-// })
+sourceChannelBtn.addEventListener('click', function() {
+    if (sourceChannelDropdown.style.display == 'flex') {
+        sourceChannelDropdown.style.display = 'none';
+    }
+    else {
+        sourceChannelDropdown.style.display = 'flex';
+    }
+})
 
 // let selectedSourceChannel = [];
 // let sourceChannelFilterString = '';
 
-// function selectSourceChannel(inputElement) {
-//     if (inputElement.checked) {
-//         selectedSourceChannel.push(inputElement.value);
-//     }
-//     else {
-//         const index = selectedSourceChannel.indexOf(inputElement.value);
-//         if (index !== -1) {
-//           selectedSourceChannel.splice(index, 1);
-//         }
-//     }
-//     sourceChannelFilterString = selectedSourceChannel.join(',');
-//     requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__channel__in', sourceChannelFilterString);
-//     getData(requiredDataURL);
-//     salesChannelDropdown.style.display = "none";
-//     sourceChannelBtn.click();
-// }
+function selectSourceChannel(inputElement) {
+    if (inputElement.checked) {
+        // selectedSourceChannel.push(inputElement.value);
+        requiredDataURL = setParams(requiredDataURL, 'channel', inputElement.value);
+        getData(requiredDataURL);
+        sourceChannelDropdown.style.display = "none";
+        sourceChannelBtn.click();
+    }
+    // else {
+    //     const index = selectedSourceChannel.indexOf(inputElement.value);
+    //     if (index !== -1) {
+    //       selectedSourceChannel.splice(index, 1);
+    //     }
+    // }
+    // sourceChannelFilterString = selectedSourceChannel.join(',');
+}
 
 
 orderStatTimeBtn.addEventListener('click', function() {
@@ -218,35 +228,6 @@ function selectOrderStatTime(event) {
 
 function convertToDateTime(dateTimeString) {
     return new Date(dateTimeString);
-}
-
-
-function sortByDateBtn(event) {
-    let arrows = event.target.closest('button').querySelectorAll('path');
-    let newOrderingValue = '';
-    let paramsArray = requiredDataURL.split('&');
-    let currentOrderingValue;
-
-    for (let i = 0; i < paramsArray.length; i++) {
-        if (paramsArray[i].startsWith('ordering=')) {
-            currentOrderingValue = paramsArray[i].substring('ordering='.length);
-            if (currentOrderingValue == '-created_at') {
-                newOrderingValue = 'created_at';
-                arrows[0].setAttribute('opacity', '.2');
-                arrows[1].setAttribute('opacity', '1');
-            }
-            else {
-                newOrderingValue = '-created_at';
-                arrows[0].setAttribute('opacity', '1');
-                arrows[1].setAttribute('opacity', '.2');
-            }
-            paramsArray[i] = 'ordering=' + newOrderingValue;
-            break;
-        }
-    }
-
-    requiredDataURL = paramsArray.join('&');
-    getData(requiredDataURL);
 }
 
 
@@ -363,8 +344,10 @@ async function getSourceTypes() {
     response.json().then(function(res) {
         if (response.status == 200) {
             sourceTypeList.innerHTML = '';
+            sourceTypeDropdown.innerHTML = '';
             res.data.forEach((sourceType) => {
                 // <span>${sourceType.name}</span>
+                sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
                 sourceTypeList.innerHTML += `<div class="source">
                                                     <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceType.id}" value="${sourceType.name}" placeholder="Source Name" />
                                                     <div>
@@ -384,6 +367,110 @@ async function getSourceTypes() {
 window.addEventListener('load', getSourceTypes);
 
 
+async function getSourceOwner() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let responseSourceOwnerList = await requestAPI(`${apiURL}/admin/users?is_blocked=false&page=1&perPage=10000`, null, headers, 'GET');
+    responseSourceOwnerList.json().then(function(res) {
+        sourceOwnerData = [...res.data];
+        res.data.forEach((user) => {
+            sourceOwnerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-owner-item-list" data-id="${user.id}">
+                                                                    <input onchange="selectSourceOwner(this);" id="owner-${user.id}" type="radio" value="${user.id}" name="owner" />
+                                                                    <label for="owner-${user.id}" class="radio-label">${user.name}</label>
+                                                                </div>`);
+        })
+    })
+}
+
+window.addEventListener('load', getSourceOwner);
+
+
+function searchSourceOwner(event, inputElement) {
+    let filteredCustomer = [];
+    filteredCustomer = sourceOwnerData.filter(owner => owner.name.toLowerCase().includes(inputElement.value.toLowerCase())).map((owner => owner.id));
+    if (filteredCustomer.length == 0) {
+        document.getElementById('no-source-owner-text').classList.remove('hide');
+        document.querySelectorAll('.source-owner-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-source-owner-text').classList.add('hide');
+        document.querySelectorAll('.source-owner-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredCustomer.includes(parseInt(itemID, 10))) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+}
+
+
+function selectSourceOwner(inputElement) {
+    if (inputElement.checked) {
+        requiredDataURL = setParams(requiredDataURL, 'owner', inputElement.value);
+        getData();
+        document.getElementById('selected-source-owner').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-source-owner').title = inputElement.nextElementSibling.innerText;
+        document.getElementById('source-owner-filter-input').value = inputElement.nextElementSibling.innerText;
+        sourceOwnerWrapper.style.display = 'none';
+    }
+}
+
+
+async function getSource() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let responseSourceList = await requestAPI(`${apiURL}${requiredDataURL}`, null, headers, 'GET');
+    responseSourceList.json().then(function(res) {
+        sourceData = [...res.data];
+        res.data.forEach((source) => {
+            sourceDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-item-list" data-id="${source.id}">
+                                                                    <input onchange="selectSource(this);" id="source-name-${source.id}" type="radio" value="${source.name}" name="source_name" />
+                                                                    <label for="source-name-${source.id}" class="radio-label">${source.name}</label>
+                                                                </div>`);
+        })
+    })
+}
+
+window.addEventListener('load', getSource);
+
+
+function searchSource(event, inputElement) {
+    let filteredCustomer = [];
+    filteredCustomer = sourceData.filter(source => source.name.toLowerCase().includes(inputElement.value.toLowerCase())).map((source => source.id));
+    if (filteredCustomer.length == 0) {
+        document.getElementById('no-source-text').classList.remove('hide');
+        document.querySelectorAll('.source-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-source-text').classList.add('hide');
+        document.querySelectorAll('.source-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredCustomer.includes(parseInt(itemID, 10))) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+}
+
+
+function selectSource(inputElement) {
+    if (inputElement.checked) {
+        requiredDataURL = setParams(requiredDataURL, 'name__icontains', inputElement.value);
+        getData();
+        // document.getElementById('selected-source').innerText = inputElement.nextElementSibling.innerText;
+        // document.getElementById('selected-source').title = inputElement.nextElementSibling.innerText;
+        document.getElementById('source-filter-input').value = inputElement.nextElementSibling.innerText;
+        sourceWrapper.style.display = 'none';
+    }
+}
+
+
 function toggleSourceTypeDropdown() {
     if (sourceTypeDropdown.style.display == 'flex') {
         sourceTypeDropdown.style.display = 'none';
@@ -396,7 +483,7 @@ function toggleSourceTypeDropdown() {
 
 function filterSourceType(element) {
     if (selectedSourceType.innerText != element.innerText) {
-        requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__type', element.getAttribute('data-value'));
+        requiredDataURL = setParams(requiredDataURL, 'type', element.getAttribute('data-value'));
         getData(requiredDataURL);
     }
     selectedSourceType.innerText = element.innerText;
@@ -424,12 +511,16 @@ function filterPurchaseType(event) {
 }
 
 
-function toggleOrderCompletionDropdown() {
-    if (orderCompletionTypeDropdown.style.display == 'flex') {
-        orderCompletionTypeDropdown.style.display = 'none';
+function toggleSourceOwnerDropdown(event) {
+    if ((sourceOwnerBtn.contains(event.target)) && sourceOwnerWrapper.style.display == 'none') {
+        sourceOwnerWrapper.style.display = 'flex';
     }
-    else {
-        orderCompletionTypeDropdown.style.display = 'flex';
+}
+
+
+function toggleSourceDropdown(event) {
+    if ((sourceBtn.contains(event.target)) && sourceWrapper.style.display == 'none') {
+        sourceWrapper.style.display = 'flex';
     }
 }
 
