@@ -30,6 +30,7 @@ let searchField = document.getElementById('search-order');
 let tableBody = document.getElementById('all-sources-table');
 
 let sourceTypeList = document.getElementById('source-type-list');
+let sourceChannelList = document.getElementById('source-channel-list');
 
 window.onload = () => {
     getData();
@@ -40,11 +41,11 @@ function closeDropdowns(event) {
     if ((!orderStatTimeBtn.contains(event.target)) && (!orderStatsDropdown.classList.contains('hide'))) {
         orderStatsDropdown.classList.add('hide');
     }
+    if ((!sourceBtn.contains(event.target)) && sourceWrapper.style.display == 'flex') {
+        sourceWrapper.style.display = "none";
+    }
     if ((!sourceOwnerBtn.contains(event.target)) && sourceOwnerDropdown.style.display == 'flex') {
         sourceOwnerDropdown.style.display = "none";
-    }
-    if ((!sourceBtn.contains(event.target)) && sourceDropdown.style.display == 'flex') {
-        sourceDropdown.style.display = "none";
     }
     if ((!sourceTypeBtn.contains(event.target)) && sourceTypeDropdown.style.display == 'flex') {
         sourceTypeDropdown.style.display = "none";
@@ -346,12 +347,11 @@ async function getSourceTypes() {
             sourceTypeList.innerHTML = '';
             sourceTypeDropdown.innerHTML = '';
             res.data.forEach((sourceType) => {
-                // <span>${sourceType.name}</span>
                 sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
                 sourceTypeList.innerHTML += `<div class="source">
                                                     <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceType.id}" value="${sourceType.name}" placeholder="Source Name" />
                                                     <div>
-                                                        <svg class="cursor-pointer" onclick="openUpdateSourceTypeModal('editSourceTypeModal', ${sourceType.id}, '${sourceType.name}')" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <svg class="cursor-pointer" onclick="openUpdateSourceTypeChannelModal('editSourceTypeChannelModal', 'type', ${sourceType.id}, '${sourceType.name}')" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M9.16683 4.16762H5.00016C4.55814 4.16762 4.13421 4.34321 3.82165 4.65577C3.50909 4.96833 3.3335 5.39225 3.3335 5.83428V15.0009C3.3335 15.443 3.50909 15.8669 3.82165 16.1795C4.13421 16.492 4.55814 16.6676 5.00016 16.6676H14.1668C14.6089 16.6676 15.0328 16.492 15.3453 16.1795C15.6579 15.8669 15.8335 15.443 15.8335 15.0009V10.8343M14.6552 2.98928C14.8089 2.8301 14.9928 2.70313 15.1962 2.61578C15.3995 2.52843 15.6182 2.48245 15.8395 2.48053C16.0608 2.47861 16.2803 2.52078 16.4851 2.60458C16.6899 2.68838 16.876 2.81214 17.0325 2.96862C17.189 3.12511 17.3127 3.3112 17.3965 3.51603C17.4803 3.72085 17.5225 3.94032 17.5206 4.16162C17.5187 4.38292 17.4727 4.60162 17.3853 4.80496C17.298 5.0083 17.171 5.1922 17.0118 5.34595L9.85683 12.5009H7.50016V10.1443L14.6552 2.98928Z" stroke="#000093" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
                                                         <svg class="cursor-pointer" onclick="openDelSourceTypeModal('delModal', ${sourceType.id})" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -367,16 +367,48 @@ async function getSourceTypes() {
 window.addEventListener('load', getSourceTypes);
 
 
+async function getSourceChannels() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let response = await requestAPI(`${apiURL}/admin/sources/channels?page=1&perPage=10000`, null, headers, 'GET');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            sourceChannelList.innerHTML = '';
+            // sourceTypeDropdown.innerHTML = '';
+            res.data.forEach((sourceChannel) => {
+                // sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
+                sourceChannelList.innerHTML += `<div class="source">
+                                                    <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceChannel.id}" value="${sourceChannel.name}" placeholder="Source Channel Name" />
+                                                    <div>
+                                                        <svg class="${sourceChannel.is_basic == true ? 'opacity-point-3-5' : 'cursor-pointer'}" ${sourceChannel.is_basic == false ? `onclick="openUpdateSourceTypeChannelModal('editSourceTypeChannelModal', 'channel', ${sourceChannel.id}, '${sourceChannel.name}')"` : '' } width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            ${sourceChannel.is_basic == true ? '<title>Non-editable</title>' : ''}
+                                                            <path d="M9.16683 4.16762H5.00016C4.55814 4.16762 4.13421 4.34321 3.82165 4.65577C3.50909 4.96833 3.3335 5.39225 3.3335 5.83428V15.0009C3.3335 15.443 3.50909 15.8669 3.82165 16.1795C4.13421 16.492 4.55814 16.6676 5.00016 16.6676H14.1668C14.6089 16.6676 15.0328 16.492 15.3453 16.1795C15.6579 15.8669 15.8335 15.443 15.8335 15.0009V10.8343M14.6552 2.98928C14.8089 2.8301 14.9928 2.70313 15.1962 2.61578C15.3995 2.52843 15.6182 2.48245 15.8395 2.48053C16.0608 2.47861 16.2803 2.52078 16.4851 2.60458C16.6899 2.68838 16.876 2.81214 17.0325 2.96862C17.189 3.12511 17.3127 3.3112 17.3965 3.51603C17.4803 3.72085 17.5225 3.94032 17.5206 4.16162C17.5187 4.38292 17.4727 4.60162 17.3853 4.80496C17.298 5.0083 17.171 5.1922 17.0118 5.34595L9.85683 12.5009H7.50016V10.1443L14.6552 2.98928Z" stroke="#000093" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        <svg class="${sourceChannel.is_basic == true ? 'opacity-point-3-5' : 'cursor-pointer'}" ${sourceChannel.is_basic == false ? `onclick="openDelSourceChannelModal('delModal', ${sourceChannel.id})"` : '' } width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            ${sourceChannel.is_basic == true ? '<title>Non-deleteable</title>' : ''}
+                                                            <path d="M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M3.3335 5.83333H16.6668M15.8335 5.83333L15.111 15.9517C15.0811 16.3722 14.8929 16.7657 14.5844 17.053C14.2759 17.3403 13.87 17.5 13.4485 17.5H6.55183C6.13028 17.5 5.72438 17.3403 5.4159 17.053C5.10742 16.7657 4.91926 16.3722 4.88933 15.9517L4.16683 5.83333H15.8335ZM12.5002 5.83333V3.33333C12.5002 3.11232 12.4124 2.90036 12.2561 2.74408C12.0998 2.5878 11.8878 2.5 11.6668 2.5H8.3335C8.11248 2.5 7.90052 2.5878 7.74424 2.74408C7.58796 2.90036 7.50016 3.11232 7.50016 3.33333V5.83333H12.5002Z" stroke="#CF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>`;
+            })
+        }
+    })
+}
+
+window.addEventListener('load', getSourceChannels);
+
+
 async function getSourceOwner() {
     let token = getCookie('admin_access');
     let headers = { "Authorization": `Bearer ${token}` };
-    let responseSourceOwnerList = await requestAPI(`${apiURL}/admin/users?is_blocked=false&page=1&perPage=10000`, null, headers, 'GET');
+    let responseSourceOwnerList = await requestAPI(`${apiURL}/admin/salon-profiles?user__is_blocked=false&page=1&perPage=10000&ordering=-created_at`, null, headers, 'GET');
     responseSourceOwnerList.json().then(function(res) {
         sourceOwnerData = [...res.data];
-        res.data.forEach((user) => {
-            sourceOwnerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-owner-item-list" data-id="${user.id}">
-                                                                    <input onchange="selectSourceOwner(this);" id="owner-${user.id}" type="radio" value="${user.id}" name="owner" />
-                                                                    <label for="owner-${user.id}" class="radio-label">${user.name}</label>
+        // sourceOwnerData.unshift({'salon_name': 'HOMME', 'user': {'id': 'homme-management'}})
+        sourceOwnerData.forEach((owner) => {
+            sourceOwnerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-owner-item-list" data-id="${owner.user.id}">
+                                                                    <input onchange="selectSourceOwner(this);" id="owner-${owner.user.id}" type="radio" value="${owner.user.id}" name="owner" />
+                                                                    <label for="owner-${owner.user.id}" class="radio-label">${owner.salon_name}</label>
                                                                 </div>`);
         })
     })
@@ -387,7 +419,7 @@ window.addEventListener('load', getSourceOwner);
 
 function searchSourceOwner(event, inputElement) {
     let filteredCustomer = [];
-    filteredCustomer = sourceOwnerData.filter(owner => owner.name.toLowerCase().includes(inputElement.value.toLowerCase())).map((owner => owner.id));
+    filteredCustomer = sourceOwnerData.filter(owner => owner.salon_name.toLowerCase().includes(inputElement.value.toLowerCase())).map((owner => owner.user.id));
     if (filteredCustomer.length == 0) {
         document.getElementById('no-source-owner-text').classList.remove('hide');
         document.querySelectorAll('.source-owner-item-list').forEach((item) => item.classList.add('hide'));
@@ -599,7 +631,6 @@ function getStartAndEndOfMonth(date) {
     endOfMonth.setDate(0);
     endOfMonth.setHours(23, 59, 59, 999);
 
-    // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     
     startOfMonth = new Date(startOfMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
@@ -629,7 +660,6 @@ function getStartAndEndOfLastMonth() {
     let endOfLastMonth = new Date(lastMonth);
     endOfLastMonth.setHours(23, 59, 59, 999);
 
-    // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     
     startOfLastMonth = new Date(startOfLastMonth.getTime() - timezoneOffset).toISOString().split('T')[0];
@@ -650,25 +680,23 @@ function getStartAndEndOfQuarter() {
   
     let startMonth, endMonth;
     
-    // Determine the start and end months for the current quarter
     if (currentMonth >= 0 && currentMonth <= 2) {
-      startMonth = 0; // January
-      endMonth = 2;   // March
+      startMonth = 0;
+      endMonth = 2;
     } else if (currentMonth >= 3 && currentMonth <= 5) {
-      startMonth = 3; // April
-      endMonth = 5;   // June
+      startMonth = 3;
+      endMonth = 5;
     } else if (currentMonth >= 6 && currentMonth <= 8) {
-      startMonth = 6; // July
-      endMonth = 8;   // September
+      startMonth = 6;
+      endMonth = 8;
     } else {
-      startMonth = 9; // October
-      endMonth = 11;  // December
+      startMonth = 9;
+      endMonth = 11;
     }
   
     let startOfQuarter = new Date(currentYear, startMonth, 1, 0, 0, 0, 0);
     let endOfQuarter = new Date(currentYear, endMonth + 1, 0, 23, 59, 59, 999);
 
-    // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
     startOfQuarter = new Date(startOfQuarter.getTime() - timezoneOffset).toISOString().split('T')[0];
@@ -690,26 +718,24 @@ function getStartAndEndOfLastQuarter() {
   
     let startMonth, endMonth;
   
-    // Determine the start and end months for the last quarter
     if (currentMonth >= 0 && currentMonth <= 2) {
-      startMonth = 9;  // October
-      endMonth = 11;   // December
-      currentYear--;   // Subtract a year for the last quarter
+      startMonth = 9;
+      endMonth = 11;
+      currentYear--;
     } else if (currentMonth >= 3 && currentMonth <= 5) {
-      startMonth = 0;  // January
-      endMonth = 2;    // March
+      startMonth = 0;
+      endMonth = 2;
     } else if (currentMonth >= 6 && currentMonth <= 8) {
-      startMonth = 3;  // April
-      endMonth = 5;    // June
+      startMonth = 3;
+      endMonth = 5;
     } else {
-      startMonth = 6;  // July
-      endMonth = 8;    // September
+      startMonth = 6;
+      endMonth = 8;
     }
   
     let startOfLastQuarter = new Date(currentYear, startMonth, 1, 0, 0, 0, 0);
     let endOfLastQuarter = new Date(currentYear, endMonth + 1, 0, 23, 59, 59, 999);
 
-    // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
     startOfLastQuarter = new Date(startOfLastQuarter.getTime() - timezoneOffset).toISOString().split('T')[0];
@@ -731,7 +757,6 @@ function getStartAndEndOfYear() {
     let startOfYear = new Date(currentYear, 0, 1, 0, 0, 0, 0);
     let endOfYear = new Date(currentYear, 11, 31, 23, 59, 59, 999);
   
-    // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
     startOfYear = new Date(startOfYear.getTime() - timezoneOffset).toISOString().split('T')[0];
@@ -753,7 +778,6 @@ function getStartAndEndOfLastYear() {
     let startOfLastYear = new Date(currentYear - 1, 0, 1, 0, 0, 0, 0);
     let endOfLastYear = new Date(currentYear - 1, 11, 31, 23, 59, 59, 999);
 
-    // Adjust for time zone offset
     const timezoneOffset = today.getTimezoneOffset() * 60000;
 
     startOfLastYear = new Date(startOfLastYear.getTime() - timezoneOffset).toISOString().split('T')[0];
@@ -771,14 +795,27 @@ function convertDateTime() {
     orderTimes.forEach((dateTime) => {
         const inputDate = new Date(dateTime.textContent);
 
-        // Format date components
         const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
         const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
         const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
 
-        // Create the desired format
         const result = `${day}-${month}-${year}`;
 
         dateTime.textContent = result;
     })
+}
+
+
+function openUpdateSourceTypeChannelModal(modalID, type='type', id, name) {
+    let modal = document.querySelector(`#${modalID}`);
+    let form = modal.querySelector('form');
+    modal.querySelector('#source-type-channel-modal-header').innerText = `Edit Source ${captalizeFirstLetter(type)}`;
+    form.querySelector('input[name="name"]').value = name || '';
+    form.setAttribute("onsubmit", `updateSource${captalizeFirstLetter(type)}Form(event, ${id})`);
+    modal.addEventListener('hidden.bs.modal', event => {
+        form.reset();
+        form.removeAttribute("onsubmit");
+        modal.querySelector('.btn-text').innerText = 'SAVE';
+    })
+    document.querySelector(`.${modalID}`).click();
 }

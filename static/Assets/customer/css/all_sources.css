@@ -26,7 +26,14 @@
     line-height: 20px;
 }
 
-.order-wrapper > button {
+.order-wrapper > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.order-wrapper > div > button {
     display: flex;
     width: 224px;
     height: 30px;
@@ -47,6 +54,10 @@
     line-height: normal;
     letter-spacing: 2.4px;
     text-transform: uppercase;
+}
+
+.order-wrapper > div > button:first-of-type {
+    width: 240px;
 }
 
 .order-status-categories-wrapper {
@@ -426,7 +437,7 @@
     position: relative;
     padding: 10px;
     border: 1px solid #E0E0DD;
-    border-radius: 8px;
+    border-radius: 8px 8px 0px 0px;
 }
 
 .order-details-wrapper .order-details-filters .searchable-dropdown-selector > .search-div svg {
@@ -437,7 +448,7 @@
 .order-details-wrapper .order-details-filters .searchable-dropdown-selector > .search-div input {
     border: 1px solid #000;
     border-radius: 7px;
-    height: 30px;
+    height: 26px;
     width: 100%;
 
     color: #030706;
@@ -459,10 +470,10 @@
 }
 
 .order-details-wrapper .order-details-filters .searchable-dropdown {
-    top: 47px!important;
+    top: 46px!important;
     border: none!important;
     border-radius: 0px 0px 8px 8px!important;
-    max-height: 42px!important;
+    max-height: 73px!important;
     overflow-y: auto!important;
     border-right: 1px solid #E0E0DD!important;
     border-left: 1px solid #E0E0DD!important;
@@ -474,7 +485,7 @@
 }
 
 .order-details-wrapper .order-details-filters .searchable-dropdown .radio-btn > label {
-    min-height: 40px!important;
+    min-height: 35px!important;
     height: unset!important;
     word-break: break-all!important;
     padding: 5px 10px!important;

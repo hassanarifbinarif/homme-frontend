@@ -234,7 +234,7 @@ async function rewardCreate(event) {
             errorMsg.classList.add('active');
             return false;
         }
-        else if (data.points <= 0) {
+        else if (data.points == 0) {
             errorMsg.innerHTML = 'Enter credits';
             errorMsg.classList.add('active');
             return false;

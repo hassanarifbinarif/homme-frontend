@@ -1,21 +1,21 @@
-#editSourceTypeModal .modal-dialog {
+#editSourceTypeChannelModal .modal-dialog {
     max-width: unset;
     width: 621px;
 }
 
-#editSourceTypeModal .modal-header {
+#editSourceTypeChannelModal .modal-header {
     padding: 9px 10px!important;
     background-color: #EEE;
     height: 40px;
     border-radius: 0px!important;
 }
 
-#editSourceTypeModal .modal-footer,
-#editSourceTypeModal .modal-content {
+#editSourceTypeChannelModal .modal-footer,
+#editSourceTypeChannelModal .modal-content {
     border-radius: 0px!important;
 }
 
-#editSourceTypeModal .modal-header > span {
+#editSourceTypeChannelModal .modal-header > span {
     color: #000;
     leading-trim: both;
     text-edge: cap;
@@ -26,23 +26,23 @@
     line-height: 10px;
 }
 
-#editSourceTypeModal .modal-body {
+#editSourceTypeChannelModal .modal-body {
     padding: 20px!important;
     width: 621px;
 }
 
-#editSourceTypeModal input::placeholder,
-#editSourceTypeModal textarea::placeholder {
+#editSourceTypeChannelModal input::placeholder,
+#editSourceTypeChannelModal textarea::placeholder {
     color: #A9A9A9;
 }
 
-#editSourceTypeModal .modal-body .input-div {
+#editSourceTypeChannelModal .modal-body .input-div {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-#editSourceTypeModal .modal-body .input-div input {
+#editSourceTypeChannelModal .modal-body .input-div input {
     width: 100%;
     height: 40px;
     padding: 0px 18px;
@@ -57,20 +57,20 @@
     line-height: normal;
 }
 
-#editSourceTypeModal .modal-body .error-div {
+#editSourceTypeChannelModal .modal-body .error-div {
     text-align: left;
     margin-top: 5px;
 }
 
 
-#editSourceTypeModal .modal-footer {
+#editSourceTypeChannelModal .modal-footer {
     padding: 15px 20px!important;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-#editSourceTypeModal .modal-footer > button {
+#editSourceTypeChannelModal .modal-footer > button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,7 +92,7 @@
     letter-spacing: 2.4px;
 }
 
-#editSourceTypeModal .modal-footer > button:first-of-type {
+#editSourceTypeChannelModal .modal-footer > button:first-of-type {
     background: #FFF;
     color: #000093;
     width: 174px;

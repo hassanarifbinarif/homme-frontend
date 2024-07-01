@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="{% static 'Assets/customer/css/all_sources.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/qr_code_modal.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/create_source_type_modal.css' %}" />
-    <link rel="stylesheet" href="{% static 'Assets/modals/css/edit_source_type_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/create_source_channel_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/edit_source_type_channel_modal.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/delete_modal.css' %}" />
     
     {% endblock %}
@@ -26,7 +27,10 @@
         <div class="content">
             <div class="order-wrapper">
                 <span>ALL SOURCES</span>
-                <button type="button" onclick="openCreateSourceModal('createSourceTypeModal');">CREATE SOURCE TYPE</button>
+                <div>
+                    <button type="button" onclick="openCreateSourceChannelModal('createSourceChannelModal');">CREATE SOURCE CHANNEL</button>
+                    <button type="button" onclick="openCreateSourceTypeModal('createSourceTypeModal');">CREATE SOURCE TYPE</button>
+                </div>
             </div>
             <div class="order-details-wrapper">
                 <div class="order-status-categories-wrapper">
@@ -312,9 +316,11 @@
 
     {% include '../modals/create-source-type-modal.html' %}
 
+    {% include '../modals/create-source-channel-modal.html' %}
+
     {% include '../modals/qr-code-modal.html' %}
 
-    {% include '../modals/edit-source-type-modal.html' %}
+    {% include '../modals/edit-source-type-channel-modal.html' %}
 
     {% include '../modals/delete-modal.html' %}
 
@@ -326,5 +332,6 @@
 <script src="{% static 'Assets/customer/js/allSources.js' %}"></script>
 <script src="{% static 'Assets/modals/js/qrCodeModal.js' %}"></script>
 <script src="{% static 'Assets/modals/js/createSourceTypeModal.js' %}"></script>
+<script src="{% static 'Assets/modals/js/createSourceChannelModal.js' %}"></script>
 {% endblock %}
 </html>

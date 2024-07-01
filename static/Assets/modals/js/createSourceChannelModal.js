@@ -1,7 +1,7 @@
-function openCreateSourceTypeModal(modalId) {
+function openCreateSourceChannelModal(modalId) {
     let modal = document.getElementById(`${modalId}`);
     let form = modal.querySelector('form');
-    form.setAttribute('onsubmit', 'createSourceTypeForm(event);');
+    form.setAttribute('onsubmit', 'createSourceChannelForm(event);');
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute('onsubmit');
@@ -13,7 +13,7 @@ function openCreateSourceTypeModal(modalId) {
 }
 
 
-async function createSourceTypeForm(event) {
+async function createSourceChannelForm(event) {
     event.preventDefault();
     let form = event.currentTarget;
     let errorMsg = form.querySelector('.create-error-msg');
@@ -23,15 +23,10 @@ async function createSourceTypeForm(event) {
     let buttonText = button.innerText;
 
     if (data.name.trim().length == 0) {
-        errorMsg.innerText = 'Enter valid source name';
+        errorMsg.innerText = 'Enter valid source channel name';
         errorMsg.classList.add('active');
         return false;
     }
-    // else if (data.embedded_string.trim().length == 0) {
-    //     errorMsg.innerText = 'Enter valid embedded string';
-    //     errorMsg.classList.add('active');
-    //     return false;
-    // }
     try {
         errorMsg.innerText = '';
         errorMsg.classList.remove('active');
@@ -41,23 +36,23 @@ async function createSourceTypeForm(event) {
             "Content-Type": "application/json"
         };
         beforeLoad(button);
-        let response = await requestAPI(`${apiURL}/admin/sources/types`, JSON.stringify(data), headers, 'POST');
+        let response = await requestAPI(`${apiURL}/admin/sources/channels`, JSON.stringify(data), headers, 'POST');
         response.json().then(function(res) {
 
             if (response.status == 201) {
                 form.removeAttribute('onsubmit');
                 afterLoad(button, 'CREATED');
-                getSourceTypes();
+                getSourceChannel();
                 setTimeout(() => {
                     afterLoad(button, buttonText);
-                    document.querySelector('.createSourceTypeModal').click();
+                    document.querySelector('.createSourceChannelModal').click();
                 }, 1500)
             }
             else if (response.status == 400) {
                 afterLoad(button, 'ERROR');
                 let keys = Object.keys(res.messages);
                 keys.forEach((key) => {
-                    errorMsg.innerHTML += `${key}: ${res.messages[key]}. <br />`;
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
                 })
                 errorMsg.classList.add('active');
             }
@@ -76,8 +71,7 @@ async function createSourceTypeForm(event) {
     }
 }
 
-
-async function updateSourceTypeForm(event, id) {
+async function updateSourceChannelForm(event, id) {
     event.preventDefault();
     let form = event.currentTarget;
     let errorMsg = form.querySelector('.create-error-msg');
@@ -100,12 +94,12 @@ async function updateSourceTypeForm(event, id) {
             "Content-Type": "application/json"
         };
         beforeLoad(button);
-        let response = await requestAPI(`${apiURL}/admin/sources/types/${id}`, JSON.stringify(data), headers, 'PATCH');
+        let response = await requestAPI(`${apiURL}/admin/sources/channels/${id}`, JSON.stringify(data), headers, 'PATCH');
         response.json().then(function(res) {
             if (response.status == 200) {
                 form.removeAttribute('onsubmit');
                 afterLoad(button, 'SAVED');
-                getSourceTypes();
+                getSourceChannels();
                 setTimeout(() => {
                     afterLoad(button, buttonText);
                     document.querySelector('.editSourceTypeChannelModal').click();
@@ -135,12 +129,12 @@ async function updateSourceTypeForm(event, id) {
 }
 
 
-function openDelSourceTypeModal(modalID, id) {
+function openDelSourceChannelModal(modalID, id) {
     let modal = document.querySelector(`#${modalID}`);
     let form = modal.querySelector('form');
-    form.setAttribute("onsubmit", `delSourceTypeForm(event, ${id})`);
-    modal.querySelector('#modal-header-text').innerText = 'Delete Source Type';
-    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this source type?';
+    form.setAttribute("onsubmit", `delSourceChannelForm(event, ${id})`);
+    modal.querySelector('#modal-header-text').innerText = 'Delete Source Channel';
+    modal.querySelector('#warning-statement').innerText = 'Are you sure you want to delete this source channel?';
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
@@ -151,7 +145,7 @@ function openDelSourceTypeModal(modalID, id) {
     document.querySelector(`.${modalID}`).click();
 }
 
-async function delSourceTypeForm(event, id) {
+async function delSourceChannelForm(event, id) {
     event.preventDefault();
     let form = event.currentTarget;
     let button = form.querySelector('button[type="submit"]');
@@ -159,17 +153,15 @@ async function delSourceTypeForm(event, id) {
 
     try {
         let token = getCookie('admin_access');
-        let headers = {
-            "Authorization": `Bearer ${token}`
-        };
+        let headers = { "Authorization": `Bearer ${token}` };
         beforeLoad(button);
-        let response = await requestAPI(`${apiURL}/admin/sources/types/${id}`, null, headers, 'DELETE');
+        let response = await requestAPI(`${apiURL}/admin/sources/channels/${id}`, null, headers, 'DELETE');
         // console.log(response);
         if (response.status == 204) {
             form.reset();
             form.removeAttribute("onsubmit");
             afterLoad(button, 'DELETED');
-            getSourceTypes();
+            getSourceChannels();
             setTimeout(() => {
                 document.querySelector('.delModal').click();
             }, 1000)

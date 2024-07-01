@@ -1,49 +1,99 @@
-let typeDropdown = document.getElementById('type-dropdown');
-let typeField = document.getElementById('type-field');
+let typeDropdown = document.getElementById('source-type-dropdown');
+let typeField = document.getElementById('source-type-field');
 
 let sourceOwnerDropdown = document.getElementById('source-owner-dropdown');
 let sourceOwnerField = document.getElementById('source-owner-field');
 
+let sourceChannelDropdown = document.getElementById('source-channel-dropdown');
+let sourceChannelField = document.getElementById('source-channel-field');
+
+let sourceTypeData = [];
 let sourceOwnerData = [];
+let sourceChannelData = [];
 
-typeField.addEventListener('click', toggleDropdown);
+// typeField.addEventListener('click', toggleDropdown);
 
 
-async function getSourceTypes() {
+// async function getSourceTypes() {
+//     let token = getCookie('admin_access');
+//     let headers = { "Authorization": `Bearer ${token}` };
+    
+// }
+
+// window.addEventListener('load', getSourceTypes);
+
+
+async function populateDropdowns() {
     let token = getCookie('admin_access');
     let headers = { "Authorization": `Bearer ${token}` };
-    let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=10000`, null, headers, 'GET');
-    response.json().then(function(res) {
-        if (response.status == 200) {
+    let responseSourceTypeList = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=10000`, null, headers, 'GET');
+    let responseSourceOwnerList = await requestAPI(`${apiURL}/admin/salon-profiles?user__is_blocked=false&page=1&perPage=10000&ordering=-created_at`, null, headers, 'GET');
+    let responseSourceChannelList = await requestAPI(`${apiURL}/admin/sources/channels?page=1&perPage=10000&ordering=-id`, null, headers, 'GET');
+    responseSourceTypeList.json().then(function(res) {
+        if (responseSourceTypeList.status == 200) {
+            sourceTypeData = [...res.data];
             res.data.forEach((sourceType) => {
-                typeDropdown.innerHTML += `<div class="radio-btn type-item-list">
+                typeDropdown.innerHTML += `<div class="radio-btn source-type-item-list" data-id="${sourceType.id}">
                                                 <input onchange="selectType(this);" id="type-${sourceType.id}" type="radio" value="${sourceType.id}" name="type" />
                                                 <label for="type-${sourceType.id}" class="radio-label">${sourceType.name}</label>
                                             </div>`;
             })
         }
     })
-}
-
-window.addEventListener('load', getSourceTypes);
-
-
-async function populateDropdowns() {
-    let token = getCookie('admin_access');
-    let headers = { "Authorization": `Bearer ${token}` };
-    let responseSourceOwnerList = await requestAPI(`${apiURL}/admin/users?is_blocked=false&page=1&perPage=10000`, null, headers, 'GET');
     responseSourceOwnerList.json().then(function(res) {
         sourceOwnerData = [...res.data];
-        res.data.forEach((user) => {
-            sourceOwnerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-owner-item-list" data-id="${user.id}">
-                                                                <input onchange="selectSourceOwner(this);" id="owner-${user.id}" type="radio" value="${user.id}" name="owner" />
-                                                                <label for="owner-${user.id}" class="radio-label">${user.name}</label>
-                                                            </div>`);
+        sourceOwnerData.unshift({'salon_name': 'HOMME', 'user': {'id': 'homme-management'}})
+        sourceOwnerData.forEach((owner) => {
+            sourceOwnerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-owner-item-list" data-id="${owner.user.id}">
+                                                                    <input onchange="selectSourceOwner(this);" id="owner-${owner.user.id}" type="radio" value="${owner.user.id}" name="owner" />
+                                                                    <label for="owner-${owner.user.id}" class="radio-label">${owner.salon_name}</label>
+                                                                </div>`);
+        })
+    })
+    responseSourceChannelList.json().then(function(res) {
+        sourceChannelData = [...res.data];
+        sourceChannelData.forEach((channel) => {
+            sourceChannelDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-channel-item-list" data-id="${channel.id}">
+                                                                        <input onchange="selectSourceChannel(this);" id="channel-${channel.id}" type="radio" value="${channel.id}" name="channel" />
+                                                                        <label for="channel-${channel.id}" class="radio-label">${channel.name}</label>
+                                                                    </div>`);
         })
     })
 }
 
 window.addEventListener('load', populateDropdowns);
+
+
+typeField.addEventListener('focus', function() {
+    typeDropdown.style.display = 'flex';
+})
+
+typeField.addEventListener('blur', function(event) {
+    setTimeout(() => {
+        typeDropdown.style.display = 'none';
+    }, 200);
+})
+
+typeField.addEventListener('input', function() {
+    let filteredSourceType = [];
+    filteredSourceType = sourceTypeData.filter(type => type.name.toLowerCase().includes(this.value.toLowerCase())).map((type => type.id));
+    if (filteredSourceType.length == 0) {
+        document.getElementById('no-source-type-text').classList.remove('hide');
+        document.querySelectorAll('.source-type-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-source-type-text').classList.add('hide');
+        document.querySelectorAll('.source-type-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredSourceType.includes(parseInt(itemID, 10))) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+})
 
 
 sourceOwnerField.addEventListener('focus', function() {
@@ -58,7 +108,7 @@ sourceOwnerField.addEventListener('blur', function(event) {
 
 sourceOwnerField.addEventListener('input', function() {
     let filteredSourceOwner = [];
-    filteredSourceOwner = sourceOwnerData.filter(user => user.name.toLowerCase().includes(this.value.toLowerCase())).map((user => user.id));
+    filteredSourceOwner = sourceOwnerData.filter(owner => owner.salon_name.toLowerCase().includes(this.value.toLowerCase())).map((owner => String(owner.user.id)));
     if (filteredSourceOwner.length == 0) {
         document.getElementById('no-source-owner-text').classList.remove('hide');
         document.querySelectorAll('.source-owner-item-list').forEach((item) => item.classList.add('hide'));
@@ -67,7 +117,39 @@ sourceOwnerField.addEventListener('input', function() {
         document.getElementById('no-source-owner-text').classList.add('hide');
         document.querySelectorAll('.source-owner-item-list').forEach((item) => {
             let itemID = item.getAttribute('data-id');
-            if (filteredSourceOwner.includes(parseInt(itemID, 10))) {
+            if (filteredSourceOwner.includes(itemID)) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+})
+
+
+sourceChannelField.addEventListener('focus', function() {
+    sourceChannelDropdown.style.display = 'flex';
+})
+
+sourceChannelField.addEventListener('blur', function(event) {
+    setTimeout(() => {
+        sourceChannelDropdown.style.display = 'none';
+    }, 200);
+})
+
+sourceChannelField.addEventListener('input', function() {
+    let filteredSourceChannel = [];
+    filteredSourceChannel = sourceChannelData.filter(channel => channel.name.toLowerCase().includes(this.value.toLowerCase())).map((channel => channel.id));
+    if (filteredSourceChannel.length == 0) {
+        document.getElementById('no-source-channel-text').classList.remove('hide');
+        document.querySelectorAll('.source-channel-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-source-channel-text').classList.add('hide');
+        document.querySelectorAll('.source-channel-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredSourceChannel.includes(parseInt(itemID, 10))) {
                 item.classList.remove('hide');
             }
             else {
@@ -93,13 +175,13 @@ function toggleDropdown(event) {
 }
 
 
-function closeDropdowns(event) {
-    if ((!typeField.contains(event.target)) && typeDropdown.style.display == 'flex') {
-        typeDropdown.style.display = 'none';
-    }
-}
+// function closeDropdowns(event) {
+//     if ((!typeField.contains(event.target)) && typeDropdown.style.display == 'flex') {
+//         typeDropdown.style.display = 'none';
+//     }
+// }
 
-document.body.addEventListener('click', closeDropdowns);
+// document.body.addEventListener('click', closeDropdowns);
 
 
 function selectSourceOwner(inputField) {
@@ -109,10 +191,17 @@ function selectSourceOwner(inputField) {
 }
 
 
+function selectSourceChannel(inputField) {
+    if (inputField.checked) {
+        sourceChannelField.value = inputField.nextElementSibling.innerText;
+    }
+}
+
+
 function selectType(inputField) {
     if (inputField.checked) {
-        document.getElementById(`selected-type-text`).innerText = inputField.nextElementSibling.innerText;
-        document.getElementById(`selected-type-text`).style.color = '#000';
+        typeField.value = inputField.nextElementSibling.innerText;
+        // document.getElementById(`selected-type-text`).style.color = '#000';
     }
 }
 
@@ -146,11 +235,11 @@ async function createSourceForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
-    else if (data.embedded_string.trim().length == 0) {
-        errorMsg.innerText = 'Enter valid embedded string';
-        errorMsg.classList.add('active');
-        return false;
-    }
+    // else if (data.embedded_string.trim().length == 0) {
+    //     errorMsg.innerText = 'Enter valid embedded string';
+    //     errorMsg.classList.add('active');
+    //     return false;
+    // }
     else if (!data.type) {
         errorMsg.innerText = 'Select a source type';
         errorMsg.classList.add('active');
@@ -168,6 +257,8 @@ async function createSourceForm(event) {
     }
     else {
         try {
+            if (data.owner == 'homme-management')
+                delete data.owner;
             errorMsg.innerText = '';
             errorMsg.classList.remove('active');
             let token = getCookie('admin_access');
