@@ -41,7 +41,11 @@
                 <div title="{{obj.title}}"><span class="table-text-overflow">{{obj.title}}</span></div>
             </td>
             <td>
-                <div>{% if obj.location %}<span class="table-text-overflow" title="{{obj.location}}">{{obj.location}}</span><span class="highlighted-text hide" style="white-space: nowrap;">More Info</span>{% else %}<span>No Location</span>{% endif %}</div>
+                {% if obj.model_type == 'special_offer' %}
+                <div><span class="table-text-overflow" title="{{obj.venue_address|default:'No Location'}}">{{obj.venue_address|default:'No Location'}}</span></div>
+                {% else %}
+                <div><span class="table-text-overflow" title="{{obj.location|default:'No Location'}}">{{obj.location|default:'No Location'}}</span></div>
+                {% endif %}
             </td>
             <td>
                 <div title="{{obj.description}}"><span class="table-text-overflow">{{obj.description}}</span></div>

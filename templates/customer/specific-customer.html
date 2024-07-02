@@ -61,7 +61,7 @@
                             </div>
                             <div>
                                 <span>Original Sales Channel</span>
-                                <span>{{customer.user.source.channel|default:"--"|title}}</span>
+                                <span>{{customer.user.source.channel.name|default:"--"|title}}</span>
                             </div>
                             <!-- <div>
                                 <span>Referrer</span>
@@ -79,7 +79,7 @@
                             </div>
                             <div>
                                 <span>Source Type</span>
-                                <span>{{customer.user.source.type|default:"--"}}</span>
+                                <span>{{customer.user.source.type.name|default:"--"}}</span>
                             </div>
                             <!-- <div>
                                 <span>Source</span>
