@@ -15,6 +15,15 @@
     {% endblock %}
 
     <title>{% block title %}Homme{% endblock %}</title>
+    <style>
+        .color-circle {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body>
     {% block body %}
@@ -22,6 +31,20 @@
         {% include '../includes/header.html' %}
         <div class="content">
             <div class="content-col-1">
+                <!-- <div class="container mt-5" style="background-color: white;">
+                    <div class="dropdown mb-3">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="sourceTypeDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Source Types
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="sourceTypeDropdown" id="sourceTypeDropdownMenu">
+                        </div>
+                    </div>
+                    <div style="height: 371px;">
+                        <div class="h-100">
+                            <canvas id="stackedBarChart"></canvas>
+                        </div>
+                    </div>
+                </div> -->
                 <div class="all-orders-wrapper">
                     <div class="order-header">
                         <span>ORDERS</span>
@@ -120,6 +143,8 @@
                             <div class="chart-type-dropdown hide" id="chart-type-dropdown">
                                 <span onclick="selectChartType(event);" data-value="sales">Sales Per Channel</span>
                                 <span onclick="selectChartType(event);" data-value="pick_ship">Picked-up VS Shipped</span>
+                                <span onclick="selectChartType(event);" data-value="source_channel">Sales by Source Channels</span>
+                                <span onclick="selectChartType(event);" data-value="source_type">Sales by Source Types</span>
                             </div>
                         </button>
                         <button class="year-btn" data-type="select-order-stat-time-btn" id="select-year-btn">
@@ -141,6 +166,8 @@
                         <div class="h-100" id="chart-container">
                             <canvas id="sales-per-channel-chart" class=""></canvas>
                             <canvas id="picked-vs-shipped-sales-chart" class="hide"></canvas>
+                            <canvas id="source-channel-sales-chart" class="hide"></canvas>
+                            <canvas id="source-type-sales-chart" class="hide"></canvas>
                         </div>
                         <span class="w-100 text-center hide" id="no-chart-data">No Chart Data</span>
                     </div>
@@ -282,9 +309,282 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
     {% endblock %}
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/customer/js/homme.js' %}"></script>
+
+
+<!-- <script>
+    // Sample data (replace with your dynamic data fetching logic)
+    const data = [
+      {
+        "month": "2024-06-01T00:00:00Z",
+        "source_type": "Customers",
+        "total_sales": "123.00",
+        "order_count": 3
+      },
+      {
+        "month": "2024-06-01T00:00:00Z",
+        "source_type": "HOMME",
+        "total_sales": "207.50",
+        "order_count": 2
+      },
+      {
+        "month": "2024-07-01T00:00:00Z",
+        "source_type": "Customers",
+        "total_sales": "118.00",
+        "order_count": 2
+      },
+      {
+        "month": "2024-07-01T00:00:00Z",
+        "source_type": "HOMME",
+        "total_sales": "964.00",
+        "order_count": 12
+      }
+    ];
+
+    const labels = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const predefinedColors = [
+      "#2C2E7F", "#DA3832", "#0D0F11", "#FFF34A",
+      "#00AAE9", "#D92D8A", "#00A359", "#E37739"
+    ];
+
+    const sourceTypes = [...new Set(data.map(item => item.source_type))];
+    const colorMap = {};
+
+    // Generate colors for each source_type on first load
+    sourceTypes.forEach((type, index) => {
+      colorMap[type] = {
+        backgroundColor: predefinedColors[index] || getRandomColor(),
+        borderColor: predefinedColors[index] || getRandomColor()
+      };
+    });
+
+    let datasets = generateDatasets(data);
+
+    // Generate datasets function
+    function generateDatasets(data) {
+      const datasets = [];
+      const dataBySourceType = {};
+
+      sourceTypes.forEach(type => {
+        dataBySourceType[type] = Array.from({ length: 12 }, () => 0);
+      });
+
+      data.forEach(item => {
+        const monthIndex = new Date(item.month).getMonth();
+        dataBySourceType[item.source_type][monthIndex] += parseFloat(item.total_sales);
+      });
+
+      sourceTypes.forEach(type => {
+        datasets.push({
+          label: type,
+          data: dataBySourceType[type],
+          backgroundColor: colorMap[type].backgroundColor,
+          borderColor: colorMap[type].borderColor,
+          borderWidth: 1
+        });
+      });
+
+      return datasets;
+    }
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Create Chart.js instance
+    const ctx = document.getElementById('stackedBarChart').getContext('2d');
+    const stackedBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Dynamic Stacked Bar Chart'
+          }
+        }
+      }
+    });
+
+    // Populate dropdown menu with checkboxes
+    const dropdownMenu = document.getElementById('sourceTypeDropdownMenu');
+    sourceTypes.forEach(type => {
+      const checkboxItem = document.createElement('div');
+      checkboxItem.className = 'form-check dropdown-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'form-check-input';
+      checkbox.id = `checkbox-${type}`;
+      checkbox.checked = true;
+      checkbox.onchange = () => updateChart();
+
+      const label = document.createElement('label');
+      label.className = 'form-check-label';
+      label.htmlFor = `checkbox-${type}`;
+      
+      const colorCircle = document.createElement('span');
+      colorCircle.className = 'color-circle';
+      colorCircle.style.backgroundColor = colorMap[type].backgroundColor;
+      colorCircle.style.width = '11px';
+      colorCircle.style.height = '11px';
+      colorCircle.style.display = 'inline-block';
+      colorCircle.style.borderRadius = '50%';
+
+      label.appendChild(colorCircle);
+      label.append(type);
+
+      checkboxItem.appendChild(checkbox);
+      checkboxItem.appendChild(label);
+      dropdownMenu.appendChild(checkboxItem);
+    });
+
+    // Update chart based on checkbox state
+    function updateChart() {
+      const activeTypes = sourceTypes.filter(type => document.getElementById(`checkbox-${type}`).checked);
+      stackedBarChart.data.datasets = generateDatasets(data).filter(dataset => activeTypes.includes(dataset.label));
+      stackedBarChart.update();
+    }
+</script> -->
+
+
+<!-- <script>
+    // Sample data (replace with your dynamic data fetching logic)
+    const data = [
+      {
+        "month": "2024-06-01T00:00:00Z",
+        "source_type": "Customers",
+        "total_sales": "123.00",
+        "order_count": 3
+      },
+      {
+        "month": "2024-06-01T00:00:00Z",
+        "source_type": "HOMME",
+        "total_sales": "207.50",
+        "order_count": 2
+      },
+      {
+        "month": "2024-07-01T00:00:00Z",
+        "source_type": "Customers",
+        "total_sales": "118.00",
+        "order_count": 2
+      },
+      {
+        "month": "2024-07-01T00:00:00Z",
+        "source_type": "HOMME",
+        "total_sales": "964.00",
+        "order_count": 12
+      }
+    ];
+
+    // Function to dynamically generate datasets based on source types
+    function generateDatasets(data) {
+      const sourceTypes = [...new Set(data.map(item => item.source_type))];
+      const datasets = [];
+
+      // Initialize an array to hold sales data for each source type
+      const dataBySourceType = {};
+
+      sourceTypes.forEach(type => {
+        dataBySourceType[type] = Array.from({ length: 12 }, () => 0);
+      });
+
+      // Process data to populate dataBySourceType
+      data.forEach(item => {
+        const monthIndex = new Date(item.month).getMonth();
+        dataBySourceType[item.source_type][monthIndex] += parseFloat(item.total_sales);
+      });
+
+      // Create datasets for Chart.js
+      sourceTypes.forEach(type => {
+        datasets.push({
+          label: type,
+          data: dataBySourceType[type],
+          backgroundColor: getRandomColor(), // Function to generate random color
+          borderColor: getRandomColor(), // Function to generate random color
+          borderWidth: 1
+        });
+      });
+
+      return datasets;
+    }
+
+    // Function to generate random colors for dataset
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Prepare labels for Chart.js
+    const labels = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    // Initialize datasets using the function
+    const datasets = generateDatasets(data);
+
+    // Configure Chart.js
+    const ctx = document.getElementById('stackedBarChart').getContext('2d');
+    const stackedBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Dynamic Stacked Bar Chart'
+          }
+        }
+      }
+    });
+</script> -->
 {% endblock %}
 </html>

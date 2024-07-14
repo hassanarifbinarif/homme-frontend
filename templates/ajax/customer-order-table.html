@@ -137,7 +137,7 @@
                 <div><span class="table-text-overflow">{% if obj.user_profile.user.source_referrer == None or obj.user_profile.user.source_referrer == "" %}--{% else %}{{obj.user_profile.user.source_referrer.type.name|default:'--'|title}}{% endif %}</span></div>
             </td>
             <td>
-                <div><span class="table-text-overflow">{% if obj.user_profile.user.source_referrer == None or obj.user_profile.user.source_referrer == "" %}--{% else %}{{obj.user_profile.user.source_referrer.channel|default:'--'|title}}{% endif %}</span></div>
+                <div><span class="table-text-overflow">{% if obj.user_profile.user.source_referrer == None or obj.user_profile.user.source_referrer == "" %}--{% else %}{{obj.user_profile.user.source_referrer.channel.name|default:'--'|title}}{% endif %}</span></div>
             </td>
             <td>
                 <div>

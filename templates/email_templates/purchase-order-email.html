@@ -135,7 +135,7 @@
                                                     <span style="color: #000;text-align: right;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">PO#{{order.id}}</span>
                                                         <span style="color: #000;text-align: right;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">{{order.created_at|custom_date:"F d, Y"}}</span>
                                                 </div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 73 73" fill="none">
+                                                <svg style="width: 72px; height: 72px;" xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 73 73" fill="none">
                                                     <rect x="0.608887" y="0.105469" width="72" height="72" rx="8" fill="#1E1E1E"/>
                                                     <path d="M49.9537 15.1055L36.5055 28.5537L23.6778 15.7261L16.2296 23.1744L29.0572 36.2089L15.6089 49.6572L23.2641 57.1055L57.6089 22.7606L49.9537 15.1055Z" fill="white"/>
                                                     <path d="M41.8807 49.0341L49.5359 56.6893L57.1911 49.0341L49.5359 41.3789L41.8807 49.0341Z" fill="white"/>
@@ -202,8 +202,8 @@
                                                                                     <div style="display: flex;align-items: center;gap: 22px;">
                                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 12px; text-transform: capitalize; width: 48px;">{{obj.product.sku_num}}</span>
                                                                                         <div style="display: flex;align-items: center;gap: 13px;">
-                                                                                            <img crossorigin="anonymous" class="dynamic-image" style="width: 30px; height: 30px; border-radius: 3px;" src="data:image/png;base64,{{obj.product.images.0.image_base64}}" alt="product image" />
-                                                                                            <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: normal;text-transform: uppercase;">{{obj.product.title}}</span>
+                                                                                            <img crossorigin="anonymous" class="dynamic-image" style="width: 30px; height: 30px; border-radius: 3px; flex-shrink: 0;" src="data:image/png;base64,{{obj.product.images.0.image_base64}}" alt="product image" />
+                                                                                            <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: normal;">{{obj.product.title}}</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
@@ -214,7 +214,7 @@
                                                                                 </td>
                                                                                 <td style="padding-top: 12px;">
                                                                                     <div style="height: 32px;display: flex;align-items: center;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">${{obj.product.price}}</span>
+                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize; padding: 0px 7px;">${{obj.product.price}}</span>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td style="padding-top: 12px;">

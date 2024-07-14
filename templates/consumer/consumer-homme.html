@@ -119,7 +119,9 @@
                                 </svg>
                             </div>
                             <div class="chart-type-dropdown hide" id="chart-type-dropdown">
-                                <span data-value="sales">Salon Sales Channel</span>
+                                <span onclick="selectChartType(event);" data-value="net_sales">Salon Sales Channel</span>
+                                <span onclick="selectChartType(event);" data-value="source_channel">Sales by Source Channels</span>
+                                <span onclick="selectChartType(event);" data-value="source_type">Sales by Source Types</span>
                             </div>
                         </button>
                         <button class="year-btn" data-type="select-order-stat-time-btn" id="select-year-btn">
@@ -139,6 +141,8 @@
                             </span>
                         </div>
                         <canvas id="net-sales-chart" class="hide"></canvas>
+                        <canvas id="source-channel-sales-chart" class="hide"></canvas>
+                        <canvas id="source-type-sales-chart" class="hide"></canvas>
                         <span class="w-100 text-center hide" id="no-chart-data">No Chart Data</span>
                     </div>
                 </div>

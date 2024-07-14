@@ -75,7 +75,8 @@
                             </div>
                             <div>
                                 <span>Source Owner</span>
-                                <span>{{customer.user.source.name|default:"--"}}</span>
+                                <span>{% if customer.user.source == None %}HOMME{% else %}{{customer.first_name}} {{customer.last_name}}{% endif %}</span>
+                                <!-- <span>{{customer.user.source.name|default:"--"}}</span> -->
                             </div>
                             <div>
                                 <span>Source Type</span>

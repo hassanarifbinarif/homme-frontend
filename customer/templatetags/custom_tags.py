@@ -31,7 +31,7 @@ def divide(value, arg):
     if not value:
         return ''
     try:
-        total_value = float(value) / float(arg)
+        total_value = round(float(value) / float(arg), 2)
     except Exception as e:
         print(e)
         return value

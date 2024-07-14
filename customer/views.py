@@ -423,7 +423,7 @@ def get_packing_slip(request, pk):
         admin_access_token = request.COOKIES.get('admin_access', request.temp_cookie)
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}/admin/orders/{pk}', headers, {})
-        text_template = loader.get_template('email_templates/packing-slip-new.html')
+        text_template = loader.get_template('email_templates/packing-slip-email.html')
         html = text_template.render({'order':response['data']})
 
         context['packing_data'] = html

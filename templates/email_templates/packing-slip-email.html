@@ -6,20 +6,10 @@
 <head>
     {% load static %}
     {% load custom_tags %}
-    <!--[if gte mso 9]>
-<xml>
-  <o:OfficeDocumentSettings>
-    <o:AllowPNG/>
-    <o:PixelsPerInch>96</o:PixelsPerInch>
-  </o:OfficeDocumentSettings>
-</xml>
-<![endif]-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="x-apple-disable-message-reformatting">
-    <!--[if !mso]><!-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--<![endif]-->
     <title></title>
 
     <link rel="stylesheet" href="../../static/Assets/customer/css/new_fonts/stylesheet.css">
@@ -104,42 +94,6 @@
             color: inherit !important;
             text-decoration: none !important;
         }
-
-        /* Style to hide headers and footers in print */
-        @media print {
-            @page {
-                size: auto; /* auto is the default value */
-                margin: 0; /* this affects the margin in the printer settings */
-            }
-
-            body {
-                margin: 0;
-            }
-
-            /* You can customize the following rules based on your needs */
-            @page :first {
-                margin-top: 0;
-            }
-
-            @page {
-                margin-bottom: 0;
-            }
-
-            header, footer {
-                display: none;
-            }
-        }
-
-        img,
-        svg,
-        video,
-        canvas,
-        audio,
-        iframe,
-        embed,
-        object {
-            display: inline-block!important;
-        }
     </style>
 
 
@@ -168,10 +122,10 @@
                                             style="padding-left: 50px;padding-right:50px;margin-top: 30px;margin-bottom:40px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
                                             <div style="display: flex;align-items: center;justify-content: space-between;">
                                                 <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 12px;">
-                                                    <span style="color: #000;text-align: right;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">Order#{{order.id}}</span>
+                                                    <span style="color: #000;text-align: right;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">PO#{{order.id}}</span>
                                                         <span style="color: #000;text-align: right;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">{{order.created_at|custom_date:"F d, Y"}}</span>
                                                 </div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 73 73" fill="none">
+                                                <svg style="width: 72px; height: 72px;" xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 73 73" fill="none">
                                                     <rect x="0.608887" y="0.105469" width="72" height="72" rx="8" fill="#1E1E1E"/>
                                                     <path d="M49.9537 15.1055L36.5055 28.5537L23.6778 15.7261L16.2296 23.1744L29.0572 36.2089L15.6089 49.6572L23.2641 57.1055L57.6089 22.7606L49.9537 15.1055Z" fill="white"/>
                                                     <path d="M41.8807 49.0341L49.5359 56.6893L57.1911 49.0341L49.5359 41.3789L41.8807 49.0341Z" fill="white"/>
@@ -203,131 +157,103 @@
                                                                 <div style="display: flex;align-items: center;">
                                                                     <div style="width: 187px;display: flex;flex-direction: column;align-items: flex-start;gap: 15px;">
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 14px;font-style: normal;font-weight: 700;line-height: 10px;text-transform: capitalize;">Ship To:</span>
-                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 13px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 10px;font-style: normal;font-weight: 500;line-height: 7px;text-transform: capitalize;">
-                                                                            <span style="height: fit-content; line-height: 12px;">{{order.shipping_address.first_name}} {{order.shipping_address.last_name}}</span>
-                                                                            <span style="height: 7px;">{{order.shipping_address.address}}</span>
-                                                                            <span style="height: 7px;">{{order.shipping_address.address2}}</span>
-                                                                            <span style="height: 7px;">{{order.shipping_address.country}}</span>
+                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 13px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 10px;font-style: normal;font-weight: 500;line-height: 12px;text-transform: capitalize;">
+                                                                            <span style="height: fit-content;">{{order.shipping_address.first_name}} {{order.shipping_address.last_name}}</span>
+                                                                            <span style="height: fit-content;">{{order.shipping_address.address}}</span>
+                                                                            <span style="height: fit-content;">{{order.shipping_address.city}} {{order.shipping_address.state}} {{order.shipping_address.zip_code}}</span>
+                                                                            <span style="height: fit-content;">{{order.shipping_address.country}}</span>
                                                                         </div>
                                                                     </div>
                                                                     <div style="width: 187px;display: flex;flex-direction: column;align-items: flex-start;gap: 15px;">
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 14px;font-style: normal;font-weight: 700;line-height: 10px;text-transform: capitalize;">Bill To:</span>
-                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 13px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 10px;font-style: normal;font-weight: 500;line-height: 7px;text-transform: capitalize;">
-                                                                            <span style="height: fit-content; line-height: 12px;">{{order.billing_address.first_name}} {{order.billing_address.last_name}}</span>
-                                                                            <span style="height: 7px;">{{order.billing_address.address}}</span>
-                                                                            <span style="height: 7px;">{{order.billing_address.address2}}</span>
-                                                                            <span style="height: 7px;">{{order.billing_address.country}}</span>
+                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 13px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 10px;font-style: normal;font-weight: 500;line-height: 12px;text-transform: capitalize;">
+                                                                            <span style="height: fit-content;">{{order.billing_address.first_name}} {{order.billing_address.last_name}}</span>
+                                                                            <span style="height: fit-content;">{{order.billing_address.address}}</span>
+                                                                            <span style="height: fit-content;">{{order.billing_address.city}} {{order.billing_address.state}} {{order.billing_address.zip_code}}</span>
+                                                                            <span style="height: fit-content;">{{order.billing_address.country}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <hr style="margin-top: 20px;margin-bottom: 13px; height: 1px; border: 0; border-top: 1px solid #1E1E1E;" />
+                                                                <hr style="margin-top: 20px;margin-bottom: 13px; color: #1E1E1E;" />
                                                                 <div>
                                                                     <table style="width: 100%;table-layout: fixed;">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th width="186px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: left;">Products</th>
-                                                                                <th width="111px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: left;">Qty</th>
-                                                                                <th width="123px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: left;">Price</th>
-                                                                                <th width="75px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: right;">Total Price</th>
+                                                                                <th width="202px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: left;">SKU#</th>
+                                                                                <th width="63px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: left;">Qty</th>
+                                                                                <th width="115px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: left;">Retail Value</th>
+                                                                                <th width="107px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize; text-align: center;">Total Retail Value</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             {% for obj in order.products %}
                                                                             <tr>
                                                                                 <td style="padding-top: 12px;">
-                                                                                    <div style="display: flex;align-items: center;gap: 13px;">
-                                                                                        <!-- <img style="width: 30px; height: 30px; border-radius: 3px;" src="../../static/Assets/customer/images/product_image.png" alt="product image" /> -->
-                                                                                        <img style="width: 30px; height: 30px; border-radius: 3px;" src="{{obj.images.0.image}}" alt="product image" />
-                                                                                        <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: normal;text-transform: uppercase;">{{obj.product_title}}</span>
+                                                                                    <div style="display: flex;align-items: center;gap: 22px;">
+                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 12px; text-transform: capitalize; width: 48px;">{{obj.product_sku}}</span>
+                                                                                        <div style="display: flex;align-items: center;gap: 13px;">
+                                                                                            <img crossorigin="anonymous" class="dynamic-image" style="width: 30px; height: 30px; border-radius: 3px; flex-shrink: 0;" src="{{obj.images.0.image}}" alt="product image" />
+                                                                                            <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: normal;">{{obj.product_title}}</span>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td style="padding-top: 12px;">
                                                                                     <div style="height: 32px;display: flex;align-items: center;">
-                                                                                        <span style="color: #000;text-align: left;leading-trim: both;text-edge: cap;font-feature-settings: 'clig' off, 'liga' off;font-family: Gotham Book;font-size: 14px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">{{obj.qty}}</span>
+                                                                                        <span style="color: #000;text-align: left;leading-trim: both;text-edge: cap;font-feature-settings: 'clig' off, 'liga' off;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">{{obj.qty}}</span>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td style="padding-top: 12px;">
                                                                                     <div style="height: 32px;display: flex;align-items: center;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">${{obj.original_price|divide:obj.qty}}</span>
+                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize; padding: 0px 7px;">${{obj.original_price}}</span>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td style="padding-top: 12px;">
-                                                                                    <div style="text-align: right;height: 32px;display: flex;align-items: center;justify-content: flex-end;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;text-align: right;">${{obj.original_price}}</span>
+                                                                                    <div style="text-align: right;height: 32px;display: flex;align-items: center;justify-content: center;">
+                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;text-align: center;">${{obj.price|divide:obj.qty}}</span>
+                                                                                        <!-- <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;text-align: center;">${{obj.product.price|multiply:obj.qty}}</span> -->
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
                                                                             {% endfor %}
-                                                                            <!-- <tr>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="display: flex;align-items: center;gap: 13px;">
-                                                                                        <img style="width: 30px; height: 30px; border-radius: 3px;" src="../../static/Assets/customer/images/product_image.png" alt="product image" />
-                                                                                        <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: normal;text-transform: uppercase;">Face Tonic</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="height: 32px;display: flex;align-items: center;">
-                                                                                        <span style="color: #000;text-align: left;leading-trim: both;text-edge: cap;font-feature-settings: 'clig' off, 'liga' off;font-family: Gotham Book;font-size: 14px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">1</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="height: 32px;display: flex;align-items: center;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">$25.00</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="text-align: right;height: 32px;display: flex;align-items: center;justify-content: flex-end;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;text-align: right;">$25.00</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="display: flex;align-items: center;gap: 13px;">
-                                                                                        <img style="width: 30px; height: 30px; border-radius: 3px;" src="../../static/Assets/customer/images/product_image.png" alt="product image" />
-                                                                                        <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: normal;text-transform: uppercase;">FACE TONIC</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="height: 32px;display: flex;align-items: center;">
-                                                                                        <span style="color: #000;text-align: left;leading-trim: both;text-edge: cap;font-feature-settings: 'clig' off, 'liga' off;font-family: Gotham Book;font-size: 14px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">1</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="height: 32px;display: flex;align-items: center;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;">$25.00</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td style="padding-top: 12px;">
-                                                                                    <div style="text-align: right;height: 32px;display: flex;align-items: center;justify-content: flex-end;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;text-transform: capitalize;text-align: right;">$25.00</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr> -->
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
-                                                                <div style="margin-top: 39px;">
-                                                                    <div style="display: flex;align-items: center;justify-content: space-between;">
-                                                                        <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;">SUBTOTAL</span>
-                                                                        <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;text-align: right;">${{order.original_sub_total}}</span>
+                                                                <hr style="margin-top: 15px;margin-bottom: 10px; color: #1E1E1E;" />
+                                                                <div style="display: flex;align-items: center;gap: 18px;">
+                                                                    <div style="display: flex;flex-direction: column;gap: 5px;background: #F2F2F2;width: 308px;padding: 14px 9px;box-sizing: border-box; height: 76px;">
+                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 10px;font-style: normal;font-weight: 700;line-height: 10px;text-transform: capitalize;">Notes</span>
+                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 10px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">{{order.notes|default:'No notes'}}</span>
                                                                     </div>
-                                                                    <hr style="margin-top: 13px;margin-bottom: 15px; height: 1px; border: 0; border-top: 1px solid #000;"/>
-                                                                    <div style="display: flex;flex-direction: column;gap: 13px;">
-                                                                        <div style="display: flex;align-items: center;justify-content: space-between;">
-                                                                            <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;">Shipping Cost</span>
-                                                                            <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;text-align: right;">{% if order.pickup_type == 'self' %}Picked-up{% else %}{{order.shipping}}{% endif %}</span>
+                                                                    <div style="align-self: flex-start; display: flex;flex-direction: column;width: 170px;">
+                                                                        <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 12px;">
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">Subtotal</span>
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">${{order.sub_total}}</span>
+                                                                        </div>
+                                                                        <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 10px;">
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">Shipping</span>
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">${{order.shipping}}</span>
+                                                                        </div>
+                                                                        <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 20px;">
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">Tax ({{order.tax_state}}%)</span>
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 8px;">${{order.tax_amount}}</span>
                                                                         </div>
                                                                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                                                                            <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;">Tax ({{order.tax_state}} {{order.tax_percent}}%)</span>
-                                                                            <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;text-align: right;">${{order.tax_amount}}</span>
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;">Total</span>
+                                                                            <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;">${{order.total}}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <hr style="margin-top: 13px;margin-bottom: 9px; height: 1px; border: 0; border-top: 1px solid #000;" />
-                                                                    <div style="display: flex;align-items: center;justify-content: space-between;">
-                                                                        <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;">Grand Total</span>
-                                                                        <span style="color: #000;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;text-align: right;"><span style="font-family: Gotham Book; font-size: 10px; font-weight: 500;">USD</span> ${{order.total}}</span>
+                                                                </div>
+                                                                <hr style="margin-top: 43px;margin-bottom: 15px; color: #1E1E1E;" />
+                                                                <div>
+                                                                    <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 12px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize;" >Approved By:</span>
+                                                                </div>
+                                                                <hr style="margin-top: 37px;margin-bottom: 15px; color: #1E1E1E;" />
+                                                                <div style="display: flex;flex-direction: column;gap: 16px;">
+                                                                    <div style="display: flex;align-items: center;justify-content: space-between;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 10px;font-style: normal;font-weight: 500;line-height: 10px;">
+                                                                        <span>Authorized Signature</span>
+                                                                        <span>Date</span>
                                                                     </div>
+                                                                    <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 10px;font-style: normal;font-weight: 500;line-height: 10px;">{{order.salon.salon_name}}</span>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -340,7 +266,7 @@
                                                     <tr>
                                                         <td style="overflow-wrap:break-word;word-break:break-word;"
                                                             align="left">
-                                                            <div style="display: flex;flex-direction: column;gap: 8px;align-items: center;margin-top: 141px;margin-bottom:50px;">
+                                                            <div style="display: flex;flex-direction: column;gap: 8px;align-items: center;margin-top: 40px;margin-bottom:50px;">
                                                                 <span style="color: #000;text-align: center;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 26px;font-style: normal;font-weight: 700;line-height: 20px;text-transform: capitalize;">HOMME</span>
                                                                 <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">35 Great Jones Street, New York, NY, 10012, United States</span>
                                                                 <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Book;font-size: 12px;font-style: normal;font-weight: 500;line-height: 10px;">sales@hommeproducts.com</span>
@@ -361,5 +287,4 @@
         </tbody>
     </table>
 </body>
-
 </html>

@@ -135,11 +135,11 @@
             </td>
             <td>
                 <div>
-                    <span class="table-text-overflow" title="{% if obj.user.source_referrer == None or obj.user.source_referrer == '' %}--{% else %}{{obj.user.source_referrer.type|default:'--'}}{% endif %}">{% if obj.user.source_referrer == None or obj.user.source_referrer == "" %}--{% else %}{{obj.user.source_referrer.type|default:'--'}}{% endif %}</span>
+                    <span class="table-text-overflow" title="{{obj.user.source_referrer.type.name|default:'--'}}">{{obj.user.source_referrer.type.name|default:'--'}}</span>
                 </div>
             </td>
             <td>
-                <div><span class="table-text-overflow" title="{% if obj.user.source_referrer == None or obj.user.source_referrer == '' %}--{% else %}{{obj.user.source_referrer.channel|default:'--'|title}}{% endif %}">{% if obj.user.source_referrer == None or obj.user.source_referrer == '' %}--{% else %}{{obj.user.source_referrer.channel|default:'--'|title}}{% endif %}</span></div>
+                <div><span class="table-text-overflow" title="{{obj.user.source_referrer.channel.name|default:'--'|title}}">{{obj.user.source_referrer.channel.name|default:'--'|title}}</span></div>
             </td>
             <td>
                 <div>
