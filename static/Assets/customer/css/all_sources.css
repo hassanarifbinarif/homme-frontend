@@ -281,6 +281,26 @@
     overflow-y: auto;
 }
 
+.order-details-wrapper .order-details-filters #source-type-dropdown > label {
+    border-bottom: 1px solid #E0E0DD;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-details-wrapper .order-details-filters #source-type-dropdown > label:hover {
+    background-color: #DDDDDD;
+}
+
+.order-details-wrapper .order-details-filters #source-type-dropdown > label > input {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.order-details-wrapper .order-details-filters #source-type-dropdown > label:last-of-type {
+    border-bottom: none;
+}
+
 .order-details-wrapper .order-details-filters .radio-btn > label {
     width: 100%;
     padding: 0px 15px;
@@ -312,16 +332,16 @@
 }
 
 .order-details-wrapper .order-details-filters > div:first-of-type button > div  span {
-    color: var(--Black, #030706);
+    color: #000000;
     text-align: center;
     leading-trim: both;
     text-edge: cap;
-    font-family: Gotham Medium;
+    font-family: Gotham Book;
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    letter-spacing: 1.2px;
+    /* letter-spacing: 1.2px; */
     padding: 0px 10px;
 
     height: 30px;
@@ -397,22 +417,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 5px;
+    padding: 0px 7px;
 }
 
 .order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label > span {
-    color: var(--Black, #030706);
+    color: #000000;
     text-align: center;
     leading-trim: both;
     text-edge: cap;
-    font-family: Gotham Medium;
-    font-size: .65rem;
+    font-family: Gotham Book;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 500;
     line-height: 10px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    height: 25px;
+    /* letter-spacing: 1.2px; */
+    /* text-transform: uppercase; */
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -473,7 +493,7 @@
     top: 46px!important;
     border: none!important;
     border-radius: 0px 0px 8px 8px!important;
-    max-height: 73px!important;
+    /* max-height: 73px!important; */
     overflow-y: auto!important;
     border-right: 1px solid #E0E0DD!important;
     border-left: 1px solid #E0E0DD!important;
@@ -489,7 +509,7 @@
     height: unset!important;
     word-break: break-all!important;
     padding: 5px 10px!important;
-    line-height: 12px!important;
+    line-height: 16px!important;
 }
 
 .order-details-table-wrapper {

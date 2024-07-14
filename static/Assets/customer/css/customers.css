@@ -97,11 +97,12 @@
 }
 
 .order-details-wrapper {
-    background-color: #FFF;
-    border: 1px solid #E0E0DD;
+    /* background-color: #FFF;
+    border: 1px solid #E0E0DD; */
     border-radius: 6px;
-    margin-bottom: 28px;
-    padding-bottom: 10px;
+    /* margin-bottom: 28px;
+    padding-bottom: 10px; */
+    min-height: calc(100vh - 190px);
 }
 
 .order-details-wrapper .order-details-filters {
@@ -229,6 +230,26 @@
     overflow-y: auto;
 }
 
+.order-details-wrapper .order-details-filters #source-type-list-dropdown > label {
+    border-bottom: 1px solid #E0E0DD;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-details-wrapper .order-details-filters #source-type-list-dropdown > label:hover {
+    background-color: #DDDDDD;
+}
+
+.order-details-wrapper .order-details-filters #source-type-list-dropdown > label > input {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.order-details-wrapper .order-details-filters #source-type-list-dropdown > label:last-of-type {
+    border-bottom: none;
+}
+
 .order-details-wrapper .order-details-filters .radio-btn > label {
     width: 100%;
     padding: 0px 15px;
@@ -348,19 +369,23 @@
     padding: 0px 5px;
 }
 
+.order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label:hover {
+    background-color: #DDDDDD;
+}
+
 .order-details-wrapper .order-details-filters button[data-type="select-order-channel-btn"] > .order-channel-dropdown > label > span {
     color: var(--Black, #030706);
     text-align: center;
     leading-trim: both;
     text-edge: cap;
     font-family: Gotham Medium;
-    font-size: .65rem;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 500;
     line-height: 10px;
     letter-spacing: 1.2px;
-    text-transform: uppercase;
-    height: 25px;
+    /* text-transform: uppercase; */
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -401,6 +426,8 @@
 .order-details-table-wrapper {
     width: 100%;
     min-width: 1142px;
+    background-color: #FFFFFF;
+    padding-bottom: 1px;
 }
 
 .order-details-table {

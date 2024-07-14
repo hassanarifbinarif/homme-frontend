@@ -192,10 +192,10 @@
                                 </defs>
                             </svg>
                             <div class="filter-dropdown purchase-type-dropdown" id="order-completion-type-dropdown">
-                                <span onclick="filterOrderCompletionType(event);" data-value="placed">PLACED</span>
-                                <span onclick="filterOrderCompletionType(event);" data-value="pickup">PICKUP</span>
-                                <span onclick="filterOrderCompletionType(event);" data-value="picked_up">PICKED UP</span>
-                                <span onclick="filterOrderCompletionType(event);" data-value="shipped">SHIPPED</span>
+                                <span onclick="filterOrderCompletionType(event);" data-value="placed">Placed</span>
+                                <span onclick="filterOrderCompletionType(event);" data-value="pickup">Pickup</span>
+                                <span onclick="filterOrderCompletionType(event);" data-value="picked_up">Picked Up</span>
+                                <span onclick="filterOrderCompletionType(event);" data-value="shipped">Shipped</span>
                             </div>
                         </button>
                         <button onclick="sortByDateBtn(event);" style="width: 140px;">
@@ -249,7 +249,7 @@
                                     <input type="checkbox" onchange="selectSalesChannel(this);" id="homme-channel" value="homme" name="sales_channel" />
                                 </label>
                                 <label for="salon-channel" class="cursor-pointer">
-                                    <span>SALONS</span>
+                                    <span>Salons</span>
                                     <input type="checkbox" onchange="selectSalesChannel(this);" id="salon-channel" value="salon" name="sales_channel" />
                                 </label>
                                 <!-- <label for="referrer-channel" class="cursor-pointer">
@@ -271,7 +271,7 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <div class="filter-dropdown source-type-dropdown" id="source-type-dropdown">
+                            <div class="filter-dropdown source-type-dropdown" id="source-type-dropdown" style="width: max-content; min-width: 100%; left: 0px; max-height: 313px; overflow-y: auto;">
                             </div>
                         </button>
                         <button data-type="select-order-channel-btn" id="select-source-channel-btn" style="width: 180px;">
@@ -287,19 +287,8 @@
                                   </clipPath>
                                 </defs>
                             </svg>
-                            <div class="filter-dropdown order-channel-dropdown" id="source-channel-dropdown">
-                                <label for="source-homme-channel" class="cursor-pointer">
-                                    <span>HOMME</span>
-                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-homme-channel" value="homme" name="source_channel" />
-                                </label>
-                                <label for="source-salon-channel" class="cursor-pointer">
-                                    <span>SALONS</span>
-                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-salon-channel" value="salon" name="source_channel" />
-                                </label>
-                                <label for="source-referrer-channel" class="cursor-pointer">
-                                    <span>REFERRERS</span>
-                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-referrer-channel" value="referral" name="source_channel" />
-                                </label>
+                            <div class="filter-dropdown order-channel-dropdown" id="source-channel-dropdown" style="width: max-content; min-width: 100%; left: 0px; max-height: 313px; overflow-y: auto;">
+                                
                             </div>
                         </button>
                     </div>

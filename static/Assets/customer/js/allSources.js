@@ -133,34 +133,17 @@ async function getData(url=null) {
 // }
 
 
-sourceChannelBtn.addEventListener('click', function() {
-    if (sourceChannelDropdown.style.display == 'flex') {
-        sourceChannelDropdown.style.display = 'none';
-    }
-    else {
-        sourceChannelDropdown.style.display = 'flex';
-    }
-})
+// sourceChannelBtn.addEventListener('click', function() {
+//     if (sourceChannelDropdown.style.display == 'flex') {
+//         sourceChannelDropdown.style.display = 'none';
+//     }
+//     else {
+//         sourceChannelDropdown.style.display = 'flex';
+//     }
+// })
 
 // let selectedSourceChannel = [];
 // let sourceChannelFilterString = '';
-
-function selectSourceChannel(inputElement) {
-    if (inputElement.checked) {
-        // selectedSourceChannel.push(inputElement.value);
-        requiredDataURL = setParams(requiredDataURL, 'channel', inputElement.value);
-        getData(requiredDataURL);
-        sourceChannelDropdown.style.display = "none";
-        sourceChannelBtn.click();
-    }
-    // else {
-    //     const index = selectedSourceChannel.indexOf(inputElement.value);
-    //     if (index !== -1) {
-    //       selectedSourceChannel.splice(index, 1);
-    //     }
-    // }
-    // sourceChannelFilterString = selectedSourceChannel.join(',');
-}
 
 
 orderStatTimeBtn.addEventListener('click', function() {
@@ -347,7 +330,10 @@ async function getSourceTypes() {
             sourceTypeList.innerHTML = '';
             sourceTypeDropdown.innerHTML = '';
             res.data.forEach((sourceType) => {
-                sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
+                sourceTypeDropdown.innerHTML += `<label for="source-type-dropdown-${sourceType.id}" class="cursor-pointer">
+                                                    <span>${sourceType.name}</span>
+                                                    <input type="checkbox" onchange="filterSourceType(this);" id="source-type-dropdown-${sourceType.id}" value="${sourceType.id}" name="source_type_dropdown_checkbox" />
+                                                </label>`;
                 sourceTypeList.innerHTML += `<div class="source">
                                                     <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceType.id}" value="${sourceType.name}" placeholder="Source Name" />
                                                     <div>
@@ -374,9 +360,12 @@ async function getSourceChannels() {
     response.json().then(function(res) {
         if (response.status == 200) {
             sourceChannelList.innerHTML = '';
-            // sourceTypeDropdown.innerHTML = '';
+            sourceChannelDropdown.innerHTML = '';
             res.data.forEach((sourceChannel) => {
-                // sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
+                sourceChannelDropdown.innerHTML += `<label for="source-channel-dropdown-${sourceChannel.id}" class="cursor-pointer">
+                                                        <span>${sourceChannel.name}</span>
+                                                        <input type="radio" onchange="filterSourceChannel(this);" id="source-channel-dropdown-${sourceChannel.id}" value="${sourceChannel.id}" name="source_channel_dropdown_checkbox" />
+                                                    </label>`;
                 sourceChannelList.innerHTML += `<div class="source">
                                                     <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceChannel.id}" value="${sourceChannel.name}" placeholder="Source Channel Name" />
                                                     <div>
@@ -396,6 +385,37 @@ async function getSourceChannels() {
 }
 
 window.addEventListener('load', getSourceChannels);
+
+
+function filterSourceChannel(inputElement) {
+    console.log(inputElement);
+    if (inputElement.checked) {
+        // selectedSourceChannel.push(inputElement.value);
+        requiredDataURL = setParams(requiredDataURL, 'channel', inputElement.value);
+        getData(requiredDataURL);
+        sourceChannelDropdown.style.display = "none";
+        sourceChannelBtn.click();
+    }
+    // else {
+    //     const index = selectedSourceChannel.indexOf(inputElement.value);
+    //     if (index !== -1) {
+    //       selectedSourceChannel.splice(index, 1);
+    //     }
+    // }
+    // sourceChannelFilterString = selectedSourceChannel.join(',');
+}
+
+
+function toggleSourceChannelDropdown() {
+    if (sourceChannelDropdown.style.display == 'flex') {
+        sourceChannelDropdown.style.display = 'none';
+    }
+    else {
+        sourceChannelDropdown.style.display = 'flex';
+    }
+}
+
+sourceChannelBtn.addEventListener('click', toggleSourceChannelDropdown);
 
 
 async function getSourceOwner() {
@@ -513,12 +533,22 @@ function toggleSourceTypeDropdown() {
 }
 
 
-function filterSourceType(element) {
-    if (selectedSourceType.innerText != element.innerText) {
-        requiredDataURL = setParams(requiredDataURL, 'type', element.getAttribute('data-value'));
-        getData(requiredDataURL);
+let selectedSourceTypeList = [];
+let sourceTypeFilterString = '';
+
+function filterSourceType(inputElement) {
+    if (inputElement.checked) {
+        selectedSourceTypeList.push(inputElement.value);
     }
-    selectedSourceType.innerText = element.innerText;
+    else {
+        const index = selectedSourceTypeList.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSourceTypeList.splice(index, 1);
+        }
+    }
+    sourceTypeFilterString = selectedSourceTypeList.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'type__in', sourceTypeFilterString);
+    getData(requiredDataURL);
 }
 
 

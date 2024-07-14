@@ -81,7 +81,7 @@
                         </button>
                         <button onclick="toggleSourceTypeDropdown();" id="source-type-btn" style="position: relative; width: 152px">
                             <span id="selected-source-type" style="text-transform: uppercase;">SOURCE TYPE</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
                                     <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
                                     <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
@@ -92,35 +92,24 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <div class="filter-dropdown source-type-dropdown" id="source-type-dropdown">
+                            <div class="filter-dropdown source-type-dropdown" id="source-type-list-dropdown" style="width: max-content; min-width: 100%; left: 0px; max-height: 313px; overflow-y: auto;">
                             </div>
                         </button>
                         <button data-type="select-order-channel-btn" id="select-source-channel-btn" style="width: 180px;">
                             <span id="selected-source-channel-opt">SOURCE CHANNEL</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
-                                    <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
-                                    <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
+                                  <path d="M14.5945 9.31641L7.59448 16.8164L0.594482 9.31641H14.5945Z" fill="#030706"/>
+                                  <path d="M14.5947 8.25L7.59473 0.75L0.594727 8.25H14.5947Z" fill="#030706"/>
                                 </g>
                                 <defs>
-                                    <clipPath id="clip0_771_3739">
+                                  <clipPath id="clip0_771_3739">
                                     <rect width="14" height="16.5" fill="white" transform="translate(0.594727 0.75)"/>
-                                    </clipPath>
+                                  </clipPath>
                                 </defs>
                             </svg>
-                            <div class="filter-dropdown order-channel-dropdown" id="source-channel-dropdown">
-                                <label for="source-homme-channel" class="cursor-pointer">
-                                    <span>HOMME</span>
-                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-homme-channel" value="homme" name="source_channel" />
-                                </label>
-                                <label for="source-salon-channel" class="cursor-pointer">
-                                    <span>SALONS</span>
-                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-salon-channel" value="salon" name="source_channel" />
-                                </label>
-                                <label for="source-referrer-channel" class="cursor-pointer">
-                                    <span>REFERRERS</span>
-                                    <input type="checkbox" onchange="selectSourceChannel(this);" id="source-referrer-channel" value="referral" name="source_channel" />
-                                </label>
+                            <div class="filter-dropdown order-channel-dropdown" id="source-channel-list-dropdown" style="width: max-content; min-width: 100%; left: 0px; max-height: 313px; overflow-y: auto;">
+                                
                             </div>
                         </button>
                     </div>

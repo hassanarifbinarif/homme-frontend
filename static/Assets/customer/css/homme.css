@@ -206,13 +206,13 @@ button[data-type="select-order-stat-time-btn"] > .order-stats-dropdown > span:ho
     leading-trim: both;
     text-edge: cap;
     font-family: Gotham Medium;
-    font-size: .65rem;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 500;
     line-height: 10px;
     letter-spacing: 1.2px;
-    text-transform: uppercase;
-    height: 25px;
+    /* text-transform: uppercase; */
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;

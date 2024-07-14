@@ -136,36 +136,6 @@ function selectSalesChannel(inputElement) {
 }
 
 
-sourceChannelBtn.addEventListener('click', function() {
-    if (sourceChannelDropdown.style.display == 'flex') {
-        sourceChannelDropdown.style.display = 'none';
-    }
-    else {
-        sourceChannelDropdown.style.display = 'flex';
-    }
-})
-
-let selectedSourceChannel = [];
-let sourceChannelFilterString = '';
-
-function selectSourceChannel(inputElement) {
-    if (inputElement.checked) {
-        selectedSourceChannel.push(inputElement.value);
-    }
-    else {
-        const index = selectedSourceChannel.indexOf(inputElement.value);
-        if (index !== -1) {
-          selectedSourceChannel.splice(index, 1);
-        }
-    }
-    sourceChannelFilterString = selectedSourceChannel.join(',');
-    requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__channel__in', sourceChannelFilterString);
-    getData(requiredDataURL);
-    salesChannelDropdown.style.display = "none";
-    sourceChannelBtn.click();
-}
-
-
 orderStatTimeBtn.addEventListener('click', function() {
     if (orderStatsDropdown.classList.contains('hide')) {
         orderStatsDropdown.classList.remove('hide');
@@ -459,7 +429,10 @@ async function getSourceTypes() {
     response.json().then(function(res) {
         if (response.status == 200) {
             res.data.forEach((sourceType) => {
-                sourceTypeDropdown.innerHTML += `<span onclick="filterSourceType(this);" data-value="${sourceType.id}">${sourceType.name}</span>`;
+                sourceTypeDropdown.innerHTML += `<label for="source-type-dropdown-${sourceType.id}" class="cursor-pointer">
+                                                    <span>${sourceType.name}</span>
+                                                    <input type="checkbox" onchange="filterSourceType(this);" id="source-type-dropdown-${sourceType.id}" value="${sourceType.id}" name="source_type_dropdown_checkbox" />
+                                                </label>`;
             })
         }
     })
@@ -478,12 +451,71 @@ function toggleSourceTypeDropdown() {
 }
 
 
-function filterSourceType(element) {
-    if (selectedSourceType.innerText != element.innerText) {
-        requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__type', element.getAttribute('data-value'));
-        getData(requiredDataURL);
+let selectedSourceTypeList = [];
+let sourceTypeFilterString = '';
+
+function filterSourceType(inputElement) {
+    if (inputElement.checked) {
+        selectedSourceTypeList.push(inputElement.value);
     }
-    selectedSourceType.innerText = element.innerText;
+    else {
+        const index = selectedSourceTypeList.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSourceTypeList.splice(index, 1);
+        }
+    }
+    sourceTypeFilterString = selectedSourceTypeList.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__type__in', sourceTypeFilterString);
+    getData(requiredDataURL);
+}
+
+
+async function getSourceChannels() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    let response = await requestAPI(`${apiURL}/admin/sources/channels?page=1&perPage=1000`, null, headers, 'GET');
+    response.json().then(function(res) {
+        if (response.status == 200) {
+            res.data.forEach((sourceChannel) => {
+                sourceChannelDropdown.innerHTML += `<label for="source-channel-dropdown-${sourceChannel.id}" class="cursor-pointer">
+                                                        <span>${sourceChannel.name}</span>
+                                                        <input type="checkbox" onchange="filterSourceChannel(this);" id="source-channel-dropdown-${sourceChannel.id}" value="${sourceChannel.id}" name="source_channel_dropdown_checkbox" />
+                                                    </label>`;
+            })
+        }
+    })
+}
+
+window.addEventListener('load', getSourceChannels);
+
+
+sourceChannelBtn.addEventListener('click', function() {
+    if (sourceChannelDropdown.style.display == 'flex') {
+        sourceChannelDropdown.style.display = 'none';
+    }
+    else {
+        sourceChannelDropdown.style.display = 'flex';
+    }
+})
+
+let selectedSourceChannel = [];
+let sourceChannelFilterString = '';
+
+function filterSourceChannel(inputElement) {
+    if (inputElement.checked) {
+        selectedSourceChannel.push(inputElement.value);
+    }
+    else {
+        const index = selectedSourceChannel.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSourceChannel.splice(index, 1);
+        }
+    }
+    sourceChannelFilterString = selectedSourceChannel.join(',');
+    requiredDataURL = setParams(requiredDataURL, 'user__source_referrer__channel__in', sourceChannelFilterString);
+    getData(requiredDataURL);
+    salesChannelDropdown.style.display = "none";
+    sourceChannelBtn.click();
 }
 
 

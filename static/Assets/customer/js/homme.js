@@ -260,22 +260,41 @@ async function getSourceTypes() {
         if (response.status == 200) {
             res.data.forEach((sourceType) => {
                 salesChannelOverviewDropdown.innerHTML += `<label for="source-${sourceType.id}" class="cursor-pointer">
-                                                            <span>${sourceType.name}</span>
-                                                            <input type="radio" onchange="filterSourceType(this);" id="source-${sourceType.id}" value="${sourceType.id}" name="source_channel" />
-                                                        </label>`;
+                                                                <span>${sourceType.name}</span>
+                                                                <input type="checkbox" onchange="filterSourceType(this);" id="source-${sourceType.id}" value="${sourceType.id}" name="source_channel" />
+                                                            </label>`;
             })
         }
     })
 }
 
 
+let selectedSourceTypeList = [];
+let sourceTypeFilterString = '';
+
 function filterSourceType(inputElement) {
     if (inputElement.checked) {
-        salesOverviewDataURL = setParams(salesOverviewDataURL, 'user__source_referrer__type', inputElement.value);
-        getSalesOverviewData();
+        selectedSourceTypeList.push(inputElement.value);
     }
-    // selectedSourceType.innerText = element.innerText;
+    else {
+        const index = selectedSourceTypeList.indexOf(inputElement.value);
+        if (index !== -1) {
+          selectedSourceTypeList.splice(index, 1);
+        }
+    }
+    sourceTypeFilterString = selectedSourceTypeList.join(',');
+    salesOverviewDataURL = setParams(salesOverviewDataURL, 'user__source_referrer__type__in', sourceTypeFilterString);
+    getSalesOverviewData();
 }
+
+
+// function filterSourceType(inputElement) {
+//     if (inputElement.checked) {
+//         salesOverviewDataURL = setParams(salesOverviewDataURL, 'user__source_referrer__type', inputElement.value);
+//         getSalesOverviewData();
+//     }
+//     // selectedSourceType.innerText = element.innerText;
+// }
 
 
 async function getSalesOverviewData() {
