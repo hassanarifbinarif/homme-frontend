@@ -85,6 +85,7 @@
 .order-details-wrapper {
     border-radius: 6px;
     min-height: calc(100vh - 187px);
+    overflow-x: auto;
     /* margin-bottom: 28px; */
 }
 
