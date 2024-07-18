@@ -89,7 +89,7 @@
                 <div><span class="table-text-overflow" title="{{obj.channel.name|default:'--'|title}}">{{obj.channel.name|default:'--'|title}}</span></div>
             </td>
             <td>
-                <div><span class="opacity-point-6 table-text-overflow" title="{% if obj.owner == None or obj.owner == '' %}--{% else %}{{obj.owner.name}}{% endif %}">{% if obj.owner == None or obj.owner == '' %}--{% else %}{{obj.owner.name}}{% endif %}</span></div>
+                <div><span class="opacity-point-6 table-text-overflow" title="{{obj.owner.name|default:'HOMME'}}">{{obj.owner.name|default:'HOMME'}}</span></div>
             </td>
             <td>
                 <div>

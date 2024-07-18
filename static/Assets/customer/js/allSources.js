@@ -424,7 +424,7 @@ async function getSourceOwner() {
     let responseSourceOwnerList = await requestAPI(`${apiURL}/admin/salon-profiles?user__is_blocked=false&page=1&perPage=10000&ordering=-created_at`, null, headers, 'GET');
     responseSourceOwnerList.json().then(function(res) {
         sourceOwnerData = [...res.data];
-        // sourceOwnerData.unshift({'salon_name': 'HOMME', 'user': {'id': 'homme-management'}})
+        sourceOwnerData.unshift({'salon_name': 'HOMME', 'user': {'id': 'homme-management'}})
         sourceOwnerData.forEach((owner) => {
             sourceOwnerDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn source-owner-item-list" data-id="${owner.user.id}">
                                                                     <input onchange="selectSourceOwner(this);" id="owner-${owner.user.id}" type="radio" value="${owner.user.id}" name="owner" />
@@ -438,9 +438,10 @@ window.addEventListener('load', getSourceOwner);
 
 
 function searchSourceOwner(event, inputElement) {
-    let filteredCustomer = [];
-    filteredCustomer = sourceOwnerData.filter(owner => owner.salon_name.toLowerCase().includes(inputElement.value.toLowerCase())).map((owner => owner.user.id));
-    if (filteredCustomer.length == 0) {
+    let filteredSourceOwner = [];
+    // filteredSourceOwner = sourceOwnerData.filter(owner => owner.salon_name.toLowerCase().includes(inputElement.value.toLowerCase())).map((owner => owner.user.id));
+    filteredSourceOwner = sourceOwnerData.filter(owner => owner.salon_name.toLowerCase().includes(inputElement.value.toLowerCase())).map((owner => String(owner.user.id)));
+    if (filteredSourceOwner.length == 0) {
         document.getElementById('no-source-owner-text').classList.remove('hide');
         document.querySelectorAll('.source-owner-item-list').forEach((item) => item.classList.add('hide'));
     }
@@ -448,7 +449,8 @@ function searchSourceOwner(event, inputElement) {
         document.getElementById('no-source-owner-text').classList.add('hide');
         document.querySelectorAll('.source-owner-item-list').forEach((item) => {
             let itemID = item.getAttribute('data-id');
-            if (filteredCustomer.includes(parseInt(itemID, 10))) {
+            // if (filteredCustomer.includes(parseInt(itemID, 10))) {
+            if (filteredSourceOwner.includes(itemID)) {
                 item.classList.remove('hide');
             }
             else {
@@ -461,7 +463,14 @@ function searchSourceOwner(event, inputElement) {
 
 function selectSourceOwner(inputElement) {
     if (inputElement.checked) {
-        requiredDataURL = setParams(requiredDataURL, 'owner', inputElement.value);
+        if (inputElement.value == 'homme-management') {
+            requiredDataURL = setParams(requiredDataURL, 'owner', '');
+            requiredDataURL = setParams(requiredDataURL, 'owner__isnull', true);
+        }
+        else {
+            requiredDataURL = setParams(requiredDataURL, 'owner', inputElement.value);
+            requiredDataURL = setParams(requiredDataURL, 'owner__isnull', false);
+        }
         getData();
         document.getElementById('selected-source-owner').innerText = inputElement.nextElementSibling.innerText;
         document.getElementById('selected-source-owner').title = inputElement.nextElementSibling.innerText;
