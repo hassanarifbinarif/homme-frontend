@@ -396,6 +396,7 @@ def get_all_sources_list(request):
         html = text_template.render({'all_sources':response})
         context['all_sources_data'] = html
         context['stats'] = response['stats']
+        context['pagination_data'] = response['pagination']
         context['msg'] = 'All sources retrieved'
         context['success'] = True
     except Exception as e:

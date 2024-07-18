@@ -196,7 +196,7 @@
                                 </div>
                             </div>
                         </button>
-                        <button onclick="toggleSourceTypeDropdown();" id="source-type-btn" style="position: relative; width: 152px">
+                        <button onclick="toggleSourceTypeDropdown();" id="source-type-btn" style="position: relative; width: 220px">
                             <span id="selected-source-type" style="text-transform: uppercase;">SOURCE TYPE</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
@@ -212,7 +212,7 @@
                             <div class="filter-dropdown source-type-dropdown" id="source-type-dropdown" style="width: max-content; min-width: 100%; left: 0px; max-height: 313px; overflow-y: auto;">
                             </div>
                         </button>
-                        <button onclick="toggleSourceDropdown(event);" id="source-btn" style="position: relative; width: 122px;">
+                        <button onclick="toggleSourceDropdown(event);" id="source-btn" style="position: relative; width: 260px; justify-content: space-between;">
                             <span id="selected-source">SOURCE</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                 <g clip-path="url(#clip0_771_3739)">
@@ -225,7 +225,7 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <div class="filter-dropdown purchase-type-dropdown searchable-dropdown-selector" id="source-selector" style="display: none; width: 350px; left: 0px;">
+                            <div class="filter-dropdown purchase-type-dropdown searchable-dropdown-selector" id="source-selector" style="display: none; width: 260px; left: 0px;">
                                 <div class="search-div">
                                     <input maxlength="100" type="text" name="search" oninput="searchSource(event, this);" onkeypress="searchSource(event, this);" id="source-filter-input" />
                                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -298,6 +298,37 @@
                         </span>
                     </div>
                     {% include '../ajax/all-sources-table.html' %}
+                </div>
+                <div class="pagination-section">
+                    <div class="page-items">
+                        <span>Items Per Page</span>
+                        <div class="dropdown per-page-dropdown-menu">
+                            <button class="btn dropdown-toggle" type="button" id="perPageDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span id="current-per-page">29</span>
+                                <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.3116 5.6121C3.71075 6.07854 4.43204 6.07854 4.83119 5.6121L7.79362 2.15017C8.34883 1.50133 7.88779 0.500001 7.03382 0.500001L1.10897 0.500001C0.255 0.500001 -0.206046 1.50133 0.349174 2.15017L3.3116 5.6121Z" fill="black"/>
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="perPageDropdownMenu" id="per-page-dropdown-options-container">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="table-pagination-navigation">
+                        <div class="pagination-nav-btn opacity-point-6" id="previous-nav-btn">
+                            <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.888147 3.73909C0.421701 4.13824 0.421702 4.85953 0.888147 5.25868L4.35008 8.22111C4.99891 8.77633 6.00024 8.31528 6.00024 7.46131L6.00024 1.53646C6.00024 0.68249 4.99891 0.221444 4.35008 0.776664L0.888147 3.73909Z" fill="black"/>
+                            </svg>
+                        </div>
+                        <div class="pagination-nav-btn current-page" id="current-nav-page">
+                            1
+                        </div>
+                        <div class="pagination-nav-btn opacity-point-6" id="next-nav-btn">
+                            <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.11185 3.73909C5.5783 4.13824 5.5783 4.85953 5.11185 5.25868L1.64992 8.22111C1.00109 8.77633 -0.000243613 8.31528 -0.000243576 7.46131L-0.000243317 1.53646C-0.000243279 0.68249 1.00109 0.221444 1.64992 0.776664L5.11185 3.73909Z" fill="black"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
