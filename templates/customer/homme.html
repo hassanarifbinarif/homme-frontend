@@ -134,14 +134,14 @@
                 <div class="chart-wrapper">
                     <div class="chart-btn">
                         <button id="chart-type-btn">
-                            <span id="selected-chart-type">Sales Per Channel</span>
+                            <span id="selected-chart-type">Sales by Sales Channel</span>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
                                     <path d="M14 0.25L7 7.75L0 0.25H14Z" fill="#030706"/>
                                 </svg>
                             </div>
                             <div class="chart-type-dropdown hide" id="chart-type-dropdown">
-                                <span onclick="selectChartType(event);" data-value="sales">Sales Per Channel</span>
+                                <span onclick="selectChartType(event);" data-value="sales">Sales by Sales Channel</span>
                                 <span onclick="selectChartType(event);" data-value="pick_ship">Picked-up VS Shipped</span>
                                 <span onclick="selectChartType(event);" data-value="source_channel">Sales by Source Channels</span>
                                 <span onclick="selectChartType(event);" data-value="source_type">Sales by Source Types</span>
@@ -207,18 +207,7 @@
                                 </svg>
                             </div>
                             <div class="order-channel-dropdown hide" id="sales-channel-overview-dropdown" style="width: max-content; min-width: 100%; left: 0px; max-height: 313px; overflow-y: auto;">
-                                <!-- <label for="overview-homme-channel" class="cursor-pointer">
-                                    <span>HOMME</span>
-                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-homme-channel" value="homme" name="sales_channel" />
-                                </label>
-                                <label for="overview-salon-channel" class="cursor-pointer">
-                                    <span>SALONS</span>
-                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-salon-channel" value="salon" name="sales_channel" />
-                                </label>
-                                <label for="overview-referrer-channel" class="cursor-pointer">
-                                    <span>REFERRERS</span>
-                                    <input type="checkbox" onchange="selectSalesChannelOverview(this);" id="overview-referrer-channel" value="referral" name="sales_channel" />
-                                </label> -->
+                                
                             </div>
                         </button>
                         <button data-type="select-order-stat-time-btn" id="select-sales-stat-time-btn">

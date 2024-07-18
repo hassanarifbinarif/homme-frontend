@@ -5,6 +5,7 @@ let chartContainer = document.getElementById('chart-container');
 let salesPerChannelChart = document.getElementById('sales-per-channel-chart');
 let pickedupVsShippedSalesChart = document.getElementById('picked-vs-shipped-sales-chart');
 let sourceTypeSalesChart = document.getElementById('source-type-sales-chart');
+let sourceChannelSalesChart = document.getElementById('source-channel-sales-chart');
 
 let chartTypeBtn = document.getElementById('chart-type-btn');
 let chartTypeDropdown = document.getElementById('chart-type-dropdown');
@@ -35,6 +36,7 @@ let salesOverviewDataURL = `/admin/dashboard/customer/sales-overview?search=&sal
 let salesChannelChartDataURL = `/admin/dashboard/customer/net-sales-graph-by-sales-channel?search=&year=${getLastNYears()}`;
 let pickedupVsShippedChartDataURL = `/admin/dashboard/customer/net-sales-graph?search=&year=${getLastNYears()}`;
 let sourceTypeChartDataURL = `/admin/dashboard/customer/net-sales-graph-by-source-type?search=&year=${getLastNYears()}`;
+let sourceChannelChartDataURL = `/admin/dashboard/customer/net-sales-graph-by-source-channel?search=&year=${getLastNYears()}`;
 
 
 window.onload = () => {
@@ -45,6 +47,7 @@ window.onload = () => {
     getChartData(salesChannelChartDataURL, 'sales_per_channel');
     getChartData(pickedupVsShippedChartDataURL, 'picked_up_vs_shipped');
     getChartData(sourceTypeChartDataURL, 'source_type');
+    getChartData(sourceChannelChartDataURL, 'source_channel');
     getSummaryData();
     checkPageCount();
     getSourceTypes();
@@ -170,18 +173,28 @@ function selectChartType(event) {
     if (element.getAttribute('data-value') == 'sales') {
         pickedupVsShippedSalesChart.classList.add('hide');
         sourceTypeSalesChart.classList.add('hide');
+        sourceChannelSalesChart.classList.add('hide');
         salesPerChannelChart.classList.remove('hide');
-        document.getElementById('selected-chart-type').innerText = 'Sales Per Channel';
+        document.getElementById('selected-chart-type').innerText = 'Sales by Sales Channel';
     }
     else if (element.getAttribute('data-value') == 'pick_ship') {
         salesPerChannelChart.classList.add('hide');
         sourceTypeSalesChart.classList.add('hide');
+        sourceChannelSalesChart.classList.add('hide');
         pickedupVsShippedSalesChart.classList.remove('hide');
         document.getElementById('selected-chart-type').innerText = 'Picked-up VS Shipped';
+    }
+    else if (element.getAttribute('data-value') == 'source_channel') {
+        salesPerChannelChart.classList.add('hide');
+        pickedupVsShippedSalesChart.classList.add('hide');
+        sourceTypeSalesChart.classList.add('hide');
+        sourceChannelSalesChart.classList.remove('hide');
+        document.getElementById('selected-chart-type').innerText = element.innerText;
     }
     else if (element.getAttribute('data-value') == 'source_type') {
         salesPerChannelChart.classList.add('hide');
         pickedupVsShippedSalesChart.classList.add('hide');
+        sourceChannelSalesChart.classList.add('hide');
         sourceTypeSalesChart.classList.remove('hide');
         document.getElementById('selected-chart-type').innerText = element.innerText;
     }
@@ -356,6 +369,9 @@ async function getChartData(url, type='sales_per_channel') {
                 else if (type == 'source_type') {
                     drawSourceTypeSalesChart(res);
                 }
+                else if (type == 'source_channel') {
+                    drawSourceChannelSalesChart(res);
+                }
                 // type == 'sales_per_channel' ? drawSalesPerChannelChart(res) : drawPickedupVsShippedSalesChart(res);
             })
         }
@@ -520,6 +536,7 @@ function selectDataYear(event) {
     salesChannelChartDataURL = setParams(salesChannelChartDataURL, 'year', year);
     pickedupVsShippedChartDataURL = setParams(pickedupVsShippedChartDataURL, 'year', year);
     sourceTypeChartDataURL = setParams(sourceTypeChartDataURL, 'year', year);
+    sourceChannelChartDataURL = setParams(sourceChannelChartDataURL, 'year', year);
     selectedYearText.innerText = year;
     if (typeof salesPerChannelStackedChart == 'object')
         salesPerChannelStackedChart.destroy();
@@ -527,16 +544,20 @@ function selectDataYear(event) {
         pickedupVsShippedStackedChart.destroy();
     if (typeof sourceTypeStackedChart == 'object')
         sourceTypeStackedChart.destroy();
+    if (typeof sourceChannelStackedChart == 'object')
+        sourceChannelStackedChart.destroy();
     
     getChartData(salesChannelChartDataURL, 'sales_per_channel');
     getChartData(pickedupVsShippedChartDataURL, 'picked_up_vs_shipped');
     getChartData(sourceTypeChartDataURL, 'source_type');
+    getChartData(sourceChannelChartDataURL, 'source_channel');
 }
 
 
 let salesPerChannelStackedChart;
 let pickedupVsShippedStackedChart;
 let sourceTypeStackedChart;
+let sourceChannelStackedChart;
 
 function drawSalesPerChannelChart(res) {
     let stackedChartElement = document.getElementById('sales-per-channel-chart');
@@ -725,17 +746,18 @@ function drawPickedupVsShippedSalesChart(res) {
 }
 
 
-function drawSourceTypeSalesChart(res) {
-    const labels = [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ];
-  
-    const predefinedColors = [
-        "#2C2E7F", "#DA3832", "#0D0F11", "#FFF34A",
-        "#00AAE9", "#D92D8A", "#00A359", "#E37739"
-    ];
-  
+const labels = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+const predefinedColors = [
+    "#2C2E7F", "#DA3832", "#0D0F11", "#FFF34A",
+    "#00AAE9", "#D92D8A", "#00A359", "#E37739"
+];
+
+
+function drawSourceTypeSalesChart(res) {  
     const sourceTypes = [...new Set(res.map(item => item.source_type))];
     const colorMap = {};
   
@@ -747,7 +769,7 @@ function drawSourceTypeSalesChart(res) {
         };
     });
   
-    let datasets = generateDatasets(res, sourceTypes, colorMap);
+    let datasets = generateDatasets(res, sourceTypes, colorMap, 'type');
 
     const ctx = document.getElementById('source-type-sales-chart').getContext('2d');
     sourceTypeStackedChart = new Chart(ctx, {
@@ -862,8 +884,135 @@ function drawSourceTypeSalesChart(res) {
 }
 
 
+function drawSourceChannelSalesChart(res) {  
+    const sourceChannels = [...new Set(res.map(item => item.source_channel))];
+    const colorMap = {};
+  
+    // Generate colors for each source_type on first load
+    sourceChannels.forEach((channel, index) => {
+        colorMap[channel] = {
+            backgroundColor: predefinedColors[index] || getRandomColor(),
+            borderColor: predefinedColors[index] || getRandomColor()
+        };
+    });
+  
+    let datasets = generateDatasets(res, sourceChannels, colorMap, 'channel');
+
+    const ctx = document.getElementById('source-channel-sales-chart').getContext('2d');
+    sourceChannelStackedChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            devicePixelRatio: 2,
+            responsive: true,
+            maintainAspectRatio: false,
+            ticks: {
+                font: {
+                    size: 12,
+                    family: 'Gotham Book',
+                    weight: 500
+                }
+            },
+            barThickness: 25,
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    beginAtZero: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: true
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = 'pointer';
+                    },
+                    onLeave: (event, chartElement) => {
+                        event.native.target.style.cursor = 'default';
+                    },
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        pointStyleWidth: 11,
+                        boxHeight: 8,
+                        font: {
+                            size: 12,
+                            family: 'Gotham Book',
+                            weight: '500'
+                        },
+                        color: '#000000'
+                    },
+                }
+            }
+        }
+    });
+
+    // const dropdownMenu = document.getElementById('sourceTypeDropdownMenu');
+    // sourceChannels.forEach(type => {
+    //     const checkboxItem = document.createElement('div');
+    //     checkboxItem.className = 'form-check dropdown-item';
+
+    //     const checkbox = document.createElement('input');
+    //     checkbox.type = 'checkbox';
+    //     checkbox.className = 'form-check-input';
+    //     checkbox.id = `checkbox-${type}`;
+    //     checkbox.checked = true;
+    //     checkbox.onchange = () => updateChart();
+
+    //     const label = document.createElement('label');
+    //     label.className = 'form-check-label';
+    //     label.htmlFor = `checkbox-${type}`;
+        
+    //     const colorCircle = document.createElement('span');
+    //     colorCircle.className = 'color-circle';
+    //     colorCircle.style.backgroundColor = colorMap[type].backgroundColor;
+    //     colorCircle.style.width = '11px';
+    //     colorCircle.style.height = '11px';
+    //     colorCircle.style.display = 'inline-block';
+    //     colorCircle.style.borderRadius = '50%';
+
+    //     label.appendChild(colorCircle);
+    //     label.append(type);
+
+    //     checkboxItem.appendChild(checkbox);
+    //     checkboxItem.appendChild(label);
+    //     dropdownMenu.appendChild(checkboxItem);
+    // });
+
+    function updateChart() {
+        const activeTypes = sourceChannels.filter(channel => document.getElementById(`checkbox-${channel}`).checked);
+        sourceChannelStackedChart.data.datasets = generateDatasets(data).filter(dataset => activeTypes.includes(dataset.label));
+        sourceChannelStackedChart.update();
+    }
+}
+
+
 // Generate datasets function
-function generateDatasets(chartData, legends, colorMap) {
+function generateDatasets(chartData, legends, colorMap, type='type') {
     const datasets = [];
     const dataByChartType = {};
 
@@ -873,7 +1022,10 @@ function generateDatasets(chartData, legends, colorMap) {
 
     chartData.forEach(item => {
         const monthIndex = new Date(item.month).getMonth();
-        dataByChartType[item.source_type][monthIndex] += parseFloat(item.total_sales);
+        if (type == 'type')
+            dataByChartType[item.source_type][monthIndex] += parseFloat(item.total_sales);
+        else if (type == 'channel')
+            dataByChartType[item.source_channel][monthIndex] += parseFloat(item.total_sales);
     });
 
     legends.forEach(type => {

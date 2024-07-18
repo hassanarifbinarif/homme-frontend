@@ -20,6 +20,8 @@ let referrerStatList = document.getElementById('referrer-stat-list');
 let totalSalonNumber = document.getElementById('total-salon-number');
 
 let netSalesChart = document.getElementById('net-sales-chart');
+let sourceTypeSalesChart = document.getElementById('source-type-sales-chart');
+let sourceChannelSalesChart = document.getElementById('source-channel-sales-chart');
 
 let selectYearBtn = document.getElementById('select-year-btn');
 let selectedYearText = document.getElementById('selected-year');
@@ -29,13 +31,17 @@ let selectYearDropdown = document.getElementById('select-year-dropdown');
 let requiredDataURL = `/admin/orders?perPage=8&page=1&ordering=-created_at&created_at__gte=&created_at__lte=&search=`;
 let salonStatsDataURL = `/admin/dashboard/salon/overview?search=&user__created_at__gte=&user__created_at__lte=`;
 let salonChartDataURL = `/admin/dashboard/salon/net-sales-graph?search=&year=${getLastNYears()}`;
+let sourceTypeChartDataURL = `/admin/dashboard/salon/net-sales-graph-by-source-type?search=&year=${getLastNYears()}`;
+let sourceChannelChartDataURL = `/admin/dashboard/salon/net-sales-graph-by-source-channel?search=&year=${getLastNYears()}`;
 
 
 window.onload = () => {
     // getNotifications();
     getData(requiredDataURL);
     getSalonStatsData();
-    getChartData();
+    getChartData(salonChartDataURL, 'net_sales');
+    getChartData(sourceTypeChartDataURL, 'source_type');
+    getChartData(sourceChannelChartDataURL, 'source_channel');
     populateYearList(20);
     getSummaryData();
 }
@@ -125,15 +131,23 @@ if (chartTypeBtn) {
 
 function selectChartType(event) {
     let element = event.target;
-    if (element.getAttribute('data-value') == 'sales') {
-        document.getElementById('pick-ship-chart').classList.add('hide');
-        document.getElementById('channel-chart').classList.remove('hide');
-        document.getElementById('selected-chart-type').innerText = 'Sales Per Channel';
+    if (element.getAttribute('data-value') == 'net_sales') {
+        sourceTypeSalesChart.classList.add('hide');
+        sourceChannelSalesChart.classList.add('hide');
+        netSalesChart.classList.remove('hide');
+        document.getElementById('selected-chart-type').innerText = element.innerText;
     }
-    else if (element.getAttribute('data-value') == 'pick_ship') {
-        document.getElementById('channel-chart').classList.add('hide');
-        document.getElementById('pick-ship-chart').classList.remove('hide');
-        document.getElementById('selected-chart-type').innerText = 'Picked-up VS Shipped';
+    else if (element.getAttribute('data-value') == 'source_channel') {
+        netSalesChart.classList.add('hide');
+        sourceTypeSalesChart.classList.add('hide');
+        sourceChannelSalesChart.classList.remove('hide');
+        document.getElementById('selected-chart-type').innerText = element.innerText;
+    }
+    else if (element.getAttribute('data-value') == 'source_type') {
+        netSalesChart.classList.add('hide');
+        sourceChannelSalesChart.classList.add('hide');
+        sourceTypeSalesChart.classList.remove('hide');
+        document.getElementById('selected-chart-type').innerText = element.innerText;
     }
 }
 
@@ -233,19 +247,26 @@ async function getSalonStatsData() {
 }
 
 
-async function getChartData() {
+async function getChartData(url, type='net_sales') {
     netSalesChart.classList.add('hide');
     document.getElementById('chart-loader').classList.remove('hide');
     document.getElementById('no-chart-data').classList.add('hide');
     try {
         let token = getCookie('admin_access');
-        let headers = {
-            "Authorization": `Bearer ${token}`
-        };
-        let response = await requestAPI(`${apiURL}${salonChartDataURL}`, null, headers, 'GET');
+        let headers = { "Authorization": `Bearer ${token}` };
+        let response = await requestAPI(`${apiURL}${url}`, null, headers, 'GET');
         if (response.status == 200) {
             response.json().then(function(res) {
-                salonNetSalesChart(res);
+                if (type == 'net_sales') {
+                    salonNetSalesChart(res);
+                }
+                else if (type == 'source_type') {
+                    drawSourceTypeSalesChart(res);
+                }
+                else if (type == 'source_channel') {
+                    drawSourceChannelSalesChart(res);
+                }
+                // salonNetSalesChart(res);
             })
         }
         else {
@@ -393,6 +414,8 @@ function generatePages(currentPage, totalPages) {
 
 
 let stackedChart;
+let sourceTypeStackedChart;
+let sourceChannelStackedChart;
 
 function salonNetSalesChart(res) {
     let stackedChartElement = document.getElementById('net-sales-chart');
@@ -483,6 +506,312 @@ function salonNetSalesChart(res) {
 }
 
 
+const labels = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+const predefinedColors = [
+    "#2C2E7F", "#DA3832", "#0D0F11", "#FFF34A",
+    "#00AAE9", "#D92D8A", "#00A359", "#E37739"
+];
+
+
+function drawSourceTypeSalesChart(res) {  
+    const sourceTypes = [...new Set(res.map(item => item.source_type))];
+    const colorMap = {};
+  
+    // Generate colors for each source_type on first load
+    sourceTypes.forEach((type, index) => {
+        colorMap[type] = {
+            backgroundColor: predefinedColors[index] || getRandomColor(),
+            borderColor: predefinedColors[index] || getRandomColor()
+        };
+    });
+  
+    let datasets = generateDatasets(res, sourceTypes, colorMap, 'type');
+
+    const ctx = document.getElementById('source-type-sales-chart').getContext('2d');
+    sourceTypeStackedChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            devicePixelRatio: 2,
+            responsive: true,
+            maintainAspectRatio: false,
+            ticks: {
+                font: {
+                    size: 12,
+                    family: 'Gotham Book',
+                    weight: 500
+                }
+            },
+            barThickness: 25,
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    beginAtZero: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: true
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = 'pointer';
+                    },
+                    onLeave: (event, chartElement) => {
+                        event.native.target.style.cursor = 'default';
+                    },
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        pointStyleWidth: 11,
+                        boxHeight: 8,
+                        font: {
+                            size: 12,
+                            family: 'Gotham Book',
+                            weight: '500'
+                        },
+                        color: '#000000'
+                    },
+                }
+            }
+        }
+    });
+
+    // const dropdownMenu = document.getElementById('sourceTypeDropdownMenu');
+    // sourceTypes.forEach(type => {
+    //     const checkboxItem = document.createElement('div');
+    //     checkboxItem.className = 'form-check dropdown-item';
+
+    //     const checkbox = document.createElement('input');
+    //     checkbox.type = 'checkbox';
+    //     checkbox.className = 'form-check-input';
+    //     checkbox.id = `checkbox-${type}`;
+    //     checkbox.checked = true;
+    //     checkbox.onchange = () => updateChart();
+
+    //     const label = document.createElement('label');
+    //     label.className = 'form-check-label';
+    //     label.htmlFor = `checkbox-${type}`;
+        
+    //     const colorCircle = document.createElement('span');
+    //     colorCircle.className = 'color-circle';
+    //     colorCircle.style.backgroundColor = colorMap[type].backgroundColor;
+    //     colorCircle.style.width = '11px';
+    //     colorCircle.style.height = '11px';
+    //     colorCircle.style.display = 'inline-block';
+    //     colorCircle.style.borderRadius = '50%';
+
+    //     label.appendChild(colorCircle);
+    //     label.append(type);
+
+    //     checkboxItem.appendChild(checkbox);
+    //     checkboxItem.appendChild(label);
+    //     dropdownMenu.appendChild(checkboxItem);
+    // });
+
+    function updateChart() {
+        const activeTypes = sourceTypes.filter(type => document.getElementById(`checkbox-${type}`).checked);
+        sourceTypeStackedChart.data.datasets = generateDatasets(data).filter(dataset => activeTypes.includes(dataset.label));
+        sourceTypeStackedChart.update();
+    }
+}
+
+
+function drawSourceChannelSalesChart(res) {  
+    const sourceChannels = [...new Set(res.map(item => item.source_channel))];
+    const colorMap = {};
+  
+    // Generate colors for each source_type on first load
+    sourceChannels.forEach((channel, index) => {
+        colorMap[channel] = {
+            backgroundColor: predefinedColors[index] || getRandomColor(),
+            borderColor: predefinedColors[index] || getRandomColor()
+        };
+    });
+  
+    let datasets = generateDatasets(res, sourceChannels, colorMap, 'channel');
+
+    const ctx = document.getElementById('source-channel-sales-chart').getContext('2d');
+    sourceChannelStackedChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            devicePixelRatio: 2,
+            responsive: true,
+            maintainAspectRatio: false,
+            ticks: {
+                font: {
+                    size: 12,
+                    family: 'Gotham Book',
+                    weight: 500
+                }
+            },
+            barThickness: 25,
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#000000'
+                    },
+                    stacked: true,
+                    beginAtZero: true,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        display: true
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = 'pointer';
+                    },
+                    onLeave: (event, chartElement) => {
+                        event.native.target.style.cursor = 'default';
+                    },
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        pointStyleWidth: 11,
+                        boxHeight: 8,
+                        font: {
+                            size: 12,
+                            family: 'Gotham Book',
+                            weight: '500'
+                        },
+                        color: '#000000'
+                    },
+                }
+            }
+        }
+    });
+
+    // const dropdownMenu = document.getElementById('sourceTypeDropdownMenu');
+    // sourceChannels.forEach(type => {
+    //     const checkboxItem = document.createElement('div');
+    //     checkboxItem.className = 'form-check dropdown-item';
+
+    //     const checkbox = document.createElement('input');
+    //     checkbox.type = 'checkbox';
+    //     checkbox.className = 'form-check-input';
+    //     checkbox.id = `checkbox-${type}`;
+    //     checkbox.checked = true;
+    //     checkbox.onchange = () => updateChart();
+
+    //     const label = document.createElement('label');
+    //     label.className = 'form-check-label';
+    //     label.htmlFor = `checkbox-${type}`;
+        
+    //     const colorCircle = document.createElement('span');
+    //     colorCircle.className = 'color-circle';
+    //     colorCircle.style.backgroundColor = colorMap[type].backgroundColor;
+    //     colorCircle.style.width = '11px';
+    //     colorCircle.style.height = '11px';
+    //     colorCircle.style.display = 'inline-block';
+    //     colorCircle.style.borderRadius = '50%';
+
+    //     label.appendChild(colorCircle);
+    //     label.append(type);
+
+    //     checkboxItem.appendChild(checkbox);
+    //     checkboxItem.appendChild(label);
+    //     dropdownMenu.appendChild(checkboxItem);
+    // });
+
+    function updateChart() {
+        const activeTypes = sourceChannels.filter(channel => document.getElementById(`checkbox-${channel}`).checked);
+        sourceChannelStackedChart.data.datasets = generateDatasets(data).filter(dataset => activeTypes.includes(dataset.label));
+        sourceChannelStackedChart.update();
+    }
+}
+
+
+// Generate datasets function
+function generateDatasets(chartData, legends, colorMap, type='type') {
+    const datasets = [];
+    const dataByChartType = {};
+
+    legends.forEach(type => {
+        dataByChartType[type] = Array.from({ length: 12 }, () => 0);
+    });
+
+    chartData.forEach(item => {
+        const monthIndex = new Date(item.month).getMonth();
+        if (type == 'type')
+            dataByChartType[item.source_type][monthIndex] += parseFloat(item.total_sales);
+        else if (type == 'channel')
+            dataByChartType[item.source_channel][monthIndex] += parseFloat(item.total_sales);
+    });
+
+    legends.forEach(type => {
+        datasets.push({
+            label: type,
+            data: dataByChartType[type],
+            backgroundColor: colorMap[type].backgroundColor,
+            borderColor: colorMap[type].borderColor,
+            borderWidth: 1
+        });
+    });
+
+    return datasets;
+}
+
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
 function populateYearList(n=0) {
     let yearList = getLastNYears(n);
     yearList.forEach((year) => {
@@ -494,10 +823,18 @@ function populateYearList(n=0) {
 function selectDataYear(event) {
     let year = event.target.innerText;
     salonChartDataURL = setParams(salonChartDataURL, 'year', year);
+    sourceTypeChartDataURL = setParams(sourceTypeChartDataURL, 'year', year);
+    sourceChannelChartDataURL = setParams(sourceChannelChartDataURL, 'year', year);
     selectedYearText.innerText = year;
     if (typeof stackedChart == 'object')
         stackedChart.destroy();
-    getChartData();
+    if (typeof sourceTypeStackedChart == 'object')
+        sourceTypeStackedChart.destroy();
+    if (typeof sourceChannelStackedChart == 'object')
+        sourceChannelStackedChart.destroy();
+    getChartData(salonChartDataURL, 'net_sales');
+    getChartData(sourceTypeChartDataURL, 'source_type');
+    getChartData(sourceChannelChartDataURL, 'source_channel');
 }
 
 
