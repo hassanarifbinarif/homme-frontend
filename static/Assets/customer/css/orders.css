@@ -178,6 +178,8 @@
     /* margin-bottom: 28px; */
     padding-bottom: 10px;
     min-height: calc(100vh - 177px);
+    overflow-x: auto;
+    position: relative;
 }
 
 .order-details-wrapper .order-details-filters {
@@ -567,4 +569,97 @@
     }
 }
 
+
 /* --------------------------------------------------------- */
+
+
+.pagination-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: sticky;
+    margin-top: 10px;
+}
+
+.pagination-section .page-items {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination-section .page-items > span {
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.pagination-section .page-items .per-page-dropdown-menu {
+    width: 68px;
+    height: 32px;
+}
+
+.pagination-section .page-items .per-page-dropdown-menu > button {
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    display: flex!important;
+    align-items: center;
+    justify-content: space-between;
+
+    font-family: Gotham Medium;
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.pagination-section .page-items .per-page-dropdown-menu > button::after {
+    display: none;
+}
+
+.pagination-section .page-items .per-page-dropdown-menu > ul {
+    min-width: 0px;
+    width: 100%;
+    padding: 0px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #FFFFFF;
+}
+
+.pagination-section .page-items .per-page-dropdown-menu > ul > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-family: Gotham Medium;
+    font-size: .75rem;
+    font-weight: 500;
+}
+
+.pagination-section .table-pagination-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination-section .table-pagination-navigation .pagination-nav-btn {
+    width: 50px;
+    height: 33px;
+    border-top: 1px solid #CBCCCE;
+    border-radius: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 16px;
+    color: #374254;
+}

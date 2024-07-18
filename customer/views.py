@@ -121,12 +121,7 @@ def get_order_list(request):
         html = text_template.render({'orders':response})
         context['order_data'] = html
         context['stats'] = response['stats']
-        # context['total_orders'] = response['stats']['total_orders']
-        # context['order_items'] = response['stats']['order_items']
-        # context['completed_orders'] = response['stats']['completed_orders']
-        # context['total_orders'] = response['stats']['total_orders']
-        # context['open_orders'] = response['stats']['open_orders']
-        # context['completion_time'] = response['stats']['completion_time']
+        context['pagination_data'] = response['pagination']
         context['msg'] = 'Orders retrieved'
         context['success'] = True
     except Exception as e:
@@ -170,6 +165,7 @@ def get_customer_list(request):
         context['customer_data'] = html
         context['total_customers'] = response['pagination']['count']
         context['msg'] = 'Customers retrieved'
+        context['pagination_data'] = response['pagination']
         context['success'] = True
     except Exception as e:
         print(e)
@@ -366,6 +362,7 @@ def get_source_list(request):
         text_template = loader.get_template('ajax/source-table.html')
         html = text_template.render({'source':response})
         context['source_data'] = html
+        context['pagination_data'] = response['pagination']
         context['msg'] = 'Source list retrieved'
         context['success'] = True
     except Exception as e:

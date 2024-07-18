@@ -384,7 +384,7 @@ function searchData(event) {
 async function getSourceTypes() {
     let token = getCookie('admin_access');
     let headers = { "Authorization": `Bearer ${token}` };
-    let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=1000`, null, headers, 'GET');
+    let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=1000&ordering=-id`, null, headers, 'GET');
     response.json().then(function(res) {
         if (response.status == 200) {
             sourceTypeList.innerHTML = '';
@@ -416,7 +416,7 @@ window.addEventListener('load', getSourceTypes);
 async function getSourceChannels() {
     let token = getCookie('admin_access');
     let headers = { "Authorization": `Bearer ${token}` };
-    let response = await requestAPI(`${apiURL}/admin/sources/channels?page=1&perPage=10000`, null, headers, 'GET');
+    let response = await requestAPI(`${apiURL}/admin/sources/channels?page=1&perPage=10000&ordering=-id`, null, headers, 'GET');
     response.json().then(function(res) {
         if (response.status == 200) {
             sourceChannelList.innerHTML = '';
@@ -584,8 +584,8 @@ function selectSource(inputElement) {
     if (inputElement.checked) {
         requiredDataURL = setParams(requiredDataURL, 'name__icontains', inputElement.value);
         getData();
-        // document.getElementById('selected-source').innerText = inputElement.nextElementSibling.innerText;
-        // document.getElementById('selected-source').title = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-source').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-source').title = inputElement.nextElementSibling.innerText;
         document.getElementById('source-filter-input').value = inputElement.nextElementSibling.innerText;
         sourceWrapper.style.display = 'none';
     }

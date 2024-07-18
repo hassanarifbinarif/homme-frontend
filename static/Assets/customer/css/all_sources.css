@@ -190,6 +190,7 @@
     padding-bottom: 10px;
     min-height: calc(100vh - 177px);
     position: relative;
+    overflow-x: auto;
 }
 
 .order-details-wrapper .order-details-filters {
@@ -232,8 +233,12 @@
     font-size: .75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 10px;
+    line-height: 12px;
     letter-spacing: 1.2px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .order-details-wrapper .order-details-filters .filter-btn {
@@ -644,13 +649,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* padding-bottom: 16px; */
     width: 100%;
     bottom: 0px;
     left: 0px;
     right: 0px;
     position: sticky;
-    /* width: calc(100vw - 295px); */
     margin-top: 10px;
 }
 
@@ -697,6 +700,7 @@
     padding: 0px;
     max-height: 300px;
     overflow-y: auto;
+    background: #FFFFFF;
 }
 
 .pagination-section .page-items .per-page-dropdown-menu > ul > span {

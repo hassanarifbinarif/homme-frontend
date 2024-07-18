@@ -11,7 +11,13 @@ let sourceChannelListDropdown = document.getElementById('source-channel-list-dro
 let selectedSalesChannel = [];
 let salesChannelFilterString = '';
 
-let requiredDataURL = `/admin/user-profiles?user__is_blocked=false&perPage=1000&search=&ordering=-id`;
+let perPage = 29;
+let requiredDataURL = `/admin/user-profiles?user__is_blocked=false&perPage=${perPage}&search=&ordering=-id`;
+
+let perPageDropdownOptionContainer = document.getElementById('per-page-dropdown-options-container');
+let previousPageBtn = document.getElementById('previous-nav-btn');
+let nextPageBtn = document.getElementById('next-nav-btn');
+let currentPageElement = document.getElementById('current-nav-page');
 
 
 window.onload = () => {
@@ -23,6 +29,27 @@ window.onload = () => {
     // getNotifications();
     getData();
     populateSalonDropdown();
+    populatePossiblePerPageOptions();
+}
+
+
+function populatePossiblePerPageOptions() {
+    for (let i = 10; i < 30; i++) {
+        let span = document.createElement('span');
+        span.textContent = i;
+        span.classList.add('dropdown-item');
+        span.setAttribute('onclick', `setPerPage(${i})`);
+        perPageDropdownOptionContainer.appendChild(span);
+    }
+}
+
+
+function setPerPage(count) {
+    perPage = count;
+    requiredDataURL = setParams(requiredDataURL, 'perPage', perPage);
+    requiredDataURL = setParams(requiredDataURL, 'page', 1);
+    getData();
+    document.getElementById('current-per-page').innerText = perPage;
 }
 
 
@@ -56,12 +83,10 @@ let totalCustomers = null;
 async function getData(url=null) {
     let data;
     let tableBody = document.getElementById('customer-table');
-    if (url == null) {
+    if (url == null)
         data = requiredDataURL;
-    }
-    else {
+    else
         data = url;
-    }
     document.getElementById('table-loader').classList.remove('hide');
     tableBody.classList.add('hide');
     try {
@@ -74,6 +99,7 @@ async function getData(url=null) {
                     totalCustomers = res.total_customers;
                     document.getElementById('total-customer-number').innerText = res.total_customers;
                 }
+                setPaginationLinks(res.pagination_data);
                 tableBody.classList.remove('hide');
             }
             else {
@@ -88,6 +114,40 @@ async function getData(url=null) {
     catch (err) {
         console.log(err);
     }
+}
+
+
+function setPaginationLinks(paginationData) {
+    currentPage = paginationData.currentPage;
+    currentPageElement.innerText = currentPage;
+
+    if (paginationData.links.next != null) {
+        nextPageBtn.classList.remove('opacity-point-6');
+        nextPageBtn.classList.add('cursor-pointer');
+        nextPageBtn.setAttribute('onclick', `getPageData(${currentPage + 1})`);
+    }
+    else {
+        nextPageBtn.classList.add('opacity-point-6');
+        nextPageBtn.classList.remove('cursor-pointer');
+        nextPageBtn.removeAttribute('onclick');
+    }
+
+    if (paginationData.links.previous != null) {
+        previousPageBtn.classList.remove('opacity-point-6');
+        previousPageBtn.classList.add('cursor-pointer');
+        previousPageBtn.setAttribute('onclick', `getPageData(${currentPage - 1})`);
+    }
+    else {
+        previousPageBtn.classList.add('opacity-point-6');
+        previousPageBtn.classList.remove('cursor-pointer');
+        previousPageBtn.removeAttribute('onclick');
+    }
+}
+
+
+function getPageData(pageNumber) {
+    requiredDataURL = setParams(requiredDataURL, 'page', pageNumber);
+    getData(requiredDataURL);
 }
 
 

@@ -38,15 +38,14 @@ async function createSourceChannelForm(event) {
         beforeLoad(button);
         let response = await requestAPI(`${apiURL}/admin/sources/channels`, JSON.stringify(data), headers, 'POST');
         response.json().then(function(res) {
-
             if (response.status == 201) {
                 form.removeAttribute('onsubmit');
                 afterLoad(button, 'CREATED');
-                getSourceChannel();
+                getSourceChannels();
                 setTimeout(() => {
                     afterLoad(button, buttonText);
                     document.querySelector('.createSourceChannelModal').click();
-                }, 1500)
+                }, 1200)
             }
             else if (response.status == 400) {
                 afterLoad(button, 'ERROR');

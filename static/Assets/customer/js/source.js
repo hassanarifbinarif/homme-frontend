@@ -1,8 +1,35 @@
-let requiredDataURL = `/admin/sources?page=1&perPage=1000&search=&ordering=-created_at`;
+let perPage = 29;
+let requiredDataURL = `/admin/sources?page=1&perPage=${perPage}&search=&ordering=-created_at`;
+
+let perPageDropdownOptionContainer = document.getElementById('per-page-dropdown-options-container');
+let previousPageBtn = document.getElementById('previous-nav-btn');
+let nextPageBtn = document.getElementById('next-nav-btn');
+let currentPageElement = document.getElementById('current-nav-page');
 
 window.onload = () => {
     // getNotifications();
     getData();
+    populatePossiblePerPageOptions();
+}
+
+
+function populatePossiblePerPageOptions() {
+    for (let i = 10; i < 30; i++) {
+        let span = document.createElement('span');
+        span.textContent = i;
+        span.classList.add('dropdown-item');
+        span.setAttribute('onclick', `setPerPage(${i})`);
+        perPageDropdownOptionContainer.appendChild(span);
+    }
+}
+
+
+function setPerPage(count) {
+    perPage = count;
+    requiredDataURL = setParams(requiredDataURL, 'perPage', perPage);
+    requiredDataURL = setParams(requiredDataURL, 'page', 1);
+    getData();
+    document.getElementById('current-per-page').innerText = perPage;
 }
 
 
@@ -19,12 +46,10 @@ function searchForm(event) {
 async function getData(url=null) {
     let data;
     let tableBody = document.getElementById('source-table');
-    if (url == null) {
+    if (url == null)
         data = requiredDataURL;
-    }
-    else {
+    else
         data = url
-    }
     tableBody.classList.add('hide');
     document.getElementById('table-loader').classList.remove('hide');
     try {
@@ -33,6 +58,7 @@ async function getData(url=null) {
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.source_data;
+                setPaginationLinks(res.pagination_data);
                 convertDateTime();
                 tableBody.classList.remove('hide');
             }
@@ -48,6 +74,40 @@ async function getData(url=null) {
     catch (err) {
         console.log(err);
     }
+}
+
+
+function setPaginationLinks(paginationData) {
+    currentPage = paginationData.currentPage;
+    currentPageElement.innerText = currentPage;
+
+    if (paginationData.links.next != null) {
+        nextPageBtn.classList.remove('opacity-point-6');
+        nextPageBtn.classList.add('cursor-pointer');
+        nextPageBtn.setAttribute('onclick', `getPageData(${currentPage + 1})`);
+    }
+    else {
+        nextPageBtn.classList.add('opacity-point-6');
+        nextPageBtn.classList.remove('cursor-pointer');
+        nextPageBtn.removeAttribute('onclick');
+    }
+
+    if (paginationData.links.previous != null) {
+        previousPageBtn.classList.remove('opacity-point-6');
+        previousPageBtn.classList.add('cursor-pointer');
+        previousPageBtn.setAttribute('onclick', `getPageData(${currentPage - 1})`);
+    }
+    else {
+        previousPageBtn.classList.add('opacity-point-6');
+        previousPageBtn.classList.remove('cursor-pointer');
+        previousPageBtn.removeAttribute('onclick');
+    }
+}
+
+
+function getPageData(pageNumber) {
+    requiredDataURL = setParams(requiredDataURL, 'page', pageNumber);
+    getData(requiredDataURL);
 }
 
 
