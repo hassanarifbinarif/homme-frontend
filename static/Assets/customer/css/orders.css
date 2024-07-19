@@ -562,6 +562,22 @@
     height: 25px;
 }
 
+.order-details-table tbody tr td .reset-pin-tries-btn {
+    width: 77px;
+    height: 22px;
+    border-radius: 6px;
+    background-color: #000093;
+    border: none;
+    padding-left: 8px;
+
+    font-family: Gotham Medium;
+    font-size: .65rem;
+    font-weight: 500;
+    line-height: 12px;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+}
+
 
 @media (max-width: 1439px) {
     .order-details-wrapper {

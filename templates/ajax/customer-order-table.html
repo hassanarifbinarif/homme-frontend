@@ -1,4 +1,5 @@
 {% load custom_tags %}
+{% load static %}
 
 <table class="order-details-table hide" id="order-table">
     <thead>
@@ -7,7 +8,7 @@
                 <input type="checkbox" />
             </div>
         </th>
-        <th width="6.24%" onclick="sortByOrder(event, 1);">
+        <th width="5.24%" onclick="sortByOrder(event, 1);">
             <div>
                 <span>Order</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -16,7 +17,7 @@
                 </svg>
             </div>
         </th>
-        <th width="10.22%" onclick="sortByDate(event);">
+        <th width="9.22%" onclick="sortByDate(event);">
             <div>
                 <span>Date</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -25,7 +26,7 @@
                 </svg>
             </div>
         </th>
-        <th width="12%" onclick="sortByAlphabets(event, 3);">
+        <th width="10%" onclick="sortByAlphabets(event, 3);">
             <div>
                 <span>Customer</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -43,7 +44,7 @@
                 </svg>
             </div>
         </th>
-        <th width="10%" onclick="sortByAlphabets(event, 5);">
+        <th width="9%" onclick="sortByAlphabets(event, 5);">
             <div>
                 <span>Source Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -61,7 +62,7 @@
                 </svg>
             </div>
         </th>
-        <th width="8.59%" onclick="sortByOrder(event, 7);">
+        <th width="7.59%" onclick="sortByOrder(event, 7);">
             <div>
                 <span>Net Sales</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -70,7 +71,7 @@
                 </svg>
             </div>
         </th>
-        <th width="11.76%" onclick="sortByAlphabets(event, 8);">
+        <th width="10.76%" onclick="sortByAlphabets(event, 8);">
             <div>
                 <span>Purchase Type</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -79,7 +80,7 @@
                 </svg>
             </div>
         </th>
-        <th width="9%" onclick="sortByAlphabets(event, 9);">
+        <th width="7%" onclick="sortByAlphabets(event, 9);">
             <div>
                 <span>Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -97,10 +98,19 @@
                 </svg>
             </div>
         </th>
-        <th width="7%" onclick="sortByAlphabets(event, 11);">
+        <th width="6.5%" onclick="sortByAlphabets(event, 11);">
             <div>
                 <span>Delivery</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
+                    <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
+                    <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
+                </svg>
+            </div>
+        </th>
+        <th width="8%">
+            <div>
+                <span>Pin Retries</span>
+                <svg class="hide" xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
                     <path opacity="0.2" d="M6 4.15234L3 7.78871L0 4.15234H6Z" fill="#030706"/>
                     <path opacity="0.2" d="M6 3.63636L3 0L0 3.63636H6Z" fill="#030706"/>
                 </svg>
@@ -162,6 +172,18 @@
             <td>
                 <div>
                     <span>{{obj.pickup_type|title}}</span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    {% if obj.pickup_type == 'self' %}
+                    <button {% if obj.pickup_pin_retries >= DEFAULT_PICKUP_PIN_RETRIES %}disabled class="reset-pin-tries-btn opacity-point-3-5"{% else %}onclick="resetPickupPinRetries(event, this, {{obj.id}}, {{DEFAULT_PICKUP_PIN_RETRIES}})" class="reset-pin-tries-btn"{% endif %}>
+                        <span class="spinner-border spinner-border-sm hide" role="status" aria-hidden="true"></span>
+                        <span class="btn-text">RESET</span>
+                    </button>
+                    {% else %}
+                    <span>N/A</span>
+                    {% endif %}
                 </div>
             </td>
         </tr>

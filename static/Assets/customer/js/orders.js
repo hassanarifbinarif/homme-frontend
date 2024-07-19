@@ -901,3 +901,44 @@ function convertDateTime() {
         dateTime.textContent = result;
     })
 }
+
+
+async function resetPickupPinRetries(event, button, id, defaultTries) {
+    event.stopPropagation();
+    let buttonText = button.innerText;
+    try {
+        let data = { "pickup_pin_retries": defaultTries || 5 };
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/orders/${id}`, JSON.stringify(data), headers, 'PATCH');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                button.setAttribute('onclick', 'event.stopPropagation()');
+                button.disabled = true;
+                button.setAttribute('disabled', true);
+                afterLoad(button, 'UPDATED');
+                setTimeout(() => {
+                    afterLoad(button, 'RESET');
+                    button.classList.add('opacity-point-3-5');
+                }, 1200)
+            }
+            else {
+                afterLoad(button, 'ERROR');
+                setTimeout(() => {
+                    afterLoad(button, 'RESET');
+                }, 1200)
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
+        setTimeout(() => {
+            afterLoad(button, 'RESET');
+        }, 1200)
+    }
+}

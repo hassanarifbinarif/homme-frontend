@@ -103,6 +103,7 @@ def orders(request, pk=None):
     context['user'] = pk
     context['active_page'] = 'orders'
     context['sidebar'] = 'customer'
+    context['DEFAULT_PICKUP_PIN_RETRIES'] = settings.DEFAULT_PICKUP_PIN_RETRIES
     return render(request, 'customer/orders.html', context)
 
 
@@ -118,7 +119,7 @@ def get_order_list(request):
         headers = {"Authorization": f'Bearer {admin_access_token}'}
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/customer-order-table.html')
-        html = text_template.render({'orders':response})
+        html = text_template.render({'orders':response, 'DEFAULT_PICKUP_PIN_RETRIES': settings.DEFAULT_PICKUP_PIN_RETRIES})
         context['order_data'] = html
         context['stats'] = response['stats']
         context['pagination_data'] = response['pagination']
