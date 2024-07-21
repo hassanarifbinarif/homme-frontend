@@ -133,13 +133,17 @@
                         <span>Items Per Page</span>
                         <div class="dropdown per-page-dropdown-menu">
                             <button class="btn dropdown-toggle" type="button" id="perPageDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span id="current-per-page">29</span>
+                                <span id="current-per-page">30</span>
                                 <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3.3116 5.6121C3.71075 6.07854 4.43204 6.07854 4.83119 5.6121L7.79362 2.15017C8.34883 1.50133 7.88779 0.500001 7.03382 0.500001L1.10897 0.500001C0.255 0.500001 -0.206046 1.50133 0.349174 2.15017L3.3116 5.6121Z" fill="black"/>
                                 </svg>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="perPageDropdownMenu" id="per-page-dropdown-options-container">
-                                
+                                <span class="dropdown-item cursor-pointer" onclick="setPerPage(30);">30</span>
+                                <span class="dropdown-item cursor-pointer" onclick="setPerPage(50);">50</span>
+                                <span class="dropdown-item cursor-pointer" onclick="setPerPage(100);">100</span>
+                                <span class="dropdown-item cursor-pointer" onclick="setPerPage(500);">500</span>
+                                <span class="dropdown-item cursor-pointer" onclick="setPerPage('ALL');">ALL</span>
                             </ul>
                         </div>
                     </div>

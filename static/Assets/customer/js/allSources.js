@@ -25,7 +25,7 @@ let salesChannelDropdown = document.getElementById('source-channel-dropdown');
 let sourceChannelBtn = document.getElementById('select-source-channel-btn');
 let sourceChannelDropdown = document.getElementById('source-channel-dropdown');
 
-let perPage = 29;
+let perPage = 30;
 let requiredDataURL = `/admin/sources?page=1&perPage=${perPage}&ordering=-id`;
 let searchField = document.getElementById('search-order');
 let tableBody = document.getElementById('all-sources-table');
@@ -40,7 +40,7 @@ let currentPageElement = document.getElementById('current-nav-page');
 
 window.onload = () => {
     getData();
-    populatePossiblePerPageOptions();
+    // populatePossiblePerPageOptions();
 }
 
 
@@ -56,11 +56,14 @@ function populatePossiblePerPageOptions() {
 
 
 function setPerPage(count) {
-    perPage = count;
+    if (count == 'ALL' || count == NaN)
+        perPage = 10000;
+    else
+        perPage = count;
     requiredDataURL = setParams(requiredDataURL, 'perPage', perPage);
     requiredDataURL = setParams(requiredDataURL, 'page', 1);
     getData();
-    document.getElementById('current-per-page').innerText = perPage;
+    document.getElementById('current-per-page').innerText = count;
 }
 
 

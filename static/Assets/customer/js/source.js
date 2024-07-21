@@ -1,4 +1,4 @@
-let perPage = 29;
+let perPage = 30;
 let requiredDataURL = `/admin/sources?page=1&perPage=${perPage}&search=&ordering=-created_at`;
 
 let perPageDropdownOptionContainer = document.getElementById('per-page-dropdown-options-container');
@@ -9,7 +9,7 @@ let currentPageElement = document.getElementById('current-nav-page');
 window.onload = () => {
     // getNotifications();
     getData();
-    populatePossiblePerPageOptions();
+    // populatePossiblePerPageOptions();
 }
 
 
@@ -25,11 +25,14 @@ function populatePossiblePerPageOptions() {
 
 
 function setPerPage(count) {
-    perPage = count;
+    if (count == 'ALL' || count == NaN)
+        perPage = 10000;
+    else
+        perPage = count;
     requiredDataURL = setParams(requiredDataURL, 'perPage', perPage);
     requiredDataURL = setParams(requiredDataURL, 'page', 1);
     getData();
-    document.getElementById('current-per-page').innerText = perPage;
+    document.getElementById('current-per-page').innerText = count;
 }
 
 

@@ -11,7 +11,7 @@ let sourceChannelListDropdown = document.getElementById('source-channel-list-dro
 let selectedSalesChannel = [];
 let salesChannelFilterString = '';
 
-let perPage = 29;
+let perPage = 30;
 let requiredDataURL = `/admin/user-profiles?user__is_blocked=false&perPage=${perPage}&search=&ordering=-id`;
 
 let perPageDropdownOptionContainer = document.getElementById('per-page-dropdown-options-container');
@@ -29,7 +29,7 @@ window.onload = () => {
     // getNotifications();
     getData();
     populateSalonDropdown();
-    populatePossiblePerPageOptions();
+    // populatePossiblePerPageOptions();
 }
 
 
@@ -45,11 +45,14 @@ function populatePossiblePerPageOptions() {
 
 
 function setPerPage(count) {
-    perPage = count;
+    if (count == 'ALL' || count == NaN)
+        perPage = 10000;
+    else
+        perPage = count;
     requiredDataURL = setParams(requiredDataURL, 'perPage', perPage);
     requiredDataURL = setParams(requiredDataURL, 'page', 1);
     getData();
-    document.getElementById('current-per-page').innerText = perPage;
+    document.getElementById('current-per-page').innerText = count;
 }
 
 
