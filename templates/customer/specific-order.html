@@ -46,16 +46,16 @@
                     <div class="source-details-wrapper">
                         <div class="source-detail" style="width: 38%;">
                             <span>Originating Source</span>
-                            <span>{{order.user_profile.user.source.referral_code|default:"--"}}</span>
+                            <span>{{order.user_profile.user.source_referrer.referral_code|default:"--"}}</span>
                         </div>
                         <div class="source-detail" style="width: 23.4%;">
                             <span>Source Owner</span>
-                            <span>{% if order.user_profile.user.source == None %}HOMME{% else %}{{order.user_profile.first_name}} {{order.user_profile.last_name}}{% endif %}</span>
+                            <span>{{order.user_profile.user.source_referrer.name|default:"--"}}</span>
                             <!-- <span>{{order.user_profile.user.source.name|default:"--"}}</span> -->
                         </div>
                         <div class="source-detail" style="width: 22.8%;">
                             <span>Source Type</span>
-                            <span>{{order.user_profile.user.source.type.name|default:"--"}}</span>
+                            <span>{{order.user_profile.user.source_referrer.referral_code.type.name|default:"--"}}</span>
                         </div>
                         <div class="source-detail" style="width: 16.3%;">
                             <span>Sales Channel</span>

@@ -71,16 +71,16 @@
                         <div class="specific-customer-attributes">
                             <div>
                                 <span>Originating Source</span>
-                                <span>{{customer.user.source.referral_code|default:"--"}}</span>
+                                <span>{{customer.user.source_referrer.referral_code|default:"--"}}</span>
                             </div>
                             <div>
                                 <span>Source Owner</span>
-                                <span>{% if customer.user.source == None %}HOMME{% else %}{{customer.first_name}} {{customer.last_name}}{% endif %}</span>
+                                <span>{{customer.user.source_referrer.name|default:"--"}}</span>
                                 <!-- <span>{{customer.user.source.name|default:"--"}}</span> -->
                             </div>
                             <div>
                                 <span>Source Type</span>
-                                <span>{{customer.user.source.type.name|default:"--"}}</span>
+                                <span>{{customer.user.source_referrer.referral_code.type.name|default:"--"}}</span>
                             </div>
                             <!-- <div>
                                 <span>Source</span>

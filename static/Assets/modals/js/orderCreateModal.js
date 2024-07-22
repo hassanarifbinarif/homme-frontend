@@ -579,6 +579,11 @@ async function orderCreate(event) {
             errorMsg.innerHTML = 'Complete all fields of shipping details';
             return false;
         }
+        else if (data.shipping_address.zip_code.trim().length != 5) {
+            errorMsg.classList.add('active');
+            errorMsg.innerHTML = 'Please enter a valid zip code';
+            return false;
+        }
         data.notes = document.getElementById('order-notes').value || "";
         errorMsg.classList.remove('active');
         errorMsg.innerHTML = '';
