@@ -199,7 +199,7 @@
                                                         <td style="overflow-wrap:break-word;word-break:break-word;" align="left">
                                                             <div style="margin: 0px 45px 0px 50px;">
                                                                 <div style="display: flex;align-items: center; gap: 3px;">
-                                                                    <div style="align-self: flex-start; width: 157px;display: flex;flex-direction: column;align-items: flex-start;gap: 12px;">
+                                                                    <div style="align-self: flex-start; width: 157px;display: flex;flex-direction: column;align-items: flex-start;gap: 13px;">
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 10px;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase;">SHIP TO</span>
                                                                         <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 1px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 9px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">
                                                                             <span style="height: fit-content; line-height: 11px;">{{order.shipping_address.first_name}} {{order.shipping_address.last_name}}</span>
@@ -208,7 +208,7 @@
                                                                             <span style="height: fit-content;">{{order.shipping_address.country}}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="align-self: flex-start; width: 157px;display: flex;flex-direction: column;align-items: flex-start;gap: 12px;">
+                                                                    <div style="align-self: flex-start; width: 157px;display: flex;flex-direction: column;align-items: flex-start;gap: 13px;">
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 10px;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase;">BILL TO</span>
                                                                         <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 1px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 9px;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize;">
                                                                             <span style="height: fit-content; line-height: 11px;">{{order.billing_address.first_name}} {{order.billing_address.last_name}}</span>
@@ -233,7 +233,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- <hr style="margin-top: 20px;margin-bottom: 13px; height: 1px; border: 0; border-top: 1px solid #000000;" /> -->
-                                                                <div style="margin-top: 47px; margin-bottom: 20px; margin-left: 50px; margin-right: 46px; height: 0px; border: 0; border-top: 1px solid #000000;"></div>
+                                                                <div style="margin-top: 45px; margin-bottom: 20px; margin-left: 50px; margin-right: 46px; height: 0px; border: 0; border-top: 1px solid #000000;"></div>
                                                                 <div>
                                                                     <table style="margin-left: 50px; margin-right: 50px; table-layout: fixed;">
                                                                         <thead>
@@ -289,7 +289,7 @@
                                                                     <div style="display: flex;flex-direction: column;gap: 13px;">
                                                                         <div style="display: flex;align-items: center;justify-content: space-between;">
                                                                             <span style="color: #000;font-family: Gotham Book;font-size: 8px;font-style: normal;font-weight: 500;line-height: 8px;">Shipping Cost</span>
-                                                                            <span style="color: #000;font-family: Gotham Medium;font-size: 8px;font-style: normal;font-weight: 500;line-height: 8px;text-align: right;">${% if order.pickup_type == 'self' %}Picked-up{% else %}${{order.shipping}}{% endif %}</span>
+                                                                            <span style="color: #000;font-family: Gotham Medium;font-size: 8px;font-style: normal;font-weight: 500;line-height: 8px;text-align: right;">{% if order.pickup_type == 'self' %}Picked-up{% else %}${{order.shipping}}{% endif %}</span>
                                                                             <!-- <span style="color: #000;font-family: Gotham Medium;font-size: 12px;font-style: normal;font-weight: 500;line-height: 11px;text-align: right;">$5.00</span> -->
                                                                         </div>
                                                                         <div style="display: flex;align-items: center;justify-content: space-between;">
