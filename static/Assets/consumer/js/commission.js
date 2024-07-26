@@ -299,7 +299,7 @@ function insertTableBodyRows(data, tableBody) {
                         <td><div><span class="table-text-overflow" title="${item.order ? item.order.hairstylist : 'None'}">${item.order ? item.order.hairstylist : 'None'}</span></div></td>
                         <td><div><span>${item.order ? '$' + item.order.retail_value : '---'}</span></div></td>
                         <td><div><span>${item.order ? '$' + item.order.net_sales : '---'}</span></div></td>
-                        <td><div><span>$${item.amount}</span></div></td>
+                        <td><div><span>${item.type == 'debit' ? '-' : ''}$${item.amount}</span></div></td>
                         <td><div><span>${item.order ? captalizeFirstLetter(item.order.status) : '---'}</span></div></td>
                         <td><div><span>${item.order ? (item.order.pickup_type == 'self' ? 'Picked-Up' : 'Shipped') : 'None'}</span></div></td>
                         <td><div><span>${item.description == "" ? '---' : item.description}</span></div></td>`;
