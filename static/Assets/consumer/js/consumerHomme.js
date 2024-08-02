@@ -781,7 +781,7 @@ function generateDatasets(chartData, legends, colorMap, type='type') {
     });
 
     chartData.forEach(item => {
-        const monthIndex = new Date(item.month).getMonth();
+        const monthIndex = new Date(item.month).getUTCMonth();
         if (type == 'type')
             dataByChartType[item.source_type][monthIndex] += parseFloat(item.total_sales);
         else if (type == 'channel')
