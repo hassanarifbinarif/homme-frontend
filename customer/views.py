@@ -99,12 +99,14 @@ def events(request):
 
 @admin_signin_required
 def orders(request, pk=None):
+    placed = request.GET.get("placed")
     context = {}
-    context['user'] = pk
-    context['active_page'] = 'orders'
-    context['sidebar'] = 'customer'
-    context['DEFAULT_PICKUP_PIN_RETRIES'] = settings.DEFAULT_PICKUP_PIN_RETRIES
-    return render(request, 'customer/orders.html', context)
+    context["placed"] = placed
+    context["user"] = pk
+    context["active_page"] = "orders"
+    context["sidebar"] = "customer"
+    context["DEFAULT_PICKUP_PIN_RETRIES"] = settings.DEFAULT_PICKUP_PIN_RETRIES
+    return render(request, "customer/orders.html", context)
 
 
 @csrf_exempt

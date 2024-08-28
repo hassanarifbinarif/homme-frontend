@@ -69,7 +69,7 @@
                                         <span>HOMME</span>
                                         <input type="checkbox" onchange="selectSalesChannel(this);" id="homme-channel" value="homme" name="sales_channel" />
                                     </label>
-                                    <label for="salon-channel" class="cursor-pointer">
+                                    <label for="salon-channel" id='salon-sale' class="cursor-pointer">
                                         <span>SALONS</span>
                                         <input type="checkbox" onchange="selectSalesChannel(this);" id="salon-channel" value="salon" name="sales_channel" />
                                     </label>
@@ -129,7 +129,7 @@
                         </svg>
                         <span><span id="fulfill-quantity"></span> Orders to fulfill</span>
                     </div>
-                    <button type="button" onclick="location.pathname = '/orders/'" class="cursor-pointer">FULFILL ORDERS</button>
+                    <button type="button" onclick="location.href = '/orders/?placed=true'">FULFILL ORDERS</button>
                 </div>
                 <div class="chart-wrapper">
                     <div class="chart-btn">
@@ -305,7 +305,10 @@
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/customer/js/homme.js' %}"></script>
-
+<script>
+  document.getElementById('salon-sale').click();
+  document.getElementById('order-channel-dropdown').classList.add('hide');
+</script>
 
 <!-- <script>
     // Sample data (replace with your dynamic data fetching logic)
