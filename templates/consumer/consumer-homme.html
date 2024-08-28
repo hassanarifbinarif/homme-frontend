@@ -46,7 +46,7 @@
                                         <span>HOMME</span>
                                         <input type="checkbox" onchange="selectSalesChannel(this);" id="homme-channel" value="homme" name="sales_channel" />
                                     </label> -->
-                                    <label for="salon-channel" class="cursor-pointer">
+                                    <label for="salon-channel" id='consumer-salon-sale' class="cursor-pointer">
                                         <span>SALONS</span>
                                         <input type="checkbox" onchange="selectSalesChannel(this);" id="salon-channel" value="salon" name="sales_channel" />
                                     </label>
@@ -272,5 +272,9 @@
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/consumer/js/consumerHomme.js' %}"></script>
+<script>
+    document.getElementById('consumer-salon-sale').click();
+    document.getElementById('order-channel-dropdown').classList.add('hide');
+  </script>
 {% endblock %}
 </html>
