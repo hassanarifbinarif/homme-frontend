@@ -10,6 +10,12 @@ let sourceOwnerData = {};
 let sourceBtn = document.getElementById('source-btn');
 let sourceWrapper = document.getElementById('source-selector');
 let sourceDropdown = document.getElementById('source-dropdown');
+let countryDropdown = document.getElementById('source-countries')
+let countryBtn = document.getElementById('source-countries-btn')
+let countryWrapper = document.getElementById('country-selector')
+let cityDropdown = document.getElementById('source-cities')
+let cityBtn = document.getElementById('source-city-btn')
+let cityWrapper = document.getElementById('city-selector')
 let sourceData = {};
 
 let purchaseTypeDropdown = document.getElementById('purchase-type-dropdown');
@@ -73,6 +79,12 @@ function closeDropdowns(event) {
     }
     if ((!sourceBtn.contains(event.target)) && sourceWrapper.style.display == 'flex') {
         sourceWrapper.style.display = "none";
+    }
+    if ((!countryBtn.contains(event.target)) && countryWrapper.style.display == 'flex') {
+        countryWrapper.style.display = "none";
+    }
+    if ((!cityBtn.contains(event.target)) && cityWrapper.style.display == 'flex') {
+        cityWrapper.style.display = "none";
     }
     if ((!sourceOwnerBtn.contains(event.target)) && sourceOwnerDropdown.style.display == 'flex') {
         sourceOwnerDropdown.style.display = "none";
@@ -581,6 +593,33 @@ function searchSource(event, inputElement) {
         })
     }
 }
+function searchCountry(event, inputElement) {
+    let filteredCustomer = [];
+    filteredCustomer = countryList.map((country, index) => ({ country, index })).filter(({ country }) => country.Country.toLowerCase().includes(inputElement.value.toLowerCase())).map(({ index }) => index+1);    
+    if (filteredCustomer.length == 0) {
+        document.getElementById('no-country-text').classList.remove('hide');
+        document.querySelectorAll('.country-item-list').forEach((item) => item.classList.add('hide'));
+    }
+    else {
+        document.getElementById('no-country-text').classList.add('hide');
+        document.querySelectorAll('.country-item-list').forEach((item) => {
+            let itemID = item.getAttribute('data-id');
+            if (filteredCustomer.includes(parseInt(itemID, 10))) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        })
+    }
+}
+
+function searchByCity(element){
+    requiredDataURL = setParams(requiredDataURL, 'city__icontains', element.value);
+    document.getElementById('selected-order-completion-type').innerText = element.value;
+    cityWrapper.style.display = "none";
+    getData();
+}
 
 
 function selectSource(inputElement) {
@@ -591,6 +630,17 @@ function selectSource(inputElement) {
         document.getElementById('selected-source').title = inputElement.nextElementSibling.innerText;
         document.getElementById('source-filter-input').value = inputElement.nextElementSibling.innerText;
         sourceWrapper.style.display = 'none';
+    }
+}
+
+function selectCountry(inputElement) {
+    if (inputElement.checked) {
+        requiredDataURL = setParams(requiredDataURL, 'country', inputElement.value);
+        getData();
+        document.getElementById('selected-country').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-country').title = inputElement.nextElementSibling.innerText;
+        document.getElementById('counrty-filter-input').value = inputElement.nextElementSibling.innerText;
+        countryWrapper.style.display = 'none';
     }
 }
 
@@ -655,6 +705,18 @@ function toggleSourceOwnerDropdown(event) {
 function toggleSourceDropdown(event) {
     if ((sourceBtn.contains(event.target)) && sourceWrapper.style.display == 'none') {
         sourceWrapper.style.display = 'flex';
+    }
+}
+
+function toggleCountriesDropdown(event) {
+    if ((countryBtn.contains(event.target)) && countryWrapper.style.display == 'none') {
+        countryWrapper.style.display = 'flex';
+    }
+}
+
+function toggleCityDropdown(event) {
+    if ((cityBtn.contains(event.target)) && cityWrapper.style.display == 'none') {
+        cityWrapper.style.display = 'flex';
     }
 }
 
@@ -921,3 +983,9 @@ function openUpdateSourceTypeChannelModal(modalID, type='type', id, name) {
     })
     document.querySelector(`.${modalID}`).click();
 }
+countryList.forEach((country, index) => {
+    countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
+                                                        <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Country']}" name="country_radio" />
+                                                        <label for="country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
+                                                    </div>`)
+})

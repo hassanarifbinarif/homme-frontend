@@ -5,6 +5,11 @@
                 <input type="checkbox" />
             </div>
         </th>
+        <th width="4.13%">
+            <div>
+                <span>Id</span>
+            </div>
+        </th>
         <th width="13.13%" onclick="sortByAlphabets(event, 1);">
             <div>
                 <span>Customer Name</span>
@@ -93,6 +98,11 @@
             <td onclick="event.stopPropagation();">
                 <div class="table-checkbox">
                     <input type="checkbox" />
+                </div>
+            </td>
+            <td>
+                <div>
+                    #{{obj.id}}
                 </div>
             </td>
             <td>

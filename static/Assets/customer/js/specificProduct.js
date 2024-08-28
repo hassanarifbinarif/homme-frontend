@@ -208,17 +208,21 @@ async function selectInsightTime(event) {
     let headers = {
         "Authorization": `Bearer ${token}`
     };
+
     try {
-        let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}?insight_days=${elementValue}`, null, headers, 'GET');
-        response.json().then(function(res) {
-            if (response.status == 200) {
-                document.getElementById('insight-stat').innerText = res.data.insights;
-            }
-            document.getElementById('selected-insight').innerText = element.innerText;
-        })
-    }
-    catch (err) {
-        console.log(err);
+        let url = `${apiURL}/admin/products/${specific_prod_id}`;
+        if (elementValue.length > 0) {
+            url += `?insight_days=${elementValue}`;
+        }
+        let response = await requestAPI(url, null, headers, 'GET');
+        let res = await response.json();
+
+        if (response.status === 200) {
+            document.getElementById('insight-stat').innerText = res.data.insights;
+        }
+        document.getElementById('selected-insight').innerText = element.innerText;
+    } catch (err) {
+        console.error(err);
     }
 }
 

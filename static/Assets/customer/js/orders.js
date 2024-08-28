@@ -631,8 +631,7 @@ function toggleOrderCompletionDropdown() {
 }
 
 
-function filterOrderCompletionType(event) {
-    let element = event.target;
+function filterOrderCompletionType(element) {
     requiredDataURL = setParams(requiredDataURL, 'status', element.getAttribute('data-value'));
     getData(requiredDataURL);
     document.getElementById('selected-order-completion-type').innerText = element.innerText;
@@ -652,6 +651,12 @@ function filterOrderCompletionType(event) {
     //         rows[i].setAttribute('order-completion-filtered', false);
     //     }
     // }
+}
+
+
+if (place === 'true'){
+    const placeElement = document.querySelector('span[data-value="placed"]');
+    filterOrderCompletionType(placeElement);
 }
 
 
