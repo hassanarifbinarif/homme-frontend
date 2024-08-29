@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'Assets/customer/css/source.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/qr_code_modal.css' %}" />
     <link rel="stylesheet" href="{% static 'Assets/modals/css/source_create_modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'Assets/modals/css/source_view_modal.css' %}" />
 
     {% endblock %}
 
@@ -94,11 +95,14 @@
 
     {% include '../modals/qr-code-modal.html' %}
 
+    {% include '../modals/view-source-modal.html' %}
+
     {% endblock %}
 </body>
 {% block scripts %}
 <script src="{% static 'Assets/customer/js/source.js' %}"></script>
 <script src="{% static 'Assets/modals/js/createSource.js' %}"></script>
 <script src="{% static 'Assets/modals/js/qrCodeModal.js' %}"></script>
+<script src="{% static 'Assets/modals/js/viewSourceModal.js' %}"></script>
 {% endblock %}
 </html>
