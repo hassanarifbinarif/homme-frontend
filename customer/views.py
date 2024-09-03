@@ -364,6 +364,7 @@ def get_source_list(request):
         status, response = requestAPI('GET', f'{settings.API_URL}{request_data}', headers, {})
         text_template = loader.get_template('ajax/source-table.html')
         html = text_template.render({'source':response})
+        context['source_dict'] = response.get('data', [])
         context['source_data'] = html
         context['pagination_data'] = response['pagination']
         context['msg'] = 'Source list retrieved'

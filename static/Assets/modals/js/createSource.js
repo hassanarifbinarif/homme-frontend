@@ -1,3 +1,5 @@
+let sourceModalHeaderText = document.getElementById('source-modal-header-text');
+
 let typeDropdown = document.getElementById('source-type-dropdown');
 let typeField = document.getElementById('source-type-field');
 
@@ -210,6 +212,7 @@ function openCreateSourceModal() {
     let modal = document.getElementById('createSource');
     let form = modal.querySelector('form');
     form.setAttribute('onsubmit', 'createSourceForm(event);');
+    sourceModalHeaderText.innerText = 'Create New Source';
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute('onsubmit');
@@ -332,3 +335,113 @@ async function createSourceForm(event) {
 //         })
 //     })
 // }
+
+
+function openEditSourceModal(modalId, id) {
+    let modal = document.querySelector(`#${modalId}`);
+    sourceModalHeaderText.innerText = 'Edit Source';
+    modal.querySelector('.btn-text').innerText = 'UPDATE';
+    let specificSourceData = sourceData.find(source => source.id == id);
+    let form = modal.querySelector("form");
+    form.setAttribute("onsubmit", `updateSourceForm(event, ${id})`);
+    form.querySelector('input[name="name"]').value = specificSourceData.name;
+    if (specificSourceData.type != null) {
+        form.querySelector('input[name="source_type"]').value = specificSourceData.type.name;
+        form.querySelector(`input[name="type"][value="${specificSourceData.type.id}"]`).checked = true;
+    }
+    if (specificSourceData.owner != null) {
+        let ownerInput = form.querySelector(`input[name="owner"][value="${specificSourceData.owner.id}"]`);
+        if (ownerInput)
+            ownerInput.checked = true;
+        form.querySelector('input[name="source_owner"]').value = specificSourceData.owner.name;
+    }
+    else {
+        form.querySelector('input[name="source_owner"]').value = 'HOMME';
+        form.querySelector(`input[name="owner"][value="homme-management"]`).checked = true;
+    }
+    if (specificSourceData.channel != null) {
+        form.querySelector('input[name="source_channel"]').value = specificSourceData.channel.name;
+        form.querySelector(`input[name="channel"][value="${specificSourceData.channel.id}"]`).checked = true;
+    }
+    form.querySelector('input[name="embedded_string"]').value = specificSourceData.embedded_string;
+    form.querySelector('textarea[name="description"]').value = specificSourceData.description;
+    form.querySelector('button[type="submit"]').disabled = false;
+    modal.addEventListener('hidden.bs.modal', event => {
+        sourceModalHeaderText.innerText = 'Create New Source';
+        form.reset();
+        form.removeAttribute("onsubmit");
+        form.querySelector('button[type="submit"]').disabled = false;
+        modal.querySelector('.btn-text').innerText = 'CREATE';
+        document.querySelector('.error-div').classList.add('hide');
+        document.querySelector('.create-error-msg').classList.remove('active');
+        document.querySelector('.create-error-msg').innerText = "";
+    })
+    document.querySelector(`.${modalId}`).click();
+}
+
+
+async function updateSourceForm(event, id) {
+    event.preventDefault();
+    let form = event.currentTarget;
+    let errorMsg = form.querySelector('.create-error-msg');
+    let formData = new FormData(form);
+    let data = formDataToObject(formData);
+    let button = form.querySelector('button[type="submit"]');
+    let buttonText = button.innerText;
+
+    if (data.name.trim().length == 0) {
+        errorMsg.innerText = 'Enter valid source name';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    else if (!data.type) {
+        errorMsg.innerText = 'Select a source type';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    // else if (!data.owner) {
+    //     errorMsg.innerText = 'Select a source owner';
+    //     errorMsg.classList.add('active');
+    //     return false;
+    // }
+    else if (data.description.trim().length == 0) {
+        errorMsg.innerText = 'Enter description';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    try {
+        if ('owner' in data && data.owner == 'homme-management')
+            data.owner = "";
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/sources/${id}`, JSON.stringify(data), headers, 'PATCH');
+        response.json().then(function(res) {
+            if (response.status == 200) {
+                form.removeAttribute('onsubmit');
+                afterLoad(button, 'UPDATED');
+                getData();
+                setTimeout(() => {
+                    // afterLoad(button, buttonText);
+                    document.querySelector('.createSource').click();
+                }, 1500)
+            }
+            else {
+                errorMsg.classList.add('active');
+                afterLoad(button, 'ERROR');
+                displayMessages(res.messages, errorMsg);
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, buttonText);
+        errorMsg.innerText = 'Error occurred! Retry later';
+        errorMsg.classList.add('active');
+    }
+}

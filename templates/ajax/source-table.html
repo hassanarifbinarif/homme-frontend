@@ -79,7 +79,7 @@
     </thead>
     <tbody>
         {% for obj in source.data %}
-        <tr class='cursor-pointer' onclick='openViewSourceModal(this);'>
+        <tr class='cursor-pointer' onclick="openEditSourceModal('createSource', {{obj.id}});">
             <td onclick="event.stopPropagation();">
                 <div class="table-checkbox">
                     <input type="checkbox" />

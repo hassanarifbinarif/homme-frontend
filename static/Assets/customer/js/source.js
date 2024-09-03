@@ -5,6 +5,7 @@ let perPageDropdownOptionContainer = document.getElementById('per-page-dropdown-
 let previousPageBtn = document.getElementById('previous-nav-btn');
 let nextPageBtn = document.getElementById('next-nav-btn');
 let currentPageElement = document.getElementById('current-nav-page');
+let sourceData = [];
 
 window.onload = () => {
     // getNotifications();
@@ -61,11 +62,13 @@ async function getData(url=null) {
             if (res.success) {
                 document.getElementById('table-loader').classList.add('hide');
                 tableBody.innerHTML = res.source_data;
+                sourceData = res.source_dict;
                 setPaginationLinks(res.pagination_data);
                 convertDateTime();
                 tableBody.classList.remove('hide');
             }
             else {
+                sourceData = [];
                 tableBody.querySelector('tbody').innerHTML = `<tr>
                                                                 <td colspan="8" class="no-record-row">No record available</td>
                                                             </tr>`;
