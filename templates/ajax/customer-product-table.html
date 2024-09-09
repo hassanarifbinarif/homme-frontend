@@ -33,7 +33,15 @@
     </thead>
     <tbody>
         {% for obj in products.data %}
-        <tr onclick="location.pathname = '/specific-product/{{obj.id}}'" class="cursor-pointer">
+        <tr 
+        draggable="true" 
+        ondragstart="drag(event)" 
+        ondragover="allowDrop(event)" 
+        ondrop="drop(event)" 
+        class="cursor-pointer"
+        data-id="{{obj.id}}"
+        onclick="location.pathname = '/specific-product/{{obj.id}}'"
+        >
             <td>
                 <div class="product-image">
                     <img src="{{obj.images.0.image}}" alt="product image" />

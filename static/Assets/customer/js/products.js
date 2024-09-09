@@ -117,3 +117,30 @@ function sortByAlphabets(event, columnIndex) {
         }
     }
 }
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.dataset.id);
+}
+
+function drop(event) {
+    event.preventDefault();
+    let draggedRowId = event.dataTransfer.getData("text");
+    let targetRow = event.target.closest('tr');
+    let draggedRow = document.querySelector(`tr[data-id="${draggedRowId}"]`);
+
+    if (draggedRow !== targetRow) {
+        let table = targetRow.closest('tbody');
+        let targetRowIndex = Array.from(table.children).indexOf(targetRow);
+        let draggedRowIndex = Array.from(table.children).indexOf(draggedRow);
+
+        if (draggedRowIndex < targetRowIndex) {
+            table.insertBefore(targetRow, draggedRow);
+        } else {
+            table.insertBefore(draggedRow, targetRow);
+        }
+    }
+}
