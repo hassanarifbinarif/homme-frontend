@@ -269,7 +269,6 @@ async function getSourceTypes() {
     let headers = { "Authorization": `Bearer ${token}` };
     let response = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=1000`, null, headers, 'GET');
     response.json().then(function(res) {
-        console.log('here');
         if (response.status == 200) {
             res.data.forEach((sourceType) => {
                 salesChannelOverviewDropdown.innerHTML += `<label for="source-${sourceType.id}" class="cursor-pointer">
@@ -763,9 +762,12 @@ function drawSourceTypeSalesChart(res) {
   
     // Generate colors for each source_type on first load
     sourceTypes.forEach((type, index) => {
+        const sourceTypeItem = res.find(item => item.source_type === type);
+        const savedColor = sourceTypeItem.source_type_color ? `#${sourceTypeItem.source_type_color}` : null;
+
         colorMap[type] = {
-            backgroundColor: predefinedColors[index] || getRandomColor(),
-            borderColor: predefinedColors[index] || getRandomColor()
+            backgroundColor: savedColor || predefinedColors[index] || getRandomColor(),
+            borderColor: savedColor || predefinedColors[index] || getRandomColor()
         };
     });
   
@@ -890,9 +892,12 @@ function drawSourceChannelSalesChart(res) {
   
     // Generate colors for each source_type on first load
     sourceChannels.forEach((channel, index) => {
+        const sourceChannelItem = res.find(item => item.source_channel === channel);
+        const savedColor = sourceChannelItem.source_channel_color ? `#${sourceChannelItem.source_channel_color}` : null;
+
         colorMap[channel] = {
-            backgroundColor: predefinedColors[index] || getRandomColor(),
-            borderColor: predefinedColors[index] || getRandomColor()
+            backgroundColor: savedColor || predefinedColors[index] || getRandomColor(),
+            borderColor: savedColor || predefinedColors[index] || getRandomColor()
         };
     });
   
