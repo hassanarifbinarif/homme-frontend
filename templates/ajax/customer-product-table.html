@@ -36,10 +36,12 @@
         <tr 
         draggable="true" 
         ondragstart="drag(event)" 
-        ondragover="allowDrop(event)" 
+        ondragover="allowDrop(event)"
+        ondragend="handleDragEnd(event)"
         ondrop="drop(event)" 
         class="cursor-pointer"
         data-id="{{obj.id}}"
+        data-sort-order="{{obj.sort_order}}"
         onclick="location.pathname = '/specific-product/{{obj.id}}'"
         >
             <td>

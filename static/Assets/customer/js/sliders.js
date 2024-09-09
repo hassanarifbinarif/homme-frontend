@@ -629,16 +629,32 @@ function handleDragOver(e) {
 
 async function handleDrop(e) {
     e.stopPropagation();
-    row = e.target.closest('tr');
-    if (dragSrcEl !== row) {      
+    let row = e.target.closest('tr');
+    
+    if (dragSrcEl != row) {
         dragSrcEl.innerHTML = row.innerHTML;
         row.innerHTML = e.dataTransfer.getData('text/html');
         let draggedUponRowId = row.getAttribute("data-id");
         let draggedRowId = dragSrcEl.getAttribute("data-id");
         let draggedUponRowOrder = row.getAttribute("data-sort-order") == "0" ? row.getAttribute("data-id") : row.getAttribute("data-sort-order");
         let draggedRowOrder = dragSrcEl.getAttribute("data-sort-order") == "0" ? dragSrcEl.getAttribute("data-id") : dragSrcEl.getAttribute("data-sort-order");
-        updateSortOrder(parseInt(draggedUponRowId), parseInt(draggedRowOrder));
-        updateSortOrder(parseInt(draggedRowId), parseInt(draggedUponRowOrder));
+        
+        if (draggedRowOrder == draggedUponRowOrder) {
+            draggedRowOrder = draggedRowId;
+            draggedUponRowOrder = draggedUponRowId;
+        }
+        
+        let updateTargetRowOrder = await updateSortOrder(parseInt(draggedUponRowId), parseInt(draggedRowOrder));
+        if (updateTargetRowOrder.status == 200) {
+            row.setAttribute('data-sort-order', draggedUponRowOrder);
+            row.setAttribute('data-id', draggedRowId);
+        }
+        
+        let updateDraggedRowOrder = await updateSortOrder(parseInt(draggedRowId), parseInt(draggedUponRowOrder));
+        if (updateDraggedRowOrder.status == 200) {
+            dragSrcEl.setAttribute('data-sort-order', draggedRowOrder);
+            dragSrcEl.setAttribute('data-id', draggedUponRowId);
+        }
     }
 }
 
@@ -651,6 +667,7 @@ async function updateSortOrder(id, order) {
             "Content-Type": "application/json"
         };
         let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({ "sort_order": order}), headers, 'PATCH');
+        return response;
     }
     catch (err) {
         console.log(err);

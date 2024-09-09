@@ -1,4 +1,4 @@
-let requiredDataURL = `/admin/products?page=1&perPage=1000&ordering=-created_at`;
+let requiredDataURL = `/admin/products?page=1&perPage=1000&ordering=-sort_order`;
 
 let productCategoryDropdown = document.getElementById('product-category-dropdown');
 let productCategoryDropdownBtn = document.getElementById('product-category');
@@ -118,29 +118,70 @@ function sortByAlphabets(event, columnIndex) {
     }
 }
 
+
+let dragSrcEl;
+
 function allowDrop(event) {
     event.preventDefault();
+    return false;
 }
 
 function drag(event) {
-    event.dataTransfer.setData("text", event.target.dataset.id);
+    row = event.target.closest('tr');
+    row.style.opacity = '0.4';
+    dragSrcEl = row;
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/html', row.innerHTML);
 }
 
-function drop(event) {
-    event.preventDefault();
-    let draggedRowId = event.dataTransfer.getData("text");
+function handleDragEnd(event) {
+    row = event.target.closest('tr');
+    row.style.opacity = '1';
+}
+
+async function drop(event) {
+    event.stopPropagation();
     let targetRow = event.target.closest('tr');
-    let draggedRow = document.querySelector(`tr[data-id="${draggedRowId}"]`);
 
-    if (draggedRow !== targetRow) {
-        let table = targetRow.closest('tbody');
-        let targetRowIndex = Array.from(table.children).indexOf(targetRow);
-        let draggedRowIndex = Array.from(table.children).indexOf(draggedRow);
+    if (dragSrcEl != targetRow) {
+        dragSrcEl.innerHTML = targetRow.innerHTML;
+        targetRow.innerHTML = event.dataTransfer.getData('text/html');
+        let draggedUponRowId = targetRow.getAttribute("data-id");
+        let draggedRowId = dragSrcEl.getAttribute("data-id");
+        let draggedUponRowOrder = targetRow.getAttribute("data-sort-order") == "0" ? targetRow.getAttribute("data-id") : targetRow.getAttribute("data-sort-order");
+        let draggedRowOrder = dragSrcEl.getAttribute("data-sort-order") == "0" ? dragSrcEl.getAttribute("data-id") : dragSrcEl.getAttribute("data-sort-order");
 
-        if (draggedRowIndex < targetRowIndex) {
-            table.insertBefore(targetRow, draggedRow);
-        } else {
-            table.insertBefore(draggedRow, targetRow);
+        if (draggedRowOrder == draggedUponRowOrder) {
+            draggedRowOrder = draggedRowId;
+            draggedUponRowOrder = draggedUponRowId;
         }
+
+        let updateTargetRowOrder = await updateSortOrder(parseInt(draggedUponRowId), parseInt(draggedRowOrder));
+        if (updateTargetRowOrder.status == 200) {
+            targetRow.setAttribute('data-sort-order', draggedUponRowOrder);
+            targetRow.setAttribute('data-id', draggedRowId);
+        }
+        
+        let updateDraggedRowOrder = await updateSortOrder(parseInt(draggedRowId), parseInt(draggedUponRowOrder));
+        if (updateDraggedRowOrder.status == 200) {
+            dragSrcEl.setAttribute('data-sort-order', draggedRowOrder);
+            dragSrcEl.setAttribute('data-id', draggedUponRowId);
+        }
+    }
+}
+
+
+async function updateSortOrder(id, order) {
+    try {
+        let token = getCookie('admin_access');
+        let headers = { 
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        };
+        let response = await requestAPI(`${apiURL}/admin/products/${id}`, JSON.stringify({ "sort_order": order}), headers, 'PATCH');
+        return response;
+    }
+    catch (err) {
+        console.log(err);
     }
 }
