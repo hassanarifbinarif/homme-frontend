@@ -27,6 +27,11 @@ async function createSourceTypeForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
+    if (data.color.trim().length != 6) {
+        errorMsg.innerText = 'Enter correct hexadecimal value for color';
+        errorMsg.classList.add('active');
+        return false;
+    }
     // else if (data.embedded_string.trim().length == 0) {
     //     errorMsg.innerText = 'Enter valid embedded string';
     //     errorMsg.classList.add('active');
@@ -88,6 +93,11 @@ async function updateSourceTypeForm(event, id) {
 
     if (data.name.trim().length == 0) {
         errorMsg.innerText = 'Enter valid source name';
+        errorMsg.classList.add('active');
+        return false;
+    }
+    if (data.color.trim().length != 6) {
+        errorMsg.innerText = 'Enter correct hexadecimal value for color';
         errorMsg.classList.add('active');
         return false;
     }

@@ -412,10 +412,12 @@ async function getSourceTypes() {
                 sourceTypeList.innerHTML += `<div class="source">
                                                     <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceType.id}" value="${sourceType.name}" placeholder="Source Name" />
                                                     <div>
-                                                        <svg class="cursor-pointer" onclick="openUpdateSourceTypeChannelModal('editSourceTypeChannelModal', 'type', ${sourceType.id}, '${sourceType.name}')" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <svg class="${sourceType.is_basic == true ? 'opacity-point-3-5' : 'cursor-pointer'}" ${sourceType.is_basic == false ? `onclick="openUpdateSourceTypeChannelModal('editSourceTypeChannelModal', 'type', ${sourceType.id}, '${sourceType.name}', '${sourceType.color}')"` : '' } width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            ${sourceType.is_basic == true ? '<title>Non-editable</title>' : ''}
                                                             <path d="M9.16683 4.16762H5.00016C4.55814 4.16762 4.13421 4.34321 3.82165 4.65577C3.50909 4.96833 3.3335 5.39225 3.3335 5.83428V15.0009C3.3335 15.443 3.50909 15.8669 3.82165 16.1795C4.13421 16.492 4.55814 16.6676 5.00016 16.6676H14.1668C14.6089 16.6676 15.0328 16.492 15.3453 16.1795C15.6579 15.8669 15.8335 15.443 15.8335 15.0009V10.8343M14.6552 2.98928C14.8089 2.8301 14.9928 2.70313 15.1962 2.61578C15.3995 2.52843 15.6182 2.48245 15.8395 2.48053C16.0608 2.47861 16.2803 2.52078 16.4851 2.60458C16.6899 2.68838 16.876 2.81214 17.0325 2.96862C17.189 3.12511 17.3127 3.3112 17.3965 3.51603C17.4803 3.72085 17.5225 3.94032 17.5206 4.16162C17.5187 4.38292 17.4727 4.60162 17.3853 4.80496C17.298 5.0083 17.171 5.1922 17.0118 5.34595L9.85683 12.5009H7.50016V10.1443L14.6552 2.98928Z" stroke="#000093" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
-                                                        <svg class="cursor-pointer" onclick="openDelSourceTypeModal('delModal', ${sourceType.id})" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <svg class="${sourceType.is_basic == true ? 'opacity-point-3-5' : 'cursor-pointer'}" ${sourceType.is_basic == false ? `onclick="openDelSourceTypeModal('delModal', ${sourceType.id})"` : '' } width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            ${sourceType.is_basic == true ? '<title>Non-deleteable</title>' : ''}
                                                             <path d="M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M3.3335 5.83333H16.6668M15.8335 5.83333L15.111 15.9517C15.0811 16.3722 14.8929 16.7657 14.5844 17.053C14.2759 17.3403 13.87 17.5 13.4485 17.5H6.55183C6.13028 17.5 5.72438 17.3403 5.4159 17.053C5.10742 16.7657 4.91926 16.3722 4.88933 15.9517L4.16683 5.83333H15.8335ZM12.5002 5.83333V3.33333C12.5002 3.11232 12.4124 2.90036 12.2561 2.74408C12.0998 2.5878 11.8878 2.5 11.6668 2.5H8.3335C8.11248 2.5 7.90052 2.5878 7.74424 2.74408C7.58796 2.90036 7.50016 3.11232 7.50016 3.33333V5.83333H12.5002Z" stroke="#CF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
                                                     </div>
@@ -444,7 +446,7 @@ async function getSourceChannels() {
                 sourceChannelList.innerHTML += `<div class="source">
                                                     <input maxlength="100" readonly class="individual-source-input" type="text" name="edit_source_name_${sourceChannel.id}" value="${sourceChannel.name}" placeholder="Source Channel Name" />
                                                     <div>
-                                                        <svg class="${sourceChannel.is_basic == true ? 'opacity-point-3-5' : 'cursor-pointer'}" ${sourceChannel.is_basic == false ? `onclick="openUpdateSourceTypeChannelModal('editSourceTypeChannelModal', 'channel', ${sourceChannel.id}, '${sourceChannel.name}')"` : '' } width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <svg class="${sourceChannel.is_basic == true ? 'opacity-point-3-5' : 'cursor-pointer'}" ${sourceChannel.is_basic == false ? `onclick="openUpdateSourceTypeChannelModal('editSourceTypeChannelModal', 'channel', ${sourceChannel.id}, '${sourceChannel.name}', '${sourceChannel.color}')"` : '' } width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             ${sourceChannel.is_basic == true ? '<title>Non-editable</title>' : ''}
                                                             <path d="M9.16683 4.16762H5.00016C4.55814 4.16762 4.13421 4.34321 3.82165 4.65577C3.50909 4.96833 3.3335 5.39225 3.3335 5.83428V15.0009C3.3335 15.443 3.50909 15.8669 3.82165 16.1795C4.13421 16.492 4.55814 16.6676 5.00016 16.6676H14.1668C14.6089 16.6676 15.0328 16.492 15.3453 16.1795C15.6579 15.8669 15.8335 15.443 15.8335 15.0009V10.8343M14.6552 2.98928C14.8089 2.8301 14.9928 2.70313 15.1962 2.61578C15.3995 2.52843 15.6182 2.48245 15.8395 2.48053C16.0608 2.47861 16.2803 2.52078 16.4851 2.60458C16.6899 2.68838 16.876 2.81214 17.0325 2.96862C17.189 3.12511 17.3127 3.3112 17.3965 3.51603C17.4803 3.72085 17.5225 3.94032 17.5206 4.16162C17.5187 4.38292 17.4727 4.60162 17.3853 4.80496C17.298 5.0083 17.171 5.1922 17.0118 5.34595L9.85683 12.5009H7.50016V10.1443L14.6552 2.98928Z" stroke="#000093" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
@@ -970,19 +972,30 @@ function convertDateTime() {
 }
 
 
-function openUpdateSourceTypeChannelModal(modalID, type='type', id, name) {
+function openUpdateSourceTypeChannelModal(modalID, type='type', id, name, color, is_basic=false) {
     let modal = document.querySelector(`#${modalID}`);
     let form = modal.querySelector('form');
+    let errorMsg = form.querySelector('.create-error-msg');
     modal.querySelector('#source-type-channel-modal-header').innerText = `Edit Source ${captalizeFirstLetter(type)}`;
     form.querySelector('input[name="name"]').value = name || '';
+    if (is_basic == true)
+        form.querySelector('input[name="name"]').readOnly = true;
+    else
+        form.querySelector('input[name="name"]').readOnly = false;
+    form.querySelector('input[name="color"]').value = color || '';
     form.setAttribute("onsubmit", `updateSource${captalizeFirstLetter(type)}Form(event, ${id})`);
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
+        form.querySelector('input[name="name"]').readOnly = false;
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
         modal.querySelector('.btn-text').innerText = 'SAVE';
     })
     document.querySelector(`.${modalID}`).click();
 }
+
+
 countryList.forEach((country, index) => {
     countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
                                                         <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Country']}" name="country_radio" />
