@@ -186,6 +186,22 @@
     height: 4px;
 }
 
+.link-content .arrow-btn {
+    position: absolute;
+    right: 67px;
+    width: 18px;
+    height: 18px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.link-content .arrow-btn:hover {
+    background: #727374;
+}
+
 .sidebar-lower-content {
     padding-bottom: 5px;
 }
