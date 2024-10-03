@@ -84,7 +84,10 @@
                         </div>                        
                         <div>
                             <span>Description</span>
-                            <textarea maxlength="1200" name="description" value="" readonly placeholder="Lorem ipsum dolor sit amet consectetur. Lobortis vitae id non sit vestibulum volutpat sapien et. Nisl amet enim tortor diam tortor. Congue convallis pellentesque in pretium egestas sed nunc porta. Cras leo nibh nulla ipsum nec. Dolor tortor varius quisque vel risus non pulvinar mi. A lectus sit rhoncus venenatis sem in eu. Semper rhoncus amet nibh pulvinar sit. Sit donec purus pretium bibendum. Egestas posuere ullamcorper viverra varius sed. Neque lobortis eu feugiat ullamcorper et ut non tristique. Placerat egestas arcu aenean purus nisl ut quisque cum ultrices." id="" cols="30" rows="10">{{product.description}}</textarea>
+                            <textarea name="description" value="" readonly placeholder="Lorem ipsum dolor sit amet consectetur. Lobortis vitae id non sit vestibulum volutpat sapien et. Nisl amet enim tortor diam tortor. Congue convallis pellentesque in pretium egestas sed nunc porta. Cras leo nibh nulla ipsum nec. Dolor tortor varius quisque vel risus non pulvinar mi. A lectus sit rhoncus venenatis sem in eu. Semper rhoncus amet nibh pulvinar sit. Sit donec purus pretium bibendum. Egestas posuere ullamcorper viverra varius sed. Neque lobortis eu feugiat ullamcorper et ut non tristique. Placerat egestas arcu aenean purus nisl ut quisque cum ultrices." id="" cols="30" rows="10">{{product.description}}</textarea>
+                            <div class="error-div">
+                                <small class="update-product-error-msg input-error-msg"></small>
+                            </div>
                         </div>
                         <div class="save-cancel-btn hide" id="description-update-btn">
                             <button type="button" onclick="toggleDescriptionInputs();">CANCEL</button>

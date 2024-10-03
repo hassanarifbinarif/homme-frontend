@@ -552,6 +552,7 @@ async function updateProductDescriptions(event, id=null) {
     event.preventDefault();
     if (id != null) {
         let form = event.currentTarget;
+        let errorMsg = document.querySelector('.update-product-error-msg');
         let button = form.querySelector('button[type="submit"]');
         let formData = new FormData(form);
         let data = formDataToObject(formData);
@@ -574,6 +575,10 @@ async function updateProductDescriptions(event, id=null) {
         let headers = {
             "Authorization": `Bearer ${token}`
         }
+        
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
+        
         beforeLoad(button);
         let response = await requestAPI(`${apiURL}/admin/products/${specific_prod_id}`, formData, headers, 'PATCH');
         response.json().then(function(res) {
@@ -585,6 +590,8 @@ async function updateProductDescriptions(event, id=null) {
                 toggleDescriptionInputs();
             }
             else {
+                errorMsg.classList.add('active');
+                displayMessages(res.messages, errorMsg);
                 afterLoad(button, 'Error');
             }
         })
