@@ -196,52 +196,50 @@ async function createSliderForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
-    else {
-        try {
-            errorDiv.classList.add('hide');
-            errorMsg.innerText = '';
-            errorMsg.classList.remove('active');
+    try {
+        errorDiv.classList.add('hide');
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
 
-            formData.append("is_visible", true);
-            formData.append("target_role", 'salon');
-            formData.append('partnership_application_status ', selectedSalonLevel);
+        formData.append("is_visible", true);
+        formData.append("target_role", 'salon');
+        formData.append('partnership_application_status ', selectedSalonLevel);
 
-            let token = getCookie('admin_access');
-            let headers = { "Authorization": `Bearer ${token}` };
-            
-            beforeLoad(button);
-            let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
-            // console.log(response);
-            response.json().then(function(res) {
-                // console.log(res);
-                if (response.status == 201) {
-                    form.removeAttribute("onsubmit");
-                    afterLoad(button, 'CREATED');
-                    selectedSalonLevel = null;
-                    getData();
-                    setTimeout(() => {
-                        afterLoad(button, 'SAVE');
-                        document.querySelector('.createSlider').click();
-                    }, 1000)
-                }
-                else if (response.status == 400) {
-                    afterLoad(button, buttonText);
-                    errorDiv.classList.remove('hide');
-                    let keys = Object.keys(res.messages);
-                    keys.forEach((key) => {
-                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
-                    })
-                    errorMsg.classList.add('active');
-                }
-                else {
-                    afterLoad(button, 'ERROR');
-                }
-            })
-        }
-        catch (err) {
-            console.log(err);
-            afterLoad(button, 'ERROR');
-        }
+        let token = getCookie('admin_access');
+        let headers = { "Authorization": `Bearer ${token}` };
+        
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
+        // console.log(response);
+        response.json().then(function(res) {
+            // console.log(res);
+            if (response.status == 201) {
+                form.removeAttribute("onsubmit");
+                afterLoad(button, 'CREATED');
+                selectedSalonLevel = null;
+                getData();
+                setTimeout(() => {
+                    afterLoad(button, 'SAVE');
+                    document.querySelector('.createSlider').click();
+                }, 1000)
+            }
+            else if (response.status == 400) {
+                afterLoad(button, buttonText);
+                errorDiv.classList.remove('hide');
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                })
+                errorMsg.classList.add('active');
+            }
+            else {
+                afterLoad(button, 'ERROR');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
     }
 }
 

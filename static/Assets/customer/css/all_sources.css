@@ -150,6 +150,7 @@
 .order-status-categories > button > .order-stats-dropdown {
     position: absolute;
     top: 33px;
+    z-index: 1;
     border: 1px solid #E0E0DD;
     border-radius: 6px;
     background: #FFF;
