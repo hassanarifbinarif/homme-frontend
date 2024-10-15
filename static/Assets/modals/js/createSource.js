@@ -9,6 +9,10 @@ let sourceOwnerField = document.getElementById('source-owner-field');
 let sourceChannelDropdown = document.getElementById('source-channel-dropdown');
 let sourceChannelField = document.getElementById('source-channel-field');
 
+let countryDropdown = document.getElementById('country-dropdown');
+let countryField = document.getElementById('country-field');
+let selectedCountry = null;
+
 let sourceTypeData = [];
 let sourceOwnerData = [];
 let sourceChannelData = [];
@@ -60,6 +64,12 @@ async function populateDropdowns() {
                                                                         <label for="channel-${channel.id}" class="radio-label">${channel.name}</label>
                                                                     </div>`);
         })
+    })
+    countryList.forEach((country, index) => {
+        countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
+                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Alpha-2 code']}" name="country_radio" />
+                                                            <label for="country-${index}" data-name="${country['Country']}" data-value="${country['Alpha-2 code']}" class="radio-label">${country['Country']}</label>
+                                                        </div>`)
     })
 }
 
@@ -162,6 +172,26 @@ sourceChannelField.addEventListener('input', function() {
 })
 
 
+function selectCountry(inputField) {
+    if (inputField.checked) {
+        document.getElementById('selected-country-text').innerText = inputField.nextElementSibling.innerText;
+        document.getElementById('selected-country-text').style.color = '#030706';
+        selectedCountry = inputField.value;
+    }
+}
+
+
+countryField.addEventListener('focus', function() {
+    countryDropdown.style.display = 'flex';
+})
+
+countryField.addEventListener('blur', function(event) {
+    setTimeout(() => {
+        countryDropdown.style.display = 'none';
+    }, 200);
+})
+
+
 function toggleDropdown(event) {
     let elementBtn = event.target;
     if(!elementBtn.classList.contains('filter-btn')) {
@@ -216,6 +246,9 @@ function openCreateSourceModal() {
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute('onsubmit');
+        selectedCountry = null;
+        document.getElementById('selected-country-text').innerText = 'Country';
+        document.getElementById('selected-country-text').style.color = '#A9A9A9';
         form.querySelector('.create-error-msg').innerText = '';
         form.querySelector('.create-error-msg').classList.remove('active');
         form.querySelector('.btn-text').innerText = 'CREATE';
@@ -258,60 +291,60 @@ async function createSourceForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
-    else {
-        try {
-            if (data.owner == 'homme-management')
-                delete data.owner;
-            errorMsg.innerText = '';
-            errorMsg.classList.remove('active');
-            let token = getCookie('admin_access');
-            let headers = {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            };
-            beforeLoad(button);
-            let response = await requestAPI(`${apiURL}/admin/sources`, JSON.stringify(data), headers, 'POST');
-            response.json().then(function(res) {
+    try {
+        if (data.owner == 'homme-management')
+            delete data.owner;
+        if (selectedCountry != null)
+            data.country = selectedCountry;
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
+        let token = getCookie('admin_access');
+        let headers = {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/sources`, JSON.stringify(data), headers, 'POST');
+        response.json().then(function(res) {
 
-                if (response.status == 201) {
-                    form.removeAttribute('onsubmit');
-                    afterLoad(button, 'CREATED');
-                    if (location.pathname == '/customers/') {
-                        setTimeout(() => {
-                            afterLoad(button, buttonText);
-                            document.querySelector('.createSource').click();
-                            location.href = location.origin + '/source/';
-                        }, 1000)
-                    }
-                    else {
-                        getData();
-                        setTimeout(() => {
-                            afterLoad(button, buttonText);
-                            document.querySelector('.createSource').click();
-                        }, 1500)
-                    }
-                }
-                else if (response.status == 400) {
-                    afterLoad(button, 'ERROR');
-                    let keys = Object.keys(res.messages);
-                    keys.forEach((key) => {
-                        errorMsg.innerHTML += `${key}: ${res.messages[key]}. <br />`;
-                    })
-                    errorMsg.classList.add('active');
+            if (response.status == 201) {
+                form.removeAttribute('onsubmit');
+                afterLoad(button, 'CREATED');
+                if (location.pathname == '/customers/') {
+                    setTimeout(() => {
+                        afterLoad(button, buttonText);
+                        document.querySelector('.createSource').click();
+                        location.href = location.origin + '/source/';
+                    }, 1000)
                 }
                 else {
-                    afterLoad(button, 'ERROR');
-                    errorMsg.innerText = 'Error occurred! Retry later';
-                    errorMsg.classList.add('active');
+                    getData();
+                    setTimeout(() => {
+                        afterLoad(button, buttonText);
+                        document.querySelector('.createSource').click();
+                    }, 1500)
                 }
-            })
-        }
-        catch (err) {
-            console.log(err);
-            afterLoad(button, buttonText);
-            errorMsg.innerText = 'Error occurred! Retry later';
-            errorMsg.classList.add('active');
-        }
+            }
+            else if (response.status == 400) {
+                afterLoad(button, 'ERROR');
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]}. <br />`;
+                })
+                errorMsg.classList.add('active');
+            }
+            else {
+                afterLoad(button, 'ERROR');
+                errorMsg.innerText = 'Error occurred! Retry later';
+                errorMsg.classList.add('active');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, buttonText);
+        errorMsg.innerText = 'Error occurred! Retry later';
+        errorMsg.classList.add('active');
     }
 }
 
@@ -363,6 +396,10 @@ function openEditSourceModal(modalId, id) {
         form.querySelector('input[name="source_channel"]').value = specificSourceData.channel.name;
         form.querySelector(`input[name="channel"][value="${specificSourceData.channel.id}"]`).checked = true;
     }
+    form.querySelector('input[name="city"]').value = specificSourceData.city;
+    let isCountry = document.querySelector(`label[data-value="${specificSourceData.country}"]`);
+    if (isCountry)
+        isCountry.click();
     form.querySelector('input[name="embedded_string"]').value = specificSourceData.embedded_string;
     form.querySelector('textarea[name="description"]').value = specificSourceData.description;
     form.querySelector('button[type="submit"]').disabled = false;
@@ -372,6 +409,9 @@ function openEditSourceModal(modalId, id) {
         form.removeAttribute("onsubmit");
         form.querySelector('button[type="submit"]').disabled = false;
         modal.querySelector('.btn-text').innerText = 'CREATE';
+        selectedCountry = null;
+        document.getElementById('selected-country-text').innerText = 'Country';
+        document.getElementById('selected-country-text').style.color = '#A9A9A9';
         document.querySelector('.error-div').classList.add('hide');
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
@@ -412,6 +452,8 @@ async function updateSourceForm(event, id) {
     try {
         if ('owner' in data && data.owner == 'homme-management')
             data.owner = "";
+        if (selectedCountry != null)
+            data.country = selectedCountry;
         errorMsg.innerText = '';
         errorMsg.classList.remove('active');
         let token = getCookie('admin_access');
