@@ -6,9 +6,14 @@ let selectedLevel = null;
 let levelList = [];
 let selectedLevelList = [];
 let is_serviced_region = true;
+let targetScreenData = [];
+let selectedTargetScreen = null;
 
 let userLevelDropdown = document.getElementById('user-level-dropdown');
 let userLevelDropdownBtn = document.getElementById('user-level');
+
+let targetScreenDropdown = document.getElementById('target-screen-dropdown');
+let targetScreenDropdownBtn = document.getElementById('target-screen');
 
 
 window.onload = () => {
@@ -55,6 +60,29 @@ async function populateMembershipLevels() {
         console.log(err);
     }
 }
+
+
+async function getTargetScreen() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    try {
+        let response = await requestAPI(`${apiURL}/admin/content/target-screens?perPage=1000`, null, headers, 'GET');
+        response.json().then(function(res) {
+            targetScreenData = [...res.data];
+            targetScreenData.forEach((targetScreen) => {
+                targetScreenDropdown.innerHTML += `<div class="radio-btn">
+                                                        <input id="target-screen-${targetScreen.id}" onchange="selectTargetScreen(this);" type="radio" value="${targetScreen.id}" name="target_screen_radio" />
+                                                        <label for="target-screen-${targetScreen.id}" class="radio-label">${captalizeFirstLetter(targetScreen.name)}</label>
+                                                    </div>`
+            })
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+window.addEventListener('load', getTargetScreen);
 
 
 function searchForm(event) {
@@ -110,6 +138,7 @@ function toggleDropdown(event) {
 }
 
 userLevelDropdownBtn.addEventListener('click', toggleDropdown);
+targetScreenDropdownBtn.addEventListener('click', toggleDropdown);
 
 
 function reverseTableRows() {
@@ -166,12 +195,15 @@ function openCreateSliderModal(modalID) {
     modal.querySelector('#salon-level-dropdown-container').classList.add('hide');
     modal.addEventListener('hidden.bs.modal', event => {
         selectedLevel = null;
+        selectedTargetScreen = null;
         is_serviced_region = true;
         form.reset();
         form.removeAttribute("onsubmit");
         modal.querySelector('#user-level-dropdown-container').classList.add('hide');
         document.getElementById('selected-user-level').innerText = 'Select User Type';
         document.getElementById('selected-user-level').style.color = 'rgba(3, 7, 6, 0.60)';
+        document.getElementById('selected-target-screen').innerText = 'Select Target Screen';
+        document.getElementById('selected-target-screen').style.color = 'rgba(3, 7, 6, 0.60)';
         let label = modal.querySelector('#image-input-label');
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -205,9 +237,21 @@ function selectUserLevel(event) {
 }
 
 
+function selectTargetScreen(inputElement) {
+    if(inputElement.checked) {
+        document.getElementById('selected-target-screen').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-target-screen').style.color = '#000';
+        selectedTargetScreen = inputElement.value;
+    }
+}
+
+
 function closeSliderModalDropdowns(event) {
     if((!userLevelDropdownBtn.contains(event.target)) && userLevelDropdown.style.display == 'flex') {
         userLevelDropdown.style.display = 'none';
+    }
+    if((!targetScreenDropdownBtn.contains(event.target)) && targetScreenDropdown.style.display == 'flex') {
+        targetScreenDropdown.style.display = 'none';
     }
 }
 
@@ -249,56 +293,56 @@ async function createSliderForm(event) {
         errorMsg.classList.add('active');
         return false;
     }
-    else {
-        try {
-            errorDiv.classList.add('hide');
-            errorMsg.innerText = '';
-            errorMsg.classList.remove('active');
-            if (Array.isArray(selectedLevel) && selectedLevel.length > 0) {
-                selectedLevel.forEach((level) => {
-                    formData.append("target_membership_levels", parseInt(level));
-                })
-            }
-            if (is_serviced_region == false) {
-                formData.append('is_serviced_region', false);
-            }
-            let token = getCookie('admin_access');
-            let headers = {
-                "Authorization": `Bearer ${token}`
-            };
-            beforeLoad(button);
-            formData.append("is_visible", true);
-            let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
-            // console.log(response);
-            response.json().then(function(res) {
-                // console.log(res);
-                if (response.status == 201) {
-                    form.removeAttribute("onsubmit");
-                    afterLoad(button, 'CREATED');
-                    getData();
-                    setTimeout(() => {
-                        afterLoad(button, 'SAVE');
-                        document.querySelector('.createSlider').click();
-                    }, 1000)
-                }
-                else if (response.status == 400) {
-                    afterLoad(button, buttonText);
-                    errorDiv.classList.remove('hide');
-                    let keys = Object.keys(res.messages);
-                    keys.forEach((key) => {
-                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
-                    })
-                    errorMsg.classList.add('active');
-                }
-                else {
-                    afterLoad(button, 'ERROR');
-                }
+    try {
+        errorDiv.classList.add('hide');
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
+        if (Array.isArray(selectedLevel) && selectedLevel.length > 0) {
+            selectedLevel.forEach((level) => {
+                formData.append("target_membership_levels", parseInt(level));
             })
         }
-        catch (err) {
-            console.log(err);
-            afterLoad(button, 'ERROR');
+        if (is_serviced_region == false) {
+            formData.append('is_serviced_region', false);
         }
+        if (selectedTargetScreen != null)
+            formData.append('target_screen', selectedTargetScreen);
+        formData.append("is_visible", true);
+
+        let token = getCookie('admin_access');
+        let headers = { "Authorization": `Bearer ${token}` };
+
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
+        // console.log(response);
+        response.json().then(function(res) {
+            // console.log(res);
+            if (response.status == 201) {
+                form.removeAttribute("onsubmit");
+                afterLoad(button, 'CREATED');
+                getData();
+                setTimeout(() => {
+                    afterLoad(button, 'SAVE');
+                    document.querySelector('.createSlider').click();
+                }, 1000)
+            }
+            else if (response.status == 400) {
+                afterLoad(button, buttonText);
+                errorDiv.classList.remove('hide');
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                })
+                errorMsg.classList.add('active');
+            }
+            else {
+                afterLoad(button, 'ERROR');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
     }
 }
 
@@ -318,7 +362,7 @@ function arraysAreEqual(array1, array2) {
 }
 
 
-function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level, service_region) {
+function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_membership_level, service_region, target_screen) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
@@ -355,6 +399,13 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
             checkedInput.click();
         }
     }
+    if (target_screen != 'None') {
+        let sliderTargetScreen = targetScreenData.find(record => record.id == target_screen);
+        let targetScreenCheckedInput = modal.querySelector(`input[name="target_screen_radio"][value="${sliderTargetScreen.id}"]`);
+        if (targetScreenCheckedInput) {
+            targetScreenCheckedInput.click();
+        }
+    }
     // if (target_membership_level != '') {
     //     selectedLevel = target_membership_level;
     //     let checkedInput = modal.querySelector(`input[name="user_level_radio"][value="${target_membership_level}"]`);
@@ -364,11 +415,14 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         selectedLevel = null;
+        selectedTargetScreen = null;
         is_serviced_region = true;
         modal.querySelector('#slider-modal-header').innerText = 'Create Slider';
         modal.querySelector('#user-level-dropdown-container').classList.add('hide');
         document.getElementById('selected-user-level').innerText = 'Select User Type';
         document.getElementById('selected-user-level').style.color = 'rgba(3, 7, 6, 0.60)';
+        document.getElementById('selected-target-screen').innerText = 'Select Target Screen';
+        document.getElementById('selected-target-screen').style.color = 'rgba(3, 7, 6, 0.60)';
         form.removeAttribute("onsubmit");
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -408,71 +462,71 @@ async function updateSliderForm(event, id) {
         errorMsg.classList.add('active');
         return false;
     }
-    else {
-        try {
-            let token = getCookie('admin_access');
-            if (imageInput.files.length == 0) {
-                formData.delete("image");
-            }
-            if (selectedLevel != null) {
-                if (Array.isArray(selectedLevel) && selectedLevel.length > 0) {
-                    selectedLevel.forEach((level) => {
-                        formData.append("target_membership_levels", parseInt(level));
-                    })
-                }
-                else {
-                    let headers = {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    };
-                    beforeLoad(button);
-                    let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({"target_membership_levels": []}), headers, 'PATCH');
-                }
-            }
-            if (is_serviced_region == false) {
-                formData.append('is_serviced_region', false);
+    try {
+        let token = getCookie('admin_access');
+        if (imageInput.files.length == 0) {
+            formData.delete("image");
+        }
+        if (selectedLevel != null) {
+            if (Array.isArray(selectedLevel) && selectedLevel.length > 0) {
+                selectedLevel.forEach((level) => {
+                    formData.append("target_membership_levels", parseInt(level));
+                })
             }
             else {
-                formData.append('is_serviced_region', true);
+                let headers = {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                };
+                beforeLoad(button);
+                let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({"target_membership_levels": []}), headers, 'PATCH');
             }
-            errorDiv.classList.add('hide');
-            errorMsg.innerText = '';
-            errorMsg.classList.remove('active');            
-            let headers = {
-                "Authorization": `Bearer ${token}`
-            };
-            beforeLoad(button);
-            let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
-            // console.log(response);
-            response.json().then(function(res) {
-                // console.log(res);
-                if (response.status == 200) {
-                    form.removeAttribute("onsubmit");
-                    afterLoad(button, 'SAVED');
-                    getData();
-                    setTimeout(() => {
-                        afterLoad(button, 'SAVE');
-                        document.querySelector('.createSlider').click();
-                    }, 1000)
-                }
-                else if (response.status == 400) {
-                    afterLoad(button, buttonText);
-                    errorDiv.classList.remove('hide');
-                    let keys = Object.keys(res.messages);
-                    keys.forEach((key) => {
-                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
-                    })
-                    errorMsg.classList.add('active');
-                }
-                else {
-                    afterLoad(button, 'ERROR');
-                }
-            })
         }
-        catch (err) {
-            console.log(err);
-            afterLoad(button, 'ERROR');
+        if (is_serviced_region == false) {
+            formData.append('is_serviced_region', false);
         }
+        else {
+            formData.append('is_serviced_region', true);
+        }
+        if (selectedTargetScreen != null)
+            formData.append('target_screen', selectedTargetScreen);
+        
+        errorDiv.classList.add('hide');
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');            
+
+        let headers = { "Authorization": `Bearer ${token}` };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
+        // console.log(response);
+        response.json().then(function(res) {
+            // console.log(res);
+            if (response.status == 200) {
+                form.removeAttribute("onsubmit");
+                afterLoad(button, 'SAVED');
+                getData();
+                setTimeout(() => {
+                    afterLoad(button, 'SAVE');
+                    document.querySelector('.createSlider').click();
+                }, 1000)
+            }
+            else if (response.status == 400) {
+                afterLoad(button, buttonText);
+                errorDiv.classList.remove('hide');
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                })
+                errorMsg.classList.add('active');
+            }
+            else {
+                afterLoad(button, 'ERROR');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
     }
 }
 

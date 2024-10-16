@@ -6,6 +6,11 @@ let selectedSalonLevel = null;
 let salonLevelDropdown = document.getElementById('salon-level-dropdown');
 let salonLevelDropdownBtn = document.getElementById('salon-level');
 
+let targetScreenData = [];
+let selectedTargetScreen = null;
+
+let targetScreenDropdown = document.getElementById('target-screen-dropdown');
+let targetScreenDropdownBtn = document.getElementById('target-screen');
 
 window.onload = () => {
     getData();
@@ -50,6 +55,29 @@ async function getData(url=null) {
 }
 
 
+async function getTargetScreen() {
+    let token = getCookie('admin_access');
+    let headers = { "Authorization": `Bearer ${token}` };
+    try {
+        let response = await requestAPI(`${apiURL}/admin/content/target-screens?perPage=1000`, null, headers, 'GET');
+        response.json().then(function(res) {
+            targetScreenData = [...res.data];
+            targetScreenData.forEach((targetScreen) => {
+                targetScreenDropdown.innerHTML += `<div class="radio-btn">
+                                                        <input id="target-screen-${targetScreen.id}" onchange="selectTargetScreen(this);" type="radio" value="${targetScreen.id}" name="target_screen_radio" />
+                                                        <label for="target-screen-${targetScreen.id}" class="radio-label">${captalizeFirstLetter(targetScreen.name)}</label>
+                                                    </div>`
+            })
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+window.addEventListener('load', getTargetScreen);
+
+
 function toggleDropdown(event) {
     let elementBtn = event.target;
     if(!elementBtn.classList.contains('filter-btn')) {
@@ -65,6 +93,7 @@ function toggleDropdown(event) {
 }
 
 salonLevelDropdownBtn.addEventListener('click', toggleDropdown);
+targetScreenDropdownBtn.addEventListener('click', toggleDropdown);
 
 
 function selectSalonLevel(event) {
@@ -80,6 +109,9 @@ function selectSalonLevel(event) {
 function closeSliderModalDropdowns(event) {
     if((!salonLevelDropdownBtn.contains(event.target)) && salonLevelDropdown.style.display == 'flex') {
         salonLevelDropdown.style.display = 'none';
+    }
+    if((!targetScreenDropdownBtn.contains(event.target)) && targetScreenDropdown.style.display == 'flex') {
+        targetScreenDropdown.style.display = 'none';
     }
 }
 
@@ -132,6 +164,15 @@ function sortByAlphabets(event, columnIndex) {
 }
 
 
+function selectTargetScreen(inputElement) {
+    if(inputElement.checked) {
+        document.getElementById('selected-target-screen').innerText = inputElement.nextElementSibling.innerText;
+        document.getElementById('selected-target-screen').style.color = '#000';
+        selectedTargetScreen = inputElement.value;
+    }
+}
+
+
 function openCreateSliderModal(modalID) {
     let modal = document.querySelector(`#${modalID}`);
     let form = modal.querySelector("form");
@@ -141,9 +182,12 @@ function openCreateSliderModal(modalID) {
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
         form.removeAttribute("onsubmit");
+        selectedTargetScreen = null;
         modal.querySelector('#salon-level-dropdown-container').classList.add('hide');
         document.getElementById('selected-salon-level').innerText = 'Select Salon Type';
         document.getElementById('selected-salon-level').style.color = 'rgba(3, 7, 6, 0.60)';
+        document.getElementById('selected-target-screen').innerText = 'Select Target Screen';
+        document.getElementById('selected-target-screen').style.color = 'rgba(3, 7, 6, 0.60)';
         let label = modal.querySelector('#image-input-label');
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -201,6 +245,9 @@ async function createSliderForm(event) {
         errorMsg.innerText = '';
         errorMsg.classList.remove('active');
 
+        if (selectedTargetScreen != null)
+            formData.append('target_screen', selectedTargetScreen);
+
         formData.append("is_visible", true);
         formData.append("target_role", 'salon');
         formData.append('partnership_application_status ', selectedSalonLevel);
@@ -244,7 +291,7 @@ async function createSliderForm(event) {
 }
 
 
-function openUpdateSliderModal(modalID, id, name, description, imageUrl, partnership_application_status, service_region) {
+function openUpdateSliderModal(modalID, id, name, description, imageUrl, partnership_application_status, service_region, target_screen) {
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
@@ -263,12 +310,23 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, partner
     
     let checkedInput = modal.querySelector(`input[name="salon_level_radio"][value="${partnership_application_status}"]`);
     checkedInput.click();
+    
+    if (target_screen != 'None') {
+        let sliderTargetScreen = targetScreenData.find(record => record.id == target_screen);
+        let targetScreenCheckedInput = modal.querySelector(`input[name="target_screen_radio"][value="${sliderTargetScreen.id}"]`);
+        if (targetScreenCheckedInput) {
+            targetScreenCheckedInput.click();
+        }
+    }
     modal.addEventListener('hidden.bs.modal', event => {
         form.reset();
+        selectedTargetScreen = null;
         modal.querySelector('#slider-modal-header').innerText = 'Create Slider';
         modal.querySelector('#salon-level-dropdown-container').classList.add('hide');
         document.getElementById('selected-salon-level').innerText = 'Select Salon Type';
         document.getElementById('selected-salon-level').style.color = 'rgba(3, 7, 6, 0.60)';
+        document.getElementById('selected-target-screen').innerText = 'Select Target Screen';
+        document.getElementById('selected-target-screen').style.color = 'rgba(3, 7, 6, 0.60)';
         form.removeAttribute("onsubmit");
         label.querySelector('.event-img').src = '';
         label.querySelector('.event-img').classList.add('hide');
@@ -309,50 +367,52 @@ async function updateSliderForm(event, id) {
         errorMsg.classList.add('active');
         return false;
     }
-    else {
-        try {
-            formData.append('partnership_application_status ', selectedSalonLevel);
-            if (imageInput.files.length == 0) {
-                formData.delete("image");
+    try {
+        formData.append('partnership_application_status ', selectedSalonLevel);
+        if (imageInput.files.length == 0) {
+            formData.delete("image");
+        }
+        if (selectedTargetScreen != null)
+            formData.append('target_screen', selectedTargetScreen);
+        
+        errorDiv.classList.add('hide');
+        errorMsg.innerText = '';
+        errorMsg.classList.remove('active');
+        
+        let token = getCookie('admin_access');
+        let headers = { "Authorization": `Bearer ${token}` };
+        beforeLoad(button);
+        let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
+        // console.log(response);
+        response.json().then(function(res) {
+            // console.log(res);
+            if (response.status == 200) {
+                form.removeAttribute("onsubmit");
+                afterLoad(button, 'SAVED');
+                getData();
+                selectedSalonLevel = null;
+                setTimeout(() => {
+                    afterLoad(button, 'SAVE');
+                    document.querySelector('.createSlider').click();
+                }, 1000)
             }
-            errorDiv.classList.add('hide');
-            errorMsg.innerText = '';
-            errorMsg.classList.remove('active');
-            let token = getCookie('admin_access');
-            let headers = { "Authorization": `Bearer ${token}` };
-            beforeLoad(button);
-            let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
-            // console.log(response);
-            response.json().then(function(res) {
-                // console.log(res);
-                if (response.status == 200) {
-                    form.removeAttribute("onsubmit");
-                    afterLoad(button, 'SAVED');
-                    getData();
-                    selectedSalonLevel = null;
-                    setTimeout(() => {
-                        afterLoad(button, 'SAVE');
-                        document.querySelector('.createSlider').click();
-                    }, 1000)
-                }
-                else if (response.status == 400) {
-                    afterLoad(button, buttonText);
-                    errorDiv.classList.remove('hide');
-                    let keys = Object.keys(res.messages);
-                    keys.forEach((key) => {
-                        errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
-                    })
-                    errorMsg.classList.add('active');
-                }
-                else {
-                    afterLoad(button, 'ERROR');
-                }
-            })
-        }
-        catch (err) {
-            console.log(err);
-            afterLoad(button, 'ERROR');
-        }
+            else if (response.status == 400) {
+                afterLoad(button, buttonText);
+                errorDiv.classList.remove('hide');
+                let keys = Object.keys(res.messages);
+                keys.forEach((key) => {
+                    errorMsg.innerHTML += `${key}: ${res.messages[key]} <br />`;
+                })
+                errorMsg.classList.add('active');
+            }
+            else {
+                afterLoad(button, 'ERROR');
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+        afterLoad(button, 'ERROR');
     }
 }
 

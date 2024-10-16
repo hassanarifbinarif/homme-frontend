@@ -133,10 +133,15 @@
 }
 
 #createSlider #user-level-dropdown,
-#createSlider #salon-level-dropdown {
+#createSlider #salon-level-dropdown,
+#createSlider #target-screen-dropdown {
     max-width: 579px;
     max-height: 290px;
     overflow-y: auto;
+}
+
+#createSlider #target-screen-dropdown-container {
+    margin-top: 15px;
 }
 
 #createSlider .radio-btn > label {
