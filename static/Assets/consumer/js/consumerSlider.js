@@ -59,7 +59,7 @@ async function getTargetScreen() {
     let token = getCookie('admin_access');
     let headers = { "Authorization": `Bearer ${token}` };
     try {
-        let response = await requestAPI(`${apiURL}/admin/content/target-screens?perPage=1000`, null, headers, 'GET');
+        let response = await requestAPI(`${apiURL}/admin/content/target-screens?perPage=1000&role=${role}`, null, headers, 'GET');
         response.json().then(function(res) {
             targetScreenData = [...res.data];
             targetScreenData.forEach((targetScreen) => {
