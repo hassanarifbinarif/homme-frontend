@@ -29,11 +29,23 @@ window.onload = () => {
         requiredDataURL = setParams(requiredDataURL, 'user', userID);
         getData(requiredDataURL);
     }
+    
     let url = new URL(location.href);
-    let search = url.searchParams.get('status');
-    if (search) {
-        requiredDataURL = setParams(requiredDataURL, 'status', search);
-        document.getElementById('selected-order-completion-type').innerText = search.toUpperCase();
+    let sales_channel_from_url = url.searchParams.get('sales_channel');
+    let status_placed = (url.searchParams.get('placed') === 'true');
+    if (status_placed) {
+        requiredDataURL = setParams(requiredDataURL, 'status', 'placed');
+        console.log(orderCompletionTypeDropdown);
+        const statusElement = orderCompletionTypeDropdown.querySelector(`span[data-value="placed"]`);
+        document.getElementById('selected-order-completion-type').innerText = statusElement.innerText.toUpperCase();
+    }
+    if (sales_channel_from_url) {
+        requiredDataURL = setParams(requiredDataURL, 'sales_channel', sales_channel_from_url);
+        const salesChannelElement = document.querySelector(`input[name="sales_channel"][value="${sales_channel_from_url}"]`);
+        if (salesChannelElement) {
+            salesChannelElement.checked = true;
+            salesChannelDropdown.style.display = 'none';
+        }
     }
     getData();
     // getNotifications();
@@ -654,10 +666,10 @@ function filterOrderCompletionType(element) {
 }
 
 
-if (place === 'true'){
-    const placeElement = document.querySelector('span[data-value="placed"]');
-    filterOrderCompletionType(placeElement);
-}
+// if (place === 'true'){
+//     const placeElement = document.querySelector('span[data-value="placed"]');
+//     filterOrderCompletionType(placeElement);
+// }
 
 
 // For current week

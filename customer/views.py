@@ -99,9 +99,11 @@ def events(request):
 
 @admin_signin_required
 def orders(request, pk=None):
-    placed = request.GET.get("placed")
     context = {}
-    context["placed"] = placed
+    # placed = request.GET.get("placed")
+    # sales_channel = request.GET.get("sales_channel")
+    # context["placed"] = placed
+    # context["sales_channel"] = sales_channel
     context["user"] = pk
     context["active_page"] = "orders"
     context["sidebar"] = "customer"
