@@ -89,15 +89,15 @@ function populateStateCountryDropdowns() {
 
     countryList.forEach((country, index) => {
         legalCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                                <input onchange="selectCountry(this, 'legal');" id="legal-country-${index}" type="radio" value="${country['Country']}" name="legal_country" />
+                                                                <input onchange="selectCountry(this, 'legal');" id="legal-country-${index}" type="radio" value="${country['Alpha-2 code']}" name="legal_country" />
                                                                 <label for="legal-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                             </div>`)
         salonCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                                <input onchange="selectCountry(this, 'salon');" id="salon-country-${index}" type="radio" value="${country['Country']}" name="salon_country" />
+                                                                <input onchange="selectCountry(this, 'salon');" id="salon-country-${index}" type="radio" value="${country['Alpha-2 code']}" name="salon_country" />
                                                                 <label for="salon-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                             </div>`)
         paymentCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                                    <input onchange="selectCountry(this, 'payment');" id="payment-country-${index}" type="radio" value="${country['Country']}" name="payment_country" />
+                                                                    <input onchange="selectCountry(this, 'payment');" id="payment-country-${index}" type="radio" value="${country['Alpha-2 code']}" name="payment_country" />
                                                                     <label for="payment-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                                 </div>`)
     })

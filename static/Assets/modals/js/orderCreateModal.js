@@ -90,7 +90,7 @@ async function populateDropdowns() {
     })
     countryList.forEach((country, index) => {
         countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Country']}" name="country_radio" />
+                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Alpha-2 code']}" name="country_radio" />
                                                             <label for="country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                         </div>`)
     })

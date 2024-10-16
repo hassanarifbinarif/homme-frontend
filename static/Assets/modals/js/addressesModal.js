@@ -75,11 +75,11 @@ function populateStatesAndCountriesDropdown() {
 
     countryList.forEach((country, index) => {
         shippingCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                                    <input onchange="selectCountry(this, 'shipping');" id="shipping-country-${index}" type="radio" value="${country['Country']}" name="shipping_country" />
+                                                                    <input onchange="selectCountry(this, 'shipping');" id="shipping-country-${index}" data-value="${country['Country']}" type="radio" value="${country['Alpha-2 code']}" name="shipping_country" />
                                                                     <label for="shipping-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                                 </div>`)
         billingCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                                    <input onchange="selectCountry(this, 'billing');" id="billing-country-${index}" type="radio" value="${country['Country']}" name="billing_country" />
+                                                                    <input onchange="selectCountry(this, 'billing');" id="billing-country-${index}" type="radio" data-value="${country['Country']}" value="${country['Alpha-2 code']}" name="billing_country" />
                                                                     <label for="billing-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                                 </div>`)
     })
@@ -124,7 +124,7 @@ function openAddressesModal(id, type=null) {
             document.getElementById('selected-shipping-state-text').style.color = '#000';
         }
 
-        let isShippingCountry = modal.querySelector(`input[name='shipping_country'][value='${customerShippingAddress.country}']`);
+        let isShippingCountry = modal.querySelector(`input[name='shipping_country'][value='${customerShippingAddress.country}'], input[name='shipping_country'][data-value='${customerShippingAddress.country}']`);
         if (isShippingCountry) {
             isShippingCountry.checked = true;
             document.getElementById('selected-shipping-country-text').innerText = isShippingCountry.nextElementSibling.innerText;
@@ -148,7 +148,7 @@ function openAddressesModal(id, type=null) {
             document.getElementById('selected-billing-state-text').style.color = '#000';
         }
 
-        let isBillingCountry = modal.querySelector(`input[name='billing_country'][value='${customerBillingAddress.country}']`);
+        let isBillingCountry = modal.querySelector(`input[name='billing_country'][value='${customerBillingAddress.country}'], input[name='billing_country'][data-value='${customerBillingAddress.country}']`);
         if (isBillingCountry) {
             isBillingCountry.checked = true;
             document.getElementById('selected-billing-country-text').innerText = isBillingCountry.nextElementSibling.innerText;

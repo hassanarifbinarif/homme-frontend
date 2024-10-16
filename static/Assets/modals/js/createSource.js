@@ -67,7 +67,7 @@ async function populateDropdowns() {
     })
     countryList.forEach((country, index) => {
         countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Alpha-2 code']}" name="country_radio" />
+                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" data-value="${country['Country']}" value="${country['Alpha-2 code']}" name="country_radio" />
                                                             <label for="country-${index}" data-name="${country['Country']}" data-value="${country['Alpha-2 code']}" class="radio-label">${country['Country']}</label>
                                                         </div>`)
     })
@@ -397,7 +397,7 @@ function openEditSourceModal(modalId, id) {
         form.querySelector(`input[name="channel"][value="${specificSourceData.channel.id}"]`).checked = true;
     }
     form.querySelector('input[name="city"]').value = specificSourceData.city;
-    let isCountry = document.querySelector(`label[data-value="${specificSourceData.country}"]`);
+    let isCountry = document.querySelector(`label[data-value="${specificSourceData.country}"], label[data-name="${specificSourceData.country}"]`);
     if (isCountry)
         isCountry.click();
     form.querySelector('input[name="embedded_string"]').value = specificSourceData.embedded_string;
@@ -412,7 +412,7 @@ function openEditSourceModal(modalId, id) {
         selectedCountry = null;
         document.getElementById('selected-country-text').innerText = 'Country';
         document.getElementById('selected-country-text').style.color = '#A9A9A9';
-        document.querySelector('.error-div').classList.add('hide');
+        // document.querySelector('.error-div').classList.add('hide');
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
     })
@@ -428,7 +428,7 @@ async function updateSourceForm(event, id) {
     let data = formDataToObject(formData);
     let button = form.querySelector('button[type="submit"]');
     let buttonText = button.innerText;
-
+    
     if (data.name.trim().length == 0) {
         errorMsg.innerText = 'Enter valid source name';
         errorMsg.classList.add('active');
@@ -437,6 +437,7 @@ async function updateSourceForm(event, id) {
     else if (!data.type) {
         errorMsg.innerText = 'Select a source type';
         errorMsg.classList.add('active');
+        console.log('here');
         return false;
     }
     // else if (!data.owner) {
@@ -450,6 +451,7 @@ async function updateSourceForm(event, id) {
         return false;
     }
     try {
+        console.log('there');
         if ('owner' in data && data.owner == 'homme-management')
             data.owner = "";
         if (selectedCountry != null)

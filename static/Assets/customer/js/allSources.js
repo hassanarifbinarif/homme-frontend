@@ -637,7 +637,7 @@ function selectSource(inputElement) {
 
 function selectCountry(inputElement) {
     if (inputElement.checked) {
-        requiredDataURL = setParams(requiredDataURL, 'country', inputElement.value);
+        requiredDataURL = setParams(requiredDataURL, 'country__iexact', inputElement.value);
         getData();
         document.getElementById('selected-country').innerText = inputElement.nextElementSibling.innerText;
         document.getElementById('selected-country').title = inputElement.nextElementSibling.innerText;
@@ -998,7 +998,7 @@ function openUpdateSourceTypeChannelModal(modalID, type='type', id, name, color,
 
 countryList.forEach((country, index) => {
     countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                        <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Country']}" name="country_radio" />
+                                                        <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Alpha-2 code']}" name="country_radio" />
                                                         <label for="country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                     </div>`)
 })

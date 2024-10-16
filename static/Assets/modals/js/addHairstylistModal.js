@@ -51,7 +51,7 @@ function populateStateCountryDropdowns() {
 
     countryList.forEach((country, index) => {
         countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" value="${country['Country']}" name="country" />
+                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" data-value="${country['Country']}" value="${country['Alpha-2 code']}" name="country" />
                                                             <label for="country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                         </div>`)
     })
@@ -245,7 +245,7 @@ function openEditHairStylistModal(id, openState=null) {
         document.getElementById('selected-state-text').style.color = '#000';
     }
 
-    let isCountry = modal.querySelector(`input[name='country'][value='${specificStylist.country}']`);
+    let isCountry = modal.querySelector(`input[name='country'][value='${specificStylist.country}'], input[name='country'][data-value='${specificStylist.country}']`);
     if (isCountry) {
         isCountry.checked = true;
         document.getElementById('selected-country-text').innerText = isCountry.nextElementSibling.innerText;

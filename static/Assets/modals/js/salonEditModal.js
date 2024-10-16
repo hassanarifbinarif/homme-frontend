@@ -36,7 +36,7 @@ function populateSalonStateCountryDropdowns() {
 
     countryList.forEach((country, index) => {
         salonCountryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn salon-country-item-list" data-id="${index+1}">
-                                                                <input onchange="selectSalonCountry(this);" id="salon-country-${index}" type="radio" value="${country['Country']}" name="salon_country" />
+                                                                <input onchange="selectSalonCountry(this);" id="salon-country-${index}" type="radio" data-value="${country['Country']}" value="${country['Alpha-2 code']}" name="salon_country" />
                                                                 <label for="salon-country-${index}" data-name="${country['Country']}" class="radio-label">${country['Country']}</label>
                                                             </div>`)
     })
@@ -97,7 +97,7 @@ function openSalonEditModal(type='notes', addressData=null) {
 
         modal.querySelector('input[name="zip_code"]').value = addressData.zip_code;
 
-        let isSalonCountry = modal.querySelector(`input[name="salon_country"][value="${addressData.country}"]`);
+        let isSalonCountry = modal.querySelector(`input[name="salon_country"][value="${addressData.country}"], input[name="salon_country"][data-value="${addressData.country}"]`);
         if (isSalonCountry) {
             isSalonCountry.checked = true;
             modal.querySelector('#selected-salon-country-text').innerText = isSalonCountry.nextElementSibling.innerText;
