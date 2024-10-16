@@ -14,6 +14,7 @@ let hairstylistBtn = document.getElementById('hairstylist-btn');
 let hairstylistWrapper = document.getElementById('hairstylist-selector');
 let hairstylistDropdown = document.getElementById('hairstylist-dropdown');
 let hairstylistData = {};
+let selectedHairStylist = '';
 
 let salonFilerBtn = document.getElementById('salon-btn');
 let salonFilterWrapper = document.getElementById('salon-selector');
@@ -252,6 +253,7 @@ function searchHairstylist(event, inputElement) {
     if (event.keyCode == 13) {
         requiredDataURL = setParams(requiredDataURL, 'hairstylist__fullname', inputElement.value);
         getData();
+        selectedHairStylist = inputElement.value;
         document.getElementById('selected-hairstylist-text').innerText = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
         document.getElementById('selected-hairstylist-text').title = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
         hairstylistWrapper.style.display = 'none';
@@ -283,6 +285,7 @@ function selectHairStylist(inputElement) {
     if (inputElement.checked) {
         requiredDataURL = setParams(requiredDataURL, 'hairstylist__fullname', inputElement.value);
         getData();
+        selectedHairStylist = inputElement.value;
         document.getElementById('selected-hairstylist-text').innerText = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
         document.getElementById('selected-hairstylist-text').title = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
         document.getElementById('hairstylist-filter-input').value = inputElement.value;
@@ -347,11 +350,9 @@ async function showCommissionDetails(clickedRow, salonId, month) {
                                 </td>`;
 
             let token = getCookie('admin_access');
-            let headers = {
-                "Authorization": `Bearer ${token}`
-            };
+            let headers = { "Authorization": `Bearer ${token}` };
 
-            let response = await requestAPI(`${apiURL}/admin/salons/commissions?salon=${salonId}&date_month=${month}&page=1&perPage=1000&ordering=-date`, null, headers, 'GET');
+            let response = await requestAPI(`${apiURL}/admin/salons/commissions?salon=${salonId}&date_month=${month}&page=1&perPage=1000&ordering=-date&hairstylist__fullname=${selectedHairStylist}`, null, headers, 'GET');
             response.json().then(function(res) {
                 if (response.status == 200) {
                     insertTableBodyRows(res.data, commissionDetailBody);
