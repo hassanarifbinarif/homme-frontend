@@ -253,6 +253,7 @@ function searchHairstylist(event, inputElement) {
     if (event.keyCode == 13) {
         requiredDataURL = setParams(requiredDataURL, 'hairstylist__fullname', inputElement.value);
         getData();
+        document.querySelectorAll('input[name="stylist_radio"]').forEach(input => input.checked = false);
         selectedHairStylist = inputElement.value;
         document.getElementById('selected-hairstylist-text').innerText = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
         document.getElementById('selected-hairstylist-text').title = inputElement.value == '' ? 'HAIRSTYLIST' : inputElement.value;
