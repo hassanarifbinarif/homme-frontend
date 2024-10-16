@@ -31,6 +31,7 @@
                     <svg class="cursor-pointer" onclick="history.back();" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                         <path d="M9.36198 17.5482L2.94531 11.1315M2.94531 11.1315L9.36198 4.71484M2.94531 11.1315H19.4453" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                    <img src="{{salon.partnership_application.salon_picture}}" onerror="this.onerror=null;this.src=`{% static 'Assets/consumer/images/salon_img.svg' %}`;" alt="salon profile image" />
                     <span>{{salon.salon_name}}</span>
                 </div>
                 <div class="specific-salon-address">

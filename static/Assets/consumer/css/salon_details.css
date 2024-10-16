@@ -40,6 +40,14 @@
     flex-shrink: 0;
 }
 
+.specific-order-content .specific-salon-overview .specific-salon-overview-header > img {
+    width: 54px;
+    height: 54px;
+    border-radius: 54px;
+    object-fit: cover;
+    object-position: center
+}
+
 .specific-order-content .specific-salon-overview .specific-salon-address {
     display: flex;
     align-items: center;
