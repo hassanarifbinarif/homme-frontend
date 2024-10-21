@@ -30,6 +30,13 @@ let sourceChannelData = [];
 
 
 async function populateDropdowns() {
+    countryList.forEach((country, index) => {
+        countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
+                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" data-value="${country['Country']}" value="${country['Alpha-2 code']}" name="country_radio" />
+                                                            <label for="country-${index}" data-name="${country['Country']}" data-value="${country['Alpha-2 code']}" class="radio-label">${country['Country']}</label>
+                                                        </div>`)
+    })
+
     let token = getCookie('admin_access');
     let headers = { "Authorization": `Bearer ${token}` };
     let responseSourceTypeList = await requestAPI(`${apiURL}/admin/sources/types?page=1&perPage=10000`, null, headers, 'GET');
@@ -64,12 +71,6 @@ async function populateDropdowns() {
                                                                         <label for="channel-${channel.id}" class="radio-label">${channel.name}</label>
                                                                     </div>`);
         })
-    })
-    countryList.forEach((country, index) => {
-        countryDropdown.insertAdjacentHTML('beforeend', `<div class="radio-btn country-item-list" data-id="${index+1}">
-                                                            <input onchange="selectCountry(this);" id="country-${index}" type="radio" data-value="${country['Country']}" value="${country['Alpha-2 code']}" name="country_radio" />
-                                                            <label for="country-${index}" data-name="${country['Country']}" data-value="${country['Alpha-2 code']}" class="radio-label">${country['Country']}</label>
-                                                        </div>`)
     })
 }
 
@@ -181,16 +182,17 @@ function selectCountry(inputField) {
 }
 
 
-countryField.addEventListener('focus', function() {
-    countryDropdown.style.display = 'flex';
-})
+// countryField.addEventListener('focus', function() {
+//     countryDropdown.style.display = 'flex';
+// })
 
-countryField.addEventListener('blur', function(event) {
-    setTimeout(() => {
-        countryDropdown.style.display = 'none';
-    }, 200);
-})
+// countryField.addEventListener('blur', function(event) {
+//     setTimeout(() => {
+//         countryDropdown.style.display = 'none';
+//     }, 200);
+// })
 
+countryField.addEventListener('click', toggleDropdown);
 
 function toggleDropdown(event) {
     let elementBtn = event.target;
@@ -207,13 +209,13 @@ function toggleDropdown(event) {
 }
 
 
-// function closeDropdowns(event) {
-//     if ((!typeField.contains(event.target)) && typeDropdown.style.display == 'flex') {
-//         typeDropdown.style.display = 'none';
-//     }
-// }
+function closeCountryDropdown(event) {
+    if ((!countryField.contains(event.target)) && countryDropdown.style.display == 'flex') {
+        countryDropdown.style.display = 'none';
+    }
+}
 
-// document.body.addEventListener('click', closeDropdowns);
+document.body.addEventListener('click', closeCountryDropdown);
 
 
 function selectSourceOwner(inputField) {
