@@ -1,7 +1,8 @@
 import json
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from homme.decorators import admin_signin_required
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
+from urllib.parse import parse_qs
 from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
 from homme.helpers import requestAPI
@@ -441,8 +442,18 @@ def get_packing_slip(request, pk):
 def user_register_redirector(request):
     # Get all query parameters from the request
     query_params = request.GET.urlencode()
+    params_dict = {k: v[0] if len(v) == 1 else v for k, v in parse_qs(query_params).items()}
 
     # Append the query parameters to the redirect URL
     redirect_url_with_params = f'{settings.REDIRECT_URL_STRING}?{query_params}'
 
-    return redirect(redirect_url_with_params)
+    context = {}
+    context['redirect_uri'] = redirect_url_with_params
+    context['query_params'] = query_params
+
+    response = render(request, 'customer/redirect_url.html', context)
+    
+    # for key, value in params_dict.items():
+    #     response.set_cookie(key, value)
+
+    return response

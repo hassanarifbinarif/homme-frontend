@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% load static %}
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <title>Redirect URL</title>
+</head>
+<body>
+    <p id="unique-string">Generating...</p>
+
+    {{redirect_uri|json_script:"redirect_uri"}}
+    {{query_params|json_script:"query_params"}}
+</body>
+<script>
+    window.API_BASE_URL = "{{ API_BASE_URL }}";
+</script>
+<script src="{% static 'Assets/customer/js/common.js' %}"></script>
+<script>
+    const redirectURL = JSON.parse(document.getElementById('redirect_uri').textContent);
+    const queryParams = JSON.parse(document.getElementById('query_params').textContent);
+
+    async function hashObject(obj) {
+        const jsonString = JSON.stringify(obj)
+        const hash = CryptoJS.SHA256(jsonString);
+        return hash.toString(CryptoJS.enc.Hex);
+    }
+
+    const fingerprint = {
+        "language": "en",
+        "pixelRatio": window.devicePixelRatio,
+        "platform": "iPhone",
+        "screenHeight": window.screen.height,
+        "screenWidth": window.screen.width,
+    }
+
+    hashObject(fingerprint).then(async function(res) {
+        let headers = { "Content-Type": "application/json" };
+        let data = {"key": res, "value": queryParams};
+        let response = await requestAPI(`${apiURL}/deeplinks`, JSON.stringify(data), headers, 'POST');
+        response.json().then(function(resp) {
+            location.href = redirectURL;
+        })
+        // console.log("Device Fingerprint:", fingerprint);
+        // console.log('Device Hash: ', res);
+        // document.getElementById("unique-string").textContent = JSON.stringify(fingerprint) + '<br />' + res;
+    })
+</script>
+</html>
