@@ -18,14 +18,14 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-messaging.js"></script>
 
     <meta name="description" content="HOMME">
-    <meta name="og:image" content="{{request.scheme}}://{{request.get_host}}{% static 'Assets/customer/images/favicon.png' %}">
+    <meta name="og:image" content="https://{{request.get_host}}{% static 'Assets/customer/images/favicon.png' %}">
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="{{request.build_absolute_uri}}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="HOMME">
     <meta property="og:description" content="HOMME">
-    <meta property="og:image" content="{{request.scheme}}://{{request.get_host}}{% static 'Assets/customer/images/favicon.png' %}">
+    <meta property="og:image" content="https://{{request.get_host}}{% static 'Assets/customer/images/favicon.png' %}">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
     <meta property="twitter:url" content="{{request.build_absolute_uri}}">
     <meta name="twitter:title" content="HOMME">
     <meta name="twitter:description" content="HOMME">
-    <meta name="twitter:image" content="{{request.scheme}}://{{request.get_host}}{% static 'Assets/customer/images/favicon.png' %}">
+    <meta name="twitter:image" content="https://{{request.get_host}}{% static 'Assets/customer/images/favicon.png' %}">
 
     {% block links %} {% endblock %}
 
