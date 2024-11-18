@@ -125,7 +125,7 @@
                                             style="padding-left: 74px; padding-right: 74px; margin-top: 27.52px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent;">
                                             <div style="display: flex;align-items: center;justify-content: space-between;">
                                                 <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; align-self: flex-start; margin-top: 14px;">
-                                                    <span style="color: #000; text-align: right; leading-trim: both; text-edge: cap; font-family: Gotham Bold; font-size: 9pt; font-style: normal; font-weight: 500; line-height: 10px; letter-spacing: 0.02em; text-transform: uppercase;">PO #{{order.id}}</span>
+                                                    <span style="color: #000; text-align: right; leading-trim: both; text-edge: cap; font-family: Gotham Bold; font-size: 9pt; font-style: normal; font-weight: 500; line-height: 10px; letter-spacing: 0.03em; text-transform: uppercase;">PO #{{order.id}}</span>
                                                     <span style="color: #000; text-align: right; leading-trim: both; text-edge: cap; font-family: Gotham Light; font-size: 9pt; font-style: normal; font-weight: 300; line-height: 10px; letter-spacing: 0.02em; text-transform: uppercase;">{{order.created_at|custom_date:"F d, Y"}}</span>
                                                 </div>
                                                 <svg style="width: 100px; height: 100px;" width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -162,7 +162,7 @@
                                                             <div style="margin: 0px 74px 0px 74px;">
                                                                 <div style="display: flex;align-items: center; gap: 3px;">
                                                                     <div style="align-self: flex-start; width: 170px;display: flex;flex-direction: column;align-items: flex-start;gap: 13px;">
-                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase;">SHIP TO</span>
+                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; letter-spacing: 0.03em;">SHIP TO</span>
                                                                         <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 3px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Light;font-size: 9pt;font-style: normal;font-weight: 300;line-height: 10px;text-transform: capitalize; letter-spacing: 0.02em;">
                                                                             <span style="height: fit-content;">{{order.salon.contact_name}}</span>
                                                                             <span style="height: fit-content;">{{order.salon.address.street1}}</span>
@@ -171,7 +171,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div style="align-self: flex-start; width: 170px;display: flex;flex-direction: column;align-items: flex-start;gap: 13px;">
-                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase;">BILL TO</span>
+                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; letter-spacing: 0.03em;">BILL TO</span>
                                                                         <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 3px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Light;font-size: 9pt;font-style: normal;font-weight: 300;line-height: 10px;text-transform: capitalize; letter-spacing: 0.02em;">
                                                                             <span style="height: fit-content;">{{order.salon.contact_name}}</span>
                                                                             <span style="height: fit-content;">{{order.salon.address.street1}}</span>
@@ -186,10 +186,10 @@
                                                                     <table style="width: 100%;table-layout: fixed;">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th width="204px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: left; padding: 0px;">SKU#</th>
-                                                                                <th width="27px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: center; padding: 0px;"><div style="width: 27px;">QTY</div></th>
-                                                                                <th width="119px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: right; padding: 0px;">RETAIL VALUE</th>
-                                                                                <th width="149px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: right; padding: 0px;">TOTAL RETAIL VALUE</th>
+                                                                                <th width="204px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: left; padding: 0px; letter-spacing: 0.02em;">SKU#</th>
+                                                                                <th width="27px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: center; padding: 0px;"><div style="width: 27px; letter-spacing: 0.02em;">QTY</div></th>
+                                                                                <th width="119px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: right; padding: 0px; letter-spacing: 0.02em;">RETAIL VALUE</th>
+                                                                                <th width="149px" style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase; text-align: right; padding: 0px; letter-spacing: 0.02em;">TOTAL RETAIL VALUE</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
