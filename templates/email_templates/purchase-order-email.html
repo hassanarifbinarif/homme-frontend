@@ -126,7 +126,7 @@
                                             <div style="display: flex;align-items: center;justify-content: space-between;">
                                                 <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; align-self: flex-start; margin-top: 14px;">
                                                     <span style="color: #000; text-align: right; leading-trim: both; text-edge: cap; font-family: Gotham Bold; font-size: 9pt; font-style: normal; font-weight: 500; line-height: 10px; letter-spacing: 0.02em; text-transform: uppercase;">PO #{{order.id}}</span>
-                                                    <span style="color: #000; text-align: right; leading-trim: both; text-edge: cap; font-family: Gotham Light; font-size: 9pt; font-style: normal; font-weight: 300; line-height: 10px; letter-spacing: 0.02em;">{{order.created_at|custom_date:"F d, Y"}}</span>
+                                                    <span style="color: #000; text-align: right; leading-trim: both; text-edge: cap; font-family: Gotham Light; font-size: 9pt; font-style: normal; font-weight: 300; line-height: 10px; letter-spacing: 0.02em; text-transform: uppercase;">{{order.created_at|custom_date:"F d, Y"}}</span>
                                                 </div>
                                                 <svg style="width: 100px; height: 100px;" width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <rect width="100" height="100" rx="12" fill="black"/>
@@ -163,7 +163,7 @@
                                                                 <div style="display: flex;align-items: center; gap: 3px;">
                                                                     <div style="align-self: flex-start; width: 170px;display: flex;flex-direction: column;align-items: flex-start;gap: 13px;">
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase;">SHIP TO</span>
-                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 1px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Light;font-size: 9pt;font-style: normal;font-weight: 300;line-height: 10px;text-transform: capitalize; letter-spacing: 0.02em;">
+                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 3px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Light;font-size: 9pt;font-style: normal;font-weight: 300;line-height: 10px;text-transform: capitalize; letter-spacing: 0.02em;">
                                                                             <span style="height: fit-content;">{{order.salon.contact_name}}</span>
                                                                             <span style="height: fit-content;">{{order.salon.address.street1}}</span>
                                                                             <span style="height: fit-content;">{{order.salon.address.city}} {{order.salon.address.state}} {{order.salon.address.zip_code}}</span>
@@ -172,7 +172,7 @@
                                                                     </div>
                                                                     <div style="align-self: flex-start; width: 170px;display: flex;flex-direction: column;align-items: flex-start;gap: 13px;">
                                                                         <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Bold;font-size: 9pt;font-style: normal;font-weight: 700;line-height: 7px;text-transform: uppercase;">BILL TO</span>
-                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 1px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Light;font-size: 9pt;font-style: normal;font-weight: 300;line-height: 10px;text-transform: capitalize; letter-spacing: 0.02em;">
+                                                                        <div style="display: flex;flex-direction: column;align-items: flex-start;gap: 3px;color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Light;font-size: 9pt;font-style: normal;font-weight: 300;line-height: 10px;text-transform: capitalize; letter-spacing: 0.02em;">
                                                                             <span style="height: fit-content;">{{order.salon.contact_name}}</span>
                                                                             <span style="height: fit-content;">{{order.salon.address.street1}}</span>
                                                                             <span style="height: fit-content;">{{order.salon.address.city}} {{order.salon.address.state}} {{order.salon.address.zip_code}}</span>
@@ -197,12 +197,12 @@
                                                                             <tr>
                                                                                 <td style="padding-top: 12px;">
                                                                                     <div style="display: flex; align-items: center; gap: 5px;">
-                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 9pt;font-style: normal;font-weight: 500;line-height: 10px; width: 48px; flex-shrink: 0;">{{obj.product.sku_num}}</span>
+                                                                                        <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 9pt;font-style: normal;font-weight: 500;line-height: 12px; width: 48px; flex-shrink: 0;">{{obj.product.sku_num}}</span>
                                                                                         <!-- <span style="color: #000;leading-trim: both;text-edge: cap;font-family: Gotham Medium;font-size: 8px;font-style: normal;font-weight: 500;line-height: 8px; width: 48px; flex-shrink: 0;">1232</span> -->
                                                                                         <div style="display: flex; align-items: center; gap: 6px;">
                                                                                             <!-- <img style="width: 46px; height: 46px; border-radius: 3px;" src="../../static/Assets/customer/images/product_image.png" alt="product image" /> -->
                                                                                             <img crossorigin="anonymous" style="width: 46px; height: 46px; border-radius: 3px;" src="data:image/png;base64,{{obj.product.images.0.image_base64}}" alt="product image" />
-                                                                                            <span style="color: #000;font-family: Gotham Medium;font-size: 9pt;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize; letter-spacing: 0.02em;">{{obj.product.title}}</span>
+                                                                                            <span style="color: #000;font-family: Gotham Medium;font-size: 9pt;font-style: normal;font-weight: 500;line-height: 10px;text-transform: capitalize; letter-spacing: 0.04em;">{{obj.product.title}}</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
