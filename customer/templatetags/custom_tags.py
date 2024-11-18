@@ -21,6 +21,7 @@ def multiply(value, arg):
         return ''
     try:
         total_value =  float(value) * float(arg)
+        total_value = format(total_value, ".2f")
     except Exception as e:
         print(e)
         return value

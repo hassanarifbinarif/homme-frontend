@@ -233,7 +233,7 @@ async function getPurchaseOrder(event, id) {
             filename: 'generated-pdf.pdf',
             image: { type: 'jpeg', quality: '.8' },
             html2canvas: { scale: 2, useCORS: true, allowTaint:true, scrollY: 0, scrollX: 0, imageTimeout: 10000000, dpi: 300 },
-            jsPDF: { unit: 'px', format: [648, 839], hotfixes: ['px_scaling'], orientation: 'portrait' }
+            jsPDF: { unit: 'px', format: [648, 845], hotfixes: ['px_scaling'], orientation: 'portrait' }
         };
 
         // html2pdf().from(res.packing_data).set(options).save();

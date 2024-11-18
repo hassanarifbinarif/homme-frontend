@@ -119,7 +119,7 @@
 }
 
 @font-face {
-    font-family: 'Gotham';
+    font-family: Gotham Light;
     src: url('Gotham-Light.eot');
     src: local('Gotham Light'), local('Gotham-Light'),
         url('Gotham-Light.eot?#iefix') format('embedded-opentype'),
