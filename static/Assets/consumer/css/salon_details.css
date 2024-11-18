@@ -4,20 +4,67 @@
     gap: 20px;
 }
 
-.specific-order-content .specific-salon-overview {
-    width: 100%;
-    min-height: 102px;
-
+.specific-salon-header-details {
+    display: flex;
+    gap: 20px;
     background-color: #FFF;
+
     border: 1px solid #E0E0DD;
     border-radius: 6px;
     padding: 20px;
+}
+
+.specific-order-content .specific-salon-overview {
+    width: 100%;
+    min-height: 102px;
+    width: 63.05%;
+
+    /* background-color: #FFF;
+    border: 1px solid #E0E0DD;
+    border-radius: 6px;
+    padding: 20px; */
 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     gap: 27px;
+}
+
+.specific-order-content .specific-salon-attributes {
+    display: grid;
+    grid-template-columns: minmax(160px, 180px);
+    justify-content: flex-end;
+    row-gap: 10px;
+    column-gap: 10px;
+    /* display: flex;
+    justify-content: space-between;
+    flex-direction: column; */
+    width: 35.3%;
+}
+
+.specific-order-content .specific-salon-attributes > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-self: flex-start;
+}
+
+.specific-order-content .specific-salon-attributes > div > span {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gotham Book;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    word-break: break-all;
+}
+
+.specific-order-content .specific-salon-attributes > div > span:first-of-type {
+    opacity: .7;
+    word-break: unset;
 }
 
 .specific-order-content .specific-salon-overview .specific-salon-overview-header {

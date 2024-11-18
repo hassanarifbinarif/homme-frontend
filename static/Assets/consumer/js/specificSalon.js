@@ -30,9 +30,7 @@ showCommentsCheckbox.addEventListener('change', function() {
 
 async function getData() {
     let token = getCookie('admin_access');
-    let headers = {
-        "Authorization": `Bearer ${token}`
-    };
+    let headers = { "Authorization": `Bearer ${token}` };
     let commissionsResponse = await requestAPI(`${apiURL}/admin/salons/commissions/salon?page=1&perPage=3&salon=${specific_salon_id}`, null, headers, 'GET');
     let orderResponse = await requestAPI(`${apiURL}/admin/orders?page=1&perPage=5&ordering=-created_at&salon=${specific_salon_id}`, null, headers, 'GET');
     let customerResponse = await requestAPI(`${apiURL}/admin/salons/customers?page=1&perPage=5&ordering=-created_at&salon=${specific_salon_id}`, null, headers, 'GET');
@@ -367,21 +365,33 @@ function formatCustomDate(dateString) {
 
 
 function convertDateTime(dateString) {
-    const inputDate = new Date(dateString);
+    try {
+        const inputDate = new Date(dateString);
 
-    // Format date components
-    const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
-    const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
-    const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
+        // Format date components
+        const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(inputDate);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(inputDate);
+        const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(inputDate);
 
-    const formattedTime = new Intl.DateTimeFormat('en-US', {
-        hour: '2-digit',
-        minute: 'numeric',
-        hour12: true,
-    }).format(inputDate);
+        const formattedTime = new Intl.DateTimeFormat('en-US', {
+            hour: '2-digit',
+            minute: 'numeric',
+            hour12: true,
+        }).format(inputDate);
 
-    // Create the desired format
-    const result = `${day}-${month}-${year} @ ${formattedTime}`;
+        // Create the desired format
+        const result = `${day}-${month}-${year} @ ${formattedTime}`;
 
-    return result;
+        return result;
+    }
+    catch (err) {
+        console.log(err);
+        return '--';
+    }
 }
+
+function showSalonJoiningDate() {
+    document.getElementById('joining-date').innerText = convertDateTime(salonJoiningDate);
+}
+
+window.addEventListener('load', showSalonJoiningDate);

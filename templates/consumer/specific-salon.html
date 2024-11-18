@@ -26,20 +26,36 @@
     <div class="main-page">
         {% include '../includes/header.html' %}
         <div class="specific-order-content">
-            <div class="specific-salon-overview">
-                <div class="specific-salon-overview-header">
-                    <svg class="cursor-pointer" onclick="history.back();" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
-                        <path d="M9.36198 17.5482L2.94531 11.1315M2.94531 11.1315L9.36198 4.71484M2.94531 11.1315H19.4453" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <img src="{{salon.partnership_application.salon_picture}}" onerror="this.onerror=null;this.src=`{% static 'Assets/consumer/images/salon_img.svg' %}`;" alt="salon profile image" />
-                    <span>{{salon.salon_name}}</span>
+            <div class="specific-salon-header-details">
+                <div class="specific-salon-overview">
+                    <div class="specific-salon-overview-header">
+                        <svg class="cursor-pointer" onclick="history.back();" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                            <path d="M9.36198 17.5482L2.94531 11.1315M2.94531 11.1315L9.36198 4.71484M2.94531 11.1315H19.4453" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <img src="{{salon.partnership_application.salon_picture}}" onerror="this.onerror=null;this.src=`{% static 'Assets/consumer/images/salon_img.svg' %}`;" alt="salon profile image" />
+                        <span>{{salon.salon_name}}</span>
+                    </div>
+                    <div class="specific-salon-address">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
+                            <path d="M10.0608 9.52307L7.30645 12.2998C7.18599 12.4213 7.04295 12.5177 6.88551 12.5835C6.72806 12.6493 6.5593 12.6832 6.38887 12.6832C6.21843 12.6832 6.04967 12.6493 5.89223 12.5835C5.73478 12.5177 5.59174 12.4213 5.47129 12.2998L2.71628 9.52307C1.99002 8.79089 1.49544 7.85805 1.29508 6.84251C1.09472 5.82696 1.19758 4.77433 1.59065 3.81772C1.98372 2.86111 2.64935 2.04348 3.50337 1.46823C4.35738 0.892976 5.36143 0.585938 6.38854 0.585938C7.41566 0.585938 8.4197 0.892976 9.27372 1.46823C10.1277 2.04348 10.7934 2.86111 11.1864 3.81772C11.5795 4.77433 11.6824 5.82696 11.482 6.84251C11.2816 7.85805 10.7871 8.79089 10.0608 9.52307V9.52307Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7.76593 7.21084C8.13115 6.84266 8.33633 6.3433 8.33633 5.82262C8.33633 5.30193 8.13115 4.80257 7.76593 4.43439C7.40071 4.06622 6.90537 3.85938 6.38887 3.85938C5.87237 3.85938 5.37702 4.06622 5.0118 4.43439C4.64658 4.80257 4.44141 5.30193 4.44141 5.82262C4.44141 6.3433 4.64658 6.84266 5.0118 7.21084C5.37702 7.57902 5.87237 7.78586 6.38887 7.78586C6.90537 7.78586 7.40071 7.57902 7.76593 7.21084Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>{% if salon.address %}{{salon.address.street1}}, {{salon.address.city}}, {{salon.address.state}} {{salon.address.zip_code}} {{salon.address.country}}{% else %}No Address{% endif %}</span>
+                    </div>
                 </div>
-                <div class="specific-salon-address">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
-                        <path d="M10.0608 9.52307L7.30645 12.2998C7.18599 12.4213 7.04295 12.5177 6.88551 12.5835C6.72806 12.6493 6.5593 12.6832 6.38887 12.6832C6.21843 12.6832 6.04967 12.6493 5.89223 12.5835C5.73478 12.5177 5.59174 12.4213 5.47129 12.2998L2.71628 9.52307C1.99002 8.79089 1.49544 7.85805 1.29508 6.84251C1.09472 5.82696 1.19758 4.77433 1.59065 3.81772C1.98372 2.86111 2.64935 2.04348 3.50337 1.46823C4.35738 0.892976 5.36143 0.585938 6.38854 0.585938C7.41566 0.585938 8.4197 0.892976 9.27372 1.46823C10.1277 2.04348 10.7934 2.86111 11.1864 3.81772C11.5795 4.77433 11.6824 5.82696 11.482 6.84251C11.2816 7.85805 10.7871 8.79089 10.0608 9.52307V9.52307Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M7.76593 7.21084C8.13115 6.84266 8.33633 6.3433 8.33633 5.82262C8.33633 5.30193 8.13115 4.80257 7.76593 4.43439C7.40071 4.06622 6.90537 3.85938 6.38887 3.85938C5.87237 3.85938 5.37702 4.06622 5.0118 4.43439C4.64658 4.80257 4.44141 5.30193 4.44141 5.82262C4.44141 6.3433 4.64658 6.84266 5.0118 7.21084C5.37702 7.57902 5.87237 7.78586 6.38887 7.78586C6.90537 7.78586 7.40071 7.57902 7.76593 7.21084Z" stroke="#000093" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>{% if salon.address %}{{salon.address.street1}}, {{salon.address.city}}, {{salon.address.state}} {{salon.address.zip_code}} {{salon.address.country}}{% else %}No Address{% endif %}</span>
+                <div class="specific-salon-attributes">
+                    <div>
+                        <span>Joining Date</span>
+                        <span id="joining-date">{{salon.partnership_application.created_at|default:"--"}}</span>
+                    </div>
+                    <div>
+                        <span>Annual Product Sales</span>
+                        <span>{{salon.partnership_application.other_information.annual_sales|default:"--"}}</span>
+                    </div>
+                    <div>
+                        <span>Number of Locations</span>
+                        <span>{{salon.partnership_application.other_information.number_of_location|default:"--"}}</span>
+                    </div>
                 </div>
             </div>
             <div class="specific-order-details-wrapper">
@@ -339,6 +355,7 @@
 
     {{salon.id|json_script:"specific_salon_id"}}
     {{salon.user.id|json_script:"specific_salon_user_id"}}
+    {{salon.partnership_application.created_at|json_script:"salon_joining_date"}}
 
     {% endblock %}
 </body>
@@ -346,6 +363,7 @@
 <script>
     const specific_salon_id = JSON.parse(document.getElementById('specific_salon_id').textContent);
     const specific_salon_user_id = JSON.parse(document.getElementById('specific_salon_user_id').textContent);
+    const salonJoiningDate = JSON.parse(document.getElementById('salon_joining_date').textContent) || '';
 </script>
 <script src="{% static 'Assets/customer/js/states.js' %}"></script>
 <script src="{% static 'Assets/customer/js/countries.js' %}"></script>
