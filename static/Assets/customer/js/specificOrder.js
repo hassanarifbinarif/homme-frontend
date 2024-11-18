@@ -15,7 +15,7 @@ async function printPackingSlip(button, id) {
             filename: 'generated-pdf.pdf',
             image: { type: 'jpeg', quality: '.98' },
             html2canvas: { scale: 3, useCORS: true, scrollY: 0, scrollX: 0, imageTimeout: 10000000, dpi: 300 },
-            jsPDF: { unit: 'px', format: [648, 845], hotfixes: ['px_scaling'], orientation: 'portrait' }
+            jsPDF: { unit: 'px', format: [648, 850], hotfixes: ['px_scaling'], orientation: 'portrait' }
         };
 
         // Use html2pdf to generate the PDF
