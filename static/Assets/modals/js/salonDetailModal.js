@@ -74,6 +74,12 @@ async function openSalonDetailModal(salonName, id) {
                 modal.querySelector('#salon-addr-zipcode').innerText = res.data.salon_address.zip_code;
                 modal.querySelector('#salon-addr-country').innerText = res.data.salon_address.country;
 
+                modal.querySelector('#heard-about-us').innerText = res.data.other_information.hear_about_us;
+                modal.querySelector('#men-products').innerText = res.data.other_information.looking_in_mens_products;
+                modal.querySelector('#annual-product-sales').innerText = res.data.other_information.annual_sales;
+                modal.querySelector('#number-of-locations').innerText = res.data.other_information.number_of_location;
+                modal.querySelector('#extra-info').innerText = res.data.other_information.extra_info;
+
                 modal.querySelector('#payment-info-account-type').innerText = captalizeFirstLetter(res.data.payment_type);
                 if (res.data.payment_type == 'check') {
                     modal.querySelector('#payment-addr-1').innerText = res.data.payment_address.street1;
