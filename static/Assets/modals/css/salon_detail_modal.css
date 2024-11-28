@@ -411,6 +411,14 @@
     font-weight: 500;
 }
 
+#salonDetail .pending-support-div {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border: 1px solid #515254;
+    border-radius: 8px;
+    padding: 0px 18px 0px 16px;
+}
 
 #salonDetail .filter-btn {
     width: 100%;

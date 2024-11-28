@@ -68,7 +68,7 @@
                 </svg>
             </div>
         </th>
-        <th width="10%" onclick="sortByAlphabets(event, 8);" class="cursor-pointer">
+        <th width="11%" onclick="sortByAlphabets(event, 8);" class="cursor-pointer">
             <div>
                 <span>Status</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -77,7 +77,7 @@
                 </svg>
             </div>
         </th>
-        <th width="11%">
+        <th width="10%">
             <div>
                 <span>Stock</span>
                 <!-- <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 6 8" fill="none">
@@ -120,7 +120,7 @@
                 <div><span>{{obj.customers_count}}</span></div>
             </td>
             <td class="cursor-pointer" onclick="event.stopPropagation(); openSalonDetailModal(`{{obj.salon_name}}`, `{% if obj.partnership_application %}{{obj.partnership_application.id}}{% else %}None{% endif %}`);">
-                <div><span>{{obj.status|title}}</span></div>
+                <div><span>{% if obj.status == 'pending_support' %}Pending Support{% else %}{{obj.status|title}}{% endif %}</span></div>
             </td>
             <td class="cursor-pointer" {% if obj.status == 'approved' and obj.has_initial_stock == False %}onclick="event.stopPropagation(); openInitialStockModal({{obj.id}}, '{{obj.salon_name}}');"{% else %}onclick="event.stopPropagation();"{% endif %}>
                 <div class="{% if obj.status == 'approved' and obj.has_initial_stock == False %}highlighted-data{% endif %}">

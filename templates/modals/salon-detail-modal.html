@@ -347,6 +347,9 @@
                     </div>
                     <div class="status-container">
                         <div class="status-dropdown-wrapper">
+                            <div class="pending-support-div hide" id="pending-support-div">
+                                <span>Pending Support</span>
+                            </div>
                             <button class="filter-btn" id="status-type" type="button">
                                 <span id="selected-status-type">Registered</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
@@ -365,6 +368,10 @@
                                 <div class="radio-btn">
                                     <input onchange="selectStatusType(event);" id="status-type-rejected" data-id="3" type="radio" value="rejected" name="status" />
                                     <label for="status-type-rejected" class="radio-label">Rejected</label>
+                                </div>
+                                <div class="radio-btn">
+                                    <input onchange="selectStatusType(event);" id="status-type-pending-support" data-id="3" type="radio" value="pending_support" name="status" />
+                                    <label for="status-type-pending-support" class="radio-label hide">Pending Support</label>
                                 </div>
                             </div>
                         </div>

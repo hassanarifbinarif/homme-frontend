@@ -1,6 +1,7 @@
 let statusTypeDropdown = document.getElementById('status-type-dropdown');
 let statusTypeDropdownBtn = document.getElementById('status-type');
 let statusTypeOptions = document.querySelectorAll('input[name="status"]');
+let pendingSupportDiv = document.getElementById('pending-support-div');
 
 
 async function openSalonDetailModal(salonName, id) {
@@ -14,6 +15,9 @@ async function openSalonDetailModal(salonName, id) {
         form.reset();
         form.removeAttribute("onsubmit");
         form.querySelector('.btn-text').innerText = 'SAVE';
+        statusTypeDropdownBtn.classList.remove('hide');
+        statusTypeDropdown.classList.remove('hide');
+        pendingSupportDiv.classList.add('hide');
         modalLoader.classList.remove('hide');
         modalContent.classList.add('hide');
         modal.querySelector('.modal-body').classList.remove('hide');
@@ -91,9 +95,17 @@ async function openSalonDetailModal(salonName, id) {
                     modal.querySelectorAll('div[data-type="for_ach"]').forEach((div) => div.classList.remove('hide'));
                 }
                 modal.querySelectorAll('.table-text-overflow').forEach((span) => span.title = span.innerText);
-
-                modal.querySelector('#selected-status-type').innerText = captalizeFirstLetter(res.data.status);
-                modal.querySelector(`input[value="${res.data.status}"]`).checked = true;
+                
+                if (res.data.status == 'pending_support') {
+                    statusTypeDropdownBtn.classList.add('hide');
+                    statusTypeDropdown.classList.add('hide');
+                    pendingSupportDiv.classList.remove('hide');
+                    document.getElementById('status-type-pending-support').checked = true;
+                }
+                else {
+                    modal.querySelector('#selected-status-type').innerText = captalizeFirstLetter(res.data.status);
+                    modal.querySelector(`input[value="${res.data.status}"]`).checked = true;
+                }
                 modal.querySelector('input[name="admin_comment"]').value = res.data.admin_comment.trim();
 
                 modalLoader.classList.add('hide');
