@@ -27,7 +27,7 @@
                         </button>
                         <div class="filter-dropdown" id="user-level-dropdown">
                             <div class="radio-btn">
-                                <input id="user-membership-all" onchange="selectUserLevel(event);" type="radio" value="" name="user_level_radio" />
+                                <input id="user-membership-all" onchange="selectUserLevel(event);" type="radio" value="all" name="user_level_radio" />
                                 <label for="user-membership-all" class="radio-label">All Users</label>
                             </div>
                         </div>
@@ -41,28 +41,32 @@
                         </button>
                         <div class="filter-dropdown" id="salon-level-dropdown">
                             <div class="radio-btn">
-                                <input id="salon-all" onchange="selectSalonLevel(event);" type="radio" value="" name="salon_level_radio" />
+                                <input id="salon-all" onchange="selectSalonLevel(event);" type="radio" value="" name="salon_level_radio" data-service="null" />
                                 <label for="salon-all" class="radio-label">All Salons</label>
                             </div>
                             <div class="radio-btn">
-                                <input id="salon-new" onchange="selectSalonLevel(event);" type="radio" value="new" name="salon_level_radio" />
+                                <input id="salon-new" onchange="selectSalonLevel(event);" type="radio" value="new" name="salon_level_radio" data-service="true" />
                                 <label for="salon-new" class="radio-label">New Salons</label>
                             </div>
                             <div class="radio-btn">
-                                <input id="salon-pending" onchange="selectSalonLevel(event);" type="radio" value="pending" name="salon_level_radio" />
+                                <input id="salon-pending" onchange="selectSalonLevel(event);" type="radio" value="pending" name="salon_level_radio" data-service="true" />
                                 <label for="salon-pending" class="radio-label">Salons Applied</label>
                             </div>
                             <div class="radio-btn">
-                                <input id="salon-approved" onchange="selectSalonLevel(event);" type="radio" value="approved" name="salon_level_radio" />
+                                <input id="salon-approved" onchange="selectSalonLevel(event);" type="radio" value="approved" name="salon_level_radio" data-service="true" />
                                 <label for="salon-approved" class="radio-label">Salons Approved</label>
                             </div>
                             <div class="radio-btn">
-                                <input id="salon-rejected" onchange="selectSalonLevel(event);" type="radio" value="rejected" name="salon_level_radio" />
+                                <input id="salon-rejected" onchange="selectSalonLevel(event);" type="radio" value="rejected" name="salon_level_radio" data-service="true" />
                                 <label for="salon-rejected" class="radio-label">Salons Not Approved</label>
                             </div>
                             <div class="radio-btn">
-                                <input id="pending-support" onchange="selectSalonLevel(event);" type="radio" value="pending_support" name="salon_level_radio" />
+                                <input id="pending-support" onchange="selectSalonLevel(event);" type="radio" value="pending_support" name="salon_level_radio" data-service="false" />
                                 <label for="pending-support" class="radio-label">Salons Non US Applied</label>
+                            </div>
+                            <div class="radio-btn">
+                                <input id="new-pending-support" onchange="selectSalonLevel(event);" type="radio" value="new" name="salon_level_radio" data-service="false" />
+                                <label for="new-pending-support" class="radio-label">Salons Non US New</label>
                             </div>
                         </div>
                     </div>

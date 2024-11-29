@@ -6,6 +6,7 @@ let selectedSalonLevel = null;
 let salonLevelDropdown = document.getElementById('salon-level-dropdown');
 let salonLevelDropdownBtn = document.getElementById('salon-level');
 
+let is_serviced_region = true;
 let targetScreenData = [];
 let selectedTargetScreen = null;
 
@@ -102,6 +103,7 @@ function selectSalonLevel(event) {
         selectedSalonLevel = inputElement.value;
         document.getElementById('selected-salon-level').innerText = inputElement.nextElementSibling.innerText;
         document.getElementById('selected-salon-level').style.color = '#000';
+        is_serviced_region = inputElement.getAttribute('data-service');
     }
 }
 
@@ -251,6 +253,7 @@ async function createSliderForm(event) {
         formData.append("is_visible", true);
         formData.append("target_role", 'salon');
         formData.append('partnership_application_status ', selectedSalonLevel);
+        formData.append('is_serviced_region', is_serviced_region);
 
         let token = getCookie('admin_access');
         let headers = { "Authorization": `Bearer ${token}` };
@@ -259,7 +262,6 @@ async function createSliderForm(event) {
         let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
         // console.log(response);
         response.json().then(function(res) {
-            // console.log(res);
             if (response.status == 201) {
                 form.removeAttribute("onsubmit");
                 afterLoad(button, 'CREATED');
@@ -309,6 +311,8 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, partner
     modal.querySelector('#salon-level-dropdown-container').classList.remove('hide');
     
     let checkedInput = modal.querySelector(`input[name="salon_level_radio"][value="${partnership_application_status}"]`);
+    if (service_region == 'False' && partnership_application_status == 'new')
+        checkedInput = modal.querySelector(`input[name="salon_level_radio"][value="${partnership_application_status}"][data-service='false']`);
     checkedInput.click();
     
     if (target_screen != 'None') {
@@ -339,6 +343,7 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, partner
         document.querySelector('.create-error-msg').classList.remove('active');
         document.querySelector('.create-error-msg').innerText = "";
         selectedSalonLevel = null;
+        is_serviced_region = true;
     })
     document.querySelector(`.${modalID}`).click();
 }
@@ -348,7 +353,6 @@ async function updateSliderForm(event, id) {
     let form = event.currentTarget;
     let formData = new FormData(form);
     let data = formDataToObject(formData);
-    // console.log(data);
     let imageInput = form.querySelector('input[name="image"]');
     let button = form.querySelector('button[type="submit"]');
     let buttonText = button.innerText;
@@ -375,6 +379,8 @@ async function updateSliderForm(event, id) {
         if (selectedTargetScreen != null)
             formData.append('target_screen', selectedTargetScreen);
         
+        formData.append('is_serviced_region', is_serviced_region);
+        
         errorDiv.classList.add('hide');
         errorMsg.innerText = '';
         errorMsg.classList.remove('active');
@@ -383,9 +389,7 @@ async function updateSliderForm(event, id) {
         let headers = { "Authorization": `Bearer ${token}` };
         beforeLoad(button);
         let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
-        // console.log(response);
         response.json().then(function(res) {
-            // console.log(res);
             if (response.status == 200) {
                 form.removeAttribute("onsubmit");
                 afterLoad(button, 'SAVED');

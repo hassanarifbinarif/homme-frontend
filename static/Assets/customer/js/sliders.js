@@ -227,6 +227,10 @@ function selectUserLevel(event) {
             is_serviced_region = false;
             selectedLevel = [];
         }
+        else if (inputElement.value == 'all') {
+            is_serviced_region = null;
+            selectedLevel = [];
+        }
         else {
             is_serviced_region = true;
             selectedLevel = inputElement.value ? inputElement.value.split(',') : [];
@@ -301,12 +305,14 @@ async function createSliderForm(event) {
             selectedLevel.forEach((level) => {
                 formData.append("target_membership_levels", parseInt(level));
             })
+            formData.append('is_serviced_region', true);
         }
-        if (is_serviced_region == false) {
-            formData.append('is_serviced_region', false);
-        }
+        else
+            formData.append('is_serviced_region', is_serviced_region);
+        
         if (selectedTargetScreen != null)
             formData.append('target_screen', selectedTargetScreen);
+        
         formData.append("is_visible", true);
 
         let token = getCookie('admin_access');
@@ -314,9 +320,7 @@ async function createSliderForm(event) {
 
         beforeLoad(button);
         let response = await requestAPI(`${apiURL}/admin/content/sliders`, formData, headers, 'POST');
-        // console.log(response);
         response.json().then(function(res) {
-            // console.log(res);
             if (response.status == 201) {
                 form.removeAttribute("onsubmit");
                 afterLoad(button, 'CREATED');
@@ -366,7 +370,7 @@ function openUpdateSliderModal(modalID, id, name, description, imageUrl, target_
     let modal = document.querySelector(`#${modalID}`);
     modal.querySelector('#slider-modal-header').innerText = 'Edit Slider';
     let form = modal.querySelector("form");
-    is_serviced_region = service_region == 'False' ? false : true;
+    is_serviced_region = service_region == 'False' ? false : service_region == 'None' ? null : true;
     form.setAttribute("onsubmit", `updateSliderForm(event, ${id})`);
     form.querySelector('input[name="name"]').value = name;
     form.querySelector('input[name="text"]').value = description;
@@ -482,12 +486,7 @@ async function updateSliderForm(event, id) {
                 let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, JSON.stringify({"target_membership_levels": []}), headers, 'PATCH');
             }
         }
-        if (is_serviced_region == false) {
-            formData.append('is_serviced_region', false);
-        }
-        else {
-            formData.append('is_serviced_region', true);
-        }
+        formData.append('is_serviced_region', is_serviced_region);
         if (selectedTargetScreen != null)
             formData.append('target_screen', selectedTargetScreen);
         
@@ -498,9 +497,7 @@ async function updateSliderForm(event, id) {
         let headers = { "Authorization": `Bearer ${token}` };
         beforeLoad(button);
         let response = await requestAPI(`${apiURL}/admin/content/sliders/${id}`, formData, headers, 'PATCH');
-        // console.log(response);
         response.json().then(function(res) {
-            // console.log(res);
             if (response.status == 200) {
                 form.removeAttribute("onsubmit");
                 afterLoad(button, 'SAVED');
