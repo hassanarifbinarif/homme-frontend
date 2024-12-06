@@ -266,7 +266,7 @@
                     </div>
                 </div>
                 <div class="details-wrapper-col-2">
-                    <form class="order-product-notes-wrapper" onsubmit="customerNotesForm(event, '{{customer.id}}');">
+                    <form class="order-product-notes-wrapper" onsubmit="customerNotesForm(event, '{{customer.salon_customer.id}}');">
                         <div>
                             <span>Notes</span>
                             <svg class="cursor-pointer" {% if customer.salon %}id="edit-customer-notes"{% endif %} xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
